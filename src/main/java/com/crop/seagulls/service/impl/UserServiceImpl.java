@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.spi.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,14 +33,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Long register(User user) {
+    public Response register(User user) {
+        Response response = new Response();
+        response.setReturnCode(ReturnCode.ERROR);
         if (isNameValid(user.getUserName())) {
             userDAO.save(user);
-            return user.getId();
+            response.setReturnCode(user != null && user.getId() > 0 ? ReturnCode.SUCCESS : ReturnCode.USER_NOT_FOUNT);
+        } else {
+            response.setReturnCode(ReturnCode.USER_NAME_READY_REGISTER);
         }
-
-        // exists this username
-        return null;
+        return response;
     }
 
     @Override

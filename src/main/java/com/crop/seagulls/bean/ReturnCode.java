@@ -9,9 +9,11 @@ package com.crop.seagulls.bean;
 public enum ReturnCode {
 
     SUCCESS(10000, "成功"),
-    
+
     USER_NOT_FOUNT(20001, "用户没有找到"),
-    
+
+    USER_NAME_READY_REGISTER(20002, "用户名已被注册"),
+
     ERROR(99999, "系统错误");
 
     private int code;
@@ -37,6 +39,10 @@ public enum ReturnCode {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public static boolean isSuccess(ReturnCode returnCode) {
+        return returnCode.getCode() == ReturnCode.SUCCESS.getCode() ? true : false;
     }
 
 }

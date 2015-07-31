@@ -51,7 +51,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    public Long register(User user);
+    public Response register(User user);
 
     /**
      * 查看该用户名是否可用

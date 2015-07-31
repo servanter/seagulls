@@ -7,7 +7,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
 	<!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
-	<context:component-scan base-package="com.zhy.listen">
+	<context:component-scan base-package="com.crop.seagulls">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
 	</context:component-scan>
@@ -18,7 +18,7 @@
 		<property name="alias" value="prize-mysql" />
 		<property name="driver" value="com.mysql.jdbc.Driver" />
 		<property name="driverUrl"
-			value="jdbc:mysql://localhost:3306/listen?useUnicode=true&amp;characterEncoding=GBK&amp;zeroDateTimeBehavior=round" />
+			value="jdbc:mysql://localhost:3306/seagulls?useUnicode=true&amp;characterEncoding=GBK&amp;zeroDateTimeBehavior=round" />
 		<property name="user" value="root" />
 		<property name="password" value="123456" />
 		<property name="houseKeepingTestSql" value="select getDate()" />
@@ -39,7 +39,7 @@
 	
   	<!-- 扫描basePackage下所有以@Repository标识的 接口-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-	    <property name="basePackage" value="com.zhy.listen.dao" />
+	    <property name="basePackage" value="com.crop.seagulls.dao" />
 	    <property name="annotationClass" value="org.springframework.stereotype.Repository"/>
     </bean> 
 	    
