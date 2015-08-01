@@ -1,7 +1,6 @@
 package com.crop.seagulls.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,7 @@ public class UserServiceImpl implements UserService {
     public Response register(User user) {
         Response response = new Response();
         response.setReturnCode(ReturnCode.ERROR);
-        if (isNameValid(user.getUserName())) {
+        if (isNameValid(user.getPhone())) {
             userDAO.save(user);
             response.setReturnCode(user != null && user.getId() > 0 ? ReturnCode.SUCCESS : ReturnCode.USER_NOT_FOUNT);
         } else {
@@ -47,15 +46,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isNameValid(String userName) {
-        List<User> result = userDAO.isExistUser(userName);
-        return (result != null && result.size() > 0) ? false : true;
-    }
-
-    @Override
-    public boolean logout(Long id) {
-        User user = new User(id);
-        user.setIsValid(false);
-        return userDAO.modifyIsValid(user) > 0;
+        return userDAO.isExistUser(userName) <= 0;
     }
 
     @Override
@@ -66,16 +57,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> seacherByUserName(String userNick) {
         return userDAO.getUserByNick(userNick);
-    }
-
-    @Override
-    public List<User> findUsersByPaging(User user) {
-        return userDAO.getUsers(new HashMap<String, Object>());
-    }
-
-    @Override
-    public List<User> findUserNames() {
-        return userDAO.getUserNameAndId();
     }
 
     @Override
@@ -95,4 +76,5 @@ public class UserServiceImpl implements UserService {
         }
         return new ArrayList<User>();
     }
+
 }

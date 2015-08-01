@@ -62,14 +62,6 @@ public interface UserService {
     public boolean isNameValid(String userName);
 
     /**
-     * 删除用户(更新is_valid字段)
-     * 
-     * @param id
-     * @return
-     */
-    public boolean logout(Long id);
-
-    /**
      * 完善信息
      * 
      * @param user
@@ -85,18 +77,4 @@ public interface UserService {
      */
     public List<User> seacherByUserName(String userNick);
 
-    /**
-     * 分页查找用户
-     * 
-     * @param user
-     * @return
-     */
-    public List<User> findUsersByPaging(User user);
-
-    /**
-     * 获取所有用户昵称及ID
-     * 
-     * @return
-     */
-    public List<User> findUserNames();
 }

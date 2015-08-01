@@ -6,6 +6,10 @@ public class Response {
 
     private ReturnCode returnCode;
 
+    private int code;
+
+    private String message;
+
     private Timestamp responseTime;
 
     private Object result;
@@ -24,6 +28,8 @@ public class Response {
 
     public void setReturnCode(ReturnCode returnCode) {
         this.returnCode = returnCode;
+        this.code = returnCode.getCode();
+        this.message = returnCode.getMessage();
     }
 
     public Timestamp getResponseTime() {
@@ -34,6 +40,22 @@ public class Response {
         this.responseTime = responseTime;
     }
 
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public Response() {
         responseTime = new Timestamp(System.currentTimeMillis());
     }
@@ -42,6 +64,8 @@ public class Response {
         this.returnCode = returnCode;
         this.responseTime = new Timestamp(System.currentTimeMillis());
         this.result = object;
+        this.code = returnCode.getCode();
+        this.message = returnCode.getMessage();
     }
 
     @Override
@@ -81,4 +105,11 @@ public class Response {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Response [returnCode=" + returnCode + ", code=" + code + ", message=" + message + ", responseTime=" + responseTime + ", result="
+                + result + "]";
+    }
+
+    
 }

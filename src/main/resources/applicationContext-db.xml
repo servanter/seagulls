@@ -15,7 +15,7 @@
 	<!-- Data Source -->
 	<bean id="dataSource"
 		class="org.logicalcobwebs.proxool.ProxoolDataSource">
-		<property name="alias" value="prize-mysql" />
+		<property name="alias" value="seagull-mysql" />
 		<property name="driver" value="com.mysql.jdbc.Driver" />
 		<property name="driverUrl"
 			value="jdbc:mysql://localhost:3306/seagulls?useUnicode=true&amp;characterEncoding=GBK&amp;zeroDateTimeBehavior=round" />

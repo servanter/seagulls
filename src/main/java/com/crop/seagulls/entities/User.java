@@ -1,155 +1,67 @@
 package com.crop.seagulls.entities;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import com.crop.seagulls.bean.Page;
 
 /**
- * 用户信息
+ * User entities
  * 
- * @author zhy19890221@gmail.com
+ * @author zhanghongyan@outlook.com
  * 
  */
-public class User extends Page implements java.io.Serializable {
+public class User extends Page {
 
     /**
      * 
      */
-    private static final long serialVersionUID = 4678916453755925741L;
+    private static final long serialVersionUID = -4376411297191312406L;
 
     private Long id;
 
-    /**
-     * 登陆名称
-     */
-    private String userName;
+    private String nickName;
 
-    /**
-     * 用户密码
-     */
-    private String passWord;
+    private String realName;
 
-    /**
-     * 生日
-     */
-    private Date birthday;
+    private String phone;
 
-    /**
-     * 用户性别
-     */
-    private Integer sex;
+    private String password;
 
-    /**
-     * 用户昵称
-     */
-    private String userNick;
+    private Long provinceId;
 
-    /**
-     * 用户头像
-     */
-    private String userImg;
+    private Long cityId;
 
-    /**
-     * 个人简介
-     */
-    private String introduction;
+    private Long areaId;
 
-    /**
-     * 省份
-     */
-    private String province;
+    private String headUrl;
 
-    /**
-     * 城市
-     */
-    private String city;
+    private Integer identityId;
 
-    /**
-     * 电话
-     */
-    private String mobile;
+    private Boolean isValid;
 
-    /**
-     * 邮箱
-     */
-    private String email;
+    private Timestamp createTime;
 
-    /**
-     * 注册时间
-     */
-    private Date regTime;
-
-    /**
-     * 最近修改时间
-     */
-    private Date modifyTime;
-
-    /**
-     * 是否可用
-     */
-    private Boolean isValid = true;
-
-    private boolean isIndex;
+    private Timestamp updateTime;
 
     public User() {
-
     }
 
-    public User(Long id) {
+    public User(Long id, String nickName, String realName, String phone, String password, Long provinceId, Long cityId, Long areaId, String headUrl,
+            Integer identityId, Boolean isValid, Timestamp createTime, Timestamp updateTime) {
+        super();
         this.id = id;
-    }
-
-    /**
-     * 登陆
-     * 
-     * @param userName
-     *            用户名
-     * @param passWord
-     *            密码
-     */
-    public User(String userName, String passWord) {
-        this(userName, passWord, null, null, null, null);
-    }
-
-    /**
-     * 
-     * @param userName
-     *            用户名
-     * @param passWord
-     *            密码
-     * @param userNick
-     *            昵称
-     */
-    public User(String userName, String passWord, String userNick) {
-        this(userName, passWord, userNick, null, null, null);
-    }
-
-    /**
-     * 注册
-     * 
-     * @param userName
-     *            用户名
-     * @param passWord
-     *            密码
-     * @param userNick
-     *            昵称
-     * @param userImg
-     *            头像
-     * @param birthday
-     *            出生日期
-     * @param age
-     *            年龄
-     * @param sex
-     *            性别
-     */
-    public User(String userName, String passWord, String userNick, String userImg, Date birthday, Integer sex) {
-        this.userName = userName;
-        this.passWord = passWord;
-        this.birthday = birthday;
-        this.sex = sex;
-        this.userNick = userNick;
-        this.userImg = userImg;
-        this.modifyTime = new Date();
+        this.nickName = nickName;
+        this.realName = realName;
+        this.phone = phone;
+        this.password = password;
+        this.provinceId = provinceId;
+        this.cityId = cityId;
+        this.areaId = areaId;
+        this.headUrl = headUrl;
+        this.identityId = identityId;
+        this.isValid = isValid;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
     }
 
     public Long getId() {
@@ -160,68 +72,76 @@ public class User extends Page implements java.io.Serializable {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
-    public Date getRegTime() {
-        return regTime;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setRegTime(Date regTime) {
-        this.regTime = regTime;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getUserNick() {
-        return userNick;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserNick(String userNick) {
-        this.userNick = userNick;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getUserImg() {
-        return userImg;
+    public Long getProvinceId() {
+        return provinceId;
     }
 
-    public void setUserImg(String userImg) {
-        this.userImg = userImg;
+    public void setProvinceId(Long provinceId) {
+        this.provinceId = provinceId;
     }
 
-    public Integer getSex() {
-        return sex;
+    public Long getCityId() {
+        return cityId;
     }
 
-    public void setSex(Integer sex) {
-        this.sex = sex;
+    public void setCityId(Long cityId) {
+        this.cityId = cityId;
     }
 
-    public Date getModifyTime() {
-        return modifyTime;
+    public Long getAreaId() {
+        return areaId;
     }
 
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
+    public void setAreaId(Long areaId) {
+        this.areaId = areaId;
     }
 
-    public Date getBirthday() {
-        return birthday;
+    public String getHeadUrl() {
+        return headUrl;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
+    }
+
+    public Integer getIdentityId() {
+        return identityId;
+    }
+
+    public void setIdentityId(Integer identityId) {
+        this.identityId = identityId;
     }
 
     public Boolean getIsValid() {
@@ -232,74 +152,39 @@ public class User extends Page implements java.io.Serializable {
         this.isValid = isValid;
     }
 
-    public String getIntroduction() {
-        return introduction;
+    public Timestamp getCreateTime() {
+        return createTime;
     }
 
-    public void setIntroduction(String introduction) {
-        this.introduction = introduction;
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
     }
 
-    public String getProvince() {
-        return province;
+    public Timestamp getUpdateTime() {
+        return updateTime;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public boolean isIndex() {
-        return isIndex;
-    }
-
-    public void setIndex(boolean isIndex) {
-        this.isIndex = isIndex;
+    public void setUpdateTime(Timestamp updateTime) {
+        this.updateTime = updateTime;
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((birthday == null) ? 0 : birthday.hashCode());
-        result = prime * result + ((city == null) ? 0 : city.hashCode());
-        result = prime * result + ((email == null) ? 0 : email.hashCode());
+        result = prime * result + ((areaId == null) ? 0 : areaId.hashCode());
+        result = prime * result + ((cityId == null) ? 0 : cityId.hashCode());
+        result = prime * result + ((createTime == null) ? 0 : createTime.hashCode());
+        result = prime * result + ((headUrl == null) ? 0 : headUrl.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((introduction == null) ? 0 : introduction.hashCode());
-        result = prime * result + (isIndex ? 1231 : 1237);
+        result = prime * result + ((identityId == null) ? 0 : identityId.hashCode());
         result = prime * result + ((isValid == null) ? 0 : isValid.hashCode());
-        result = prime * result + ((mobile == null) ? 0 : mobile.hashCode());
-        result = prime * result + ((modifyTime == null) ? 0 : modifyTime.hashCode());
-        result = prime * result + ((passWord == null) ? 0 : passWord.hashCode());
-        result = prime * result + ((province == null) ? 0 : province.hashCode());
-        result = prime * result + ((regTime == null) ? 0 : regTime.hashCode());
-        result = prime * result + ((sex == null) ? 0 : sex.hashCode());
-        result = prime * result + ((userImg == null) ? 0 : userImg.hashCode());
-        result = prime * result + ((userName == null) ? 0 : userName.hashCode());
-        result = prime * result + ((userNick == null) ? 0 : userNick.hashCode());
+        result = prime * result + ((nickName == null) ? 0 : nickName.hashCode());
+        result = prime * result + ((password == null) ? 0 : password.hashCode());
+        result = prime * result + ((phone == null) ? 0 : phone.hashCode());
+        result = prime * result + ((provinceId == null) ? 0 : provinceId.hashCode());
+        result = prime * result + ((realName == null) ? 0 : realName.hashCode());
+        result = prime * result + ((updateTime == null) ? 0 : updateTime.hashCode());
         return result;
     }
 
@@ -311,93 +196,80 @@ public class User extends Page implements java.io.Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        User other = (User) obj;
-        if (birthday == null) {
-            if (other.birthday != null)
+        final User other = (User) obj;
+        if (areaId == null) {
+            if (other.areaId != null)
                 return false;
-        } else if (!birthday.equals(other.birthday))
+        } else if (!areaId.equals(other.areaId))
             return false;
-        if (city == null) {
-            if (other.city != null)
+        if (cityId == null) {
+            if (other.cityId != null)
                 return false;
-        } else if (!city.equals(other.city))
+        } else if (!cityId.equals(other.cityId))
             return false;
-        if (email == null) {
-            if (other.email != null)
+        if (createTime == null) {
+            if (other.createTime != null)
                 return false;
-        } else if (!email.equals(other.email))
+        } else if (!createTime.equals(other.createTime))
+            return false;
+        if (headUrl == null) {
+            if (other.headUrl != null)
+                return false;
+        } else if (!headUrl.equals(other.headUrl))
             return false;
         if (id == null) {
             if (other.id != null)
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (introduction == null) {
-            if (other.introduction != null)
+        if (identityId == null) {
+            if (other.identityId != null)
                 return false;
-        } else if (!introduction.equals(other.introduction))
-            return false;
-        if (isIndex != other.isIndex)
+        } else if (!identityId.equals(other.identityId))
             return false;
         if (isValid == null) {
             if (other.isValid != null)
                 return false;
         } else if (!isValid.equals(other.isValid))
             return false;
-        if (mobile == null) {
-            if (other.mobile != null)
+        if (nickName == null) {
+            if (other.nickName != null)
                 return false;
-        } else if (!mobile.equals(other.mobile))
+        } else if (!nickName.equals(other.nickName))
             return false;
-        if (modifyTime == null) {
-            if (other.modifyTime != null)
+        if (password == null) {
+            if (other.password != null)
                 return false;
-        } else if (!modifyTime.equals(other.modifyTime))
+        } else if (!password.equals(other.password))
             return false;
-        if (passWord == null) {
-            if (other.passWord != null)
+        if (phone == null) {
+            if (other.phone != null)
                 return false;
-        } else if (!passWord.equals(other.passWord))
+        } else if (!phone.equals(other.phone))
             return false;
-        if (province == null) {
-            if (other.province != null)
+        if (provinceId == null) {
+            if (other.provinceId != null)
                 return false;
-        } else if (!province.equals(other.province))
+        } else if (!provinceId.equals(other.provinceId))
             return false;
-        if (regTime == null) {
-            if (other.regTime != null)
+        if (realName == null) {
+            if (other.realName != null)
                 return false;
-        } else if (!regTime.equals(other.regTime))
+        } else if (!realName.equals(other.realName))
             return false;
-        if (sex == null) {
-            if (other.sex != null)
+        if (updateTime == null) {
+            if (other.updateTime != null)
                 return false;
-        } else if (!sex.equals(other.sex))
-            return false;
-        if (userImg == null) {
-            if (other.userImg != null)
-                return false;
-        } else if (!userImg.equals(other.userImg))
-            return false;
-        if (userName == null) {
-            if (other.userName != null)
-                return false;
-        } else if (!userName.equals(other.userName))
-            return false;
-        if (userNick == null) {
-            if (other.userNick != null)
-                return false;
-        } else if (!userNick.equals(other.userNick))
+        } else if (!updateTime.equals(other.updateTime))
             return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", userName=" + userName + ", passWord=" + passWord + ", birthday=" + birthday + ", sex=" + sex + ", userNick="
-                + userNick + ", userImg=" + userImg + ", introduction=" + introduction + ", province=" + province + ", city=" + city + ", mobile="
-                + mobile + ", email=" + email + ", regTime=" + regTime + ", modifyTime=" + modifyTime + ", isValid=" + isValid + ", isIndex="
-                + isIndex + "]";
+        return "User [id=" + id + ", nickName=" + nickName + ", realName=" + realName + ", phone=" + phone + ", password=" + password
+                + ", provinceId=" + provinceId + ", cityId=" + cityId + ", areaId=" + areaId + ", headUrl=" + headUrl + ", identityId=" + identityId
+                + ", isValid=" + isValid + ", createTime=" + createTime + ", updateTime=" + updateTime + "]";
     }
 
 }
