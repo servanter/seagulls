@@ -56,10 +56,10 @@ public interface UserService {
     /**
      * 查看该用户名是否可用
      * 
-     * @param userName
+     * @param phone
      * @return
      */
-    public boolean isNameValid(String userName);
+    public Response checkPhone(String phone);
 
     /**
      * 完善信息

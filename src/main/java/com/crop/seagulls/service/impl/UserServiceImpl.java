@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     public Response login(User user) {
         User u = userDAO.getUserByNameAndPass(user);
         Response response = new Response();
-        response.setReturnCode(u != null ? ReturnCode.SUCCESS : ReturnCode.USER_NOT_FOUNT);
+        response.setReturnCode(u != null ? ReturnCode.SUCCESS : ReturnCode.USER_OR_PASSWORD_UNVALID);
         return response;
     }
 
@@ -37,14 +37,13 @@ public class UserServiceImpl implements UserService {
         response.setReturnCode(ReturnCode.ERROR);
         if (isNameValid(user.getPhone())) {
             userDAO.save(user);
-            response.setReturnCode(user != null && user.getId() > 0 ? ReturnCode.SUCCESS : ReturnCode.USER_NOT_FOUNT);
+            response.setReturnCode(user != null && user.getId() > 0 ? ReturnCode.SUCCESS : ReturnCode.USER_NOT_FOUND);
         } else {
             response.setReturnCode(ReturnCode.USER_NAME_READY_REGISTER);
         }
         return response;
     }
 
-    @Override
     public boolean isNameValid(String userName) {
         return userDAO.isExistUser(userName) <= 0;
     }
@@ -75,6 +74,17 @@ public class UserServiceImpl implements UserService {
             return findUsersByIds(arr);
         }
         return new ArrayList<User>();
+    }
+
+    @Override
+    public Response checkPhone(String phone) {
+        Response response = new Response();
+        if(isNameValid(phone)) {
+            response.setReturnCode(ReturnCode.SUCCESS);
+        } else {
+            response.setReturnCode(ReturnCode.USER_NAME_READY_REGISTER);
+        }
+        return response;
     }
 
 }

@@ -10,9 +10,15 @@ public enum ReturnCode {
 
     SUCCESS(10000, "成功"),
 
-    USER_NOT_FOUNT(20001, "用户没有找到"),
+    USER_NOT_FOUND(20001, "手机号码还没有注册"),
 
     USER_NAME_READY_REGISTER(20002, "用户名已被注册"),
+    
+    USER_OR_PASSWORD_UNVALID(20003, "用户名或密码错误"),
+    
+    IMAGE_CODE_ERROR(99990, "验证码错误"),
+    
+    SMS_CODE_ERROR(99991, "验证码错误"),
 
     ERROR(99999, "系统错误");
 

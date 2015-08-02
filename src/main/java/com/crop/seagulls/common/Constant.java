@@ -12,4 +12,14 @@ public class Constant {
      * Verification Code Key
      */
     public static final String VERIFICATIONCODE = "VCODE";
+    
+    /**
+     * Sms Code Key
+     */
+    public static final String SMSCODE = "SMSCODE";
+
+    /**
+     * Login user session key
+     */
+    public static final String LOGIN_USER = "CUSER";
 }
