@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 60003
 File Encoding         : 65001
 
-Date: 2015-08-01 00:14:14
+Date: 2015-08-02 16:07:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -62,13 +62,10 @@ CREATE TABLE `crop_user` (
   `city_id` bigint(20) NOT NULL DEFAULT '-1' COMMENT '城市',
   `area_id` bigint(20) NOT NULL DEFAULT '-1' COMMENT '地区',
   `head_url` varchar(200) NOT NULL DEFAULT '' COMMENT '头像',
-  `identity_id` bigint(20) NOT NULL DEFAULT '-1' COMMENT '身份类型',
+  `identity_id` int(2) NOT NULL DEFAULT '-1' COMMENT '身份类型',
   `is_valid` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否可用; 1 可用；0不可用',
-  `create_time` datetime NOT NULL DEFAULT '1990-01-01 00:00:00' COMMENT '创建时间',
+  `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00' COMMENT '创建时间',
   `update_tme` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of crop_user
--- ----------------------------
