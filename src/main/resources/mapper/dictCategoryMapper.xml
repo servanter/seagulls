@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crop.seagulls.dao.DictCategoryDAO">
+
+	<resultMap id="dictCategoryMap" type="category">
+		<result property="id" column="id" />
+		<result property="pId" column="p_id" />
+		<result property="enName" column="en_name" />
+		<result property="zhName" column="zh_name" />
+		<result property="createTime" column="create_time" />
+		<result property="firstLetter" column="first_letter" />
+	</resultMap>
+
+	<sql id="base_columns">
+		id, p_id, en_name, zh_name, create_time, first_letter
+	</sql>
+	<select id="getList" resultMap="dictCategoryMap">
+		SELECT
+		<include refid="base_columns" />
+		FROM crop_category
+	</select>
+
+	<select id="getByPId" parameterType="long"
+		resultMap="dictCategoryMap">
+		SELECT
+		<include refid="base_columns" />
+		FROM crop_category WHERE p_id = #{pId}
+	</select>
+
+	<insert id="insert" parameterType="category">
+		INSERT INTO crop_category (p_id, zh_name, en_name) VALUES
+		(#{pId},#{zhName}, #{enName})
+		<selectKey resultType="Long" keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="update" parameterType="category">
+		UPDATE crop_category
+		<set>
+			<if test="zhName != null">zh_name=#{zhName},</if>
+			<if test="enName != null">en_name=#{enName},</if>
+			<if test="firstLetter != null">first_letter=#{firstLetter},</if>
+		</set>
+		WHERE id=#{id}
+	</update>
+
+</mapper>

@@ -40,7 +40,8 @@ CREATE TABLE `crop_dict_area` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `p_id` bigint(20) NOT NULL DEFAULT '-1' COMMENT '父ID 省份直辖市父ID为0；没有父ID为-1；否则为上级ID',
   `zh_name` varchar(50) NOT NULL DEFAULT '' COMMENT '中文名称',
-  `en_name` varchar(50) NOT NULL DEFAULT '' COMMENT '汉语拼音',
+  `en_name` varchar(100) NOT NULL DEFAULT '' COMMENT '汉语拼音',
+  `first_letter` varchar(2) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
