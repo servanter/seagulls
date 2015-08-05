@@ -20,6 +20,14 @@ public interface UserService {
      * @return
      */
     public User findUserById(Long id);
+    
+    /**
+     * 根据用户名获取用户
+     * 
+     * @param userName
+     * @return
+     */
+    public User findByUserName(String userName);
 
     /**
      * 获取一批用户

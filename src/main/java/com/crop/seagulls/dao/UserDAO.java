@@ -47,7 +47,8 @@ public interface UserDAO {
      * @param userName
      * @return
      */
-    public int isExistUser(@Param("phone") String phone);
+    public int isExistUser(@Param("phone")
+    String phone);
 
     /**
      * 更新用户信息
@@ -72,5 +73,13 @@ public interface UserDAO {
      * @return
      */
     public List<User> getUsersByIds(Long[] ids);
+
+    /**
+     * Get by username
+     * 
+     * @param userName
+     * @return
+     */
+    public User getByUserName(String userName);
 
 }

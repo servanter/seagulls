@@ -18,8 +18,8 @@
 <header>
 <h1><a href="http://m.ymt.com/"><img src="${ctx }/images/m-logo.png"></a></h1>
 <div class="login-area border-l">
-  <a href="${ctx}/user/login/" class="login">登录</a>
-  <a href="http://m.ymt.com/user/register" class="register">注册</a>
+  <a href="${ctx}/login/" class="login">登录</a>
+  <a href="${ctx}/register/" class="register">注册</a>
 </div>
 </header>
 <div class="zc_wrap">
@@ -51,6 +51,8 @@
         <a href="javascript:void(0)" id="btn-login" class="bigbtn">登录</a>
       </div>
     </div>
+    
+    <input type="hidden" class="redirectUrl" name="redirectUrl" value="${redirectUrl }">
   </form>
 </div>
 <footer>

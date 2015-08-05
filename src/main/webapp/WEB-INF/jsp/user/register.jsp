@@ -2,7 +2,6 @@
 <%@ include file="/common/taglibs.jsp"%>
 <base href="${pageContext.request.scheme }://${pageContext.request.serverName }:${pageContext.request.serverPort }${pageContext.request.contextPath }/"></base>
 <!DOCTYPE html>
-<!-- saved from url=(0030)http://m.ymt.com/user/register -->
 <html xmlns="http://www.w3.org/1999/html">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -19,8 +18,8 @@
 <header>
 <h1><a href="http://m.ymt.com/"><img src="${ctx }/images/m-logo.png"></a></h1>
 <div class="login-area border-l">
-  <a href="http://m.ymt.com/user/login" class="login">登录</a>
-  <a href="./re2.html" class="register">注册</a>
+  <a href="${ctx }/login/" class="login">登录</a>
+  <a href="${ctx }/register/" class="register">注册</a>
 </div>
 </header>
 <div class="zc_wrap">
@@ -46,7 +45,7 @@
         <input type="button" value="发送验证码" id="btn-send" class="btn-send">
         <label id="captcha_label"></label>
       </div>
-      <div class="item send-div ">
+      <div class="item send-div dn">
       	<label class="send-message">验证码发送成功，60秒内未收到请重新获取</label>
       </div>
       <div class="ma_2">

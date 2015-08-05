@@ -21,7 +21,7 @@ import com.crop.seagulls.service.TemplateService;
  * @author zhanghongyan@outlook.com
  * 
  */
-@Service
+@Service("templateService")
 public class TemplateServiceImpl implements TemplateService {
 
     public static Logger logger = Logger.getLogger(TemplateServiceImpl.class);

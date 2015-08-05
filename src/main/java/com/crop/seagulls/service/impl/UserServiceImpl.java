@@ -12,7 +12,7 @@ import com.crop.seagulls.dao.UserDAO;
 import com.crop.seagulls.entities.User;
 import com.crop.seagulls.service.UserService;
 
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -85,6 +85,11 @@ public class UserServiceImpl implements UserService {
             response.setReturnCode(ReturnCode.USER_NAME_READY_REGISTER);
         }
         return response;
+    }
+
+    @Override
+    public User findByUserName(String userName) {
+        return userDAO.getByUserName(userName);
     }
 
 }

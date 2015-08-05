@@ -15,7 +15,6 @@ public class IndexController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        System.out.println("111111111111");
         return "index";
     }
 }

@@ -30,7 +30,7 @@ $(function() {
 					$('.tip-item').removeClass('dn');
 					$('.tips').text(data.message);
 				} else {
-					BaseUtils.redirect(BaseUtils.proPath);
+					BaseUtils.redirect(BaseUtils.proPath + data.result);
 				}
 			}
 		}
