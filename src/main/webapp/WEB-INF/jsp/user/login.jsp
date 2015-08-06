@@ -1,9 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="/common/taglibs.jsp"%>
-<base href="${pageContext.request.scheme }://${pageContext.request.serverName }:${pageContext.request.serverPort }${pageContext.request.contextPath }/"></base>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
+<base href="${pageContext.request.scheme }://${pageContext.request.serverName }:${pageContext.request.serverPort }${pageContext.request.contextPath }/"></base>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>登录</title>
 <meta charset="utf-8">
