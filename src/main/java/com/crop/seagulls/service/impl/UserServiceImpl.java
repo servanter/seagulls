@@ -10,11 +10,15 @@ import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.dao.UserDAO;
 import com.crop.seagulls.entities.User;
+import com.crop.seagulls.service.TemplateService;
 import com.crop.seagulls.service.UserService;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
+    @Autowired
+    private TemplateService templateService;
+    
     @Autowired
     private UserDAO userDAO;
 
@@ -37,6 +41,7 @@ public class UserServiceImpl implements UserService {
         response.setReturnCode(ReturnCode.ERROR);
         if (isNameValid(user.getPhone())) {
             userDAO.save(user);
+            user.setNickName(templateService.getMessage("user.default.nickname", String.valueOf(user.getId())));
             response.setReturnCode(user != null && user.getId() > 0 ? ReturnCode.SUCCESS : ReturnCode.USER_NOT_FOUND);
         } else {
             response.setReturnCode(ReturnCode.USER_NAME_READY_REGISTER);

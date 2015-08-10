@@ -54,7 +54,7 @@
 <div class="content">
     <div class="m_fabu_xiazai">
         <div class="m_fabu_left">
-            <a href="" class="fabu_btn"><span class="icon_1"></span>发布供应</a>
+            <a href="${ctx }/supply/publish/" class="fabu_btn"><span class="icon_1"></span>发布供应</a>
         </div>
         <div class="m_xiazai_right">
             <a href="" class="xiazai"><span class="icon_2"></span>下载APP</a>

@@ -4,8 +4,19 @@
 
 	<resultMap id="userMap" type="user">
 		<result property="id" column="id" />
+		<result property="nickName" column="nick_name" />
+		<result property="realName" column="real_name" />
+		<result property="phone" column="phone" />
+		<result property="password" column="password" />
+		<result property="provinceId" column="province_id" />
+		<result property="cityId" column="city_id" />
+		<result property="areaId" column="area_id" />
+		<result property="headUrl" column="head_url" />
+		<result property="identityId" column="identity_id" />
+		<result property="isValid" column="is_valid" />
+		<result property="createTime" column="create_Time" />
+		<result property="updateTime" column="update_time" />
 	</resultMap>
-
 
 	<select id="isExistUser" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
@@ -39,20 +50,16 @@
 	<update id="update" parameterType="user">
 		UPDATE crop_user
 		<set>
-			<if test="passWord != null">pass_word=#{passWord},</if>
-			<if test="sex != null">sex=#{sex},</if>
-			<if test="userNick != null">user_nick=#{userNick},</if>
-			<if test="userImg != null">user_img=#{userImg},</if>
-			<if test="birthday != null">birthday=#{birthday},</if>
-			<if test="province != null">province=#{province},</if>
-			<if test="city != null">city=#{city},</if>
-			<if test="introduction != null">
-				introduction=#{introduction},
-			</if>
-			<if test="mobile != null">mobile=#{mobile},</if>
-			<if test="email != null">email=#{email},</if>
+			<if test="password != null">password=#{password},</if>
+			<if test="nickName != null">nick_name=#{nickName},</if>
+			<if test="phone != null">phone=#{phone},</if>
+			<if test="password != null">password=#{password},</if>
+			<if test="provinceId != null">province_id=#{provinceId},</if>
+			<if test="cityId != null">city_id=#{cityId},</if>
+			<if test="areaId != null">area_id=#{areaId},</if>
+			<if test="headUrl != null">head_url=#{headUrl},</if>
+			<if test="identityId != null">identity_id=#{identityId},</if>
 			<if test="isValid != null">is_valid=#{isValid},</if>
-			<if test="isIndex != null">is_index=#{isIndex},</if>
 		</set>
 		WHERE id=#{id}
 	</update>

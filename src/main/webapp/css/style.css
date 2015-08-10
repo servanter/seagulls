@@ -1326,6 +1326,15 @@ footer p{height:28px;line-height:28px;text-align:center;font-size:1em;color:#666
 .db {
 	display:block;
 }
+.pos-relative {
+	position: relative;
+}
+.categories-tips {
+	position: absolute;
+	top: 25px;
+	padding-left: 10%;
+	cursor: pointer;
+}
 .btn-register {
 	width: 50%;
 	height: 26px;
