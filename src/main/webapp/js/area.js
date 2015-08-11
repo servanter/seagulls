@@ -1,7 +1,8 @@
 var elements = new Array();
-elements.push('province','city','location');
+elements.push('provinceId','cityId','areaId');
 var defaultArea = {id:-1,pid:-1,zh_name:'不限',en_name:'buxian',first_letter:'B'};
 var provinces = new Array();
+provinces.push(defaultArea);
 provinces.push({id:1, pid:0, zh_name:'北京', en_name:'beijing', first_letter:'B'});
 provinces.push({id:2, pid:0, zh_name:'天津', en_name:'tianjin', first_letter:'T'});
 provinces.push({id:3, pid:0, zh_name:'上海', en_name:'shanghai', first_letter:'S'});

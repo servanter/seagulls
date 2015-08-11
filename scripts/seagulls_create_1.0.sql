@@ -70,3 +70,27 @@ CREATE TABLE `crop_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+
+-- ----------------------------
+-- Table structure for `crop_dict_product_period`
+-- ----------------------------
+DROP TABLE IF EXISTS `crop_dict_product_period`;
+CREATE TABLE `crop_dict_product_period` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `title` varchar(20) NOT NULL DEFAULT '' COMMENT '标题',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+-- ----------------------------
+-- Table structure for `crop_dict_product_unit`
+-- ----------------------------
+CREATE TABLE `crop_dict_product_unit` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `title` varchar(20) NOT NULL DEFAULT '' COMMENT '标题',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+

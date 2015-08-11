@@ -980,7 +980,7 @@ footer p{height:28px;line-height:28px;text-align:center;font-size:1em;color:#666
 .bd_main .item .msg{position:absolute;top:0;right:5%;height:30px;line-height:30px;font-size:0.9em;color:#fe612b;}
 .bd_main .item .lable{float:left;height:30px;line-height:30px;font-size:0.9em;color:#333;}
 .bd_main .item .tex2{float:left;width:60%;height:22px;line-height:22px;padding:3px 2%;border-radius:5px;border:1px #ccc solid;font-size:0.9em;color:#999;}
-.bd_main .fabu_btn{display:block;width:80%;margin:0 auto;height:30px;line-height:30px;text-align:center;border-radius:5px;background:#fdc236;font-size:0.9em;color:#fff;}
+.bd_main .fabu_btn{display:block;width:80%;margin:0 auto;height:30px;line-height:30px;text-align:center;border-radius:5px;background:#fdc236;font-size:0.9em;color:#fff;border:none}
 .bd_main .fabu_btn:hover{background:#fbcd61;}
 .bd_pz{width:96%;margin:0 2%;border:1px #ccc solid;overflow:hidden;}
 .bd_pz .title{padding:0 2%;height:30px;line-height:30px;border-bottom:1px #ccc solid;font-size:0.9em;color:#333;}

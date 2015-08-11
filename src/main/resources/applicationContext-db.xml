@@ -12,6 +12,9 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
 	</context:component-scan>
 
+	<!-- Activates scanning of @Autowired -->
+	<context:annotation-config />
+	
 	<!-- Data Source -->
 	<bean id="dataSource"
 		class="org.logicalcobwebs.proxool.ProxoolDataSource">

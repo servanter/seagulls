@@ -6,22 +6,28 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import com.crop.seagulls.entities.Area;
 import com.crop.seagulls.service.DictAreaService;
+import com.crop.seagulls.service.TemplateService;
 import com.crop.seagulls.util.Logger;
 
-@Service("areaTask")
+@Component
 public class AreaTask {
 
     private Logger logger = new Logger(AreaTask.class);
+
     @Autowired
     private DictAreaService dictAreaService;
 
+    @Autowired
+    private TemplateService templateService;
+
+    @Scheduled(cron = "0 0 * * * ?")
     public void start() {
         logger.info("start ======================");
-        System.out.println("11111111111111111111111111111");
         List<Area> areas = dictAreaService.findList();
 
         StringBuilder sb = new StringBuilder();
@@ -36,19 +42,13 @@ public class AreaTask {
                         + "', first_letter:'" + area.getFirstLetter() + "'});\r\n");
             }
         }
-        
-        
-        
-        
-        
-        
-        
-        
+
         sb.append("var elements = new Array();\r\n");
-        sb.append("elements.push('province','city','location');\r\n");
+        sb.append("elements.push('provinceId','cityId','areaId');\r\n");
 
         sb.append("var defaultArea = {id:-1,pid:-1,zh_name:'不限',en_name:'buxian',first_letter:'B'};\r\n");
         sb.append("var provinces = new Array();\r\n");
+        sb.append("provinces.push(defaultArea);");
         sb.append(provinceBuilder);
         sb.append("var locations = new Array();\r\n");
         sb.append(locationBuilder);
@@ -122,9 +122,9 @@ public class AreaTask {
         sb.append(" }\r\n");
         sb.append(" return undefined;\r\n");
         sb.append("}\r\n");
-        
+
         try {
-            FileUtils.writeStringToFile(new File("D:\\aa.js"), sb.toString(), "UTF-8");
+            FileUtils.writeStringToFile(new File(templateService.getMessage("area.js.filepath")), sb.toString(), "UTF-8");
         } catch (IOException e) {
             e.printStackTrace();
         }

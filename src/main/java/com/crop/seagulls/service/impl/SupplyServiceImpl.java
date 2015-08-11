@@ -1,5 +1,6 @@
 package com.crop.seagulls.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class SupplyServiceImpl implements SupplyService {
         Response response = new Response();
         response.setReturnCode(ReturnCode.SUCCESS);
         Response checkResponse = checkValidate(supply);
+        supply.setCreateTime(new Date());
         if (ReturnCode.isSuccess(checkResponse.getReturnCode())) {
             supplyDAO.save(supply);
             if (supply.getId() == null || supply.getId() <= 0L) {
@@ -59,6 +61,7 @@ public class SupplyServiceImpl implements SupplyService {
 
     private Response checkValidate(Supply supply) {
         Response result = new Response();
+        result.setReturnCode(ReturnCode.SUCCESS);
         return result;
     }
 }

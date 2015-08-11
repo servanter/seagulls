@@ -23,12 +23,7 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-
-
-	<!-- Activates scanning of @Autowired -->
-	<context:annotation-config />
-
-	<!-- Activates scanning of @Service -->
+	<!-- Activates scanning of @Controller -->
 	<context:component-scan base-package="com.crop.seagulls.controller" />
 
 	<!-- 优点：通过这一行的配置，框架中的ResourceHttpRequestHandler会帮你完成对静态资源的查找。缺点：不能访问位于 WEB-INF 下的资源-->
