@@ -77,10 +77,7 @@
                 <span class="name">产品名称：</span>
                 <div class="pos-relative">
 	                <input id="product-name" name="product" type="text" class="tex" placeholder="请输入1个产品名称，如：西瓜">
-	                <input id="category" name="categoryId" type="hidden"/>
-	                <span class="categories-tips">
-	                	aaaaaaaaaaaa
-	                </span>
+	                <input name="pageCategoryId" type="hidden"/>
                 </div>
             </div>
             <div class="bd_main">

@@ -1,12 +1,12 @@
 
 var categories = new Array();
 
-categories.push({id:6, pid:0, zh_name:'山西', en_name:'shanxi', first_letter:'S', suggest_desc:'中国 -> 山西'});
-categories.push({id:7, pid:0, zh_name:'内蒙古', en_name:'neimenggu', first_letter:'N', suggest_desc:'中国 -> 内蒙古'});
-categories.push({id:8, pid:0, zh_name:'辽宁', en_name:'liaoning', first_letter:'L', suggest_desc:'中国 -> 辽宁'});
-categories.push({id:9, pid:0, zh_name:'吉林', en_name:'jilin', first_letter:'J', suggest_desc:'中国 -> 吉林'});
-categories.push({id:10, pid:0, zh_name:'黑龙江', en_name:'heilongjiang', first_letter:'H', suggest_desc:'中国 -> 黑龙江'});
-categories.push({id:11, pid:0, zh_name:'江苏', en_name:'jiangsu', first_letter:'J', suggest_desc:'中国 -> 江苏'});
+categories.push({id:1004, pid:0, zh_name:'草莓', en_name:'caomei', first_letter:'S', suggest_desc:'水果 -> 草莓'});
+categories.push({id:1005, pid:0, zh_name:'柑桔', en_name:'ganju', first_letter:'N', suggest_desc:'水果 -> 柑桔'});
+categories.push({id:1006, pid:0, zh_name:'金橘', en_name:'jinju', first_letter:'L', suggest_desc:'水果 -> 金橘'});
+categories.push({id:1007, pid:0, zh_name:'柚子', en_name:'youzi', first_letter:'J', suggest_desc:'水果 -> 柚子'});
+categories.push({id:1008, pid:0, zh_name:'蜜橘', en_name:'miju', first_letter:'H', suggest_desc:'水果 -> 蜜橘'});
+categories.push({id:1009, pid:0, zh_name:'沙糖桔', en_name:'shatangju', first_letter:'J', suggest_desc:'水果 -> 沙糖桔'});
 
 
 $(function(){

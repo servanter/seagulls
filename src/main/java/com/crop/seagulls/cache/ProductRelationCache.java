@@ -42,6 +42,7 @@ public class ProductRelationCache {
         logger.info("ProductRelationCache start");
         UNITS = dictProductUnitService.findProductUnits();
         PERIODS = dictProductPeriodService.findPeriods();
+        logger.info("ProductRelationCache end");
     }
 
     public static List<ProductUnit> getUNITS() {

@@ -1,14 +1,19 @@
 package com.crop.seagulls.service.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.reflect.MethodUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
+import com.crop.seagulls.cache.CategoryCache;
 import com.crop.seagulls.dao.SupplyDAO;
 import com.crop.seagulls.entities.Supply;
 import com.crop.seagulls.service.SupplyService;
@@ -62,6 +67,20 @@ public class SupplyServiceImpl implements SupplyService {
     private Response checkValidate(Supply supply) {
         Response result = new Response();
         result.setReturnCode(ReturnCode.SUCCESS);
+
+        if (supply.getPageCategoryId() != null && supply.getPageCategoryId() > 0) {
+            Map<String, Long> map = CategoryCache.getSequenceCategoies(supply.getPageCategoryId());
+            if (MapUtils.isNotEmpty(map)) {
+                for (String key : map.keySet()) {
+                    Long categoryId = map.get(key);
+                    try {
+                        MethodUtils.invokeMethod(supply, key, categoryId);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
         return result;
     }
 }

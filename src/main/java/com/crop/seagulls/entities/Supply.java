@@ -63,6 +63,9 @@ public class Supply extends Page {
     private Long auditId;
 
     private Integer status;
+    
+    
+    private Long pageCategoryId;
 
     public Supply() {
         super();
@@ -436,6 +439,14 @@ public class Supply extends Page {
         } else if (!varietiesId.equals(other.varietiesId))
             return false;
         return true;
+    }
+
+    public Long getPageCategoryId() {
+        return pageCategoryId;
+    }
+
+    public void setPageCategoryId(Long pageCategoryId) {
+        this.pageCategoryId = pageCategoryId;
     }
 
 }
