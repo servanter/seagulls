@@ -9,7 +9,7 @@ import com.crop.seagulls.dao.DictCategoryDAO;
 import com.crop.seagulls.entities.Category;
 import com.crop.seagulls.service.DictCategoryService;
 
-@Service
+@Service("dictCategoryService")
 public class DictCategoryServiceImpl implements DictCategoryService {
 
     @Autowired

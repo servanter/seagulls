@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.crop.seagulls.entities.Category;
 
-@Repository
+@Repository("dictCategoryDAO")
 public interface DictCategoryDAO {
 
     /**

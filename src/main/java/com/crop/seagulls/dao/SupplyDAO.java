@@ -13,8 +13,10 @@ public interface SupplyDAO {
 
     public int update(Supply supply);
 
-    public List<Supply> findBuies(Supply supply);
+    public List<Supply> findSupplies(Supply supply);
 
-    public Integer findBuiesCount(Supply supply);
+    public Integer findSuppliesCount(Supply supply);
+
+    public List<Long> findAllProvincesBySupply(Supply supply);
 
 }

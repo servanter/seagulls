@@ -28,10 +28,13 @@ public class SupplyController {
     @Autowired
     private SupplyService supplyService;
 
+    @Autowired
+    private ProductRelationCache productRelationCache;
+    
     @RequestMapping(value = "/publish", method = RequestMethod.GET)
     public String enterPublish(Model model) {
-        model.addAttribute("units", ProductRelationCache.getUNITS());
-        model.addAttribute("periods", ProductRelationCache.getPERIODS());
+        model.addAttribute("units", productRelationCache.getUNITS());
+        model.addAttribute("periods", productRelationCache.getPERIODS());
         return "supply/publish";
     }
 

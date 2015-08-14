@@ -3,6 +3,7 @@ package com.crop.seagulls.entities;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import com.crop.seagulls.bean.OrderBy;
 import com.crop.seagulls.bean.Page;
 
 /**
@@ -63,17 +64,23 @@ public class Supply extends Page {
     private Long auditId;
 
     private Integer status;
-    
-    
-    private Long pageCategoryId;
+
+    private Long searchCategoryId;
+    private Integer searchOrderBy;
+
+    private Area pageArea;
+    private OrderBy pageOrderBy;
+    private String pagePrice;
+    private String pageOriginAddr;
+    private String pageTimeAlias;
 
     public Supply() {
         super();
     }
 
-    public Supply(int page, int pageSize, Long id, Long categoryId1, Long categoryId2, Long categoryId3, Long varietiesId, String title, Long provinceId, Long cityId, Long areaId,
-            Long startTime, Long endTime, Double startPrice, Double endPrice, Long unitId, String note, String contactName, String contactPhone, Date createTime,
-            Long createUserId, Timestamp updateTime, Date auditTime, Long auditId, Integer status) {
+    public Supply(int page, int pageSize, Long id, Long categoryId1, Long categoryId2, Long categoryId3, Long varietiesId, String title, Long provinceId, Long cityId, Long areaId, Long startTime,
+            Long endTime, Double startPrice, Double endPrice, Long unitId, String note, String contactName, String contactPhone, Date createTime, Long createUserId, Timestamp updateTime,
+            Date auditTime, Long auditId, Integer status) {
         super(page, pageSize);
         this.id = id;
         this.categoryId1 = categoryId1;
@@ -441,12 +448,60 @@ public class Supply extends Page {
         return true;
     }
 
-    public Long getPageCategoryId() {
-        return pageCategoryId;
+    public Long getSearchCategoryId() {
+        return searchCategoryId;
     }
 
-    public void setPageCategoryId(Long pageCategoryId) {
-        this.pageCategoryId = pageCategoryId;
+    public void setSearchCategoryId(Long searchCategoryId) {
+        this.searchCategoryId = searchCategoryId;
+    }
+
+    public Integer getSearchOrderBy() {
+        return searchOrderBy;
+    }
+
+    public void setSearchOrderBy(Integer searchOrderBy) {
+        this.searchOrderBy = searchOrderBy;
+    }
+
+    public Area getPageArea() {
+        return pageArea;
+    }
+
+    public void setPageArea(Area pageArea) {
+        this.pageArea = pageArea;
+    }
+
+    public OrderBy getPageOrderBy() {
+        return pageOrderBy;
+    }
+
+    public void setPageOrderBy(OrderBy pageOrderBy) {
+        this.pageOrderBy = pageOrderBy;
+    }
+
+    public String getPagePrice() {
+        return pagePrice;
+    }
+
+    public void setPagePrice(String pagePrice) {
+        this.pagePrice = pagePrice;
+    }
+
+    public String getPageOriginAddr() {
+        return pageOriginAddr;
+    }
+
+    public void setPageOriginAddr(String pageOriginAddr) {
+        this.pageOriginAddr = pageOriginAddr;
+    }
+
+    public String getPageTimeAlias() {
+        return pageTimeAlias;
+    }
+
+    public void setPageTimeAlias(String pageTimeAlias) {
+        this.pageTimeAlias = pageTimeAlias;
     }
 
 }

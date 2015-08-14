@@ -84,5 +84,81 @@
 		</selectKey>
 	</insert>
 
-
+	<select id="findSupplies" parameterType="supply" resultMap="supplyMap">
+		SELECT <include refid="base_columns"/> FROM crop_supply
+		<where>
+			<if test="categoryId1 != null and categoryId1 > 0">
+				AND category_id_1 = #{categoryId1}
+			</if>
+			<if test="categoryId2 != null and categoryId2 > 0">
+				AND category_id_2 = #{categoryId2}
+			</if>
+			<if test="categoryId3 != null and categoryId3 > 0">
+				AND category_id_3 = #{categoryId3}
+			</if>
+			<if test="provinceId != null and provinceId > 0">
+				AND province_id = #{provinceId}
+			</if>
+			<if test="startPrice != null and startPrice > 0">
+				AND start_price >= #{startPrice}
+			</if>
+			<if test="endPrice != null and endPrice > 0">
+				AND end_price >= #{endPrice}
+			</if>
+			AND status = 1
+			<if test="searchOrderBy != null and searchOrderBy == 0">ORDER BY update_time DESC</if>
+			<if test="searchOrderBy != null and searchOrderBy == 1">ORDER BY start_price ASC</if>
+			<if test="searchOrderBy != null and searchOrderBy == 2">ORDER BY end_price DESC</if>
+		</where>
+	</select>
+	
+	<select id="findSuppliesCount" parameterType="supply" resultType="int">
+		SELECT COUNT(*) FROM crop_supply
+		<where>
+			<if test="categoryId1 != null and categoryId1 > 0">
+				AND category_id_1 = #{categoryId1}
+			</if>
+			<if test="categoryId2 != null and categoryId2 > 0">
+				AND category_id_2 = #{categoryId2}
+			</if>
+			<if test="categoryId3 != null and categoryId3 > 0">
+				AND category_id_3 = #{categoryId3}
+			</if>
+			<if test="provinceId != null and provinceId > 0">
+				AND province_id = #{provinceId}
+			</if>
+			<if test="startPrice != null and startPrice > 0">
+				AND start_price >= #{startPrice}
+			</if>
+			<if test="endPrice != null and endPrice > 0">
+				AND end_price >= #{endPrice}
+			</if>
+			AND status = 1
+		</where>
+	</select>
+	
+	<select id="findAllProvincesBySupply" parameterType="supply" resultType="long">
+		SELECT DISTINCT(province_id) FROM crop_supply
+		<where>
+			<if test="categoryId1 != null and categoryId1 > 0">
+				AND category_id_1 = #{categoryId1}
+			</if>
+			<if test="categoryId2 != null and categoryId2 > 0">
+				AND category_id_2 = #{categoryId2}
+			</if>
+			<if test="categoryId3 != null and categoryId3 > 0">
+				AND category_id_3 = #{categoryId3}
+			</if>
+			<if test="provinceId != null and provinceId > 0">
+				AND province_id = #{provinceId}
+			</if>
+			<if test="startPrice != null and startPrice > 0">
+				AND start_price >= #{startPrice}
+			</if>
+			<if test="endPrice != null and endPrice > 0">
+				AND end_price >= #{endPrice}
+			</if>
+			AND status = 1
+		</where>
+	</select>
 </mapper>

@@ -6,18 +6,22 @@ import java.util.Date;
 
 public class DateUtils {
 
+    public static final int SECOUND = 1000;
+    public static final int MINUTE = 1000 * 60;
+    public static final int HOUR = 1000 * 60 * 60;
     public static final int DAY = 1000 * 60 * 60 * 24;
-    
+    public static final int MONTH = 1000 * 60 * 60 * 24 * 30;
+    public static final int YEAR = 1000 * 60 * 60 * 24 * 365;
+
     public static final String DEFAULT_FORMATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_FORMATE_PATTERN = "yyyy-MM-dd";
-    
-    
-    public static Date str2Date(String pattern, String time) throws ParseException{
+
+    public static Date str2Date(String pattern, String time) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         return simpleDateFormat.parse(time);
     }
-    
-    public static Date str2Date(String time) throws ParseException{
+
+    public static Date str2Date(String time) throws ParseException {
         Date date = null;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DEFAULT_FORMATE_PATTERN);
         try {
@@ -32,10 +36,38 @@ public class DateUtils {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DEFAULT_FORMATE_PATTERN);
         return simpleDateFormat.format(date);
     }
-    
-    public static String date2Str(String pattern ,Date date){
+
+    public static String date2Str(String pattern, Date date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         return simpleDateFormat.format(date);
     }
-    
+
+    public static DateType getTimeDesc(Date date) {
+        int type = 0;
+        long moreThan = 0;
+        long ago = date.getTime();
+        long now = System.currentTimeMillis();
+        if (now - ago < SECOUND) {
+            type = 0;
+        } else if (now - ago > SECOUND && now - ago <= MINUTE) {
+            type = 0;
+            moreThan = (now - ago) / SECOUND;
+        } else if (now - ago > MINUTE && now - ago <= HOUR) {
+            type = 1;
+            moreThan = (now - ago) / MINUTE;
+        } else if (now - ago > HOUR && now - ago <= DAY) {
+            type = 2;
+            moreThan = (now - ago) / HOUR;
+        } else if (now - ago > DAY && now - ago <= MONTH) {
+            type = 3;
+            moreThan = (now - ago) / DAY;
+        } else if (now - ago > MONTH && now - ago <= YEAR) {
+            type = 4;
+            moreThan = (now - ago) / MONTH;
+        } else {
+            type = 5;
+            moreThan = (now - ago) / YEAR;
+        }
+        return new DateType(type, moreThan);
+    }
 }

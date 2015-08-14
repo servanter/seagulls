@@ -1,6 +1,7 @@
 package com.crop.seagulls.service;
 
-import com.crop.seagulls.bean.Paging;
+import java.util.Map;
+
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.entities.Supply;
 
@@ -27,8 +28,8 @@ public interface SupplyService {
      *            search model
      * @return
      */
-    public Paging<Supply> querySupplies(Supply supply);
-
+    public Map<String, Object> querySuppliesWithExt(Supply supply);
+    
     /**
      * Modify supply
      * 
