@@ -56,7 +56,7 @@
         <ul class="d-con">
         	<c:if test="${categories != null}">
 	        	<c:forEach var="category" items="${categories}">
-	        		<li><a href="${ctx }/supply_cate_${category.id }/">${category.zhName }</a></li>
+	        		<li><a href="${ctx }/supply/supply_cate_${category.id }/">${category.zhName }</a></li>
 	        	</c:forEach>
         	</c:if>
         </ul>

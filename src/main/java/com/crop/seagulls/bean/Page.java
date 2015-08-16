@@ -16,7 +16,7 @@ public class Page implements java.io.Serializable {
     /**
      * 默认页大小
      */
-    private int pageSize = 10;
+    private int pageSize = 3;
 
     /**
      * 当前页
@@ -112,5 +112,5 @@ public class Page implements java.io.Serializable {
             sinceCount = (page - 1) * pageSize;
         }
     }
-
+    
 }

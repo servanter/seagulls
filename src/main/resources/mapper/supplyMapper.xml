@@ -105,11 +105,18 @@
 			<if test="endPrice != null and endPrice > 0">
 				AND end_price >= #{endPrice}
 			</if>
-			AND status = 1
-			<if test="searchOrderBy != null and searchOrderBy == 0">ORDER BY update_time DESC</if>
-			<if test="searchOrderBy != null and searchOrderBy == 1">ORDER BY start_price ASC</if>
-			<if test="searchOrderBy != null and searchOrderBy == 2">ORDER BY end_price DESC</if>
-		</where>
+			<if test="startTime != null and startTime > 0">
+				AND start_time = #{startTime}
+			</if>
+			<if test="endTime != null and endTime > 0">
+				AND end_time = #{endTime}
+			</if>
+		</where>	
+		AND status = 1
+		<if test="searchOrderBy != null and searchOrderBy == 0">ORDER BY update_time DESC</if>
+		<if test="searchOrderBy != null and searchOrderBy == 1">ORDER BY start_price ASC</if>
+		<if test="searchOrderBy != null and searchOrderBy == 2">ORDER BY end_price DESC</if>
+		LIMIT #{sinceCount}, #{pageSize}
 	</select>
 	
 	<select id="findSuppliesCount" parameterType="supply" resultType="int">
@@ -132,6 +139,12 @@
 			</if>
 			<if test="endPrice != null and endPrice > 0">
 				AND end_price >= #{endPrice}
+			</if>
+			<if test="startTime != null and startTime > 0">
+				AND start_time = #{startTime}
+			</if>
+			<if test="endTime != null and endTime > 0">
+				AND end_time = #{endTime}
 			</if>
 			AND status = 1
 		</where>

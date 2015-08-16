@@ -21,6 +21,7 @@ import com.crop.seagulls.cache.CategoryCache;
 import com.crop.seagulls.cache.ProductRelationCache;
 import com.crop.seagulls.dao.SupplyDAO;
 import com.crop.seagulls.entities.Area;
+import com.crop.seagulls.entities.Category;
 import com.crop.seagulls.entities.ProductUnit;
 import com.crop.seagulls.entities.Supply;
 import com.crop.seagulls.service.SupplyService;
@@ -28,6 +29,7 @@ import com.crop.seagulls.service.TemplateService;
 import com.crop.seagulls.util.DateType;
 import com.crop.seagulls.util.DateUtils;
 import com.crop.seagulls.util.Logger;
+import com.crop.seagulls.util.NumberUtils;
 
 @Service
 public class SupplyServiceImpl implements SupplyService {
@@ -99,8 +101,9 @@ public class SupplyServiceImpl implements SupplyService {
                 }
             }
         }
-        map.put("result", result);
+        map.put("list", result);
         map.put("areas", areas);
+        map.put("periods", productRelationCache.getPERIODS());
         packageModel(list);
         packageSearchModel(supply);
         return map;
@@ -109,6 +112,19 @@ public class SupplyServiceImpl implements SupplyService {
     private void packageSearchModel(Supply supply) {
         supply.setPageArea(areaCache.getById(supply.getProvinceId()));
         supply.setPageOrderBy(OrderBy.code2OrderBy(supply.getSearchOrderBy()));
+        Map<String, Category> map = categoryCache.getSequenceCategoies(supply.getSearchCategoryId(), 2);
+        if (MapUtils.isNotEmpty(map)) {
+            for (String key : map.keySet()) {
+                try {
+                    MethodUtils.invokeMethod(supply, key, map.get(key));
+                } catch (Exception e) {
+                    logger.error("Invoke {0} methods error.", map);
+                }
+            }
+        }
+        if (productRelationCache.getPeriodById(supply.getStartTime()) != null) {
+            supply.setSearchStartTime(productRelationCache.getPeriodById(supply.getStartTime()));
+        }
     }
 
     private void packageModel(List<Supply> suppies) {
@@ -133,6 +149,18 @@ public class SupplyServiceImpl implements SupplyService {
                 }
                 supply.setPageOriginAddr(addr);
 
+                // find category
+                if (NumberUtils.isValidateNumber(supply.getCategoryId3()) && categoryCache.getById(supply.getCategoryId3()) != null) {
+                    supply.setPageCategory(categoryCache.getById(supply.getCategoryId3()));
+                } else if (NumberUtils.isValidateNumber(supply.getCategoryId2()) && categoryCache.getById(supply.getCategoryId2()) != null) {
+                    supply.setPageCategory(categoryCache.getById(supply.getCategoryId2()));
+                } else if (NumberUtils.isValidateNumber(supply.getCategoryId1()) && categoryCache.getById(supply.getCategoryId1()) != null) {
+                    supply.setPageCategory(categoryCache.getById(supply.getCategoryId1()));
+                }
+
+                supply.setPageStartPeriod(productRelationCache.getPeriodById(supply.getStartTime()));
+                supply.setPageEndPeriod(productRelationCache.getPeriodById(supply.getEndTime()));
+
                 DateType dateType = DateUtils.getTimeDesc(supply.getUpdateTime());
                 supply.setPageTimeAlias(templateService.getMessage("page.time_alias_" + dateType.getType(), String.valueOf(dateType.getMoreThan())));
             }
@@ -148,12 +176,11 @@ public class SupplyServiceImpl implements SupplyService {
 
     private void packageCategory(Supply supply) {
         if (supply.getSearchCategoryId() != null && supply.getSearchCategoryId() > 0) {
-            Map<String, Long> map = categoryCache.getSequenceCategoies(supply.getSearchCategoryId());
+            Map<String, Category> map = categoryCache.getSequenceCategoies(supply.getSearchCategoryId(), 1);
             if (MapUtils.isNotEmpty(map)) {
                 for (String key : map.keySet()) {
-                    Long categoryId = map.get(key);
                     try {
-                        MethodUtils.invokeMethod(supply, key, categoryId);
+                        MethodUtils.invokeMethod(supply, key, map.get(key).getId());
                     } catch (Exception e) {
                         logger.error("Invoke {0} methods error.", map);
                     }

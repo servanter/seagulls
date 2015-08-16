@@ -23,16 +23,20 @@ public class CategoryCache {
 
     private static Map<Long, List<Category>> CATEGORY_RELATION_MAP = new HashMap<Long, List<Category>>();
 
-    private static List<String> CATEGORIES2METHODS = new ArrayList<String>();
+    private static List<String> CATEGORIES_DB_METHODS = new ArrayList<String>();
+    private static List<String> CATEGORIES_PAGE_METHODS = new ArrayList<String>();
 
     @Autowired
     private DictCategoryService dictCategoryService;
 
     @PostConstruct
     public void initCategories2Columns() {
-        CATEGORIES2METHODS.add("setCategoryId1");
-        CATEGORIES2METHODS.add("setCategoryId2");
-        CATEGORIES2METHODS.add("setCategoryId3");
+        CATEGORIES_DB_METHODS.add("setCategoryId1");
+        CATEGORIES_DB_METHODS.add("setCategoryId2");
+        CATEGORIES_DB_METHODS.add("setCategoryId3");
+        CATEGORIES_PAGE_METHODS.add("setSearchCategory1");
+        CATEGORIES_PAGE_METHODS.add("setSearchCategory2");
+        CATEGORIES_PAGE_METHODS.add("setSearchCategory3");
     }
 
     @Scheduled(cron = "0 0 * * * ?")
@@ -70,8 +74,8 @@ public class CategoryCache {
         return CATEGORY_RELATION_MAP.get(pid);
     }
 
-    public Map<String, Long> getSequenceCategoies(Long id) {
-        Map<String, Long> result = new HashMap<String, Long>();
+    public Map<String, Category> getSequenceCategoies(Long id, int type) {
+        Map<String, Category> result = new HashMap<String, Category>();
         List<Long> categoies = new ArrayList<Long>();
         if (ALL_CATEGORY_MAP.containsKey(id)) {
             Category cur = ALL_CATEGORY_MAP.get(id);
@@ -89,12 +93,18 @@ public class CategoryCache {
         if (CollectionUtils.isNotEmpty(categoies)) {
 
             // before : cur parent parentparent after : parentparent parent cur
+            List<String> methods = new ArrayList<String>();
+            if (type == 1) {
+                methods = CATEGORIES_DB_METHODS;
+            } else if (type == 2) {
+                methods = CATEGORIES_PAGE_METHODS;
+            }
             Collections.reverse(categoies);
             for (int i = 0; i < categoies.size(); i++) {
-                if (CATEGORIES2METHODS.size() > i) {
-                    String column = CATEGORIES2METHODS.get(i);
+                if (methods.size() > i) {
+                    String column = methods.get(i);
                     Long categoryId = categoies.get(i);
-                    result.put(column, categoryId);
+                    result.put(column, ALL_CATEGORY_MAP.get(categoryId));
                 }
             }
         }

@@ -11,7 +11,7 @@ import java.util.Map;
  * @author zhy
  * 
  */
-public class Paging<T> implements java.io.Serializable{
+public class Paging<T> implements java.io.Serializable {
 
     /**
      * 
@@ -43,6 +43,10 @@ public class Paging<T> implements java.io.Serializable{
      */
     private int sinceCount = 0;
 
+    private int startPage = 0;
+
+    private int endPage = 0;
+
     private List<T> result;
 
     public Paging() {
@@ -60,6 +64,7 @@ public class Paging<T> implements java.io.Serializable{
         this.pageSize = pageSize;
         setTotalRecord(totalRecord);
         this.setResult(result);
+        getStartAndEndRange();
     }
 
     public int getPageSize() {
@@ -114,6 +119,22 @@ public class Paging<T> implements java.io.Serializable{
         this.result = result;
     }
 
+    public int getStartPage() {
+        return startPage;
+    }
+
+    public void setStartPage(int startPage) {
+        this.startPage = startPage;
+    }
+
+    public int getEndPage() {
+        return endPage;
+    }
+
+    public void setEndPage(int endPage) {
+        this.endPage = endPage;
+    }
+
     /**
      * 全部加装时，分页
      * 
@@ -144,7 +165,7 @@ public class Paging<T> implements java.io.Serializable{
      * 
      * @return
      */
-    public int[] getStartAndEndRange() {
+    public void getStartAndEndRange() {
         int startPage = 0;
         int endPage = 0;
         if (getPage() < 4) {
@@ -165,16 +186,8 @@ public class Paging<T> implements java.io.Serializable{
         } else {
             endPage = getPage() + getTotalPage() - 1;
         }
-        int[] result = { startPage, endPage };
-        return result;
-    }
-    
-    public static void main(String[] args) {
-        Paging p = new Paging();
-        p.setPage(7);
-        p.setTotalPage(100);
-        int i[] = p.getStartAndEndRange();
-        System.out.println(i[0] + " " + i[1]);
+        this.startPage = startPage;
+        this.endPage = endPage;
     }
 
     /**
@@ -214,6 +227,5 @@ public class Paging<T> implements java.io.Serializable{
         p.setSinceCount(this.sinceCount);
         return p;
     }
-
 
 }

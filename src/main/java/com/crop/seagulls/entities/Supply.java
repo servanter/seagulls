@@ -67,12 +67,19 @@ public class Supply extends Page {
 
     private Long searchCategoryId;
     private Integer searchOrderBy;
+    private Category searchCategory1;
+    private Category searchCategory2;
+    private Category searchCategory3;
+    private ProductPeriod searchStartTime;
 
     private Area pageArea;
     private OrderBy pageOrderBy;
     private String pagePrice;
     private String pageOriginAddr;
     private String pageTimeAlias;
+    private Category pageCategory;
+    private ProductPeriod pageStartPeriod;
+    private ProductPeriod pageEndPeriod;
 
     public Supply() {
         super();
@@ -502,6 +509,62 @@ public class Supply extends Page {
 
     public void setPageTimeAlias(String pageTimeAlias) {
         this.pageTimeAlias = pageTimeAlias;
+    }
+
+    public Category getPageCategory() {
+        return pageCategory;
+    }
+
+    public void setPageCategory(Category pageCategory) {
+        this.pageCategory = pageCategory;
+    }
+
+    public ProductPeriod getPageStartPeriod() {
+        return pageStartPeriod;
+    }
+
+    public void setPageStartPeriod(ProductPeriod pageStartPeriod) {
+        this.pageStartPeriod = pageStartPeriod;
+    }
+
+    public ProductPeriod getPageEndPeriod() {
+        return pageEndPeriod;
+    }
+
+    public void setPageEndPeriod(ProductPeriod pageEndPeriod) {
+        this.pageEndPeriod = pageEndPeriod;
+    }
+
+    public Category getSearchCategory1() {
+        return searchCategory1;
+    }
+
+    public void setSearchCategory1(Category searchCategory1) {
+        this.searchCategory1 = searchCategory1;
+    }
+
+    public Category getSearchCategory2() {
+        return searchCategory2;
+    }
+
+    public void setSearchCategory2(Category searchCategory2) {
+        this.searchCategory2 = searchCategory2;
+    }
+
+    public Category getSearchCategory3() {
+        return searchCategory3;
+    }
+
+    public void setSearchCategory3(Category searchCategory3) {
+        this.searchCategory3 = searchCategory3;
+    }
+
+    public ProductPeriod getSearchStartTime() {
+        return searchStartTime;
+    }
+
+    public void setSearchStartTime(ProductPeriod searchStartTime) {
+        this.searchStartTime = searchStartTime;
     }
 
 }
