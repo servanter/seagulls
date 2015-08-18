@@ -971,7 +971,7 @@ footer p{height:28px;line-height:28px;text-align:center;font-size:1em;color:#666
 .bd_main{padding:0 2% 20px;overflow:hidden;}
 .bd_main .item{position:relative;margin-bottom:5px;overflow:hidden;}
 .bd_main .item .name{display:block;height:30px;line-height:30px;font-size:0.9em;color:#333;}
-.bd_main .item .set{float:left;width:45%;height:30px;margin:0 5% 5px 0;border-radius:5px;border:1px #ccc solid;}
+.bd_main .item .set{float:left;width:40%;height:30px;margin:0 5% 5px 0;border-radius:5px;border:1px #ccc solid;}
 .bd_main .item .set2{float:left;width:100%;height:30px;margin:0 0 5px 0;border-radius:5px;border:1px #ccc solid;}
 .bd_main .item .tex{float:left;width:23%;height:22px;line-height:22px;padding:3px 2%;border-radius:5px;border:1px #ccc solid;font-size:0.9em;color:#999;}
 .bd_main .item .text{float:left;height:30px;line-height:30px;margin:0 2%;font-size:0.9em;color:#333;}

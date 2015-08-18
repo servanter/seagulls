@@ -72,6 +72,8 @@ public class Supply extends Page {
     private Category searchCategory3;
     private ProductPeriod searchStartTime;
 
+    private Long addCategoryId;
+
     private Area pageArea;
     private OrderBy pageOrderBy;
     private String pagePrice;
@@ -565,6 +567,14 @@ public class Supply extends Page {
 
     public void setSearchStartTime(ProductPeriod searchStartTime) {
         this.searchStartTime = searchStartTime;
+    }
+
+    public Long getAddCategoryId() {
+        return addCategoryId;
+    }
+
+    public void setAddCategoryId(Long addCategoryId) {
+        this.addCategoryId = addCategoryId;
     }
 
 }

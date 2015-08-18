@@ -87,7 +87,7 @@ public class SupplyServiceImpl implements SupplyService {
     @Override
     public Map<String, Object> querySuppliesWithExt(Supply supply) {
         Map<String, Object> map = new HashMap<String, Object>();
-        packageCategory(supply);
+        packageCategory(supply, supply.getSearchCategoryId());
         List<Supply> list = supplyDAO.findSupplies(supply);
         Integer totalCount = supplyDAO.findSuppliesCount(supply);
         Paging<Supply> result = new Paging<Supply>(totalCount, supply.getPage(), supply.getPageSize(), list);
@@ -170,13 +170,13 @@ public class SupplyServiceImpl implements SupplyService {
     private Response checkValidate(Supply supply) {
         Response result = new Response();
         result.setReturnCode(ReturnCode.SUCCESS);
-        packageCategory(supply);
+        packageCategory(supply, supply.getAddCategoryId());
         return result;
     }
 
-    private void packageCategory(Supply supply) {
-        if (supply.getSearchCategoryId() != null && supply.getSearchCategoryId() > 0) {
-            Map<String, Category> map = categoryCache.getSequenceCategoies(supply.getSearchCategoryId(), 1);
+    private void packageCategory(Supply supply, Long passCategoryId) {
+        if (passCategoryId != null && passCategoryId > 0) {
+            Map<String, Category> map = categoryCache.getSequenceCategoies(passCategoryId, 1);
             if (MapUtils.isNotEmpty(map)) {
                 for (String key : map.keySet()) {
                     try {

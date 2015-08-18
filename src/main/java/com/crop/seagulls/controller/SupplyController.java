@@ -30,7 +30,6 @@ import com.crop.seagulls.util.SessionUtils;
  * 
  */
 @Controller
-@RequestMapping("/supply")
 public class SupplyController {
 
     @Autowired
@@ -42,7 +41,7 @@ public class SupplyController {
     @Autowired
     private CategoryCache categoryCache;
 
-    @RequestMapping(value = "/publish", method = RequestMethod.GET)
+    @RequestMapping(value = "/supply/publish", method = RequestMethod.GET)
     public String enterPublish(Model model) {
         model.addAttribute("units", productRelationCache.getUNITS());
         model.addAttribute("periods", productRelationCache.getPERIODS());
@@ -50,7 +49,7 @@ public class SupplyController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/publish", method = RequestMethod.POST)
+    @RequestMapping(value = "/supply/publish", method = RequestMethod.POST)
     public Response publish(Supply supply, HttpSession session) {
         supply.setCreateUserId(SessionUtils.getCurUser(session).getId());
         Response response = supplyService.add(supply);
@@ -68,7 +67,7 @@ public class SupplyController {
         return "supply/category_list";
     }
 
-    @RequestMapping(value = { "/supply_list_c{cate:\\d+}p{province:\\d+}t{startPeriod:\\d+}o{orderBy:\\d+}n{page:\\d+}" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/supply/supply_list_c{cate:\\d+}p{province:\\d+}t{startPeriod:\\d+}o{orderBy:\\d+}n{page:\\d+}" }, method = RequestMethod.GET)
     public String supplyList(@PathVariable("cate")
     Long category, @PathVariable("province")
     Long province,@PathVariable("startPeriod")

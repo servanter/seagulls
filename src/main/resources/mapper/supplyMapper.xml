@@ -162,9 +162,6 @@
 			<if test="categoryId3 != null and categoryId3 > 0">
 				AND category_id_3 = #{categoryId3}
 			</if>
-			<if test="provinceId != null and provinceId > 0">
-				AND province_id = #{provinceId}
-			</if>
 			<if test="startPrice != null and startPrice > 0">
 				AND start_price >= #{startPrice}
 			</if>

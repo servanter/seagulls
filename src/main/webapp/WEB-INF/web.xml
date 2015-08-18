@@ -71,7 +71,7 @@
 		<filter-class>com.crop.seagulls.filter.LoginFilter</filter-class>
 		<init-param>
 			<param-name>includeURL</param-name>
-			<param-value>/supply/publish/</param-value>
+			<param-value>/supply/publish/,/buy/publish/</param-value>
 		</init-param>
 	</filter>
 

@@ -9,5 +9,6 @@
 		<typeAlias alias="productUnit" type="com.crop.seagulls.entities.ProductUnit" />
 		<typeAlias alias="productPeriod" type="com.crop.seagulls.entities.ProductPeriod" />
 		<typeAlias alias="supply" type="com.crop.seagulls.entities.Supply" />
+		<typeAlias alias="buy" type="com.crop.seagulls.entities.Buy" />
 	</typeAliases>
 </configuration>

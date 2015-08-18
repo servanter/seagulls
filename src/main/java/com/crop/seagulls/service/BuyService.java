@@ -1,5 +1,7 @@
 package com.crop.seagulls.service;
 
+import java.util.Map;
+
 import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.entities.Buy;
@@ -36,4 +38,12 @@ public interface BuyService {
      * @return
      */
     public Response modifyBuy(Buy buy);
+
+    /**
+     * Find list
+     * 
+     * @param buy
+     * @return
+     */
+    public Map<String, Object> querySuppliesWithExt(Buy buy);
 }

@@ -6,7 +6,7 @@ $(function () {
 				alert(data.message);
 			} else {
 				alert("success");
-				BaseUtils.redirect(BaseUtils.proPath + data.result);
+				BaseUtils.redirect(BaseUtils.proPath);
 			}
 		}};
 		$("#form-publish").ajaxSubmit(option);
@@ -29,7 +29,7 @@ $(function () {
 	
 	$('body').on('click', '.suggest-li', function() {
 		$("#product-name").val($(this).attr('param'));
-		$('input[name=pageCategoryId]').val($(this).attr('data'));
+		$('input[name=addCategoryId]').val($(this).attr('data'));
 		$('#suggest_div').hide();
 	})
 });

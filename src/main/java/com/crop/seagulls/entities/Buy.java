@@ -42,6 +42,8 @@ public class Buy extends Page {
 
     private Double quantity;
 
+    private Long buyUnitId;
+
     private Double startPrice;
 
     private Double endPrice;
@@ -66,14 +68,31 @@ public class Buy extends Page {
 
     private Integer status;
 
+    private Long searchCategoryId;
+    private Integer searchOrderBy;
+    private Category searchCategory1;
+    private Category searchCategory2;
+    private Category searchCategory3;
+    private ProductPeriod searchStartTime;
+    private Area searchArea;
+
+    private Long addCategoryId;
+    
+    private String pagePrice;
+    private String pageTimeAlias;
+    private Category pageCategory;
+    private ProductPeriod pageStartPeriod;
+    private ProductPeriod pageEndPeriod;
+    private ProductUnit pageBuyUnit;
+
     public Buy() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    public Buy(Long id, Long categoryId1, Long categoryId2, Long categoryId3, Long varietiesId, String title, Long provinceId, Long cityId, Long areaId, Long startTime,
-            Long endTime, Double quantity, Double startPrice, Double endPrice, Long unitId, String note, String contactName, String contactPhone, Date createTime,
-            Long createUserId, Timestamp updateTime, Date auditTime, Long auditId, Integer status) {
+    public Buy(Long id, Long categoryId1, Long categoryId2, Long categoryId3, Long varietiesId, String title, Long provinceId, Long cityId, Long areaId, Long startTime, Long endTime, Double quantity,
+            Long buyUnitId, Double startPrice, Double endPrice, Long unitId, String note, String contactName, String contactPhone, Date createTime, Long createUserId, Timestamp updateTime,
+            Date auditTime, Long auditId, Integer status) {
         super();
         this.id = id;
         this.categoryId1 = categoryId1;
@@ -87,6 +106,7 @@ public class Buy extends Page {
         this.startTime = startTime;
         this.endTime = endTime;
         this.quantity = quantity;
+        this.buyUnitId = buyUnitId;
         this.startPrice = startPrice;
         this.endPrice = endPrice;
         this.unitId = unitId;
@@ -293,6 +313,94 @@ public class Buy extends Page {
         this.status = status;
     }
 
+    public Long getSearchCategoryId() {
+        return searchCategoryId;
+    }
+
+    public void setSearchCategoryId(Long searchCategoryId) {
+        this.searchCategoryId = searchCategoryId;
+    }
+
+    public Integer getSearchOrderBy() {
+        return searchOrderBy;
+    }
+
+    public void setSearchOrderBy(Integer searchOrderBy) {
+        this.searchOrderBy = searchOrderBy;
+    }
+
+    public Category getSearchCategory1() {
+        return searchCategory1;
+    }
+
+    public void setSearchCategory1(Category searchCategory1) {
+        this.searchCategory1 = searchCategory1;
+    }
+
+    public Category getSearchCategory2() {
+        return searchCategory2;
+    }
+
+    public void setSearchCategory2(Category searchCategory2) {
+        this.searchCategory2 = searchCategory2;
+    }
+
+    public Category getSearchCategory3() {
+        return searchCategory3;
+    }
+
+    public void setSearchCategory3(Category searchCategory3) {
+        this.searchCategory3 = searchCategory3;
+    }
+
+    public Area getSearchArea() {
+        return searchArea;
+    }
+
+    public void setSearchArea(Area searchArea) {
+        this.searchArea = searchArea;
+    }
+
+    public String getPagePrice() {
+        return pagePrice;
+    }
+
+    public void setPagePrice(String pagePrice) {
+        this.pagePrice = pagePrice;
+    }
+
+    public String getPageTimeAlias() {
+        return pageTimeAlias;
+    }
+
+    public void setPageTimeAlias(String pageTimeAlias) {
+        this.pageTimeAlias = pageTimeAlias;
+    }
+
+    public Category getPageCategory() {
+        return pageCategory;
+    }
+
+    public void setPageCategory(Category pageCategory) {
+        this.pageCategory = pageCategory;
+    }
+
+    public ProductPeriod getPageStartPeriod() {
+        return pageStartPeriod;
+    }
+
+    public void setPageStartPeriod(ProductPeriod pageStartPeriod) {
+        this.pageStartPeriod = pageStartPeriod;
+    }
+
+    public ProductPeriod getPageEndPeriod() {
+        return pageEndPeriod;
+    }
+
+    public void setPageEndPeriod(ProductPeriod pageEndPeriod) {
+        this.pageEndPeriod = pageEndPeriod;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -454,6 +562,38 @@ public class Buy extends Page {
         } else if (!varietiesId.equals(other.varietiesId))
             return false;
         return true;
+    }
+
+    public ProductPeriod getSearchStartTime() {
+        return searchStartTime;
+    }
+
+    public void setSearchStartTime(ProductPeriod searchStartTime) {
+        this.searchStartTime = searchStartTime;
+    }
+
+    public Long getBuyUnitId() {
+        return buyUnitId;
+    }
+
+    public void setBuyUnitId(Long buyUnitId) {
+        this.buyUnitId = buyUnitId;
+    }
+
+    public ProductUnit getPageBuyUnit() {
+        return pageBuyUnit;
+    }
+
+    public void setPageBuyUnit(ProductUnit pageBuyUnit) {
+        this.pageBuyUnit = pageBuyUnit;
+    }
+
+    public Long getAddCategoryId() {
+        return addCategoryId;
+    }
+
+    public void setAddCategoryId(Long addCategoryId) {
+        this.addCategoryId = addCategoryId;
     }
 
 }
