@@ -37,4 +37,7 @@ public interface SupplyService {
      * @return
      */
     public Response modifySupply(Supply supply);
+    
+    
+    public Supply findById(Long id);
 }

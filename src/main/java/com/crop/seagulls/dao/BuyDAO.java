@@ -18,4 +18,6 @@ public interface BuyDAO {
     public Integer findBuiesCount(Buy buy);
     
     public List<Long> findAllProvincesByBuy(Buy buy);
+
+    public Buy getById(Long id);
 }

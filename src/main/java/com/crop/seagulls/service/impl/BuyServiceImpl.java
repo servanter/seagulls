@@ -180,4 +180,13 @@ public class BuyServiceImpl implements BuyService {
         return new Paging<Buy>(totalCount, buy.getPage(), buy.getPageSize(), list);
     }
 
+    @Override
+    public Map<String, Object> findById(Long id) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        Buy result = buyDAO.getById(id);
+        map.put("units", productRelationCache.getUNITS());
+        map.put("buy", result);
+        return map;
+    }
+
 }

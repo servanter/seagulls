@@ -46,4 +46,6 @@ public interface BuyService {
      * @return
      */
     public Map<String, Object> querySuppliesWithExt(Buy buy);
+
+    public Map<String, Object> findById(Long id);
 }

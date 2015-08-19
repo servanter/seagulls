@@ -19,4 +19,5 @@ public interface SupplyDAO {
 
     public List<Long> findAllProvincesBySupply(Supply supply);
 
+    public Supply getById(Long id);
 }

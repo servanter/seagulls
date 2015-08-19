@@ -47,8 +47,6 @@ public class DateUtils {
         long moreThan = 0;
         long ago = date.getTime();
         long now = System.currentTimeMillis();
-        System.out.println(MONTH);
-        System.out.println(YEAR);
         if (now - ago < SECOUND) {
             type = 0;
         } else if (((now - ago) > SECOUND) && ((now - ago) <= MINUTE)) {

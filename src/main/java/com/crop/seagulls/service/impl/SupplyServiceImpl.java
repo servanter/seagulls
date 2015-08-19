@@ -133,21 +133,7 @@ public class SupplyServiceImpl implements SupplyService {
                 ProductUnit unit = productRelationCache.getUnitById(supply.getUnitId());
                 supply.setPagePrice(templateService.getMessage("page.product.price", supply.getStartPrice().toString(), supply.getEndPrice().toString(), unit.getTitle()));
 
-                String addr = "";
-                Long provinceId = supply.getProvinceId();
-                Long cityId = supply.getCityId();
-                Long areaId = supply.getAreaId();
-
-                // if has area, then display province and area.
-                // else display province and city
-                if (areaId != null && areaId > 0L && areaCache.getById(areaId) != null && areaCache.getById(provinceId) != null) {
-                    addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(areaId).getZhName();
-                } else if (cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(provinceId) != null) {
-                    addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(cityId).getZhName();
-                } else if (areaCache.getById(provinceId) != null) {
-                    addr = areaCache.getById(provinceId).getZhName();
-                }
-                supply.setPageOriginAddr(addr);
+                initAttr(supply);
 
                 // find category
                 if (NumberUtils.isValidateNumber(supply.getCategoryId3()) && categoryCache.getById(supply.getCategoryId3()) != null) {
@@ -165,6 +151,24 @@ public class SupplyServiceImpl implements SupplyService {
                 supply.setPageTimeAlias(templateService.getMessage("page.time_alias_" + dateType.getType(), String.valueOf(dateType.getMoreThan())));
             }
         }
+    }
+
+    private void initAttr(Supply supply) {
+        String addr = "";
+        Long provinceId = supply.getProvinceId();
+        Long cityId = supply.getCityId();
+        Long areaId = supply.getAreaId();
+
+        // if has area, then display province and area.
+        // else display province and city
+        if (areaId != null && areaId > 0L && areaCache.getById(areaId) != null && areaCache.getById(provinceId) != null) {
+            addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(areaId).getZhName();
+        } else if (cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(provinceId) != null) {
+            addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(cityId).getZhName();
+        } else if (areaCache.getById(provinceId) != null) {
+            addr = areaCache.getById(provinceId).getZhName();
+        }
+        supply.setPageOriginAddr(addr);
     }
 
     private Response checkValidate(Supply supply) {
@@ -187,5 +191,41 @@ public class SupplyServiceImpl implements SupplyService {
                 }
             }
         }
+    }
+
+    @Override
+    public Supply findById(Long id) {
+        Supply supply = supplyDAO.getById(id);
+        if (supply != null) {
+            supply.setPageStartPeriod(productRelationCache.getPeriodById(supply.getStartTime()));
+            supply.setPageEndPeriod(productRelationCache.getPeriodById(supply.getEndTime()));
+            initAttr(supply);
+            ProductUnit unit = productRelationCache.getUnitById(supply.getUnitId());
+            supply.setPageProductUnit(unit);
+            
+            long categoryId = -1L;
+            // find category
+            if (NumberUtils.isValidateNumber(supply.getCategoryId3()) && categoryCache.getById(supply.getCategoryId3()) != null) {
+                categoryId = supply.getCategoryId3();
+                supply.setPageCategory(categoryCache.getById(supply.getCategoryId3()));
+            } else if (NumberUtils.isValidateNumber(supply.getCategoryId2()) && categoryCache.getById(supply.getCategoryId2()) != null) {
+                categoryId = supply.getCategoryId2();
+                supply.setPageCategory(categoryCache.getById(supply.getCategoryId2()));
+            } else if (NumberUtils.isValidateNumber(supply.getCategoryId1()) && categoryCache.getById(supply.getCategoryId1()) != null) {
+                categoryId = supply.getCategoryId1();
+                supply.setPageCategory(categoryCache.getById(supply.getCategoryId1()));
+            }
+            Map<String, Category> map = categoryCache.getSequenceCategoies(categoryId, 2);
+            if (MapUtils.isNotEmpty(map)) {
+                for (String key : map.keySet()) {
+                    try {
+                        MethodUtils.invokeMethod(supply, key, map.get(key));
+                    } catch (Exception e) {
+                        logger.error("Invoke {0} methods error.", map);
+                    }
+                }
+            }
+        }
+        return supply;
     }
 }

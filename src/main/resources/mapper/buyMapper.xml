@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.crop.seagulls.dao.SupplyDAO">
+<mapper namespace="com.crop.seagulls.dao.BuyDAO">
 
-	<resultMap id="supplyMap" type="supply">
+	<resultMap id="buyMap" type="buy">
 		<result property="id" column="id" />
 		<result property="categoryId1" column="category_id_1" />
 		<result property="categoryId2" column="category_id_2" />
@@ -14,6 +14,8 @@
 		<result property="areaId" column="area_id" />
 		<result property="startTime" column="start_time" />
 		<result property="endTime" column="end_time" />
+		<result property="quantity" column="quantity" />
+		<result property="buyUnitId" column="buy_unit_id" />
 		<result property="startPrice" column="start_price" />
 		<result property="endPrice" column="end_price" />
 		<result property="unitId" column="unit_id" />
@@ -31,13 +33,13 @@
 	<sql id="base_columns">
 		id, category_id_1, category_id_2, category_id_3, varieties_id,
 		title, province_id, city_id, area_id, start_time, end_time,
-		start_price, end_price, unit_id, note, contact_name,
-		contact_phone, create_time, create_user_id, update_time,
-		audit_time, audit_id, status
+		quantity, buy_unit_id, start_price, end_price, unit_id, note,
+		contact_name, contact_phone, create_time, create_user_id,
+		update_time, audit_time, audit_id, status
 	</sql>
 
-	<insert id="save" parameterType="supply">
-		INSERT INTO crop_supply
+	<insert id="save" parameterType="buy">
+		INSERT INTO crop_buy
 		(category_id_1
 		<if test="categoryId2 != null and categoryId2 > 0">,category_id_2</if>
 		<if test="categoryId3 != null and categoryId3 > 0">,category_id_3</if>
@@ -48,6 +50,8 @@
 		<if test="areaId != null and areaId > 0">,area_id</if>
 		<if test="startTime != null and startTime !='' ">,start_time</if>
 		<if test="endTime != null and endTime !='' ">,end_time</if>
+		<if test="quantity != null and quantity > 0">,quantity</if>
+		<if test="buyUnitId != null and buyUnitId > 0">,buy_unit_id</if>
 		<if test="startPrice != null and startPrice > 0">,start_price</if>
 		<if test="endPrice != null and endPrice > 0">,end_price</if>
 		<if test="unitId != null and unitId > 0">,unit_id</if>
@@ -69,6 +73,8 @@
 		<if test="areaId != null and areaId > 0">,#{areaId}</if>
 		<if test="startTime != null and startTime !='' ">,#{startTime}</if>
 		<if test="endTime != null and endTime !='' ">,#{endTime}</if>
+		<if test="quantity != null and quantity > 0">,#{quantity}</if>
+		<if test="buyUnitId != null and buyUnitId > 0">,#{buyUnitId}</if>
 		<if test="startPrice != null and startPrice > 0">,#{startPrice}</if>
 		<if test="endPrice != null and endPrice > 0">,#{endPrice}</if>
 		<if test="unitId != null and unitId > 0">,#{unitId}</if>
@@ -84,8 +90,8 @@
 		</selectKey>
 	</insert>
 
-	<select id="findSupplies" parameterType="supply" resultMap="supplyMap">
-		SELECT <include refid="base_columns"/> FROM crop_supply
+	<select id="findBuies" parameterType="buy" resultMap="buyMap">
+		SELECT <include refid="base_columns"/> FROM crop_buy
 		<where>
 			<if test="categoryId1 != null and categoryId1 > 0">
 				AND category_id_1 = #{categoryId1}
@@ -113,14 +119,11 @@
 			</if>
 		</where>	
 		AND status = 1
-		<if test="searchOrderBy != null and searchOrderBy == 0">ORDER BY update_time DESC</if>
-		<if test="searchOrderBy != null and searchOrderBy == 1">ORDER BY start_price ASC</if>
-		<if test="searchOrderBy != null and searchOrderBy == 2">ORDER BY end_price DESC</if>
 		LIMIT #{sinceCount}, #{pageSize}
 	</select>
 	
-	<select id="findSuppliesCount" parameterType="supply" resultType="int">
-		SELECT COUNT(*) FROM crop_supply
+	<select id="findBuiesCount" parameterType="buy" resultType="int">
+		SELECT COUNT(*) FROM crop_buy
 		<where>
 			<if test="categoryId1 != null and categoryId1 > 0">
 				AND category_id_1 = #{categoryId1}
@@ -150,8 +153,8 @@
 		</where>
 	</select>
 	
-	<select id="findAllProvincesBySupply" parameterType="supply" resultType="long">
-		SELECT DISTINCT(province_id) FROM crop_supply
+	<select id="findAllProvincesByBuy" parameterType="buy" resultType="long">
+		SELECT DISTINCT(province_id) FROM crop_buy
 		<where>
 			<if test="categoryId1 != null and categoryId1 > 0">
 				AND category_id_1 = #{categoryId1}
@@ -172,7 +175,7 @@
 		</where>
 	</select>
 	
-	<select id="getById" parameterType="long" resultMap="supplyMap">
-		SELECT <include refid="base_columns"/> FROM crop_supply WHERE id = #{id} AND status = 1
+	<select id="getById" parameterType="long" resultMap="buyMap">
+		SELECT <include refid="base_columns"/> FROM crop_buy WHERE id = #{id} AND status = 1
 	</select>
 </mapper>

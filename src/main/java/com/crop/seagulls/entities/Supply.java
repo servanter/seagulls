@@ -82,6 +82,7 @@ public class Supply extends Page {
     private Category pageCategory;
     private ProductPeriod pageStartPeriod;
     private ProductPeriod pageEndPeriod;
+    private ProductUnit pageProductUnit;
 
     public Supply() {
         super();
@@ -575,6 +576,14 @@ public class Supply extends Page {
 
     public void setAddCategoryId(Long addCategoryId) {
         this.addCategoryId = addCategoryId;
+    }
+
+    public ProductUnit getPageProductUnit() {
+        return pageProductUnit;
+    }
+
+    public void setPageProductUnit(ProductUnit pageProductUnit) {
+        this.pageProductUnit = pageProductUnit;
     }
 
 }
