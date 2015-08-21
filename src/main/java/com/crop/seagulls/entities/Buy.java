@@ -84,6 +84,9 @@ public class Buy extends Page {
     private ProductPeriod pageStartPeriod;
     private ProductPeriod pageEndPeriod;
     private ProductUnit pageBuyUnit;
+    private ProductUnit pageUnit;
+    private String pageOriginAddr;
+    private String pageQuantity;
 
     public Buy() {
         super();
@@ -594,6 +597,30 @@ public class Buy extends Page {
 
     public void setAddCategoryId(Long addCategoryId) {
         this.addCategoryId = addCategoryId;
+    }
+
+    public String getPageOriginAddr() {
+        return pageOriginAddr;
+    }
+
+    public void setPageOriginAddr(String pageOriginAddr) {
+        this.pageOriginAddr = pageOriginAddr;
+    }
+
+    public ProductUnit getPageUnit() {
+        return pageUnit;
+    }
+
+    public void setPageUnit(ProductUnit pageUnit) {
+        this.pageUnit = pageUnit;
+    }
+
+    public String getPageQuantity() {
+        return pageQuantity;
+    }
+
+    public void setPageQuantity(String pageQuantity) {
+        this.pageQuantity = pageQuantity;
     }
 
 }

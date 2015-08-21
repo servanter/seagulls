@@ -47,7 +47,7 @@ public class UserController {
     public Response login(User user, @RequestParam(value="redirectUrl", required = false) String redirect, HttpSession session) {
         Response result = userService.login(user);
         if (ReturnCode.isSuccess(result.getReturnCode())) {
-            SessionUtils.setValue(session, Constant.LOGIN_USER, user);
+            SessionUtils.setValue(session, Constant.LOGIN_USER, result.getResult());
             result.setResult(redirect);
         }
         return result;

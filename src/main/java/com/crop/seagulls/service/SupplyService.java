@@ -1,5 +1,6 @@
 package com.crop.seagulls.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.crop.seagulls.bean.Response;
@@ -17,9 +18,10 @@ public interface SupplyService {
      * Add supply
      * 
      * @param supply
+     * @param webImagesPath
      * @return
      */
-    public Response add(Supply supply);
+    public Response add(Supply supply, List<String> webImagesPath);
 
     /**
      * Query suppies
@@ -39,5 +41,5 @@ public interface SupplyService {
     public Response modifySupply(Supply supply);
     
     
-    public Supply findById(Long id);
+    public Map<String, Object> findById(Long id);
 }

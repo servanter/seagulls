@@ -24,6 +24,8 @@ import com.crop.seagulls.entities.Area;
 import com.crop.seagulls.entities.Category;
 import com.crop.seagulls.entities.ProductUnit;
 import com.crop.seagulls.entities.Supply;
+import com.crop.seagulls.entities.SupplyPic;
+import com.crop.seagulls.service.SupplyPicService;
 import com.crop.seagulls.service.SupplyService;
 import com.crop.seagulls.service.TemplateService;
 import com.crop.seagulls.util.DateType;
@@ -50,9 +52,12 @@ public class SupplyServiceImpl implements SupplyService {
 
     @Autowired
     private TemplateService templateService;
+    
+    @Autowired
+    private SupplyPicService supplyPicService;
 
     @Override
-    public Response add(Supply supply) {
+    public Response add(Supply supply, List<String> webImagesPath) {
         Response response = new Response();
         response.setReturnCode(ReturnCode.SUCCESS);
         Response checkResponse = checkValidate(supply);
@@ -61,6 +66,18 @@ public class SupplyServiceImpl implements SupplyService {
             supplyDAO.save(supply);
             if (supply.getId() == null || supply.getId() <= 0L) {
                 response.setReturnCode(ReturnCode.ERROR);
+            } else {
+                if(CollectionUtils.isNotEmpty(webImagesPath)) {
+                    for(String picUrl : webImagesPath) {
+                        SupplyPic pic = new SupplyPic();
+                        pic.setSupplyId(supply.getId());
+                        pic.setCreateUserId(supply.getCreateUserId());
+                        pic.setCreateTime(new Date());
+                        pic.setImgUrl(picUrl);
+                        pic.setOperatorId(supply.getCreateUserId());
+                        supplyPicService.add(pic);
+                    }
+                }
             }
         } else {
             response = checkResponse;
@@ -194,7 +211,8 @@ public class SupplyServiceImpl implements SupplyService {
     }
 
     @Override
-    public Supply findById(Long id) {
+    public Map<String, Object> findById(Long id) {
+        Map<String, Object> result = new HashMap<String, Object>();
         Supply supply = supplyDAO.getById(id);
         if (supply != null) {
             supply.setPageStartPeriod(productRelationCache.getPeriodById(supply.getStartTime()));
@@ -226,6 +244,8 @@ public class SupplyServiceImpl implements SupplyService {
                 }
             }
         }
-        return supply;
+        result.put("pics", supplyPicService.queryBySupplyId(id));
+        result.put("supply", supply);
+        return result;
     }
 }

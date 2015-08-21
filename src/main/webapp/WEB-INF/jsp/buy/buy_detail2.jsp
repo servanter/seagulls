@@ -19,7 +19,6 @@
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
 <script type="text/javascript" src="${ctx }/js/showhide.js"></script>
 <script type="text/javascript" src="${ctx }/js/banner_roll_new.js"></script>
-<script type="text/javascript" src="${ctx }/js/supply/supply.js"></script>
 </head>
 <body data-module="wap/item">
 <div class="top wap-banner-div">
@@ -56,65 +55,42 @@
     <div>
         <div class="d-tit2">
             <a href="${ctx }/supply_cate_0/">供应</a> &gt; 
-            <c:if test="${supply.searchCategory1 ne null}">
-            	<a href="${ctx }/supply/supply_list_c${supply.searchCategory1.id }p0t0o0n1/">${supply.searchCategory1.zhName }</a>
+            <c:if test="${buy.searchCategory1 ne null}">
+            	<a href="${ctx }/buy/buy_list_c${buy.searchCategory1.id }p0t0n1/">${buy.searchCategory1.zhName }</a>
             </c:if>
-            <c:if test="${supply.searchCategory2 ne null}">
-            	&gt; <a href="${ctx }/supply/supply_list_c${supply.searchCategory2.id }p0t0o0n1/">${supply.searchCategory2.zhName }</a>
+            <c:if test="${buy.searchCategory2 ne null}">
+            	&gt; <a href="${ctx }/buy/buy_list_c${buy.searchCategory2.id }p0t0n1/">${buy.searchCategory2.zhName }</a>
             </c:if>
-            <c:if test="${supply.searchCategory3 ne null}">
-            	&gt; <a href="${ctx }/supply/supply_list_c${supply.searchCategory3.id }p0t0o0n1/">${supply.searchCategory3.zhName }</a>
+            <c:if test="${buy.searchCategory3 ne null}">
+            	&gt; <a href="${ctx }/buy/buy_list_c${buy.searchCategory3.id }p0t0n1/">${buy.searchCategory3.zhName }</a>
             </c:if>
+            
         </div>
-        <c:if test="${fn:length(pics) > 0}">
-	        <div>
-		        <ul class="item-img-body">
-	            	<c:forEach var="pic" items="${pics}" varStatus="i">
-	            		<c:choose>
-	            			<c:when test="${i.index == 0}">
-	            				<li class="prod-img-0 hide" style="display: list-item;">
-				                	<img src="${ctx }${pic.imgUrl }" alt="">
-				                </li>
-	            			</c:when>
-	            			<c:otherwise>
-	            				<li class="prod-img-1" style="display: none;">
-				                	<img src="${ctx }${pic.imgUrl }" alt="">
-				                </li>
-	            			</c:otherwise>
-	            		</c:choose>
-	            	</c:forEach>
-		        </ul>
-		        <div class="huan-div">
-					<a class="huan-btn" data-id="0" href="javascript:;"></a>
-					<a class="huan-btn active" data-id="1" href="javascript:;"></a>
-		        </div>
-	        </div>
-        </c:if>
         <div class="item-title">
-            <span class="green" style="width:20%">${supply.pageCategory.zhName }</span>
+            <span class="green" style="width:20%">${buy.pageCategory.zhName }</span>
             <span class="red" style="width:40%"> 
-        		${supply.startPrice }~${supply.endPrice }元/${supply.pageProductUnit.title }  
+        		${buy.startPrice }~${buy.endPrice }元/${buy.pageUnit.title }  
             </span>
             <a rel="nofollow" class="purchase-btn" href="http://m.ymt.com/supply/order/50581588">立即采购</a>
         </div>
         <div class="item-cont">
-            <!-- 这个是文字版的导流条，导流目标是行情下的该产品的页面 -->
-            <div>发布时间：<fmt:formatDate value="${supply.createTime }" pattern="yyyy-MM-dd HH:mm:ss"/></div>
-            <div>上市时间：${supply.pageStartPeriod.title } 到 ${supply.pageEndPeriod.title }</div>
-            <div>供货地：${supply.pageOriginAddr }</div>
+            <div>发布时间：<fmt:formatDate value="${buy.createTime }" pattern="yyyy-MM-dd HH:mm:ss"/></div>
+            <div>求购时间：${buy.pageStartPeriod.title } 到 ${buy.pageEndPeriod.title }</div>
+            <div>采购量：${buy.pageQuantity }${buy.pageBuyUnit.title }</div>
+            <div>供货地：${buy.pageOriginAddr }</div>
         </div>
         <div class="item-user">
             <div class="item-head">
-            	供应商详情
+            	采购详情
             </div>
-            ${supply.contactName }&nbsp;电话:${supply.contactPhone }<br>
+            ${buy.contactName }&nbsp;电话:${buy.contactPhone }<br>
             <br>
         </div>
         <div class="item-cont">
             <div class="item-head">
             	商品详情
             </div>
-            ${supply.note }
+            ${buy.note }
         </div>
     </div>
 </div>

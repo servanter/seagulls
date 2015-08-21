@@ -32,6 +32,7 @@ public class UserServiceImpl implements UserService {
         User u = userDAO.getUserByNameAndPass(user);
         Response response = new Response();
         response.setReturnCode(u != null ? ReturnCode.SUCCESS : ReturnCode.USER_OR_PASSWORD_UNVALID);
+        response.setResult(u);
         return response;
     }
 

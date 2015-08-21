@@ -11,4 +11,5 @@ public interface SupplyPicDAO {
 
     public List<SupplyPic> findBySupplyId(Long id);
 
+    public void save(SupplyPic pic);
 }

@@ -10,5 +10,6 @@
 		<typeAlias alias="productPeriod" type="com.crop.seagulls.entities.ProductPeriod" />
 		<typeAlias alias="supply" type="com.crop.seagulls.entities.Supply" />
 		<typeAlias alias="buy" type="com.crop.seagulls.entities.Buy" />
+		<typeAlias alias="supplyPic" type="com.crop.seagulls.entities.SupplyPic" />
 	</typeAliases>
 </configuration>

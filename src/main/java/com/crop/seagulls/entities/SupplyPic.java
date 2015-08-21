@@ -32,6 +32,8 @@ public class SupplyPic extends Page {
 
     private Timestamp updateTime;
 
+    private Long createUserId;
+
     private Long operatorId;
 
     public SupplyPic() {
@@ -39,7 +41,7 @@ public class SupplyPic extends Page {
         // TODO Auto-generated constructor stub
     }
 
-    public SupplyPic(Long id, Long supplyId, String imgUrl, Boolean isFirst, Boolean isValid, Date createTime, Timestamp updateTime, Long operatorId) {
+    public SupplyPic(Long id, Long supplyId, String imgUrl, Boolean isFirst, Boolean isValid, Date createTime, Timestamp updateTime, Long createUserId, Long operatorId) {
         super();
         this.id = id;
         this.supplyId = supplyId;
@@ -48,6 +50,7 @@ public class SupplyPic extends Page {
         this.isValid = isValid;
         this.createTime = createTime;
         this.updateTime = updateTime;
+        this.createUserId = createUserId;
         this.operatorId = operatorId;
     }
 
@@ -56,6 +59,7 @@ public class SupplyPic extends Page {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((createTime == null) ? 0 : createTime.hashCode());
+        result = prime * result + ((createUserId == null) ? 0 : createUserId.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((imgUrl == null) ? 0 : imgUrl.hashCode());
         result = prime * result + ((isFirst == null) ? 0 : isFirst.hashCode());
@@ -79,6 +83,11 @@ public class SupplyPic extends Page {
             if (other.createTime != null)
                 return false;
         } else if (!createTime.equals(other.createTime))
+            return false;
+        if (createUserId == null) {
+            if (other.createUserId != null)
+                return false;
+        } else if (!createUserId.equals(other.createUserId))
             return false;
         if (id == null) {
             if (other.id != null)
@@ -116,6 +125,78 @@ public class SupplyPic extends Page {
         } else if (!updateTime.equals(other.updateTime))
             return false;
         return true;
+    }
+
+    public Long getCreateUserId() {
+        return createUserId;
+    }
+
+    public void setCreateUserId(Long createUserId) {
+        this.createUserId = createUserId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getSupplyId() {
+        return supplyId;
+    }
+
+    public void setSupplyId(Long supplyId) {
+        this.supplyId = supplyId;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public Boolean getIsFirst() {
+        return isFirst;
+    }
+
+    public void setIsFirst(Boolean isFirst) {
+        this.isFirst = isFirst;
+    }
+
+    public Boolean getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(Boolean isValid) {
+        this.isValid = isValid;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Timestamp getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Timestamp updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Long getOperatorId() {
+        return operatorId;
+    }
+
+    public void setOperatorId(Long operatorId) {
+        this.operatorId = operatorId;
     }
 
 }

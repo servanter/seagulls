@@ -19,6 +19,8 @@ public enum ReturnCode {
     IMAGE_CODE_ERROR(99990, "验证码错误"),
     
     SMS_CODE_ERROR(99991, "验证码错误"),
+    
+    UPLOAD_OVERFLOW_ERROR(99980, "上传文件过大"),
 
     ERROR(99999, "系统错误");
 

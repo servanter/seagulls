@@ -54,7 +54,7 @@
 </ul>
 </nav>
 <div class="content">
-    <form method="post" id="form-publish">
+    <form method="post" id="form-publish" enctype="multipart/form-data">
         <div class="top_f">
             填写供应信息
         </div>
@@ -68,7 +68,7 @@
             </div>
             <div class="file-img">
                 <a href="http://m.ymt.com/supply/publish###" class="upload_btn"><img src="${ctx }/images/add_pic.png" alt=""></a>
-                <input type="file" class="upload_btn-2" id="input-img">
+                <input name="file" type="file" class="upload_btn-2" id="input-img">
             </div>
         </div>
         <div id="sec-prod">

@@ -376,12 +376,9 @@ body,html{background-color:#fff;}
 .huan-div{
     width:100%;
     height:25px;
-    position:absolute;
     line-height:25px;
     text-align:center;
-    bottom:0px;
-    left:0px;
-    z-index:9998;
+    margin-top:5px;
 }
 .huan-div a{
     display:inline-block;

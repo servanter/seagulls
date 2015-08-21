@@ -29,6 +29,7 @@ import com.crop.seagulls.util.DateType;
 import com.crop.seagulls.util.DateUtils;
 import com.crop.seagulls.util.Logger;
 import com.crop.seagulls.util.NumberUtils;
+import com.crop.seagulls.util.TextUtils;
 
 @Service
 public class BuyServiceImpl implements BuyService {
@@ -183,10 +184,63 @@ public class BuyServiceImpl implements BuyService {
     @Override
     public Map<String, Object> findById(Long id) {
         Map<String, Object> map = new HashMap<String, Object>();
-        Buy result = buyDAO.getById(id);
-        map.put("units", productRelationCache.getUNITS());
-        map.put("buy", result);
+        Buy buy = buyDAO.getById(id);
+        map.put("buy", buy);
+        initAttr(buy);
+        buy.setPageStartPeriod(productRelationCache.getPeriodById(buy.getStartTime()));
+        buy.setPageEndPeriod(productRelationCache.getPeriodById(buy.getEndTime()));
+        
+        buy.setPageUnit(productRelationCache.getUnitById(buy.getUnitId()));
+        buy.setPageBuyUnit(productRelationCache.getUnitById(buy.getBuyUnitId()));
+        
+        buy.setPageStartPeriod(productRelationCache.getPeriodById(buy.getStartTime()));
+        buy.setPageEndPeriod(productRelationCache.getPeriodById(buy.getEndTime()));
+
+        packageSearchModel(buy);
+        buy.setPageQuantity(TextUtils.removeEndZero(buy.getQuantity().toString()));
+        
+        long category = -1;
+        // find category
+        if (NumberUtils.isValidateNumber(buy.getCategoryId3()) && categoryCache.getById(buy.getCategoryId3()) != null) {
+            buy.setPageCategory(categoryCache.getById(buy.getCategoryId3()));
+            category = categoryCache.getById(buy.getCategoryId3()).getId();
+        } else if (NumberUtils.isValidateNumber(buy.getCategoryId2()) && categoryCache.getById(buy.getCategoryId2()) != null) {
+            buy.setPageCategory(categoryCache.getById(buy.getCategoryId2()));
+            category = categoryCache.getById(buy.getCategoryId2()).getId();
+        } else if (NumberUtils.isValidateNumber(buy.getCategoryId1()) && categoryCache.getById(buy.getCategoryId1()) != null) {
+            buy.setPageCategory(categoryCache.getById(buy.getCategoryId1()));
+            category = categoryCache.getById(buy.getCategoryId1()).getId();
+        }
+        
+        Map<String, Category> methodMap = categoryCache.getSequenceCategoies(category, 2);
+        if (MapUtils.isNotEmpty(methodMap)) {
+            for (String key : methodMap.keySet()) {
+                try {
+                    MethodUtils.invokeMethod(buy, key, methodMap.get(key));
+                } catch (Exception e) {
+                    logger.error("Invoke {0} methods error.", methodMap);
+                }
+            }
+        }
         return map;
+    }
+    
+    private void initAttr(Buy buy) {
+        String addr = "";
+        Long provinceId = buy.getProvinceId();
+        Long cityId = buy.getCityId();
+        Long areaId = buy.getAreaId();
+
+        // if has area, then display province and area.
+        // else display province and city
+        if (areaId != null && areaId > 0L && areaCache.getById(areaId) != null && areaCache.getById(provinceId) != null) {
+            addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(areaId).getZhName();
+        } else if (cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(provinceId) != null) {
+            addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(cityId).getZhName();
+        } else if (areaCache.getById(provinceId) != null) {
+            addr = areaCache.getById(provinceId).getZhName();
+        }
+        buy.setPageOriginAddr(addr);
     }
 
 }

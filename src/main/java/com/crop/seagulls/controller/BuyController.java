@@ -93,6 +93,6 @@ public class BuyController {
         for (Entry<String, Object> entry : map.entrySet()) {
             model.addAttribute(entry.getKey(), entry.getValue());
         }
-        return "buy/buy_detail";
+        return "buy/buy_detail2";
     }
 }
