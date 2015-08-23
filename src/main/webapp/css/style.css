@@ -838,6 +838,8 @@ nav li.active{height:40px;line-height:40px;background:#ffdf00;border-left:1px #f
 .m_fabu_xiazai .m_xiazai_right .xiazai{position:relative;display:block;width:120px;height:60px;line-height:60px;margin:0 auto;font-size:0.9em;color:#fff;}
 .m_fabu_xiazai .m_xiazai_right .xiazai .icon_2{position:absolute;top:20px;left:5px;display:inline-block;width:16px;height:23px;background:url(../images/x_icon.png?2015) 0 0 no-repeat;}
 
+.m_xiazai_right .xiazai .icon_1{position:absolute;top:20px;left:5px;display:inline-block;width:18px;height:21px;background:url(../images/f_icon.png) 0 0 no-repeat;}
+
 .m_fabu_xiazai .m_bbs_right{float:left;width:31%;margin-right:2%;text-align:center;background:#009475;border-radius:5px;overflow:hidden;}
 .m_fabu_xiazai .m_bbs_right .bbs_btn{position:relative;display:block;width:120px;height:60px;line-height:60px;margin:0 auto;font-size:0.9em;color:#fff;}
 .m_fabu_xiazai .m_bbs_right .bbs_btn .icon_3{position:absolute;top:23px;left:5px;display:inline-block;width:19px;height:19px;background:url(../images/b_icon.png?2015) 0 0 no-repeat;}

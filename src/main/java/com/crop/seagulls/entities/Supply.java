@@ -66,6 +66,7 @@ public class Supply extends Page {
     private Integer status;
 
     private Long searchCategoryId;
+    private Category searchCategory;
     private Integer searchOrderBy;
     private Category searchCategory1;
     private Category searchCategory2;
@@ -584,6 +585,14 @@ public class Supply extends Page {
 
     public void setPageProductUnit(ProductUnit pageProductUnit) {
         this.pageProductUnit = pageProductUnit;
+    }
+
+    public Category getSearchCategory() {
+        return searchCategory;
+    }
+
+    public void setSearchCategory(Category searchCategory) {
+        this.searchCategory = searchCategory;
     }
 
 }

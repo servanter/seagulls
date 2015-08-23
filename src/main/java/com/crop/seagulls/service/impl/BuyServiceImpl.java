@@ -124,6 +124,8 @@ public class BuyServiceImpl implements BuyService {
         if (productRelationCache.getPeriodById(buy.getStartTime()) != null) {
             buy.setSearchStartTime(productRelationCache.getPeriodById(buy.getStartTime()));
         }
+        
+        buy.setSearchCategory(categoryCache.getById(buy.getSearchCategoryId()));
     }
 
     private void packageModel(List<Buy> buies) {

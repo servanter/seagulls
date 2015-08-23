@@ -9,58 +9,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>一亩田手机版-专业的农产品信息商务平台</title>
+<title>大丰收手机版-专业的农产品信息商务平台</title>
 <meta charset="utf-8">
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-<meta name="Keywords" content="农产品,三农,一亩田">
-<meta name="Description" content="一亩田是专业的农产品信息商务平台,一亩田手机版提供农产品供求信息、实时农产品价格行情,是农业专业人士的网上家园. 帮助中国农村中小企业、个体经纪人、农村专业合作社更好的了解农业动态,把握商机致富增收">
+<meta name="Keywords" content="农产品,三农,大丰收">
+<meta name="Description" content="大丰收是专业的农产品信息商务平台,大丰收手机版提供农产品供求信息、实时农产品价格行情,是农业专业人士的网上家园. 帮助中国农村中小企业、个体经纪人、农村专业合作社更好的了解农业动态,把握商机致富增收">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <link href="./css/app.css" rel="stylesheet" type="text/css">
 <link href="./css/style.css" rel="stylesheet" type="text/css">
-<body data-module="">
-<div class="top wap-banner-div">
-    <a class="wap-banner-item " href="http://m.ymt.com/store"><img src="./images/top_banner.jpg" alt="" title=""></a>
-    <a class="wap-banner-item hide" href="http://m.ymt.com/office?ref=m_banner"><img src="./images/top_banner_2.jpg" alt="" title=""></a>
-    <a class="wap-banner-item hide" href="http://m.ymt.com/reporter"><img src="./images/top_banner_3.jpg" alt="重金打造！最专业的农产品行情" title="重金打造！最专业的农产品行情"></a>
-    <div class="wap-banner-ctrl">
-    </div>
-</div>
-<header>
-<h1><a href="http://m.ymt.com//"><img src="./images/m-logo.png" alt=""></a></h1>
-<div class="right">
-    <div class="search">
-        <input type="text" placeholder="请输入产品名" class="search-txt">
-        <a href="http://m.ymt.com/###" class="i" id="search_home">&nbsp;</a>
-    </div>
-    <div class="sel">
-        <select>
-            <option value="0">供应</option>
-            <option value="1">价格行情</option>
-            <option value="2">采购</option>
-        </select>
-    </div>
-</div>
-</header>
-<nav>
-<ul>
-    <li class="active"><a href="">首页</a></li>
-    <li><a href="">今日行情</a></li>
-    <li><a href="">供应</a></li>
-    <li><a href="">价格行情</a></li>
-    <li class="mr0"><a href="">采购</a></li>
-</ul>
-</nav>
+<body>
+<jsp:include page="/common/header.jsp?nav=1"></jsp:include>
 <div class="content">
     <div class="m_fabu_xiazai">
         <div class="m_fabu_left">
             <a href="${ctx }/supply/publish/" class="fabu_btn"><span class="icon_1"></span>发布供应</a>
         </div>
         <div class="m_xiazai_right">
-            <a href="" class="xiazai"><span class="icon_2"></span>下载APP</a>
+        	<a href="${ctx }/buy/publish/" class="xiazai"><span class="icon_1"></span>发布求购</a>
+            
         </div>
         <div class="m_bbs_right">
-            <a href="" class="bbs_btn"><span class="icon_3"></span>田粉论坛</a>
+            <a href="" class="bbs_btn"><span class="icon_3"></span>粉丝论坛</a>
         </div>
     </div>
     <div class="m_today_market">
@@ -595,36 +565,13 @@
         </div>
     </div>
 </div>
-<div class="m_layer">
-    <div class="login_area">
-        <a href="" class="login">登录</a>
-        <a href="" class="regsiter">注册</a>
-    </div>
-    <div class="return_top">
-        <a onclick="javascript:scroll(0,0)">返回顶部↑</a>
-    </div>
-</div>
-<footer>
-<div class="version">
-    <a href="http://www.ymt.com/?is_wap=1">网页版</a>
-    <a href="http://app.ymt.com/intro">APP版</a>
-    <a href="./homepage.html" class="c_green">触屏版</a>
-</div>
-<p>
-    一亩田农业网-专业的农产品信息商务平台
-</p>
-</footer>
-<div class="fo_fl_w100" style="display: block;">
-    <a class="float_url" id="m_float_download" href="https://itunes.apple.com/cn/app/fei-li/id882549448?mt=8">
-    <img class="fo_fl_img" src="./images/float.png">
-    </a>
-    <a href="javascript:void(0);" class="fo_fl_close"></a>
-</div>
-<script type="text/javascript">
-</script>
-<script type="text/javascript" src="./js/jquery.js"></script>
-<script type="text/javascript" src="./js/showhide.js"></script>
-<script type="text/javascript" src="./js/banner_roll_new.js"></script>
-<script type="text/javascript" src="./js/hangqing_roll.js"></script>
+
+
+<jsp:include page="/common/bottom.jsp"></jsp:include>
+<script type="text/javascript" src="${ctx }/js/jquery.js"></script>
+<script type="text/javascript" src="${ctx }/js/showhide.js"></script>
+<script type="text/javascript" src="${ctx }/js/banner_roll_new.js"></script>
+<script type="text/javascript" src="${ctx }/js/hangqing_roll.js"></script>
+
 </body>
 </html>

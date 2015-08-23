@@ -69,6 +69,7 @@ public class Buy extends Page {
     private Integer status;
 
     private Long searchCategoryId;
+    private Category searchCategory;
     private Integer searchOrderBy;
     private Category searchCategory1;
     private Category searchCategory2;
@@ -77,7 +78,7 @@ public class Buy extends Page {
     private Area searchArea;
 
     private Long addCategoryId;
-    
+
     private String pagePrice;
     private String pageTimeAlias;
     private Category pageCategory;
@@ -621,6 +622,14 @@ public class Buy extends Page {
 
     public void setPageQuantity(String pageQuantity) {
         this.pageQuantity = pageQuantity;
+    }
+
+    public Category getSearchCategory() {
+        return searchCategory;
+    }
+
+    public void setSearchCategory(Category searchCategory) {
+        this.searchCategory = searchCategory;
     }
 
 }

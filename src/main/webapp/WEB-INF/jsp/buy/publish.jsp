@@ -5,12 +5,12 @@
 <head>
 <base href="${pageContext.request.scheme }://${pageContext.request.serverName }:${pageContext.request.serverPort }${pageContext.request.contextPath }/"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>我要卖货_一亩田手机版-专业的农产品信息商务平台</title>
+<title>我要卖货_大丰收手机版-专业的农产品信息商务平台</title>
 <meta charset="utf-8">
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-<meta name="Keywords" content="农产品,三农,一亩田">
-<meta name="Description" content="一亩田是专业的农产品信息商务平台,一亩田手机版提供农产品供求信息、实时农产品价格行情,是农业专业人士的网上家园. 帮助中国农村中小企业、个体经纪人、农村专业合作社更好的了解农业动态,把握商机致富增收">
+<meta name="Keywords" content="农产品,三农,大丰收">
+<meta name="Description" content="大丰收是专业的农产品信息商务平台,大丰收手机版提供农产品供求信息、实时农产品价格行情,是农业专业人士的网上家园. 帮助中国农村中小企业、个体经纪人、农村专业合作社更好的了解农业动态,把握商机致富增收">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <link href="${ctx }/css/app.css" rel="stylesheet" type="text/css">
 <link href="${ctx }/css/style.css" rel="stylesheet" type="text/css">
@@ -20,39 +20,9 @@
 <script type="text/javascript" src="${ctx }/js/area.js"></script>
 <script type="text/javascript" src="${ctx }/js/category_suggest.js"></script>
 <script type="text/javascript" src="${ctx }/js/buy/publish.js"></script>
-
 </head>
-<body data-module="wap/supply/publish">
-<div class="top wap-banner-div">
-    <a class="wap-banner-item " href="http://m.ymt.com/store"><img src="${ctx }/images/d9a2366950e69d5cc4984bb6aadb6686.jpg" alt="" title=""></a>
-    <a class="wap-banner-item hide" href="http://m.ymt.com/office?ref=m_banner"><img src="${ctx }/images/a4a599a2cf86884020108810d56fa216.jpg" alt="" title=""></a>
-    <a class="wap-banner-item hide" href="http://m.ymt.com/reporter"><img src="${ctx }/images/a6cd3605a34d61dc251406dfd4898dd5.jpg" alt="重金打造！最专业的农产品行情" title="重金打造！最专业的农产品行情"></a>
-    <div class="wap-banner-ctrl">
-    </div>
-</div>
-<header>
-<h1><a href="http://m.ymt.com//"><img src="${ctx }/images/m-logo.png" alt=""></a></h1>
-<div class="right">
-    <div class="search">
-        <input type="text" placeholder="请输入产品名" class="search-txt">
-        <a href="http://m.ymt.com/supply/publish###" class="i" id="search_supply">&nbsp;</a>
-    </div>
-    <div class="sel">
-        <select>
-            <option value="0">供应</option>
-            <option value="1">价格行情</option>
-            <option value="2">采购</option>
-        </select>
-    </div>
-</div>
-</header>
-<nav>
-<ul>
-    <li><a href="${ctx }">首页</a></li>
-    <li class="active"><a href="http://m.ymt.com/supply_cate_0">供应</a></li>
-    <li class="mr0"><a href="http://m.ymt.com/buy_cate_0">采购</a></li>
-</ul>
-</nav>
+<body>
+<jsp:include page="/common/header.jsp?nav=3"></jsp:include>
 <div class="content">
     <form method="post" id="form-publish">
         <div class="top_f">
@@ -137,37 +107,13 @@
                 <div class="args">
                 </div>
                 <div class="item">
-                    <input type="checkbox" name="xieyi">我已经认真阅读并同意一亩田的<a href="http://zixun.ymt.com/show-42-35-1.html" class="blue" target="_blank">&lt;供应商线上注册协议&gt;</a>
+                    <input type="checkbox" name="xieyi">我已经认真阅读并同意大丰收的<a href="#" class="blue" target="_blank">&lt;供应商线上注册协议&gt;</a>
                 </div>
                 <input id="btn_publish" type="button" class="fabu_btn" value="确认发布">
             </div>
         </div>
     </form>
 </div>
-<div class="m_layer">
-    <div class="username_area">
-        <span class="username">你好！YMT_679704</span>
-        <a href="http://m.ymt.com/user/logout" class="logout">退出</a>
-    </div>
-    <div class="return_top">
-        <a onclick="javascript:scroll(0,0)">返回顶部↑</a>
-    </div>
-</div>
-<footer>
-<div class="version">
-    <a href="http://www.ymt.com/?is_wap=1">网页版</a>
-    <a href="http://app.ymt.com/intro">APP版</a>
-    <a href="http://m.ymt.com/" class="c_green">触屏版</a>
-</div>
-<p>
-    一亩田农业网-专业的农产品信息商务平台
-</p>
-</footer>
-<div class="fo_fl_w100" style="display: block;">
-    <a class="float_url" id="m_float_download" href="https://itunes.apple.com/cn/app/fei-li/id882549448?mt=8">
-    <img class="fo_fl_img" src="${ctx }/images/float.png">
-    </a>
-    <a href="javascript:void(0);" class="fo_fl_close"></a>
-</div>
+<jsp:include page="/common/bottom.jsp"></jsp:include>
 </body>
 </html>

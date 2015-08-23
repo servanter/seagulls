@@ -62,12 +62,6 @@ $(function(){
     };
   });
 
-//判断cookie中是否存在
-if(getCookie('float_id')){
-    $('.fo_fl_w100').hide();
-}else{
-    $('.fo_fl_w100').css('display', 'block');
-}
 //悬浮框点击关闭
 $('.fo_fl_close').click(function(){
     setCookie('float_id', 1);

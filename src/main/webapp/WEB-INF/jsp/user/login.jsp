@@ -5,7 +5,7 @@
 <head>
 <base href="${pageContext.request.scheme }://${pageContext.request.serverName }:${pageContext.request.serverPort }${pageContext.request.contextPath }/"></base>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>登录</title>
+<title>登录 - 大丰收</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <link href="${ctx }/css/style.css" rel="stylesheet" type="text/css">
@@ -14,9 +14,9 @@
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
 <script type="text/javascript" src="${ctx }/js/user/user.js"></script>
 </head>
-<body data-module="wap/login" data-isblack="1">
+<body data-isblack="1">
 <header>
-<h1><a href="http://m.ymt.com/"><img src="${ctx }/images/m-logo.png"></a></h1>
+<h1><a href="${ctx }"><img src="${ctx }/images/m-logo.png"></a></h1>
 <div class="login-area border-l">
   <a href="${ctx}/login/" class="login">登录</a>
   <a href="${ctx}/register/" class="register">注册</a>
@@ -24,7 +24,7 @@
 </header>
 <div class="zc_wrap">
   <div class="h2">
-    登录一亩田
+    登录大丰收
   </div>
   <form method="post" accept-charset="utf-8" id="login_form">
     <div class="fill_text">
@@ -57,12 +57,12 @@
 </div>
 <footer>
 <div class="version">
-  <a href="http://www.ymt.com/?is_wap=1">网页版</a>
-  <a href="http://app.ymt.com/intro">APP版</a>
-  <a href="http://m.ymt.com/" class="c_green">极速版</a>
+  <a href="#">网页版</a>
+  <a href="#">APP版</a>
+  <a href="#" class="c_green">极速版</a>
 </div>
 <p>
-  一亩田农业网-专业的农产品信息商务平台
+  大丰收农业网-专业的农产品信息商务平台
 </p>
 </footer>
 </body>

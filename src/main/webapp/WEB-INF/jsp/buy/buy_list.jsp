@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>苦瓜采购_采购苦瓜_苦瓜批发/采购_一亩田农业网手机版</title>
+<title>${s.searchCategory.zhName }采购_采购${s.searchCategory.zhName }_${s.searchCategory.zhName }批发/采购_大丰收农业网手机版</title>
 <meta charset="utf-8">
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-<meta name="Keywords" content="苦瓜采购,采购苦瓜,苦瓜批发,苦瓜采购">
-<meta name="Description" content="一亩田农业网为您找到259条苦瓜产品的采购信息，苦瓜实时报价，采购苦瓜，采购苦瓜的订单信息等等">
+<meta name="Keywords" content="${s.searchCategory.zhName }采购,采购${s.searchCategory.zhName },${s.searchCategory.zhName }批发,${s.searchCategory.zhName }采购">
+<meta name="Description" content="大丰收农业网为您找到${fn:length(list.result) }条${s.searchCategory.zhName }产品的采购信息，${s.searchCategory.zhName }实时报价，采购${s.searchCategory.zhName }，采购${s.searchCategory.zhName }的订单信息等等">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <link href="${ctx }/css/app.css" rel="stylesheet" type="text/css">
 <link href="${ctx }/css/style.css" rel="stylesheet" type="text/css">
@@ -17,39 +17,8 @@
 <script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
 <script type="text/javascript" src="${ctx }/js/buy/buy.js"></script>
-<body data-module="">
-<div class="top wap-banner-div">
-    <a class="wap-banner-item " href="http://m.ymt.com/store"><img src="${ctx }/images/d9a2366950e69d5cc4984bb6aadb6686.jpg" alt="" title=""></a>
-    <a class="wap-banner-item hide" href="http://m.ymt.com/office?ref=m_banner"><img src="${ctx }/images/a4a599a2cf86884020108810d56fa216.jpg" alt="" title=""></a>
-    <a class="wap-banner-item hide" href="http://m.ymt.com/reporter"><img src="${ctx }/images/a6cd3605a34d61dc251406dfd4898dd5.jpg" alt="重金打造！最专业的农产品行情" title="重金打造！最专业的农产品行情"></a>
-    <div class="wap-banner-ctrl">
-    </div>
-</div>
-<header>
-<h1><a href="http://m.ymt.com//"><img src="${ctx }/images/m-logo.png" alt=""></a></h1>
-<div class="right">
-    <div class="search">
-        <input type="text" placeholder="请输入产品名" class="search-txt">
-        <a href="http://m.ymt.com/buy_list_%E8%8B%A6%E7%93%9C###" class="i" id="search_buy">&nbsp;</a>
-    </div>
-    <div class="sel">
-        <select>
-            <option value="0">供应</option>
-            <option value="1">价格行情</option>
-            <option selected="" value="2">采购</option>
-        </select>
-    </div>
-</div>
-</header>
-<nav>
-<ul>
-    <li><a href="http://m.ymt.com/">首页</a></li>
-    <li><a href="http://m.ymt.com/hangqing?type_id=2">今日行情</a></li>
-    <li><a href="http://m.ymt.com/supply_cate_0">供应</a></li>
-    <li><a href="http://m.ymt.com/jiage">价格行情</a></li>
-    <li class="active"><a href="http://m.ymt.com/buy_cate_0">采购</a></li>
-</ul>
-</nav>
+<body>
+<jsp:include page="/common/header.jsp?nav=3"></jsp:include>
 <div class="content">
     <div>
         <div class="d-tit2">
@@ -140,38 +109,13 @@
 		        </div>
         	</c:when>
         	<c:otherwise>
-        		
+        		<div class="alert">
+		              还没有${supply.searchCategory.zhName }相关产品, <a href="${ctx }/buy/publish/"><strong>立即发布</strong></a>
+		        </div>
         	</c:otherwise>
         </c:choose>
-        
-        
-		        
     </div>
 </div>
-<div class="m_layer">
-    <div class="username_area">
-        <span class="username">你好！YMT_679704</span>
-        <a href="http://m.ymt.com/user/logout" class="logout">退出</a>
-    </div>
-    <div class="return_top">
-        <a onclick="javascript:scroll(0,0)">返回顶部↑</a>
-    </div>
-</div>
-<footer>
-<div class="version">
-    <a href="http://www.ymt.com/?is_wap=1">网页版</a>
-    <a href="http://app.ymt.com/intro">APP版</a>
-    <a href="http://m.ymt.com/" class="c_green">触屏版</a>
-</div>
-<p>
-    一亩田农业网-专业的农产品信息商务平台
-</p>
-</footer>
-<div class="fo_fl_w100" style="display: block;">
-    <a class="float_url" id="m_float_download" href="https://itunes.apple.com/cn/app/fei-li/id882549448?mt=8">
-    <img class="fo_fl_img" src="${ctx }/images/float.png">
-    </a>
-    <a href="javascript:void(0);" class="fo_fl_close"></a>
-</div>
+<jsp:include page="/common/bottom.jsp"></jsp:include>
 </body>
 </html>

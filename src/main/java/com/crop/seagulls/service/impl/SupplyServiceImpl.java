@@ -142,6 +142,7 @@ public class SupplyServiceImpl implements SupplyService {
         if (productRelationCache.getPeriodById(supply.getStartTime()) != null) {
             supply.setSearchStartTime(productRelationCache.getPeriodById(supply.getStartTime()));
         }
+        supply.setSearchCategory(categoryCache.getById(supply.getSearchCategoryId()));
     }
 
     private void packageModel(List<Supply> suppies) {

@@ -52,6 +52,14 @@ public class UserController {
         }
         return result;
     }
+    
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpSession session, Model model) {
+        if (SessionUtils.isLogin(session)) {
+            SessionUtils.setValue(session, Constant.LOGIN_USER, null);
+        }
+        return "redirect:/";
+    }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String enterRegister(HttpSession session) {
