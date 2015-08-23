@@ -124,7 +124,7 @@ public class BuyServiceImpl implements BuyService {
         if (productRelationCache.getPeriodById(buy.getStartTime()) != null) {
             buy.setSearchStartTime(productRelationCache.getPeriodById(buy.getStartTime()));
         }
-        
+
         buy.setSearchCategory(categoryCache.getById(buy.getSearchCategoryId()));
     }
 
@@ -191,16 +191,16 @@ public class BuyServiceImpl implements BuyService {
         initAttr(buy);
         buy.setPageStartPeriod(productRelationCache.getPeriodById(buy.getStartTime()));
         buy.setPageEndPeriod(productRelationCache.getPeriodById(buy.getEndTime()));
-        
+
         buy.setPageUnit(productRelationCache.getUnitById(buy.getUnitId()));
         buy.setPageBuyUnit(productRelationCache.getUnitById(buy.getBuyUnitId()));
-        
+
         buy.setPageStartPeriod(productRelationCache.getPeriodById(buy.getStartTime()));
         buy.setPageEndPeriod(productRelationCache.getPeriodById(buy.getEndTime()));
 
         packageSearchModel(buy);
         buy.setPageQuantity(TextUtils.removeEndZero(buy.getQuantity().toString()));
-        
+
         long category = -1;
         // find category
         if (NumberUtils.isValidateNumber(buy.getCategoryId3()) && categoryCache.getById(buy.getCategoryId3()) != null) {
@@ -213,7 +213,7 @@ public class BuyServiceImpl implements BuyService {
             buy.setPageCategory(categoryCache.getById(buy.getCategoryId1()));
             category = categoryCache.getById(buy.getCategoryId1()).getId();
         }
-        
+
         Map<String, Category> methodMap = categoryCache.getSequenceCategoies(category, 2);
         if (MapUtils.isNotEmpty(methodMap)) {
             for (String key : methodMap.keySet()) {
@@ -226,7 +226,7 @@ public class BuyServiceImpl implements BuyService {
         }
         return map;
     }
-    
+
     private void initAttr(Buy buy) {
         String addr = "";
         Long provinceId = buy.getProvinceId();
@@ -243,6 +243,18 @@ public class BuyServiceImpl implements BuyService {
             addr = areaCache.getById(provinceId).getZhName();
         }
         buy.setPageOriginAddr(addr);
+    }
+
+    @Override
+    public Map<String, Object> findByUserId(Buy buy) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        packageCategory(buy, buy.getSearchCategoryId());
+        List<Buy> list = buyDAO.findBuies(buy);
+        Integer totalCount = buyDAO.findBuiesCount(buy);
+        Paging<Buy> result = new Paging<Buy>(totalCount, buy.getPage(), buy.getPageSize(), list);
+        map.put("list", result);
+        packageModel(list);
+        return map;
     }
 
 }

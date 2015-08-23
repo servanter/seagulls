@@ -42,4 +42,6 @@ public interface SupplyService {
     
     
     public Map<String, Object> findById(Long id);
+
+    public Map<String, Object> findByUserId(Supply supply);
 }

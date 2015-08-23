@@ -111,6 +111,9 @@
 			<if test="endTime != null and endTime > 0">
 				AND end_time = #{endTime}
 			</if>
+			<if test="createUserId != null and createUserId > 0">
+				AND create_user_id = #{createUserId}
+			</if>
 		</where>	
 		AND status = 1
 		<if test="searchOrderBy != null and searchOrderBy == 0">ORDER BY update_time DESC</if>
@@ -145,6 +148,9 @@
 			</if>
 			<if test="endTime != null and endTime > 0">
 				AND end_time = #{endTime}
+			</if>
+			<if test="createUserId != null and createUserId > 0">
+				AND create_user_id = #{createUserId}
 			</if>
 			AND status = 1
 		</where>

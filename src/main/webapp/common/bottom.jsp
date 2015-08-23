@@ -8,14 +8,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<c:choose>
 		<c:when test="${sessionScope.CUSER ne null}">
 			<div class="username_area">
-		        <span class="username">你好！YMT_679704</span>
+		        <span class="username">你好！YMT_${sessionScope.CUSER.id }</span>
 		        <a href="${ctx }/logout/" class="logout">退出</a>
 		    </div>
 		</c:when>
 		<c:otherwise>
 			<div class="login_area">
-		        <a href="" class="login">登录</a>
-		        <a href="" class="regsiter">注册</a>
+		        <a href="${ctx }/login/" class="login">登录</a>
+		        <a href="${ctx }/register/" class="regsiter">注册</a>
 		    </div>
 		</c:otherwise>
 	</c:choose>

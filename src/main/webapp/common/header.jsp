@@ -59,10 +59,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</c:choose>
 	<c:choose>
 		<c:when test="${param.nav eq 3}">
-			<li class="mr0 active"><a href="${ctx }/buy_cate_0/">采购</a></li>
+			<li class="active"><a href="${ctx }/buy_cate_0/">采购</a></li>
 		</c:when>
 		<c:otherwise>
-			<li class="mr0"><a href="${ctx }/buy_cate_0/">采购</a></li>
+			<li><a href="${ctx }/buy_cate_0/">采购</a></li>
+		</c:otherwise>
+	</c:choose>
+	<c:choose>
+		<c:when test="${param.nav eq 4}">
+			<li class="active"><a href="${ctx }/supply/my_supply_list_1/">我的供应</a></li>
+		</c:when>
+		<c:otherwise>
+			<li><a href="${ctx }/supply/my_supply_list_1/">我的供应</a></li>
+		</c:otherwise>
+	</c:choose>
+	<c:choose>
+		<c:when test="${param.nav eq 5}">
+			<li class="mr0 active"><a href="${ctx }/buy/my_buy_list_1/">我的采购</a></li>
+		</c:when>
+		<c:otherwise>
+			<li class="mr0"><a href="${ctx }/buy/my_buy_list_1/">我的采购</a></li>
 		</c:otherwise>
 	</c:choose>
 </ul>

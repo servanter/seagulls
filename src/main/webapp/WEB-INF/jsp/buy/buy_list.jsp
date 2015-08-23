@@ -72,7 +72,7 @@
         <c:choose>
         	<c:when test="${list.result != null && fn:length(list.result) > 0}">
         		<div class="pur-alert">
-		        	当前共有<strong>${list.totalRecord }</strong>个批发商正在找货<br>如果您有更便宜的货源请立即报价<br>上一交易日统计：发布求购<strong>236</strong>条，成交<strong>186</strong>单。
+		        	当前共有<strong>${list.totalRecord }</strong>个批发商正在找货
 		        </div>
 		        <ul class="pur-body">
 		        	<c:forEach var="buy" items="${list.result}">

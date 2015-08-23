@@ -24,7 +24,7 @@ import com.crop.seagulls.service.BuyService;
 import com.crop.seagulls.util.SessionUtils;
 
 /**
- * Supply controller
+ * Buy controller
  * 
  * @author zhanghongyan@outlook.com
  * 
@@ -94,5 +94,28 @@ public class BuyController {
             model.addAttribute(entry.getKey(), entry.getValue());
         }
         return "buy/buy_detail";
+    }
+
+    @RequestMapping(value = { "/buy/my_buy_list_{page:\\d+}" }, method = RequestMethod.GET)
+    public String supplyList(@PathVariable("page")
+    Integer page, HttpSession session, Model model) {
+        Buy buy = new Buy();
+        buy.setPage(page);
+        buy.setCreateUserId(SessionUtils.getCurUser(session).getId());
+        Map<String, Object> map = buyService.findByUserId(buy);
+        for (Entry<String, Object> entry : map.entrySet()) {
+            model.addAttribute(entry.getKey(), entry.getValue());
+        }
+        return "buy/my_buy_list";
+    }
+
+    @RequestMapping("/buy/my_buy_order_{id:\\d+}")
+    public String myDetail(@PathVariable("id")
+    Long id, Model model) {
+        Map<String, Object> map = buyService.findById(id);
+        for (Entry<String, Object> entry : map.entrySet()) {
+            model.addAttribute(entry.getKey(), entry.getValue());
+        }
+        return "buy/my_buy_detail";
     }
 }

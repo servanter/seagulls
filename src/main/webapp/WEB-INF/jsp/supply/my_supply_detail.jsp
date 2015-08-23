@@ -22,7 +22,7 @@
 <script type="text/javascript" src="${ctx }/js/supply/supply.js"></script>
 </head>
 <body>
-<jsp:include page="/common/header.jsp?nav=2"></jsp:include>
+<jsp:include page="/common/header.jsp?nav=4"></jsp:include>
 <div class="content">
     <div>
         <c:if test="${fn:length(pics) > 0}">
@@ -62,7 +62,6 @@
             <span class="red" style="width:40%"> 
         		${supply.startPrice }~${supply.endPrice }元/${supply.pageProductUnit.title }  
             </span>
-            <a rel="nofollow" class="purchase-btn" href="#">立即采购</a>
         </div>
         <div class="item-cont">
             <!-- 这个是文字版的导流条，导流目标是行情下的该产品的页面 -->

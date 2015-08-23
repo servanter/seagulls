@@ -16,7 +16,7 @@ public interface SupplyDAO {
     public List<Supply> findSupplies(Supply supply);
 
     public Integer findSuppliesCount(Supply supply);
-
+    
     public List<Long> findAllProvincesBySupply(Supply supply);
 
     public Supply getById(Long id);

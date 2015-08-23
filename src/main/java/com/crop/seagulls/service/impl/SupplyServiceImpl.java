@@ -249,4 +249,16 @@ public class SupplyServiceImpl implements SupplyService {
         result.put("supply", supply);
         return result;
     }
+
+    @Override
+    public Map<String, Object> findByUserId(Supply supply) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        packageCategory(supply, supply.getSearchCategoryId());
+        List<Supply> list = supplyDAO.findSupplies(supply);
+        Integer totalCount = supplyDAO.findSuppliesCount(supply);
+        Paging<Supply> result = new Paging<Supply>(totalCount, supply.getPage(), supply.getPageSize(), list);
+        map.put("list", result);
+        packageModel(list);
+        return map;
+    }
 }

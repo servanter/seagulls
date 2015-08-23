@@ -1,7 +1,5 @@
 package com.crop.seagulls.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -10,23 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.cache.CategoryCache;
 import com.crop.seagulls.cache.ProductRelationCache;
-import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.entities.Category;
 import com.crop.seagulls.entities.Supply;
 import com.crop.seagulls.service.SupplyService;
@@ -111,5 +104,28 @@ public class SupplyController {
             model.addAttribute(entry.getKey(), entry.getValue());
         }
         return "supply/supply_detail";
+    }
+
+    @RequestMapping(value = "/supply/my_supply_list_{page:\\d+}")
+    public String mySupplyList(@PathVariable("page")
+    Integer page, HttpSession session, Model model) {
+        Supply supply = new Supply();
+        supply.setPage(page);
+        supply.setCreateUserId(SessionUtils.getCurUser(session).getId());
+        Map<String, Object> map = supplyService.findByUserId(supply);
+        for (Entry<String, Object> entry : map.entrySet()) {
+            model.addAttribute(entry.getKey(), entry.getValue());
+        }
+        return "supply/my_supply_list";
+    }
+
+    @RequestMapping("/supply/my_supply_order_{id:\\d+}")
+    public String myDetail(@PathVariable("id")
+    Long id, Model model) {
+        Map<String, Object> map = supplyService.findById(id);
+        for (Entry<String, Object> entry : map.entrySet()) {
+            model.addAttribute(entry.getKey(), entry.getValue());
+        }
+        return "supply/my_supply_detail";
     }
 }
