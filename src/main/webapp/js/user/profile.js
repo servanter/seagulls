@@ -2,15 +2,6 @@ var countNum = 60;
 var Time;
 $(function() {
 	$('#btn_save').click(function() {
-		var phone = $('#phone').val();
-		if (!phone || phone.length == 0) {
-			alert("请输入手机号码");
-			return;
-		}
-		if (!BaseUtils.isMobile(phone)) {
-			alert("请输入正确的手机号码");
-			return;
-		}
 		var password = $('#password').val();
 		var password2 = $('#password2').val();
 		

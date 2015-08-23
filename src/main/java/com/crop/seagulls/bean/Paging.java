@@ -56,7 +56,10 @@ public class Paging<T> implements java.io.Serializable {
     public Paging(int page, int pageSize) {
         this.page = page;
         this.pageSize = pageSize;
-        getSinceCountByPage();
+//        getSinceCountByPage();
+        if (page > 1) {
+            sinceCount = (page - 1) * pageSize;
+        }
     }
 
     public Paging(long totalRecord, int page, int pageSize, List<T> result) {
@@ -165,7 +168,7 @@ public class Paging<T> implements java.io.Serializable {
      * 
      * @return
      */
-    public void getStartAndEndRange() {
+    private void getStartAndEndRange() {
         int startPage = 0;
         int endPage = 0;
         if (getPage() < 4) {
@@ -206,11 +209,11 @@ public class Paging<T> implements java.io.Serializable {
         return pagMap;
     }
 
-    public void getSinceCountByPage() {
-        if (page > 1) {
-            sinceCount = (page - 1) * pageSize;
-        }
-    }
+//    public void getSinceCountByPage() {
+//        if (page > 1) {
+//            sinceCount = (page - 1) * pageSize;
+//        }
+//    }
 
     public Paging<T> setTotalRecordAndResult(long totalRecord, List<T> result) {
         setTotalRecord(totalRecord);

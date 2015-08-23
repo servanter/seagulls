@@ -54,7 +54,10 @@ public class LoginFilter implements Filter {
 
         String contextPath = req.getContextPath();
         String fullURL = req.getRequestURI();
-        String targetURL = fullURL.substring(contextPath.length() + 1);
+        String targetURL = "";
+        if(fullURL.length() > 0) {
+            targetURL = fullURL.substring(contextPath.length() + 1);
+        }
 
         boolean flag = false;
         boolean needRedirect = false;

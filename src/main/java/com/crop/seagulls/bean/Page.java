@@ -51,7 +51,10 @@ public class Page implements java.io.Serializable {
     public Page(int page, int pageSize) {
         this.page = page;
         this.pageSize = pageSize;
-        getSinceCountByPage();
+        if(page > 1) {
+            sinceCount = (page - 1) * pageSize;
+        }
+//        getSinceCountByPage();
     }
 
     public int getPageSize() {
@@ -107,10 +110,10 @@ public class Page implements java.io.Serializable {
         this.sinceCount = sinceCount;
     }
 
-    public void getSinceCountByPage() {
-        if (page > 1) {
-            sinceCount = (page - 1) * pageSize;
-        }
-    }
+//    public void getSinceCountByPage() {
+//        if (page > 1) {
+//            sinceCount = (page - 1) * pageSize;
+//        }
+//    }
     
 }
