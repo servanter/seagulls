@@ -58,7 +58,7 @@ public class LoginFilter implements Filter {
 
         boolean flag = false;
         boolean needRedirect = false;
-        if (StringUtils.isNotBlank(targetURL)){
+        if (StringUtils.isNotBlank(targetURL) && !targetURL.equals("/")){
             for (int i = 0; i < includeURL.length; i++) {
                 if (includeURL[i].contains(targetURL)) {
                     flag = true;

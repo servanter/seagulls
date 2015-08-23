@@ -119,6 +119,7 @@
 		<if test="searchOrderBy != null and searchOrderBy == 0">ORDER BY update_time DESC</if>
 		<if test="searchOrderBy != null and searchOrderBy == 1">ORDER BY start_price ASC</if>
 		<if test="searchOrderBy != null and searchOrderBy == 2">ORDER BY end_price DESC</if>
+		<if test="searchOrderBy == null or searchOrderBy == -1">ORDER BY update_time DESC</if>
 		LIMIT #{sinceCount}, #{pageSize}
 	</select>
 	

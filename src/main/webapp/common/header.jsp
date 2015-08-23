@@ -75,10 +75,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</c:choose>
 	<c:choose>
 		<c:when test="${param.nav eq 5}">
-			<li class="mr0 active"><a href="${ctx }/buy/my_buy_list_1/">我的采购</a></li>
+			<li class="active"><a href="${ctx }/buy/my_buy_list_1/">我的采购</a></li>
 		</c:when>
 		<c:otherwise>
-			<li class="mr0"><a href="${ctx }/buy/my_buy_list_1/">我的采购</a></li>
+			<li><a href="${ctx }/buy/my_buy_list_1/">我的采购</a></li>
+		</c:otherwise>
+	</c:choose>
+	<c:choose>
+		<c:when test="${param.nav eq 6}">
+			<c:choose>
+				<c:when test="${sessionScope.CUSER ne null}">
+					<li class="mr0 active"><a href="${ctx }/user/profile/">${sessionScope.CUSER.nickName }</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="mr0 active"><a href="${ctx }/user/profile/">个人信息</a></li>
+				</c:otherwise>
+			</c:choose>
+		</c:when>
+		<c:otherwise>
+			<c:choose>
+				<c:when test="${sessionScope.CUSER ne null}">
+					<li class="mr0"><a href="${ctx }/user/profile/">${sessionScope.CUSER.nickName }</a></li>
+				</c:when>
+				<c:otherwise>
+					<li class="mr0"><a href="${ctx }/user/profile/">个人信息</a></li>
+				</c:otherwise>
+			</c:choose>
 		</c:otherwise>
 	</c:choose>
 </ul>

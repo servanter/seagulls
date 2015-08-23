@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private TemplateService templateService;
-    
+
     @Autowired
     private UserDAO userDAO;
 
@@ -42,8 +42,14 @@ public class UserServiceImpl implements UserService {
         response.setReturnCode(ReturnCode.ERROR);
         if (isNameValid(user.getPhone())) {
             userDAO.save(user);
-            user.setNickName(templateService.getMessage("user.default.nickname", String.valueOf(user.getId())));
-            response.setReturnCode(user != null && user.getId() > 0 ? ReturnCode.SUCCESS : ReturnCode.USER_NOT_FOUND);
+            if (user != null && user.getId() > 0) {
+                User updateUser = new User();
+                updateUser.setId(user.getId());
+                updateUser.setNickName(templateService.getMessage("user.default.nickname", String.valueOf(user.getId())));
+                user.setNickName(updateUser.getNickName());
+                int affect = userDAO.update(updateUser);
+                response.setReturnCode(affect > 0 ? ReturnCode.SUCCESS : ReturnCode.ERROR);
+            }
         } else {
             response.setReturnCode(ReturnCode.USER_NAME_READY_REGISTER);
         }
@@ -85,7 +91,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Response checkPhone(String phone) {
         Response response = new Response();
-        if(isNameValid(phone)) {
+        if (isNameValid(phone)) {
             response.setReturnCode(ReturnCode.SUCCESS);
         } else {
             response.setReturnCode(ReturnCode.USER_NAME_READY_REGISTER);

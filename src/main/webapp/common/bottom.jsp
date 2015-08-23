@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<c:choose>
 		<c:when test="${sessionScope.CUSER ne null}">
 			<div class="username_area">
-		        <span class="username">你好！YMT_${sessionScope.CUSER.id }</span>
+		        <span class="username">你好！${sessionScope.CUSER.nickName }</span>
 		        <a href="${ctx }/logout/" class="logout">退出</a>
 		    </div>
 		</c:when>

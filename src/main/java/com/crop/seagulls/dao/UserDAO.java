@@ -82,4 +82,6 @@ public interface UserDAO {
      */
     public User getByUserName(String userName);
 
+    public Long findMaxId();
+
 }

@@ -31,12 +31,12 @@
 	            	<c:forEach var="pic" items="${pics}" varStatus="i">
 	            		<c:choose>
 	            			<c:when test="${i.index == 0}">
-	            				<li class="prod-img-0 hide" style="display: list-item;">
+	            				<li class="prod-img-${i.index } hide" style="display: list-item;">
 				                	<img src="${ctx }${pic.imgUrl }" alt="">
 				                </li>
 	            			</c:when>
 	            			<c:otherwise>
-	            				<li class="prod-img-1" style="display: none;">
+	            				<li class="prod-img-${i.index }" style="display: none;">
 				                	<img src="${ctx }${pic.imgUrl }" alt="">
 				                </li>
 	            			</c:otherwise>

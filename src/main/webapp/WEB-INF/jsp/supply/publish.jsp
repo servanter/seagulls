@@ -39,7 +39,7 @@
             </div>
             <div class="file-img">
                 <a href="${ctx }/supply/publish/" class="upload_btn"><img src="${ctx }/images/add_pic.png" alt=""></a>
-                <input name="file" type="file" class="upload_btn-2" id="input-img">
+                <input name="files[]" type="file" multiple class="upload_btn-2" id="input-img">
             </div>
         </div>
         <div id="sec-prod">
@@ -47,7 +47,7 @@
                 <i class="asterisk">*</i>
                 <span class="name">产品名称：</span>
                 <div class="pos-relative">
-	                <input id="product-name" name="product" type="text" class="tex" placeholder="请输入1个产品名称，如：西瓜">
+	                <input id="product-name" name="product" type="text" class="tex" placeholder="请输入产品名称，如：西瓜">
 	                <input name="addCategoryId" type="hidden"/>
                 </div>
             </div>
