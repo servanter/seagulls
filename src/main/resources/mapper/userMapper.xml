@@ -31,7 +31,7 @@
 
 	<select id="getUserById" parameterType="java.lang.Long"
 		resultMap="userMap">
-		SELECT * FROM user WHERE id = #{id}
+		SELECT * FROM crop_user WHERE id = #{id}
 	</select>
 
 	<select id="getUserByNick" parameterType="java.lang.String"
@@ -50,14 +50,14 @@
 	<update id="update" parameterType="user">
 		UPDATE crop_user
 		<set>
-			<if test="password != null">password=#{password},</if>
-			<if test="nickName != null">nick_name=#{nickName},</if>
-			<if test="phone != null">phone=#{phone},</if>
-			<if test="password != null">password=#{password},</if>
+			<if test="password != null and password != '' ">password=#{password},</if>
+			<if test="nickName != null and nickName != ''">nick_name=#{nickName},</if>
+			<if test="realName != null and realName != ''">real_name=#{realName},</if>
+			<if test="phone != null and phone != ''">phone=#{phone},</if>
 			<if test="provinceId != null and provinceId > 0">province_id=#{provinceId},</if>
 			<if test="cityId != null and cityId > 0">city_id=#{cityId},</if>
 			<if test="areaId != null and areaId > 0">area_id=#{areaId},</if>
-			<if test="headUrl != null">head_url=#{headUrl},</if>
+			<if test="headUrl != null and headUrl != ''">head_url=#{headUrl},</if>
 			<if test="identityId != null">identity_id=#{identityId},</if>
 			<if test="isValid != null">is_valid=#{isValid},</if>
 		</set>

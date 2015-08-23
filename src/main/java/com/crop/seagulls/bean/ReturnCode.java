@@ -8,7 +8,7 @@ package com.crop.seagulls.bean;
  */
 public enum ReturnCode {
 
-    SUCCESS(10000, "成功"),
+    SUCCESS(10000, "操作成功"),
 
     USER_NOT_FOUND(20001, "手机号码还没有注册"),
 

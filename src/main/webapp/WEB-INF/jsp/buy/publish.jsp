@@ -26,7 +26,7 @@
 <div class="content">
     <form method="post" id="form-publish">
         <div class="top_f">
-            填写供应信息
+            填写采购信息
         </div>
         <div class="tu_ceng" id="big-img">
             <img src="" alt="">

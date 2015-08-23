@@ -1,5 +1,8 @@
 package com.crop.seagulls.controller;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +33,8 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String enterLogin(@RequestParam(value="redirectUrl", required = false) String redirect, HttpSession session, Model model) {
+    public String enterLogin(@RequestParam(value = "redirectUrl", required = false)
+    String redirect, HttpSession session, Model model) {
         if (SessionUtils.isLogin(session)) {
             return "redirect:/";
         } else {
@@ -44,7 +48,8 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Response login(User user, @RequestParam(value="redirectUrl", required = false) String redirect, HttpSession session) {
+    public Response login(User user, @RequestParam(value = "redirectUrl", required = false)
+    String redirect, HttpSession session) {
         Response result = userService.login(user);
         if (ReturnCode.isSuccess(result.getReturnCode())) {
             SessionUtils.setValue(session, Constant.LOGIN_USER, result.getResult());
@@ -52,7 +57,7 @@ public class UserController {
         }
         return result;
     }
-    
+
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpSession session, Model model) {
         if (SessionUtils.isLogin(session)) {
@@ -79,11 +84,29 @@ public class UserController {
         }
         return result;
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/checkPhone", method = RequestMethod.GET)
-    public Response checkPhone(@RequestParam("phone") String phone) {
+    public Response checkPhone(@RequestParam("phone")
+    String phone) {
         Response response = userService.checkPhone(phone);
+        return response;
+    }
+
+    @RequestMapping(value = "/user/profile", method = RequestMethod.GET)
+    public String profile(HttpSession session, Model model) {
+        Map<String, Object> map = userService.userProfile(SessionUtils.getCurUser(session).getId());
+        for (Entry<String, Object> entry : map.entrySet()) {
+            model.addAttribute(entry.getKey(), entry.getValue());
+        }
+        return "user/profile";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/user/profile", method = RequestMethod.POST)
+    public Response modifyProfile(HttpSession session, User user) {
+        user.setId(SessionUtils.getCurUser(session).getId());
+        Response response = userService.completeInfo(user);
         return response;
     }
 }

@@ -1,6 +1,7 @@
 package com.crop.seagulls.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.entities.User;
@@ -75,7 +76,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    public boolean completeInfo(User user);
+    public Response completeInfo(User user);
 
     /**
      * 根据用户昵称搜寻用户
@@ -84,5 +85,7 @@ public interface UserService {
      * @return
      */
     public List<User> seacherByUserName(String userNick);
+
+    public Map<String, Object> userProfile(Long id);
 
 }

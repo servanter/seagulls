@@ -1,7 +1,9 @@
 package com.crop.seagulls.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,8 +63,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean completeInfo(User user) {
-        return userDAO.update(user) > 0;
+    public Response completeInfo(User user) {
+        Response response = new Response();
+        response.setReturnCode(ReturnCode.ERROR);
+        if (userDAO.update(user) > 0) {
+            response.setReturnCode(ReturnCode.SUCCESS);
+        }
+        return response;
     }
 
     @Override
@@ -102,6 +109,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUserName(String userName) {
         return userDAO.getByUserName(userName);
+    }
+
+    @Override
+    public Map<String, Object> userProfile(Long id) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        User user = findUserById(id);
+        map.put("user", user);
+        return map;
     }
 
 }
