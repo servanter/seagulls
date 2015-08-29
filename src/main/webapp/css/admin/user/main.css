@@ -45,6 +45,12 @@ body {
     color:#FFFFFF;
     padding-left:0;
     padding-right:0;
+    width:200px;
+    float:left;
+}
+.right-content{
+	margin-left:20%;
+	margin-right:5%;
 }
 #user_info {
     background-color: #303641;
@@ -169,4 +175,42 @@ body {
 }
 .mt0{
 	margin-bottom:0;
+}
+.f14 {
+	font-size:14px;
+}
+
+
+
+
+
+
+
+
+
+.left-menu{
+	list-style:none;
+	padding-left:0px;
+	border-radius: 40px;
+}
+.left-menu li {
+	background-color:#f8f8f8;
+	text-align:center
+}
+.left-menu li a{
+	padding-top:10px;
+	padding-bottom:10px;
+	display:block;
+	border-bottom:1px solid #e7e7e7
+}
+.left-menu li:first-child,.left-menu li:last-child{
+	border-radius:6px;
+}
+.left-menu li a:hover {
+	background-color:#18bc9c;
+	color:#ffffff;
+	text-decoration: none;
+}
+.nav-logo {
+	width:200px;
 }

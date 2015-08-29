@@ -60,6 +60,13 @@ public class Response {
         responseTime = new Timestamp(System.currentTimeMillis());
     }
 
+    public Response(ReturnCode returnCode) {
+        super();
+        this.returnCode = returnCode;
+        this.code = returnCode.getCode();
+        this.message = returnCode.getMessage();
+    }
+
     public Response(ReturnCode returnCode, Object object) {
         this.returnCode = returnCode;
         this.responseTime = new Timestamp(System.currentTimeMillis());
@@ -107,9 +114,7 @@ public class Response {
 
     @Override
     public String toString() {
-        return "Response [returnCode=" + returnCode + ", code=" + code + ", message=" + message + ", responseTime=" + responseTime + ", result="
-                + result + "]";
+        return "Response [returnCode=" + returnCode + ", code=" + code + ", message=" + message + ", responseTime=" + responseTime + ", result=" + result + "]";
     }
 
-    
 }

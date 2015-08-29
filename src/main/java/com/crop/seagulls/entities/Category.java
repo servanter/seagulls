@@ -55,6 +55,10 @@ public class Category extends Page {
         return pId;
     }
 
+    public Long getParentId() {
+        return pId;
+    }
+    
     public void setPId(Long id) {
         pId = id;
     }

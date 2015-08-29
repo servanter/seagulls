@@ -44,5 +44,33 @@
 		</set>
 		WHERE id=#{id}
 	</update>
+	
+	<select id="getByCategory" parameterType="category" resultMap="dictCategoryMap">
+		SELECT 
+		<include refid="base_columns" />
+		FROM crop_category 
+		<where>
+			<if test="pId != null and pId >= 0">
+			p_id = #{pId}
+			</if>
+		</where>
+		LIMIT #{sinceCount}, #{pageSize}
+	</select>
 
+	<select id="getByCategoryCount" parameterType="category" resultType="int">
+		SELECT COUNT(*)
+		FROM crop_category 
+		<where>
+			<if test="pId != null and pId >= 0">
+			p_id = #{pId}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getById" parameterType="long" resultMap="dictCategoryMap">
+		SELECT 
+		<include refid="base_columns" />
+		FROM crop_category 
+		WHERE id = #{id}
+	</select>
 </mapper>

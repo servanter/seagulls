@@ -2,6 +2,8 @@ package com.crop.seagulls.service;
 
 import java.util.List;
 
+import com.crop.seagulls.bean.Paging;
+import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.entities.Category;
 
 /**
@@ -42,5 +44,9 @@ public interface DictCategoryService {
      * @return
      */
     public Boolean modify(Category category);
+
+    public Paging<Category> findByCategory(Category category);
+
+    public Response findById(Integer id);
 
 }

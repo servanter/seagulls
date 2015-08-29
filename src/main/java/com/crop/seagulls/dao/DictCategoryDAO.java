@@ -40,4 +40,10 @@ public interface DictCategoryDAO {
      */
     public int insert(Category category);
 
+    public List<Category> getByCategory(Category category);
+
+    public int getByCategoryCount(Category category);
+
+    public Category getById(Integer id);
+
 }
