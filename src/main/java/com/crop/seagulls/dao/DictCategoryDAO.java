@@ -46,4 +46,6 @@ public interface DictCategoryDAO {
 
     public Category getById(Integer id);
 
+    public int delete(Long id);
+
 }

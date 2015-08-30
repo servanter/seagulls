@@ -28,8 +28,8 @@
 	</select>
 
 	<insert id="insert" parameterType="category">
-		INSERT INTO crop_category (p_id, zh_name, en_name) VALUES
-		(#{pId},#{zhName}, #{enName})
+		INSERT INTO crop_category (p_id, zh_name, en_name, first_letter) VALUES
+		(#{pId},#{zhName}, #{enName}, #{firstLetter})
 		<selectKey resultType="Long" keyProperty="id">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -73,4 +73,8 @@
 		FROM crop_category 
 		WHERE id = #{id}
 	</select>
+	
+	<delete id="delete" parameterType="long">
+		DELETE FROM crop_category WHERE id = #{id}
+	</delete>
 </mapper>

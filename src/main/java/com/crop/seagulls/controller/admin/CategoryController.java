@@ -40,4 +40,28 @@ public class CategoryController {
         Response response = categoryService.findById(id);
         return response;
     }
+    
+    
+    @ResponseBody
+    @RequestMapping("/modify")
+    public Response modify(@RequestParam("id") Long id,@RequestParam("pId") Long pId,@RequestParam("zhName") String zhName) {
+        Category category = new Category();
+        category.setId(id);
+        category.setPId(pId);
+        category.setZhName(zhName);
+        return categoryService.modify(category);
+    }
+ 
+    @ResponseBody
+    @RequestMapping("/add")
+    public Response add(Category category) {
+        return categoryService.add(category);
+    }
+    
+    @ResponseBody
+    @RequestMapping("/remove")
+    public Response remove(@RequestParam("id") Long id) {
+        return categoryService.remove(id);
+    }
+    
 }

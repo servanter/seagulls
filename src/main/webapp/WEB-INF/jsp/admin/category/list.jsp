@@ -20,9 +20,11 @@
 		<link rel="stylesheet" href="${ctx }/css/bootstrap.min.css">
 		<link rel="stylesheet" href="${ctx }/css/admin/user/main.css">
 		<script src="${ctx }/js/jquery-1.11.0.min.js"></script>
+		<script src="${ctx }/js/jquery.form.js" type="text/javascript" ></script>
 		<script src="${ctx }/js/bootstrap.min.js"></script>
 		<script src="${ctx }/js/admin/nav.js" type="text/javascript"></script>
 		<script src="${ctx }/js/baseutils.js" type="text/javascript"></script>
+		<script src="${ctx }/js/alert.js" type="text/javascript"></script>
 		<script src="${ctx }/js/admin/category/category.js" type="text/javascript"></script>
 		<script type="text/javascript">
             var navIndex=0;
@@ -42,7 +44,7 @@
 					  <li><a href="#">Library</a></li>
 					  <li class="active">Data</li>
 					</ol>
-					
+					<p class="pull-right"><button type="button" class="btn btn-success btn-edit" data-toggle="modal" data-target=".edit-modal" param="${model.id }"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新建</button></p>
 					<c:choose>
 				  		<c:when test="${result ne null && fn:length(result.result) > 0}">
 				  			<table class="table table-bordered table-striped table-hover f14 text-center">
@@ -68,6 +70,7 @@
 											<td>${model.createTime }</td>
 											<td>
 												<button type="button" class="btn btn-primary btn-edit" data-toggle="modal" data-target=".edit-modal" param="${model.id }"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改</button>
+												<button type="button" class="btn btn-danger btn-remove" data-toggle="modal" data-target=".remove-modal" param="${model.id }"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除</button>
 											</td>
 										</tr>
 									</c:forEach>
@@ -83,6 +86,7 @@
 							      </div>
 							      <div class="modal-body">
 							      		<form id="form-edit" class="form-horizontal">
+							      			<input type="hidden" name="id">
 							      		  <div class="form-group">
 										    <label for="pId" class="col-sm-4 control-label">父ID</label>
 										    <div class="col-sm-8">
@@ -99,7 +103,25 @@
 							      </div>
 							      <div class="modal-footer">
 							        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-							        <button type="button" id="btn_recharge" class="btn btn-primary">修改</button>
+							        <button type="button" id="btn-update" class="btn btn-primary">修改</button>
+							      </div>
+							    </div>
+							  </div>
+						</div>
+						
+						<div class="modal fade remove-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+							  <div class="modal-dialog modal-sm">
+							    <div class="modal-content">
+							     <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							        <h4 class="modal-title" id="myModalLabel">提示</h4>
+							      </div>
+							      <div class="modal-body">
+							      	  确认删除吗？
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+							        <button type="button" id="btn-remove" class="btn btn-danger">删除</button>
 							      </div>
 							    </div>
 							  </div>

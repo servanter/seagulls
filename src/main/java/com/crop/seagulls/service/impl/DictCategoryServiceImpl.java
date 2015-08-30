@@ -11,6 +11,7 @@ import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.dao.DictCategoryDAO;
 import com.crop.seagulls.entities.Category;
 import com.crop.seagulls.service.DictCategoryService;
+import com.crop.seagulls.util.PinyinUtils;
 
 @Service("dictCategoryService")
 public class DictCategoryServiceImpl implements DictCategoryService {
@@ -29,13 +30,17 @@ public class DictCategoryServiceImpl implements DictCategoryService {
     }
 
     @Override
-    public Boolean modify(Category category) {
-        return dictCategoryDAO.update(category) > 0 ? true : false;
+    public Response modify(Category category) {
+        category.setEnName(PinyinUtils.getPinYin(category.getZhName()));
+        category.setFirstLetter(String.valueOf(category.getEnName().charAt(0)).toUpperCase());
+        return dictCategoryDAO.update(category) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
     }
 
     @Override
-    public Boolean save(Category category) {
-        return dictCategoryDAO.insert(category) > 0 ? true : false;
+    public Response add(Category category) {
+        category.setEnName(PinyinUtils.getPinYin(category.getZhName()));
+        category.setFirstLetter(String.valueOf(category.getEnName().charAt(0)).toUpperCase());
+        return dictCategoryDAO.insert(category) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
     }
 
     @Override
@@ -53,4 +58,8 @@ public class DictCategoryServiceImpl implements DictCategoryService {
         return response;
     }
 
+    @Override
+    public Response remove(Long id) {
+        return dictCategoryDAO.delete(id) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+    }
 }

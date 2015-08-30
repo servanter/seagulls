@@ -35,7 +35,9 @@ public interface DictCategoryService {
      * @param area
      * @return
      */
-    public Boolean save(Category category);
+    public Response add(Category category);
+    
+    public Response remove(Long id); 
 
     /**
      * Modify
@@ -43,7 +45,7 @@ public interface DictCategoryService {
      * @param area
      * @return
      */
-    public Boolean modify(Category category);
+    public Response modify(Category category);
 
     public Paging<Category> findByCategory(Category category);
 
