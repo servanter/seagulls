@@ -179,6 +179,9 @@ body {
 .f14 {
 	font-size:14px;
 }
+.db {
+	display:block;
+}
 
 
 
@@ -211,6 +214,18 @@ body {
 	color:#ffffff;
 	text-decoration: none;
 }
+.left-menu li a.active {
+	background-color:#18bc9c;
+	color:#ffffff;
+	text-decoration: none;
+}
+
+.left-menu li a.sub {
+	padding-top:0px;
+	padding-bottom:0px;
+	display:none;
+}
+
 .nav-logo {
 	width:200px;
 }

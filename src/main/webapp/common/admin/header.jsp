@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="/common/taglibs.jsp"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -13,21 +14,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand nav-logo" href="#">大丰收后台管理系统</a>
+				<a class="navbar-brand nav-logo" href="${ctx }/admin/user/home/">大丰收后台管理系统</a>
 			</div>
 
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li>
-						<a href="/admin/home/">首页</a>
-					</li>
-					<li>
-						<a href="/admin/shop/">信息审核</a>
-					</li>
-					<li>
-						<a href="#">系统管理</a>
-					</li>
+					<c:choose>
+						<c:when test="${param.nav == 1}">
+							<li>
+								<a href="${ctx }/admin/user/home/" class="active">首页</a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li>
+								<a href="${ctx }/admin/user/home/">首页</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${param.nav == 2}">
+							<li>
+								<a href="/admin/shop/" class="active">信息审核</a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li>
+								<a href="/admin/shop/">信息审核</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${param.nav == 3}">
+							<li>
+								<a href="#"  class="active">系统管理</a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li>
+								<a href="#">系统管理</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
 				</ul>
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">

@@ -21,15 +21,12 @@
 		<link rel="stylesheet" href="${ctx }/css/admin/user/main.css">
 		<script src="${ctx }/js/jquery-1.11.0.min.js"></script>
 		<script src="${ctx }/js/bootstrap.min.js"></script>
-		<script src="${ctx }/js/admin/nav.js" type="text/javascript"></script>
 		<script src="${ctx }/js/baseutils.js" type="text/javascript"></script>
-		<script type="text/javascript">
-            var navIndex=0;
-        </script>
+		<script src="${ctx }/js/admin/menu.js" type="text/javascript"></script>
 	</head>
 
 	<body>
-		<jsp:include page="/common/admin/header.jsp"></jsp:include>
+		<jsp:include page="/common/admin/header.jsp?nav=1"></jsp:include>
 
 		<div class="all-container container-fluid">
 			<div class="row">

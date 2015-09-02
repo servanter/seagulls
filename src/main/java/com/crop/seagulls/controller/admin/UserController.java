@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.common.Constant;
-import com.crop.seagulls.entities.User;
-import com.crop.seagulls.service.UserService;
+import com.crop.seagulls.entities.admin.User;
+import com.crop.seagulls.service.AdminUserService;
 import com.crop.seagulls.util.SessionUtils;
 
 /**
@@ -28,13 +28,13 @@ import com.crop.seagulls.util.SessionUtils;
 public class UserController {
 
     @Autowired
-    private UserService userService;
-
+    private AdminUserService adminUuserService;
+    
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String enterLogin(@RequestParam(value = "redirectUrl", required = false)
     String redirect, HttpSession session, Model model) {
-        if (SessionUtils.isLogin(session)) {
-            return "redirect:/";
+        if (SessionUtils.notNull(session, Constant.LOGIN_ADMIN_USER)) {
+            return "redirect:/admin/user/home";
         } else {
             if (redirect == null) {
                 redirect = "/";
@@ -47,9 +47,9 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Response login(User user,HttpSession session) {
-        Response result = userService.login(user);
+        Response result = adminUuserService.login(user);
         if (ReturnCode.isSuccess(result.getReturnCode())) {
-            SessionUtils.setValue(session, Constant.LOGIN_USER, result.getResult());
+            SessionUtils.setValue(session, Constant.LOGIN_ADMIN_USER, result.getResult());
             result.setMessage("admin/user/home/");
         }
         return result;
@@ -57,8 +57,8 @@ public class UserController {
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(HttpSession session, Model model) {
-        if (SessionUtils.isLogin(session)) {
-            SessionUtils.setValue(session, Constant.LOGIN_USER, null);
+        if (SessionUtils.notNull(session, Constant.LOGIN_ADMIN_USER)) {
+            SessionUtils.setValue(session, Constant.LOGIN_ADMIN_USER, null);
         }
         return "redirect:/admin/login/";
     }

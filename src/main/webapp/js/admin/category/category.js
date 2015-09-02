@@ -60,4 +60,8 @@ $(function() {
 		}
 		$('#form-edit').ajaxSubmit(option);
 	});
+	
+	$('.alert-link').click(function() {
+		$('.edit-modal input[name=pId]').val($(this).attr('param'));
+	});
 })

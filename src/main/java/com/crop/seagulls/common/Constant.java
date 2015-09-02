@@ -27,4 +27,19 @@ public class Constant {
      * Cookie session id
      */
     public static final String COOKIE_SESSION_KEY = "CSID";
+    
+    
+    /**
+     * Login user session key
+     */
+    public static final String LOGIN_ADMIN_USER = "CAUSER";
+
+    /**
+     * Cookie session id
+     */
+    public static final String COOKIE_ADMIN_SESSION_KEY = "CASID";
+    
+    
+    
+    
 }

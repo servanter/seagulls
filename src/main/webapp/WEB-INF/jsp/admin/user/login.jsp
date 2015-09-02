@@ -60,11 +60,11 @@
 			</h2>
 			<div class="form-group">
 				<input id="userName" class="form-control" type="text"
-					name="userName" placeholder="用户名" value="15901074186">
+					name="userName" placeholder="用户名" value="admin">
 			</div>
 			<div class="form-group">
 				<input id="password" class="form-control" type="password"
-					name="password" placeholder="密  码" value="222222">
+					name="password" placeholder="密  码" value="admin">
 			</div>
 			<div class="form-group checkbox text-left">
 				<label>

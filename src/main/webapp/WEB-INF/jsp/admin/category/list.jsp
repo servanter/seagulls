@@ -22,31 +22,23 @@
 		<script src="${ctx }/js/jquery-1.11.0.min.js"></script>
 		<script src="${ctx }/js/jquery.form.js" type="text/javascript" ></script>
 		<script src="${ctx }/js/bootstrap.min.js"></script>
-		<script src="${ctx }/js/admin/nav.js" type="text/javascript"></script>
 		<script src="${ctx }/js/baseutils.js" type="text/javascript"></script>
 		<script src="${ctx }/js/alert.js" type="text/javascript"></script>
+		<script src="${ctx }/js/admin/menu.js" type="text/javascript"></script>
 		<script src="${ctx }/js/admin/category/category.js" type="text/javascript"></script>
-		<script type="text/javascript">
-            var navIndex=0;
-        </script>
 	</head>
 
 	<body>
-		<jsp:include page="/common/admin/header.jsp"></jsp:include>
+		<jsp:include page="/common/admin/header.jsp?nav=1"></jsp:include>
 
 		<div class="all-container container-fluid">
 			<div class="row">
-				<jsp:include page="/common/admin/left.jsp"></jsp:include>
+				<jsp:include page="/common/admin/left.jsp?nav=5"></jsp:include>
 
 				<div class="right-content">
-					<ol class="breadcrumb">
-					  <li><a href="#">Home</a></li>
-					  <li><a href="#">Library</a></li>
-					  <li class="active">Data</li>
-					</ol>
-					<p class="pull-right"><button type="button" class="btn btn-success btn-edit" data-toggle="modal" data-target=".edit-modal" param="${model.id }"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新建</button></p>
 					<c:choose>
 				  		<c:when test="${result ne null && fn:length(result.result) > 0}">
+							<p class="pull-right"><button type="button" class="btn btn-success btn-edit" data-toggle="modal" data-target=".edit-modal" param="${model.id }"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新建</button></p>
 				  			<table class="table table-bordered table-striped table-hover f14 text-center">
 								<thead>
 									<tr>
@@ -77,37 +69,7 @@
 								</tbody>
 							</table>
 							
-							<div class="modal fade edit-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-							  <div class="modal-dialog modal-sm">
-							    <div class="modal-content">
-							     <div class="modal-header">
-							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							        <h4 class="modal-title" id="myModalLabel">修改</h4>
-							      </div>
-							      <div class="modal-body">
-							      		<form id="form-edit" class="form-horizontal">
-							      			<input type="hidden" name="id">
-							      		  <div class="form-group">
-										    <label for="pId" class="col-sm-4 control-label">父ID</label>
-										    <div class="col-sm-8">
-										      <input type="number" name="pId" class="form-control" placeholder="请输入父ID">
-										    </div>
-										  </div>
-										  <div class="form-group">
-										    <label for="zhName" class="col-sm-4 control-label">分类名称</label>
-										    <div class="col-sm-8">
-										      <input type="text" name="zhName" class="form-control" placeholder="请输入分类名称">
-										    </div>
-										  </div>
-										</form>
-							      </div>
-							      <div class="modal-footer">
-							        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-							        <button type="button" id="btn-update" class="btn btn-primary">修改</button>
-							      </div>
-							    </div>
-							  </div>
-						</div>
+							
 						
 						<div class="modal fade remove-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 							  <div class="modal-dialog modal-sm">
@@ -161,11 +123,42 @@
 				  		</c:when>
 				  		<c:otherwise>
 				  			<div class="alert alert-warning" role="alert">
-							    该分类下还没有子类别, <a href="#" class="alert-link">点击</a>创建
+							    该分类下还没有子类别, <a href="#" class="alert-link" data-toggle="modal" data-target=".edit-modal" param="${param.pId }">点击</a>创建
 							</div>
 				  		</c:otherwise>
 				  	</c:choose>
 					
+					<div class="modal fade edit-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+							  <div class="modal-dialog modal-sm">
+							    <div class="modal-content">
+							     <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							        <h4 class="modal-title" id="myModalLabel">修改</h4>
+							      </div>
+							      <div class="modal-body">
+							      		<form id="form-edit" class="form-horizontal">
+							      			<input type="hidden" name="id">
+							      		  <div class="form-group">
+										    <label for="pId" class="col-sm-4 control-label">父ID</label>
+										    <div class="col-sm-8">
+										      <input type="number" name="pId" class="form-control" placeholder="请输入父ID">
+										    </div>
+										  </div>
+										  <div class="form-group">
+										    <label for="zhName" class="col-sm-4 control-label">分类名称</label>
+										    <div class="col-sm-8">
+										      <input type="text" name="zhName" class="form-control" placeholder="请输入分类名称">
+										    </div>
+										  </div>
+										</form>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+							        <button type="button" id="btn-update" class="btn btn-primary">修改</button>
+							      </div>
+							    </div>
+							  </div>
+						</div>
 				</div>
 			</div>
 		</div>
