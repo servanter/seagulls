@@ -42,6 +42,23 @@ public class Logger {
             log4j.error(message, t);
         }
     }
+    
+    public void debug(Object message, Object... params) {
+        if (hasParams(params)) {
+            log4j.debug(MessageFormat.format(message.toString(), params));
+        } else {
+            log4j.debug(message);
+        }
+    }
+
+    public void debug(Object message, Throwable t, Object... params) {
+        if (hasParams(params)) {
+            log4j.debug(MessageFormat.format(message.toString(), params), t);
+        } else {
+            log4j.debug(message, t);
+        }
+    }
+
 
     private boolean hasParams(Object... params) {
         return params != null && params.length > 0;

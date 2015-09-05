@@ -8,5 +8,7 @@ import com.crop.seagulls.entities.admin.User;
 public interface AdminUserDAO {
 
     User getByUser(User user);
+    
+    User getByUserName(String userName);
 
 }

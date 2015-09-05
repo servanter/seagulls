@@ -12,5 +12,7 @@
 		<typeAlias alias="buy" type="com.crop.seagulls.entities.Buy" />
 		<typeAlias alias="supplyPic" type="com.crop.seagulls.entities.SupplyPic" />
 		<typeAlias alias="adminUser" type="com.crop.seagulls.entities.admin.User" />
+		<typeAlias alias="role" type="com.crop.seagulls.entities.admin.Role" />
+		<typeAlias alias="menu" type="com.crop.seagulls.entities.admin.Menu" />
 	</typeAliases>
 </configuration>

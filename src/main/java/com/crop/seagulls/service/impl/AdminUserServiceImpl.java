@@ -1,6 +1,9 @@
 package com.crop.seagulls.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.crop.seagulls.bean.Response;
@@ -9,8 +12,8 @@ import com.crop.seagulls.dao.AdminUserDAO;
 import com.crop.seagulls.entities.admin.User;
 import com.crop.seagulls.service.AdminUserService;
 
-@Service
-public class AdminUserServiceImpl implements AdminUserService {
+@Service("adminUserService")
+public class AdminUserServiceImpl implements AdminUserService,UserDetailsService {
 
     @Autowired
     private AdminUserDAO adminUserDAO;
@@ -19,6 +22,11 @@ public class AdminUserServiceImpl implements AdminUserService {
     public Response login(User user) {
         User u = adminUserDAO.getByUser(user);
         return u != null ? new Response(ReturnCode.SUCCESS, u) : new Response(ReturnCode.USER_OR_PASSWORD_UNVALID);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return adminUserDAO.getByUserName(username);
     }
 
 }

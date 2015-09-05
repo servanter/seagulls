@@ -28,7 +28,7 @@ import com.crop.seagulls.util.SessionUtils;
 public class UserController {
 
     @Autowired
-    private AdminUserService adminUuserService;
+    private AdminUserService adminUserService;
     
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String enterLogin(@RequestParam(value = "redirectUrl", required = false)
@@ -45,9 +45,9 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login.do", method = RequestMethod.POST)
     public Response login(User user,HttpSession session) {
-        Response result = adminUuserService.login(user);
+        Response result = adminUserService.login(user);
         if (ReturnCode.isSuccess(result.getReturnCode())) {
             SessionUtils.setValue(session, Constant.LOGIN_ADMIN_USER, result.getResult());
             result.setMessage("admin/user/home/");

@@ -1,10 +1,16 @@
 package com.crop.seagulls.entities.admin;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.crop.seagulls.bean.Page;
 
-public class User extends Page {
+public class User extends Page implements UserDetails {
 
     /**
      * 
@@ -23,6 +29,8 @@ public class User extends Page {
 
     private Timestamp updateTime;
 
+    private String roleCodes;
+    
     public Long getId() {
         return id;
     }
@@ -69,6 +77,51 @@ public class User extends Page {
 
     public void setUpdateTime(Timestamp updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<Role> roles = new ArrayList<Role>();
+        String roleCodeStr = getRoleCodes();
+        for(String roleCode:roleCodeStr.split(",")) {
+            Role role = new Role();
+            role.setRoleCode(roleCode);
+            roles.add(role);
+        }
+        return roles;
+    }
+
+    @Override
+    public String getUsername() {
+        return userName;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isValid;
+    }
+
+    public String getRoleCodes() {
+        return roleCodes;
+    }
+
+    public void setRoleCodes(String roleCodes) {
+        this.roleCodes = roleCodes;
     }
 
 }

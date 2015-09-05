@@ -54,7 +54,7 @@
 
 	<body>
 		<div class="container text-center">
-		<form id="login-form" name="login-form" class="login-form" method="post">
+		<form id="login-form" name="login-form" class="login-form" method="post" action="${ctx }/admin/userLogin/">
 			<h2>
 				大丰收后台管理系统
 			</h2>
@@ -72,9 +72,11 @@
 					记住我
 				</label>
 			</div>
-
+			<c:if test="${param.auth eq 'error'}">
+				<div class="alert alert-danger" role="alert">用户名或密码错误</div>
+			</c:if>
 			<div class="form-group re">
-				<button type="button" id="btn-login" class="btn btn-lg btn-primary"
+				<button type="submit" id="btn-login1" class="btn btn-lg btn-primary"
 					style="background-color: #18bc9c">
 					登录
 				</button>
