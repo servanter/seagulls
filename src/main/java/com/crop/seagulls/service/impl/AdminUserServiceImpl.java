@@ -1,5 +1,8 @@
 package com.crop.seagulls.service.impl;
 
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,12 +14,16 @@ import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.dao.AdminUserDAO;
 import com.crop.seagulls.entities.admin.User;
 import com.crop.seagulls.service.AdminUserService;
+import com.crop.seagulls.service.MenuService;
 
 @Service("adminUserService")
-public class AdminUserServiceImpl implements AdminUserService,UserDetailsService {
+public class AdminUserServiceImpl implements AdminUserService, UserDetailsService {
 
     @Autowired
     private AdminUserDAO adminUserDAO;
+
+    @Autowired
+    private MenuService menuService;
 
     @Override
     public Response login(User user) {
@@ -26,7 +33,12 @@ public class AdminUserServiceImpl implements AdminUserService,UserDetailsService
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return adminUserDAO.getByUserName(username);
+        User user = adminUserDAO.getByUserName(username);
+        if (StringUtils.isNotBlank(user.getRoleIds())) {
+            List<Long> roleIds = com.crop.seagulls.util.StringUtils.string2Long(user.getRoleIds(), ",");
+            user.setMenus(menuService.findByRoles(roleIds));
+        }
+        return user;
     }
 
 }

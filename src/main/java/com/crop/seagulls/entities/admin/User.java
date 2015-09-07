@@ -31,6 +31,10 @@ public class User extends Page implements UserDetails {
 
     private String roleCodes;
     
+    private String roleIds;
+    
+    private List<Menu> menus;
+    
     public Long getId() {
         return id;
     }
@@ -122,6 +126,22 @@ public class User extends Page implements UserDetails {
 
     public void setRoleCodes(String roleCodes) {
         this.roleCodes = roleCodes;
+    }
+
+    public List<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<Menu> menus) {
+        this.menus = menus;
+    }
+
+    public String getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(String roleIds) {
+        this.roleIds = roleIds;
     }
 
 }

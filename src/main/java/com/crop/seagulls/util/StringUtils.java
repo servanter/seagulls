@@ -1,5 +1,8 @@
 package com.crop.seagulls.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StringUtils {
 
     /**
@@ -40,8 +43,16 @@ public class StringUtils {
             return str.toUpperCase();
         }
     }
-    
+
     public static boolean isNullOrEmpty(String text) {
         return (text == null || text.length() == 0) ? true : false;
+    }
+
+    public static List<Long> string2Long(String str, String separator) {
+        List<Long> list = new ArrayList<Long>();
+        for (String every : str.split(separator)) {
+            list.add(Long.parseLong(every));
+        }
+        return list;
     }
 }

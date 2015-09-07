@@ -4,15 +4,17 @@
 
 	<resultMap id="adminUserMap" type="adminUser">
 		<result property="id" column="id" />
-		<result property="userName" column="nick_name" />
+		<result property="userName" column="user_name" />
 		<result property="password" column="password" />
 		<result property="isValid" column="is_valid" />
 		<result property="createTime" column="create_Time" />
 		<result property="updateTime" column="update_time" />
 	</resultMap>
-	
-	<resultMap id="adminUserWithRolesMap" type="adminUser" extends="adminUserMap">
+
+	<resultMap id="adminUserWithRolesMap" type="adminUser"
+		extends="adminUserMap">
 		<result property="roleCodes" column="role_codes" />
+		<result property="roleIds" column="role_ids" />
 	</resultMap>
 
 
@@ -24,10 +26,12 @@
 
 	<select id="getByUserName" parameterType="string"
 		resultMap="adminUserWithRolesMap">
-		SELECT u.*, GROUP_CONCAT(r.role_code) AS role_codes FROM crop_admin_user u INNER JOIN
-		crop_admin_user_role ur INNER JOIN crop_admin_role r ON u.id =
-		ur.user_id AND r.id = ur.role_id WHERE u.user_name = #{userName}
-		AND u.is_valid = 1 AND r.is_valid = 1 GROUP BY u.id
+		SELECT u.*, GROUP_CONCAT(r.role_code) AS role_codes,
+		GROUP_CONCAT(CONVERT(r.id, char)) AS role_ids FROM
+		crop_admin_user u INNER JOIN crop_admin_user_role ur INNER JOIN
+		crop_admin_role r ON u.id = ur.user_id AND r.id = ur.role_id
+		WHERE u.user_name = #{userName} AND u.is_valid = 1 AND
+		r.is_valid = 1 GROUP BY u.id
 	</select>
 
 </mapper>

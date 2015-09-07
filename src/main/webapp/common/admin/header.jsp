@@ -20,42 +20,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<c:choose>
-						<c:when test="${param.nav == 1}">
-							<li>
-								<a href="${ctx }/admin/user/home/" class="active">首页</a>
-							</li>
-						</c:when>
-						<c:otherwise>
-							<li>
-								<a href="${ctx }/admin/user/home/">首页</a>
-							</li>
-						</c:otherwise>
-					</c:choose>
-					<c:choose>
-						<c:when test="${param.nav == 2}">
-							<li>
-								<a href="/admin/shop/" class="active">信息审核</a>
-							</li>
-						</c:when>
-						<c:otherwise>
-							<li>
-								<a href="/admin/shop/">信息审核</a>
-							</li>
-						</c:otherwise>
-					</c:choose>
-					<c:choose>
-						<c:when test="${param.nav == 3}">
-							<li>
-								<a href="#"  class="active">系统管理</a>
-							</li>
-						</c:when>
-						<c:otherwise>
-							<li>
-								<a href="#">系统管理</a>
-							</li>
-						</c:otherwise>
-					</c:choose>
+					<security:authentication var="menus" property="principal.menus"/>
+					<c:forEach var="menu" items="${menus}">
+						<c:if test="${menu.parentId eq -1}">
+							<li><a href="${ctx }/${menu.url }">${menu.menuName }</a></li>
+						</c:if>
+					</c:forEach>
 				</ul>
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">

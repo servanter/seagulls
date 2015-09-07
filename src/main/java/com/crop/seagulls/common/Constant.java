@@ -39,7 +39,10 @@ public class Constant {
      */
     public static final String COOKIE_ADMIN_SESSION_KEY = "CASID";
     
-    
+    /**
+     * Admin loginer menu list
+     */
+    public static final String ADMIN_MENU_LIST = "CAM";
     
     
 }

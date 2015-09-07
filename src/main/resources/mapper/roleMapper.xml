@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crop.seagulls.dao.RoleDAO">
+
+	<resultMap id="roleMap" type="role">
+		<result property="id" column="id" />
+		<result property="roleName" column="role_name" />
+		<result property="roleCode" column="role_code" />
+		<result property="isValid" column="is_valid" />
+		<result property="createTime" column="create_Time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+	<select id="getByUserId" parameterType="long"
+		resultMap="roleMap">
+		SELECT r.* FROM crop_admin_role r INNER JOIN crop_admin_user_role ur ON r.id = ur.role_id WHERE r.is_valid = 1 AND 
+		ur.user_id = #{ID}
+	</select>
+
+</mapper>

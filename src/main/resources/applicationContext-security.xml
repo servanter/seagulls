@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd>
+	    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<security:http auto-config="true" access-denied-page="/accessDenied.jsp">
+		<security:form-login login-page="/admin/login/"
+		    login-processing-url="/admin/userLogin/"
+			authentication-failure-url="/admin/login/?auth=error"
+			default-target-url="/admin/user/home/" 
+			username-parameter="userName"
+			password-parameter="password"/>
+
+		<security:logout />
+		<!-- 实现免登陆验证 -->
+		<!-- <security:remember-me/> -->
+		<security:session-management>
+			<security:concurrency-control max-sessions="10" error-if-maximum-exceeded="true" />
+		</security:session-management>
+		<security:custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR" />
+	</security:http>
+
+	<!--必须包含authenticationManager,accessDecisionManager,securityMetadataSource三个属性，
+		我们的所有控制将在这三个类中实现，解释详见具体配置 -->
+	<beans:bean id="filterSecurityInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="accessDecisionManager" ref="securityAccessDecisionManager" />
+		<beans:property name="securityMetadataSource" ref="securityMetadataSource" />
+	</beans:bean>
+
+	<!-- 认证管理器，实现用户认证的入口，主要实现UserDetailsService接口即可 -->
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider user-service-ref="adminUserService">
+			<security:password-encoder hash="md5" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+	<beans:bean id="adminUserService" class="com.crop.seagulls.service.impl.AdminUserServiceImpl" />
+
+	<!-- 访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源 -->
+	<beans:bean id="securityAccessDecisionManager" class="com.crop.seagulls.security.SecurityAccessDecisionManager"/>
+
+	<!-- 资源源数据定义，即定义某一资源可以被哪些角色访问 -->
+	<beans:bean id="securityMetadataSource" class="com.crop.seagulls.security.SecurityMetadataSource" />
+
+</beans>

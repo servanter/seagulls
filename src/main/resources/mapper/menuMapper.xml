@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crop.seagulls.dao.MenuDAO">
+
+	<resultMap id="menuMap" type="menu">
+		<result property="id" column="id" />
+		<result property="parentId" column="p_id" />
+		<result property="menuName" column="menu_name" />
+		<result property="url" column="url" />
+		<result property="isValid" column="is_valid" />
+		<result property="createTime" column="create_Time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+	<resultMap type="menu" id="menuWithRoleMap" extends="menuMap">
+		<result property="roleCodes" column="role_codes" />
+	</resultMap>
+
+	<select id="findByRoles" parameterType="list" resultMap="menuMap">
+		SELECT * FROM crop_admin_menu m INNER JOIN crop_admin_role_menu
+		rm ON m.id = rm.menu_id AND m.is_valid = 1 AND rm.role_id IN
+		<foreach collection="list" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</select>
+
+	<select id="findAllMenusWithRoles" resultMap="menuWithRoleMap">
+		SELECT m.*, GROUP_CONCAT(r.role_code) AS role_codes FROM crop_admin_menu m
+		INNER JOIN crop_admin_role_menu rm INNER JOIN crop_admin_role r
+		ON m.id = rm.menu_id AND r.id = rm.role_id WHERE m.is_valid = 1
+		AND r.is_valid = 1 GROUP BY m.id
+	</select>
+</mapper>

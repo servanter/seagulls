@@ -3,18 +3,16 @@ package com.crop.seagulls.controller.admin;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.crop.seagulls.bean.Response;
-import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.common.Constant;
-import com.crop.seagulls.entities.admin.User;
 import com.crop.seagulls.service.AdminUserService;
+import com.crop.seagulls.util.SecurityUtils;
 import com.crop.seagulls.util.SessionUtils;
 
 /**
@@ -29,30 +27,28 @@ public class UserController {
 
     @Autowired
     private AdminUserService adminUserService;
-    
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String enterLogin(@RequestParam(value = "redirectUrl", required = false)
     String redirect, HttpSession session, Model model) {
-        if (SessionUtils.notNull(session, Constant.LOGIN_ADMIN_USER)) {
-            return "redirect:/admin/user/home";
+        UserDetails userDetails = SecurityUtils.getLoginedPrincipal();
+        if (userDetails == null) {
+            return sendRedirect(redirect, model);
         } else {
-            if (redirect == null) {
-                redirect = "/";
+            if (userDetails != null) {
+                return "redirect:/admin/home/";
+            } else {
+                return sendRedirect(redirect, model);
             }
-            model.addAttribute("redirectUrl", redirect);
-            return "admin/user/login";
         }
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/login.do", method = RequestMethod.POST)
-    public Response login(User user,HttpSession session) {
-        Response result = adminUserService.login(user);
-        if (ReturnCode.isSuccess(result.getReturnCode())) {
-            SessionUtils.setValue(session, Constant.LOGIN_ADMIN_USER, result.getResult());
-            result.setMessage("admin/user/home/");
+    private String sendRedirect(String redirect, Model model) {
+        if (redirect == null) {
+            redirect = "/";
         }
-        return result;
+        model.addAttribute("redirectUrl", redirect);
+        return "admin/user/login";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -62,10 +58,9 @@ public class UserController {
         }
         return "redirect:/admin/login/";
     }
-    
+
     @RequestMapping(value = "/user/home", method = RequestMethod.GET)
     public String home(HttpSession session, Model model) {
-        
-        return "admin/user/home";
+        return "admin/home";
     }
 }

@@ -1,5 +1,8 @@
 package com.crop.seagulls.util;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.servlet.http.HttpSession;
 
 import com.crop.seagulls.common.Constant;
@@ -18,7 +21,7 @@ public class SessionUtils {
     public static Object getValue(HttpSession session, String key) {
         return session.getAttribute(key);
     }
-    
+
     public static void setValue(HttpSession session, String key, Object value) {
         session.setAttribute(key, value);
     }
@@ -31,8 +34,14 @@ public class SessionUtils {
     public static boolean isLogin(HttpSession session) {
         return notNull(session, Constant.LOGIN_USER);
     }
-    
+
     public static User getCurUser(HttpSession session) {
         return (User) getValue(session, Constant.LOGIN_USER);
+    }
+
+    public static void mapSet(HttpSession session, Map<String, Object> map) {
+        for (Entry<String, Object> entry : map.entrySet()) {
+            setValue(session, entry.getKey(), entry.getValue());
+        }
     }
 }
