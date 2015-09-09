@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,6 +35,8 @@ public class User extends Page implements UserDetails {
     private String roleIds;
     
     private List<Menu> menus;
+    
+    private Map<Long, List<Menu>> menuMap;
     
     public Long getId() {
         return id;
@@ -142,6 +145,14 @@ public class User extends Page implements UserDetails {
 
     public void setRoleIds(String roleIds) {
         this.roleIds = roleIds;
+    }
+
+    public Map<Long, List<Menu>> getMenuMap() {
+        return menuMap;
+    }
+
+    public void setMenuMap(Map<Long, List<Menu>> menuMap) {
+        this.menuMap = menuMap;
     }
 
 }

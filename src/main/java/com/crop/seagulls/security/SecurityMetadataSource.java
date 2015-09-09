@@ -43,7 +43,8 @@ public class SecurityMetadataSource implements FilterInvocationSecurityMetadataS
         if (StringUtils.isNotBlank(requestUrl)) {
             requestUrl = requestUrl.substring(1, requestUrl.length());
         }
-        return resourceMap.get(requestUrl);
+        Collection<ConfigAttribute> collection = resourceMap.get(requestUrl);
+        return collection;
     }
 
     private void loadResourceDefine() {
@@ -53,11 +54,17 @@ public class SecurityMetadataSource implements FilterInvocationSecurityMetadataS
             for (Menu menu : menus) {
                 Collection<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
                 String codes = menu.getRoleCodes();
-                for (String code : codes.split(",")) {
-                    ConfigAttribute configAttribute = new SecurityConfig(code);
-                    configAttributes.add(configAttribute);
+                if (StringUtils.isNotBlank(codes)) {
+                    for (String code : codes.split(",")) {
+                        ConfigAttribute configAttribute = new SecurityConfig(code);
+                        configAttributes.add(configAttribute);
+                    }
+                    resourceMap.put(menu.getUrl(), configAttributes);
+                } else {
+                    Collection<ConfigAttribute> undistributed = new ArrayList<ConfigAttribute>();
+                    undistributed.add(new SecurityConfig("UNDISTRIBUTED"));
+                    resourceMap.put(menu.getUrl(), undistributed);
                 }
-                resourceMap.put(menu.getUrl(), configAttributes);
             }
         }
     }
