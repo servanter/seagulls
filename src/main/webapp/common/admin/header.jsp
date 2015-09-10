@@ -20,11 +20,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<security:authentication var="menus" property="principal.menus"/>
-					<c:forEach var="menu" items="${menus}">
-						<c:if test="${menu.parentId eq -1}">
-							<li><a href="${ctx }/${menu.url }">${menu.menuName }</a></li>
-						</c:if>
+					<security:authentication var="menus" property="principal.menuMap"/>
+					<c:forEach var="menu" items="${menus[-1]}">
+						<li><a href="${ctx }/${menu.url }">${menu.menuName }</a></li>
 					</c:forEach>
 				</ul>
 				<form class="navbar-form navbar-left" role="search">

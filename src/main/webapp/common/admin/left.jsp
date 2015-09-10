@@ -1,32 +1,38 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="/common/taglibs.jsp"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 <div class="left-status">
 	<ul class="left-menu">
 		
-		
-		<security:authentication var="menuMap" property="principal.menuMap"/>
-		${menuMap }ccccccc
-		<c:forEach var="menu" items="${menuMap}">
-			<c:forEach var="curMenu" items="${menu.value}">
-				<c:if test="${curMenu.parentId ne -1}">
-				
-					${curMenu.id  }############${curMenu.parentId }---+++++++++${(menuMap[curMenu.parentId])[0].menuName}----${menuMap[curMenu.parentId][0].parentId  }bbbbb${menuMap[curMenu.parentId][0].parentId eq -1 }
-						<c:choose>
-							<c:when test="${menuMap[curMenu.parentId][0].parentId eq -1}">
-								<li><a href="${ctx }/${curMenu.url }">mmm${curMenu.menuName }</a></li>
-							</c:when>
-							<c:otherwise>
-								<c:forEach var="subMenu" items="${menuMap[curMenu.id]}">
-									sss<li><a href="${ctx }/${subMenu.url }" class="sub" param="${curMenu.id }" data="${subMenu.id }">${subMenu.menuName }</a></li>	
-								</c:forEach>
-							</c:otherwise>
-						</c:choose>
-				</c:if>
-			</c:forEach>
+		<security:authentication var="userMenuMap" property="principal.menuMap"/>
+		<c:set var="lastIds"></c:set>
+		<c:forEach var="menu" items="${CUR_MENU_LIST}">
+			<c:choose>
+				<c:when test="${menu.url eq '' && fn:length(userMenuMap[menu.id]) > 0}">
+					<li><a href="javascript:void(0)" param="${menu.parentId }" data="${menu.id }" c="0">${menu.menuName }</a></li>
+				</c:when>
+				<c:otherwise>
+					<c:set var="everyLast" value="${fn:split(lastIds, ',')}"></c:set>
+					<c:set var="isContains" value="false"></c:set>
+					<c:forEach var="e" items="${everyLast}">
+						<c:if test="${e eq menu.parentId}">
+							<c:set var="isContains" value="true"></c:set>
+						</c:if>
+					</c:forEach>
+					<c:choose>
+						<c:when test="${isContains}">
+							<li><a href="${ctx }/${menu.url }" class="sub" param="${menu.parentId }" data="${menu.id }">${menu.menuName }</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="${ctx }/${menu.url }">${menu.menuName }</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:otherwise>
+			</c:choose>
+			<c:set var="lastIds" value="${lastIds},${menu.id}"></c:set>
 		</c:forEach>
 		<!-- 
 		<li><a href="javascript:void(0)">供应管理</a></li>

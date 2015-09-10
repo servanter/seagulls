@@ -82,11 +82,22 @@
 	
 	 <filter>  
         <filter-name>springSecurityFilterChain</filter-name>  
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>  
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>    
     </filter>  
   
     <filter-mapping>  
         <filter-name>springSecurityFilterChain</filter-name>  
+        <url-pattern>/admin/*</url-pattern>  
+    </filter-mapping>  
+    
+    
+     <filter>  
+        <filter-name>menuFilter</filter-name>  
+        <filter-class>com.crop.seagulls.security.MenuFilter</filter-class>    
+    </filter>  
+  
+    <filter-mapping>  
+        <filter-name>menuFilter</filter-name>  
         <url-pattern>/admin/*</url-pattern>  
     </filter-mapping>  
 </web-app>

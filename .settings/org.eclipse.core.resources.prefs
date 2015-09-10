@@ -1,7 +1,14 @@
-#Sun Aug 23 08:03:12 CST 2015
+#Mon Sep 07 23:15:22 CST 2015
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
+encoding//src/main/webapp/WEB-INF/jsp/admin/user/login.jsp=UTF-8
 encoding//src/main/webapp/common/header.jsp=UTF-8
+encoding//src/main/webapp/css/admin/user/main.css=UTF-8
+encoding//src/main/webapp/js/admin/category/category.js=UTF-8
+encoding//src/main/webapp/js/admin/user/user.js=UTF-8
+encoding//src/main/webapp/js/alert.js=UTF-8
+encoding//src/main/webapp/js/user/profile.js=UTF-8
+encoding//src/main/webapp/js/user/user.js=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8
