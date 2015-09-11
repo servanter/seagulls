@@ -4,7 +4,7 @@
 
 	<resultMap id="dictAreaMap" type="area">
 		<result property="id" column="id" />
-		<result property="pId" column="p_id" />
+		<result property="parentId" column="p_id" />
 		<result property="enName" column="en_name" />
 		<result property="zhName" column="zh_name" />
 		<result property="firstLetter" column="first_letter" />
@@ -45,5 +45,24 @@
 	<delete id="deleteById" parameterType="long">
 		DELETE FROM crop_dict_area WHERE id = #{id}
 	</delete>
+	
+	<select id="getByArea" parameterType="area" resultMap="dictAreaMap">
+		SELECT * FROM crop_dict_area 
+		<where>
+			<if test="parentId != null and parentId > 0">
+				AND p_id = #{parentId}
+			</if>
+		</where>
+		LIMIT #{sinceCount}, #{pageSize}
+	</select>
+	
+	<select id="getByAreaCount" parameterType="area" resultType="int">
+		SELECT COUNT(*) FROM crop_dict_area
+		<where>
+			<if test="parentId != null and parentId > 0">
+				AND p_id = #{parentId}
+			</if>
+		</where>
+	</select>
 
 </mapper>

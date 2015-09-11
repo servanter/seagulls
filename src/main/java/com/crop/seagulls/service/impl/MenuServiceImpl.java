@@ -14,7 +14,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Autowired
     private MenuDAO menuDAO;
-    
+
     @Override
     public List<Menu> findByRoles(List<Long> roleIds) {
         return menuDAO.findByRoles(roleIds);

@@ -1,16 +1,23 @@
 package com.crop.seagulls.entities;
 
+import com.crop.seagulls.bean.Page;
+
 /**
  * Area
  * 
  * @author zhanghongyan@outlook.com
  * 
  */
-public class Area {
+public class Area extends Page {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -2795149107075556958L;
 
     private Long id;
 
-    private Long pId;
+    private Long parentId;
 
     private String enName;
 
@@ -26,7 +33,7 @@ public class Area {
     public Area(Long id, Long id2, String enName, String zhName, String firstLetter) {
         super();
         this.id = id;
-        this.pId = id2;
+        this.parentId = id2;
         this.enName = enName;
         this.zhName = zhName;
         this.firstLetter = firstLetter;
@@ -40,12 +47,12 @@ public class Area {
         this.id = id;
     }
 
-    public Long getPId() {
-        return pId;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setPId(Long id) {
-        pId = id;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
     public String getEnName() {

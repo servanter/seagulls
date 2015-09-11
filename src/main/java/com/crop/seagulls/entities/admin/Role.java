@@ -4,7 +4,14 @@ import java.sql.Timestamp;
 
 import org.springframework.security.core.GrantedAuthority;
 
-public class Role implements GrantedAuthority {
+import com.crop.seagulls.bean.Page;
+
+public class Role extends Page implements GrantedAuthority {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 8639999430124334519L;
 
     private Long id;
 
@@ -17,6 +24,10 @@ public class Role implements GrantedAuthority {
     private Timestamp updateTime;
 
     private Boolean isValid;
+    
+    
+    
+    private String menuIds; 
 
     public Role() {
         super();
@@ -138,6 +149,14 @@ public class Role implements GrantedAuthority {
         } else if (!updateTime.equals(other.updateTime))
             return false;
         return true;
+    }
+
+    public String getMenuIds() {
+        return menuIds;
+    }
+
+    public void setMenuIds(String menuIds) {
+        this.menuIds = menuIds;
     }
 
 }

@@ -22,7 +22,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<ul class="nav navbar-nav">
 					<security:authentication var="menus" property="principal.menuMap"/>
 					<c:forEach var="menu" items="${menus[-1]}">
-						<li><a href="${ctx }/${menu.url }">${menu.menuName }</a></li>
+						<c:choose>
+							<c:when test="${menu.id eq AUVTM.id}">
+								<li><a class="active" href="${ctx }/${menu.url }">${menu.menuName }</a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="${ctx }/${menu.url }">${menu.menuName }</a></li>
+							</c:otherwise>
+						</c:choose>
+						
 					</c:forEach>
 				</ul>
 				<form class="navbar-form navbar-left" role="search">

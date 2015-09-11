@@ -2,15 +2,8 @@ package com.crop.seagulls.security;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import javax.servlet.Filter;
@@ -20,27 +13,31 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.swing.text.html.HTML.Tag;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.crop.seagulls.cache.MenuCache;
+import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.entities.admin.Menu;
 import com.crop.seagulls.entities.admin.User;
 import com.crop.seagulls.util.SecurityUtils;
 
 public class MenuFilter implements Filter {
 
+    private MenuCache menuCache;
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        WebApplicationContext webApplicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(filterConfig.getServletContext());
+        menuCache = (MenuCache) webApplicationContext.getBean("menuCache");
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filter) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse resp = (HttpServletResponse) response;
-        HttpSession session = req.getSession();
 
         String contextPath = req.getContextPath();
         String fullURL = req.getRequestURI();
@@ -58,15 +55,27 @@ public class MenuFilter implements Filter {
             }
             Menu target = null;
             for (Menu menu : menus) {
-                if (targetURL.contains(menu.getUrl())) {
+                if (targetURL.contains(menu.getUrl()) && StringUtils.isNotBlank(menu.getUrl())) {
                     target = menu;
                     break;
                 }
             }
             if (target != null) {
 
-                List<Menu> curMenus = getCurMenuMap(target, user);
-                req.setAttribute("CUR_MENU_LIST", curMenus);
+                // find top menus
+                Menu top = null;
+                Menu menu = target;
+                for (;;) {
+                    if (menu.getParentId() == -1) {
+                        top = menu;
+                        break;
+                    }
+                    menu = menuCache.getById(menu.getParentId());
+                }
+                List<Menu> curMenus = getCurMenuMap(top, user);
+                req.setAttribute(Constant.ADMIN_USER_TOP_MENU_LIST, curMenus);
+                req.setAttribute(Constant.ADMIN_USER_VISIT_TOP_MENU, top);
+                req.setAttribute(Constant.ADMIN_USER_VISIT_MENU, target);
             }
 
         }

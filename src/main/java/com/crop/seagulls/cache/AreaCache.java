@@ -34,12 +34,12 @@ public class AreaCache {
             Map<Long, List<Area>> mapRelation = new HashMap<Long, List<Area>>();
             for (Area Area : areas) {
                 map.put(Area.getId(), Area);
-                if (mapRelation.containsKey(Area.getPId())) {
-                    mapRelation.get(Area.getPId()).add(Area);
+                if (mapRelation.containsKey(Area.getParentId())) {
+                    mapRelation.get(Area.getParentId()).add(Area);
                 } else {
                     List<Area> curAreas = new ArrayList<Area>();
                     curAreas.add(Area);
-                    mapRelation.put(Area.getPId(), curAreas);
+                    mapRelation.put(Area.getParentId(), curAreas);
                 }
             }
             ALL_AREA_MAP = map;

@@ -34,11 +34,11 @@ public class AreaTask {
         StringBuilder provinceBuilder = new StringBuilder();
         StringBuilder locationBuilder = new StringBuilder();
         for (Area area : areas) {
-            if (area.getPId() == 0) {
-                provinceBuilder.append("provinces.push({id:" + area.getId() + ", pid:" + area.getPId() + ", zh_name:'" + area.getZhName() + "', en_name:'" + area.getEnName()
+            if (area.getParentId() == 0) {
+                provinceBuilder.append("provinces.push({id:" + area.getId() + ", pid:" + area.getParentId() + ", zh_name:'" + area.getZhName() + "', en_name:'" + area.getEnName()
                         + "', first_letter:'" + area.getFirstLetter() + "'});\r\n");
             } else {
-                locationBuilder.append("locations.push({id:" + area.getId() + ", pid:" + area.getPId() + ", zh_name:'" + area.getZhName() + "', en_name:'" + area.getEnName()
+                locationBuilder.append("locations.push({id:" + area.getId() + ", pid:" + area.getParentId() + ", zh_name:'" + area.getZhName() + "', en_name:'" + area.getEnName()
                         + "', first_letter:'" + area.getFirstLetter() + "'});\r\n");
             }
         }

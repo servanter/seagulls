@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.dao.DictAreaDAO;
 import com.crop.seagulls.entities.Area;
 import com.crop.seagulls.service.DictAreaService;
@@ -41,6 +42,13 @@ public class DictAreaServiceImpl implements DictAreaService {
     @Override
     public List<Area> findByPId(Long id) {
         return dictAreaDAO.getByPId(id);
+    }
+
+    @Override
+    public Paging<Area> findByPage(Area area) {
+        List<Area> areas = dictAreaDAO.getByArea(area);
+        int total = dictAreaDAO.getByAreaCount(area);
+        return new Paging<Area>(total, area.getPage(), area.getPageSize(), areas);
     }
 
 }

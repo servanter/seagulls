@@ -19,4 +19,8 @@ public interface DictAreaDAO {
 
     public List<Area> getByPId(Long id);
 
+    public List<Area> getByArea(Area area);
+
+    public int getByAreaCount(Area area);
+
 }

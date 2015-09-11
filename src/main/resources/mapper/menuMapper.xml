@@ -32,4 +32,5 @@
 		WHERE m.is_valid = 1 AND (r.is_valid = 1 OR r.is_valid IS NULL)
 		GROUP BY m.id
 	</select>
+	
 </mapper>

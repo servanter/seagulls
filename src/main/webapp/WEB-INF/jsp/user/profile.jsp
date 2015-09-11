@@ -31,7 +31,7 @@
 </script>
 </head>
 <body onload="aa()">
-<jsp:include page="/common/header.jsp?nav=3"></jsp:include>
+<jsp:include page="/common/header.jsp?nav=6"></jsp:include>
 <div class="content">
     <form method="post" id="user_form">
         <div class="top_f">

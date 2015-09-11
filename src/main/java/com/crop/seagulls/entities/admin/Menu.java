@@ -2,7 +2,14 @@ package com.crop.seagulls.entities.admin;
 
 import java.sql.Timestamp;
 
-public class Menu {
+import com.crop.seagulls.bean.Page;
+
+public class Menu extends Page {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 346608023731332582L;
 
     private Long id;
 

@@ -11,4 +11,20 @@ $(function() {
 			$(this).attr('c','1');
 		}
 	});
-})
+	initMenuTrigger(mId);
+});
+
+
+function initMenuTrigger(_id) {
+	$.each($('ul.left-menu li a[data=' + _id + ']'), function(index, item) {
+		$(this).addClass('active');
+		if($(this).attr('c') == '0') {
+			$(this).attr('c', 1);
+		}
+		var prev = $(this).attr('param');
+		$('ul.left-menu li a[param=' + prev + ']').css('display', 'block');
+		if(prev != -1) {
+			initMenuTrigger(prev);
+		}
+	});
+}

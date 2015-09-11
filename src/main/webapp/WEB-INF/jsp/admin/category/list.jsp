@@ -29,11 +29,11 @@
 	</head>
 
 	<body>
-		<jsp:include page="/common/admin/header.jsp?nav=1"></jsp:include>
+		<jsp:include page="/common/admin/header.jsp"></jsp:include>
 
 		<div class="all-container container-fluid">
 			<div class="row">
-				<jsp:include page="/common/admin/left.jsp?nav=5"></jsp:include>
+				<jsp:include page="/common/admin/left.jsp"></jsp:include>
 
 				<div class="right-content">
 					<c:choose>

@@ -2,6 +2,7 @@ package com.crop.seagulls.service;
 
 import java.util.List;
 
+import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.entities.Area;
 
 /**
@@ -50,4 +51,6 @@ public interface DictAreaService {
      * @return
      */
     public Boolean remove(Long id);
+
+    public Paging<Area> findByPage(Area area);
 }

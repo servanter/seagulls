@@ -17,4 +17,76 @@
 		ur.user_id = #{ID}
 	</select>
 
+	<select id="delete" parameterType="long">
+		UPDATE crop_admin_role SET is_valid = 0 WHERE id=#{id}
+	</select>
+	
+	<delete id="deleteUserRole">
+		DELETE FROM crop_admin_user_role 
+		<where>
+			<if test="userId != null and userId > 0">
+				AND user_id = #{userId}
+			</if>
+			<if test="roleId != null and roleId > 0">
+				AND role_id = #{roleId}
+			</if>
+		</where>
+	</delete>
+	
+	<delete id="deleteRoleMenu">
+		DELETE FROM crop_admin_role_menu
+		<where>
+			<if test="menuId != null and menuId > 0">
+				AND menu_id = #{menuId}
+			</if>
+			<if test="roleId != null and roleId > 0">
+				AND role_id = #{roleId}
+			</if>
+		</where>
+	</delete>
+	
+	
+	<insert id="save" parameterType="role">
+		INSERT INTO crop_admin_role(role_name, role_code, createTime)
+		VALUES(#{roleName}, #{roleCode}, NOW())
+		<selectKey resultType="Long" keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<select id="getById" parameterType="long" resultMap="roleMap">
+		SELECT * FROM crop_admin_role WHERE id = #{id} AND is_valid = 1
+	</select>
+	
+	<select id="getByRole" parameterType="role" resultMap="roleMap">
+		SELECT * FROM crop_admin_role WHERE is_valid = 1
+		<if test="roleCode != null and roleCode.length > 0">
+			AND role_code LIKE '%${roleCode}%'
+		</if>
+		<if test="roleName != null and roleName.length > 0">
+			AND role_name LIKE '%${roleName}%'
+		</if>
+	</select>
+	
+	<select id="getByRoleCount" parameterType="role" resultType="int">
+		SELECT COUNT(*) FROM crop_admin_role WHERE is_valid = 1
+		<if test="roleCode != null and roleCode.length > 0">
+			AND role_code LIKE '%${roleCode}%'
+		</if>
+		<if test="roleName != null and roleName.length > 0">
+			AND role_name LIKE '%${roleName}%'
+		</if>
+	</select>
+	
+	<update id="update" parameterType="role">
+		UPADTE crop_admin_role SET role_name = #{roleName}, role_code = #{roleCode} WHERE id = #{id} 
+	</update>
+	
+	<insert id="saveRoleMenus">
+		INSERT crop_admin_role_menu (role_id, menu_id)
+		VALUES
+		<foreach collection="menuIds" separator="," item="menuId">
+			(#{roleId}, #{menuId})
+		</foreach>
+	</insert>
 </mapper>

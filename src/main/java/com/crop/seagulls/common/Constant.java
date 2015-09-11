@@ -27,8 +27,7 @@ public class Constant {
      * Cookie session id
      */
     public static final String COOKIE_SESSION_KEY = "CSID";
-    
-    
+
     /**
      * Login user session key
      */
@@ -38,11 +37,25 @@ public class Constant {
      * Cookie session id
      */
     public static final String COOKIE_ADMIN_SESSION_KEY = "CASID";
-    
+
     /**
      * Admin loginer menu list
      */
     public static final String ADMIN_MENU_LIST = "CAM";
-    
-    
+
+    /**
+     * User top menu has menus
+     */
+    public static final String ADMIN_USER_TOP_MENU_LIST = "ACTML";
+
+    /**
+     * User visit menu at top menu
+     */
+    public static final String ADMIN_USER_VISIT_TOP_MENU = "AUVTM";
+
+    /**
+     * User visit menu
+     */
+    public static final String ADMIN_USER_VISIT_MENU = "AUVM";
+
 }
