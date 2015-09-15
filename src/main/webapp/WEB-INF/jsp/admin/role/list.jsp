@@ -62,7 +62,7 @@
 											<td>${model.updateTime }</td>
 											<td>
 												<button type="button" class="btn btn-primary btn-edit" data-toggle="modal" data-target=".edit-modal" param="${model.id }"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改</button>
-												<button type="button" class="btn btn-danger btn-remove" data-toggle="modal" data-target=".menu-module-modal" param="${model.id }"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除</button>
+												<button type="button" class="btn btn-danger btn-remove" data-toggle="modal" data-target=".remove-modal" param="${model.id }"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除</button>
 											</td>
 										</tr>
 									</c:forEach>
@@ -137,11 +137,11 @@
 							      </div>
 							      <div class="modal-body">
 							      		<form id="form-edit" class="form-horizontal">
-							      			<input type="hidden" name="cur_role_id">
+							      			<input type="hidden" name="id">
 							      		  <div class="form-group">
 										    <label for="roleCode" class="col-sm-4 control-label">角色代码</label>
 										    <div class="col-sm-8">
-										      <input type="number" name="roleCode" class="form-control" placeholder="请输入角色代码">
+										      <input type="text" name="roleCode" class="form-control" placeholder="请输入角色代码">
 										    </div>
 										  </div>
 										  <div class="form-group">

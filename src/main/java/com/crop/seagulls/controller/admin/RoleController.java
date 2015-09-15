@@ -46,14 +46,7 @@ public class RoleController {
 
     @ResponseBody
     @RequestMapping("/modify")
-    public Response modify(@RequestParam("id")
-    Long id, @RequestParam("roleCode")
-    String roleCode, @RequestParam("roleName")
-    String roleName) {
-        Role role = new Role();
-        role.setId(id);
-        role.setRoleCode(roleCode);
-        role.setRoleName(roleName);
+    public Response modify(Role role) {
         return roleService.modify(role);
     }
 

@@ -14,7 +14,7 @@ $(function() {
 	initMenuTrigger(mId);
 	
 	$('input[name=menu_names]').click(function() {
-		loadMenu($('input[name=cur_role_id]').val());
+		loadMenu($('input[name=id]').val());
 	});
 	
 });
@@ -52,8 +52,8 @@ function loadMenu(_id) {
 				if(isContains) {
 					node.checked = true;
 				} else {
-					if($('input[name=menu_ids]').length > 0) {
-						var selectedMenuIds = $('input[name=menu_ids]').val();
+					if($('input[name=menuIds]').length > 0) {
+						var selectedMenuIds = $('input[name=menuIds]').val();
 						for(var e in selectedMenuIds.split(',')) {
 							if(selectedMenuIds.split(',')[e] == item.id) {
 								node.checked = true;
@@ -97,10 +97,10 @@ function loadData(e, treeId, treeNode) {
 	if (ids.length > 0 ) ids = ids.substring(0, ids.length-1);
 	var cur = $("input[name=menu_names]");
 	$(cur).val(v);
-	if($('input[name=menu_ids]').length == 1) {
-		$('input[name=menu_ids]').val(ids);
+	if($('input[name=menuIds]').length == 1) {
+		$('input[name=menuIds]').val(ids);
 	} else {
-		$(cur).after('<input type="hidden" name="menu_ids" value="' + ids + '"/>');
+		$(cur).after('<input type="hidden" name="menuIds" value="' + ids + '"/>');
 	}
 }
 

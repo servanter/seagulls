@@ -50,8 +50,10 @@ public class StringUtils {
 
     public static List<Long> string2Long(String str, String separator) {
         List<Long> list = new ArrayList<Long>();
-        for (String every : str.split(separator)) {
-            list.add(Long.parseLong(every));
+        if (org.apache.commons.lang3.StringUtils.isNotBlank(str)) {
+            for (String every : str.split(separator)) {
+                list.add(Long.parseLong(every));
+            }
         }
         return list;
     }

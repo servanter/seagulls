@@ -18,7 +18,7 @@ public interface RoleDAO {
 
     int update(Role role);
 
-    int delete(Long id);
+    int updateIsValid(@Param("id") Long id, @Param("isValid") Boolean isValid);
 
     int deleteUserRole(@Param("userId") Long userId, @Param("roleId") Long roleId);
 

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,11 +37,8 @@ public class RoleServiceImpl implements RoleService {
     public Response add(Role role) {
         boolean isSuccess = roleDAO.save(role) > 0;
         if (isSuccess) {
-            List<Long> ids = new ArrayList<Long>();
             if (StringUtils.isNotBlank(role.getMenuIds())) {
-                for (String menuId : role.getMenuIds().split(",")) {
-                    ids.add(Long.parseLong(menuId));
-                }
+                List<Long> ids = com.crop.seagulls.util.StringUtils.string2Long(role.getMenuIds(), ",");
                 isSuccess = roleDAO.saveRoleMenus(role.getId(), ids) > 0;
             }
         }
@@ -70,16 +68,22 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Response modify(Role role) {
-        return roleDAO.update(role) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+        boolean isSuccess = roleDAO.update(role) > 0;
+        if (isSuccess) {
+            roleDAO.deleteRoleMenu(null, role.getId());
+            List<Long> ids = com.crop.seagulls.util.StringUtils.string2Long(role.getMenuIds(), ",");
+            if(CollectionUtils.isNotEmpty(ids)) {
+                isSuccess = roleDAO.saveRoleMenus(role.getId(), ids) > 0;
+            }
+        }
+        return isSuccess ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
     }
 
     @Override
     public Response remove(Long id) {
-        boolean isSuccess = roleDAO.delete(id) > 0;
+        boolean isSuccess = roleDAO.updateIsValid(id, false) > 0;
         if (isSuccess) {
             isSuccess = roleDAO.deleteUserRole(-1L, id) > 0;
-        }
-        if (isSuccess) {
             isSuccess = roleDAO.deleteRoleMenu(-1L, id) > 0;
         }
         return isSuccess ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
