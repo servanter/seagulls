@@ -15,13 +15,23 @@ import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.dao.MenuDAO;
 import com.crop.seagulls.entities.admin.Menu;
+import com.crop.seagulls.entities.admin.User;
+import com.crop.seagulls.security.SecurityMetadataSource;
+import com.crop.seagulls.service.AdminUserService;
 import com.crop.seagulls.service.MenuService;
+import com.crop.seagulls.util.SecurityUtils;
 
 @Service
 public class MenuServiceImpl implements MenuService {
 
     @Autowired
     private MenuDAO menuDAO;
+
+    @Autowired
+    private SecurityMetadataSource securityMetadataSource;
+    
+    @Autowired
+    private AdminUserService adminUserService;
 
     @Override
     public List<Menu> findByRoles(List<Long> roleIds) {
@@ -65,7 +75,21 @@ public class MenuServiceImpl implements MenuService {
         if (CollectionUtils.isNotEmpty(menus.getResult())) {
             return new Response(ReturnCode.MENU_NAME_ALREADY_UNVALID);
         }
-        return menuDAO.save(menu) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+        Response response = menuDAO.save(menu) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+        if(ReturnCode.isSuccess(response.getReturnCode()) && menu.getParentId() > 0 && StringUtils.isNotBlank(menu.getUrl())) {
+            
+            // Update the parent url is empty
+            
+            Response parentMenuResponse = findById(menu.getParentId());
+            if(ReturnCode.isSuccess(parentMenuResponse.getReturnCode())) {
+                Menu updateParentMenu = (Menu) parentMenuResponse.getResult();
+                updateParentMenu.setUrl("");
+                modify(updateParentMenu);
+                
+            }
+        }
+        refresh(response);
+        return response;
     }
 
     @Override
@@ -78,11 +102,14 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Response modify(Menu menu) {
+        menu.setExceptId(menu.getId());
         Paging<Menu> menus = findList(menu);
         if (CollectionUtils.isNotEmpty(menus.getResult())) {
             return new Response(ReturnCode.MENU_NAME_ALREADY_UNVALID);
         }
-        return menuDAO.update(menu) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+        Response response = menuDAO.update(menu) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+        refresh(response);
+        return response;
     }
 
     @Override
@@ -90,4 +117,10 @@ public class MenuServiceImpl implements MenuService {
         return menuDAO.delete(id) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
     }
 
+    private void refresh(Response response) {
+        if (ReturnCode.isSuccess(response.getReturnCode())) {
+            securityMetadataSource.loadResourceDefine();
+            adminUserService.refreshUserMenus((User)SecurityUtils.getLoginedPrincipal());
+        }
+    }
 }

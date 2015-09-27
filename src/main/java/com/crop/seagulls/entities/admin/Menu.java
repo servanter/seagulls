@@ -27,6 +27,8 @@ public class Menu extends Page {
 
     private String roleCodes;
 
+    
+    private Long exceptId;
     public Long getId() {
         return id;
     }
@@ -89,6 +91,14 @@ public class Menu extends Page {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public Long getExceptId() {
+        return exceptId;
+    }
+
+    public void setExceptId(Long exceptId) {
+        this.exceptId = exceptId;
     }
 
 }

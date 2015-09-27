@@ -47,24 +47,26 @@ public class SecurityMetadataSource implements FilterInvocationSecurityMetadataS
         return collection;
     }
 
-    private void loadResourceDefine() {
+    public void loadResourceDefine() {
         if (resourceMap == null) {
             resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
-            List<Menu> menus = menuService.findAll();
-            for (Menu menu : menus) {
-                Collection<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
-                String codes = menu.getRoleCodes();
-                if (StringUtils.isNotBlank(codes)) {
-                    for (String code : codes.split(",")) {
-                        ConfigAttribute configAttribute = new SecurityConfig(code);
-                        configAttributes.add(configAttribute);
-                    }
-                    resourceMap.put(menu.getUrl(), configAttributes);
-                } else {
-                    Collection<ConfigAttribute> undistributed = new ArrayList<ConfigAttribute>();
-                    undistributed.add(new SecurityConfig("UNDISTRIBUTED"));
-                    resourceMap.put(menu.getUrl(), undistributed);
+        } else {
+            resourceMap.clear();
+        }
+        List<Menu> menus = menuService.findAll();
+        for (Menu menu : menus) {
+            Collection<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
+            String codes = menu.getRoleCodes();
+            if (StringUtils.isNotBlank(codes)) {
+                for (String code : codes.split(",")) {
+                    ConfigAttribute configAttribute = new SecurityConfig(code);
+                    configAttributes.add(configAttribute);
                 }
+                resourceMap.put(menu.getUrl(), configAttributes);
+            } else {
+                Collection<ConfigAttribute> undistributed = new ArrayList<ConfigAttribute>();
+                undistributed.add(new SecurityConfig("UNDISTRIBUTED"));
+                resourceMap.put(menu.getUrl(), undistributed);
             }
         }
     }

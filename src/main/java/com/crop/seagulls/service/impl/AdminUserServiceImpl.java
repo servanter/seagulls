@@ -39,24 +39,28 @@ public class AdminUserServiceImpl implements AdminUserService, UserDetailsServic
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = adminUserDAO.getByUserName(username);
         if (StringUtils.isNotBlank(user.getRoleIds())) {
-            List<Long> roleIds = com.crop.seagulls.util.StringUtils.string2Long(user.getRoleIds(), ",");
-            List<Menu> menus = menuService.findByRoles(roleIds);
-            user.setMenus(menus);
-
-            Map<Long, List<Menu>> menuMap = new HashMap<Long, List<Menu>>();
-            for (Menu menu : menus) {
-                if (menuMap.containsKey(menu.getParentId())) {
-                    menuMap.get(menu.getParentId()).add(menu);
-                } else {
-                    List<Menu> curMenus = new ArrayList<Menu>();
-                    curMenus.add(menu);
-                    menuMap.put(menu.getParentId(), curMenus);
-                }
-            }
-            user.setMenuMap(menuMap);
-
+            refreshUserMenus(user);
         }
         return user;
+    }
+
+    @Override
+    public void refreshUserMenus(User user) {
+        List<Long> roleIds = com.crop.seagulls.util.StringUtils.string2Long(user.getRoleIds(), ",");
+        List<Menu> menus = menuService.findByRoles(roleIds);
+        user.setMenus(menus);
+
+        Map<Long, List<Menu>> menuMap = new HashMap<Long, List<Menu>>();
+        for (Menu menu : menus) {
+            if (menuMap.containsKey(menu.getParentId())) {
+                menuMap.get(menu.getParentId()).add(menu);
+            } else {
+                List<Menu> curMenus = new ArrayList<Menu>();
+                curMenus.add(menu);
+                menuMap.put(menu.getParentId(), curMenus);
+            }
+        }
+        user.setMenuMap(menuMap);
     }
 
 }

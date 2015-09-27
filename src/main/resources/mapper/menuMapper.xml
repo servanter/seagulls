@@ -43,25 +43,28 @@
 		<include refid="base_columns" />
 		FROM crop_admin_menu WHERE is_valid = 1
 		<if test="parentId != null and parentId >= -1">
-			AND parent_id = #{parentId}
+			AND p_id = #{parentId}
 		</if>
-		<if test="menuName != null and menuName.length > 0">
-			AND parent_id = #{parentId}
+		<if test="menuName != null and menuName.length() > 0">
+			AND menu_name = #{menuName}
+		</if>
+		<if test="exceptId != null and exceptId > 0">
+			AND id &lt;&gt; #{exceptId}
 		</if>
 	</select>
 
 	<select id="getListCount" parameterType="menu" resultType="int">
 		SELECT COUNT(*) FROM crop_admin_menu WHERE is_valid = 1
 		<if test="parentId != null and parentId >= -1">
-			AND parent_id = #{parentId}
+			AND p_id = #{parentId}
 		</if>
-		<if test="menuName != null and menuName.length > 0">
-			AND parent_id = #{parentId}
+		<if test="menuName != null and menuName.length() > 0">
+			AND menu_name = #{menuName}
 		</if>
 	</select>
 
 	<insert id="save" parameterType="menu">
-		INSERT INTO crop_admin_menu(parent_id, menu_name, url,
+		INSERT INTO crop_admin_menu(p_id, menu_name, url,
 		create_time) VALUES(#{parentId}, #{menuName}, #{url}, NOW())
 		<selectKey resultType="Long" keyProperty="id">
 			SELECT LAST_INSERT_ID()
@@ -76,8 +79,16 @@
 	</select>
 
 	<update id="update" parameterType="menu">
-		UPDATE crop_admin_menu SET parent_id = #{parentId}, menu_name =
-		#{menuName}, url = #{url} WHERE id = #{id}
+		UPDATE crop_admin_menu 
+		<set>
+			<if test="menuName != null and menuName.length() > 0">
+				 menu_name = #{menuName},
+			</if>
+			<if test="url != null and url.length() >= 0">
+				 url = #{url},
+			</if>
+		</set>
+		WHERE id = #{id}
 	</update>
 	
 	<update id="delete" parameterType="long">

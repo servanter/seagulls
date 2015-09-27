@@ -7,4 +7,5 @@ public interface AdminUserService {
 
     Response login(User user);
 
+    public void refreshUserMenus(User user);
 }
