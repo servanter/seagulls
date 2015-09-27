@@ -16,6 +16,8 @@ public enum ReturnCode {
     
     USER_OR_PASSWORD_UNVALID(20003, "用户名或密码错误"),
     
+    MENU_NAME_ALREADY_UNVALID(20103, "菜单名称已被注册"),
+    
     IMAGE_CODE_ERROR(99990, "验证码错误"),
     
     SMS_CODE_ERROR(99991, "验证码错误"),

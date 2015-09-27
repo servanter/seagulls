@@ -13,4 +13,16 @@ public interface MenuDAO {
 
     List<Menu> findAllMenusWithRoles();
 
+    List<Menu> getList(Menu menu);
+
+    int getListCount(Menu menu);
+
+    int save(Menu menu);
+
+    Menu getById(Long id);
+
+    int update(Menu menu);
+
+    int delete(Long id);
+
 }

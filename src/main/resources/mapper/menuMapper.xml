@@ -12,6 +12,10 @@
 		<result property="updateTime" column="update_time" />
 	</resultMap>
 
+	<sql id="base_columns">
+		id, p_id, menu_name, url, create_time, update_time, is_valid
+	</sql>
+
 	<resultMap type="menu" id="menuWithRoleMap" extends="menuMap">
 		<result property="roleCodes" column="role_codes" />
 	</resultMap>
@@ -23,6 +27,7 @@
 			separator=",">
 			#{id}
 		</foreach>
+		GROUP BY m.id
 	</select>
 
 	<select id="findAllMenusWithRoles" resultMap="menuWithRoleMap">
@@ -32,5 +37,52 @@
 		WHERE m.is_valid = 1 AND (r.is_valid = 1 OR r.is_valid IS NULL)
 		GROUP BY m.id
 	</select>
+
+	<select id="getList" parameterType="menu" resultMap="menuMap">
+		SELECT
+		<include refid="base_columns" />
+		FROM crop_admin_menu WHERE is_valid = 1
+		<if test="parentId != null and parentId >= -1">
+			AND parent_id = #{parentId}
+		</if>
+		<if test="menuName != null and menuName.length > 0">
+			AND parent_id = #{parentId}
+		</if>
+	</select>
+
+	<select id="getListCount" parameterType="menu" resultType="int">
+		SELECT COUNT(*) FROM crop_admin_menu WHERE is_valid = 1
+		<if test="parentId != null and parentId >= -1">
+			AND parent_id = #{parentId}
+		</if>
+		<if test="menuName != null and menuName.length > 0">
+			AND parent_id = #{parentId}
+		</if>
+	</select>
+
+	<insert id="save" parameterType="menu">
+		INSERT INTO crop_admin_menu(parent_id, menu_name, url,
+		create_time) VALUES(#{parentId}, #{menuName}, #{url}, NOW())
+		<selectKey resultType="Long" keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+
+	<select id="getById" parameterType="long" resultMap="menuMap">
+		SELECT
+		<include refid="base_columns" />
+		FROM crop_admin_menu WHERE id = #{id}
+	</select>
+
+	<update id="update" parameterType="menu">
+		UPDATE crop_admin_menu SET parent_id = #{parentId}, menu_name =
+		#{menuName}, url = #{url} WHERE id = #{id}
+	</update>
 	
+	<update id="delete" parameterType="long">
+		UPDATE crop_admin_menu SET is_valid = 0 WHERE id = #{id}
+	</update>
+
+
 </mapper>
