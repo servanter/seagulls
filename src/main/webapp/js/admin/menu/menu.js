@@ -65,4 +65,21 @@ $(function() {
 	$('.alert-link').click(function() {
 		$('.edit-modal input[name=parentId]').val($(this).attr('param'));
 	});
+	
+	$('input[name=parentId]').click(function() {
+		var settings = {
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				onCheck: loadData,
+				onClick: function onClick(event, treeId, node, clickFlag) {
+					$('input[name=parentId]').val(node.id);
+				}	
+			}
+		};
+		loadMenu(-1, settings);
+	});
 })

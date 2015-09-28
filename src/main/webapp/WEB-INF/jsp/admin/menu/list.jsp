@@ -19,9 +19,11 @@
 		<meta http-equiv="description" content="This is my page">
 		<link rel="stylesheet" href="${ctx }/css/bootstrap.min.css">
 		<link rel="stylesheet" href="${ctx }/css/admin/user/main.css">
+		<link rel="stylesheet" href="${ctx }/css/ztree/zTreeStyle.css">
 		<script src="${ctx }/js/jquery-1.11.0.min.js"></script>
 		<script src="${ctx }/js/jquery.form.js" type="text/javascript" ></script>
 		<script src="${ctx }/js/bootstrap.min.js"></script>
+		<script src="${ctx }/js/ztree/jquery.ztree.all-3.5.min.js" type="text/javascript"></script>
 		<script src="${ctx }/js/baseutils.js" type="text/javascript"></script>
 		<script src="${ctx }/js/alert.js" type="text/javascript"></script>
 		<script src="${ctx }/js/admin/menu.js" type="text/javascript"></script>
@@ -141,7 +143,7 @@
 							      		  <div class="form-group">
 										    <label for="parentId" class="col-sm-4 control-label">父ID</label>
 										    <div class="col-sm-8">
-										      <input type="number" name="parentId" class="form-control" placeholder="请输入父ID">
+										      <input type="text" name="parentId" class="form-control" placeholder="请输入父ID" data-toggle="modal" data-target=".menu-module-modal">
 										    </div>
 										  </div>
 										  <div class="form-group">
@@ -161,6 +163,25 @@
 							      <div class="modal-footer">
 							        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 							        <button type="button" id="btn-update" class="btn btn-primary">修改</button>
+							      </div>
+							    </div>
+							  </div>
+						</div>
+						<div class="modal fade menu-module-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+							  <div class="modal-dialog modal-sm">
+							    <div class="modal-content">
+							     <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							        <h4 class="modal-title">授权菜单</h4>
+							      </div>
+							      <div class="modal-body">
+							      	<ul id="menu-tree" class="ztree">
+							      		
+							      	</ul>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+							        <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
 							      </div>
 							    </div>
 							  </div>

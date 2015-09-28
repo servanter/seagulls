@@ -14,7 +14,20 @@ $(function() {
 	initMenuTrigger(mId);
 	
 	$('input[name=menu_names]').click(function() {
-		loadMenu($('input[name=id]').val());
+		var settings = {
+			check: {
+				enable: true
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				onCheck: loadData
+			}
+		};
+		loadMenu($('input[name=id]').val(),settings);
 	});
 	
 });
@@ -35,7 +48,7 @@ function initMenuTrigger(_id) {
 }
 
 
-function loadMenu(_id) {
+function loadMenu(_id, settings) {
 	$.getJSON(BaseUtils.proPath + 'admin/menu/findMenus?role_ids=' + _id, function(data) {
 		if(data) {
 			var arr = new Array();
@@ -64,20 +77,7 @@ function loadMenu(_id) {
 				}
 				arr.push(node);
 			});
-			var setting = {
-				check: {
-					enable: true
-				},
-				data: {
-					simpleData: {
-						enable: true
-					}
-				},
-				callback: {
-					onCheck: loadData
-				}
-			};
-			$.fn.zTree.init($("#menu-tree"), setting, arr);
+			$.fn.zTree.init($("#menu-tree"), settings, arr);
 			loadData();
 		}
 	});
