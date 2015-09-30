@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -37,6 +38,8 @@ public class User extends Page implements UserDetails {
     private List<Menu> menus;
     
     private Map<Long, List<Menu>> menuMap;
+    
+    private Long exceptId;
     
     public Long getId() {
         return id;
@@ -90,10 +93,12 @@ public class User extends Page implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<Role> roles = new ArrayList<Role>();
         String roleCodeStr = getRoleCodes();
-        for(String roleCode:roleCodeStr.split(",")) {
-            Role role = new Role();
-            role.setRoleCode(roleCode);
-            roles.add(role);
+        if(StringUtils.isNotBlank(roleCodeStr)) {
+            for(String roleCode:roleCodeStr.split(",")) {
+                Role role = new Role();
+                role.setRoleCode(roleCode);
+                roles.add(role);
+            }
         }
         return roles;
     }
@@ -153,6 +158,14 @@ public class User extends Page implements UserDetails {
 
     public void setMenuMap(Map<Long, List<Menu>> menuMap) {
         this.menuMap = menuMap;
+    }
+
+    public Long getExceptId() {
+        return exceptId;
+    }
+
+    public void setExceptId(Long exceptId) {
+        this.exceptId = exceptId;
     }
 
 }

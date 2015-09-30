@@ -5,13 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.dao.AdminUserDAO;
@@ -61,6 +64,51 @@ public class AdminUserServiceImpl implements AdminUserService, UserDetailsServic
             }
         }
         user.setMenuMap(menuMap);
+    }
+
+    @Override
+    public Response add(User user) {
+        Paging<User> users = findList(user);
+        if (CollectionUtils.isNotEmpty(users.getResult())) {
+            return new Response(ReturnCode.USER_NAME_READY_REGISTER);
+        }
+        Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+        user.setPassword(encoder.encodePassword(user.getPassword(), ""));
+        Response response = adminUserDAO.save(user) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+        return response;
+    }
+
+    @Override
+    public Response findById(Long id) {
+        Response response = new Response(ReturnCode.SUCCESS);
+        User user = adminUserDAO.getById(id);
+        response.setResult(user);
+        return response;
+    }
+
+    @Override
+    public Paging<User> findList(User user) {
+        List<User> users = adminUserDAO.getList(user);
+        int total = adminUserDAO.getListCount(user);
+        return new Paging<User>(total, user.getPage(), user.getPageSize(), users);
+    }
+
+    @Override
+    public Response modify(User user) {
+        user.setExceptId(user.getId());
+        Paging<User> users = findList(user);
+        if (CollectionUtils.isNotEmpty(users.getResult())) {
+            return new Response(ReturnCode.USER_NAME_READY_REGISTER);
+        }
+        Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+        user.setPassword(encoder.encodePassword(user.getPassword(), ""));
+        Response response = adminUserDAO.update(user) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+        return response;
+    }
+
+    @Override
+    public Response remove(Long id) {
+        return adminUserDAO.delete(id) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
     }
 
 }

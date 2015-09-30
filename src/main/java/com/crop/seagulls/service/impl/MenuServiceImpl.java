@@ -79,9 +79,8 @@ public class MenuServiceImpl implements MenuService {
         if(ReturnCode.isSuccess(response.getReturnCode()) && menu.getParentId() > 0 && StringUtils.isNotBlank(menu.getUrl())) {
             
             // Update the parent url is empty
-            
             Response parentMenuResponse = findById(menu.getParentId());
-            if(ReturnCode.isSuccess(parentMenuResponse.getReturnCode())) {
+            if(ReturnCode.isSuccess(parentMenuResponse.getReturnCode()) && ((Menu) parentMenuResponse.getResult()).getParentId() > 0) {
                 Menu updateParentMenu = (Menu) parentMenuResponse.getResult();
                 updateParentMenu.setUrl("");
                 modify(updateParentMenu);
