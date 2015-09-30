@@ -229,3 +229,9 @@ body {
 .nav-logo {
 	width:200px;
 }
+
+.dropmenu{
+	width:105px;
+	max-width:105px;
+	min-width:0;
+}

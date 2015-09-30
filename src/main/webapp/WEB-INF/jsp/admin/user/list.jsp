@@ -23,11 +23,11 @@
 		<script src="${ctx }/js/jquery-1.11.0.min.js"></script>
 		<script src="${ctx }/js/jquery.form.js" type="text/javascript" ></script>
 		<script src="${ctx }/js/bootstrap.min.js"></script>
+		<script src="${ctx }/js/ztree/jquery.ztree.all-3.5.min.js" type="text/javascript"></script>
 		<script src="${ctx }/js/baseutils.js" type="text/javascript"></script>
 		<script src="${ctx }/js/alert.js" type="text/javascript"></script>
-		<script src="${ctx }/js/admin/role/role.js" type="text/javascript"></script>
 		<script src="${ctx }/js/admin/menu.js" type="text/javascript"></script>
-		<script src="${ctx }/js/ztree/jquery.ztree.all-3.5.min.js" type="text/javascript"></script>
+		<script src="${ctx }/js/admin/user/user.js" type="text/javascript"></script>
 	</head>
 
 	<body>
@@ -45,8 +45,8 @@
 								<thead>
 									<tr>
 										<th class="text-center">id</th>
-										<th class="text-center">角色代码</th>
-										<th class="text-center">角色名称</th>
+										<th class="text-center">用户名</th>
+										<th class="text-center">密码</th>
 										<th class="text-center">创建时间</th>
 										<th class="text-center">修改时间</th>
 										<th class="text-center">操作</th>
@@ -55,9 +55,9 @@
 								<tbody>
 									<c:forEach var="model" items="${result.result}">
 										<tr>
-											<td>${model.id }</td>
-											<td>${model.roleCode }</td>
-											<td>${model.roleName }</td>
+											<td><a href="javascript:void(0)">${model.id }</a></td>
+											<td>${model.userName }</td>
+											<td>${model.password }</td>
 											<td>${model.createTime }</td>
 											<td>${model.updateTime }</td>
 											<td>
@@ -93,7 +93,7 @@
 							  <ul class="pagination pull-right">
 							  	<c:choose>
 							  		<c:when test="${result.page > 1}">
-							  			<li><a href="${ctx }/admin/role/list_n${result.page - 1 }/" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+							  			<li><a href="${ctx }/admin/menu/list_n${result.page - 1 }/" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
 							  		</c:when>
 							  		<c:otherwise>
 							  			<li class="disabled"><a href="javascript:void(0)" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
@@ -106,13 +106,13 @@
 							  				<li class="active"><a href="javascript:void(0)">${i.index }<span class="sr-only">(current)</span></a></li>
 							  			</c:when>
 							  			<c:otherwise>
-							  				<li><a href="${ctx }/admin/role/list_n${i.index }/">${i.index }<span class="sr-only">(current)</span></a></li>
+							  				<li><a href="${ctx }/admin/menu/list_n${i.index }/">${i.index }<span class="sr-only">(current)</span></a></li>
 							  			</c:otherwise>
 							  		</c:choose>
 							  	</c:forEach>
 							    <c:choose>
 							  		<c:when test="${result.totalPage > result.page}">
-							  			<li><a href="${ctx }/admin/role/list_n${result.page + 1 }/" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+							  			<li><a href="${ctx }/admin/menu/list_n${result.page + 1 }/" aria-label="Next"><span aria-hidden="true">»</span></a></li>
 							  		</c:when>
 							  		<c:otherwise>
 							  			<li class="disabled"><a href="javascript:void(0)" aria-label="Next"><span aria-hidden="true">»</span></a></li>
@@ -123,7 +123,7 @@
 				  		</c:when>
 				  		<c:otherwise>
 				  			<div class="alert alert-warning" role="alert">
-							    该分类下还没有子类别, <a href="#" class="alert-link" data-toggle="modal" data-target=".edit-modal" param="${param.pId }">点击</a>创建
+							    还没有创建任何用户, <a href="#" class="alert-link" data-toggle="modal" data-target=".edit-modal">点击</a>创建
 							</div>
 				  		</c:otherwise>
 				  	</c:choose>
@@ -133,63 +133,63 @@
 							    <div class="modal-content">
 							     <div class="modal-header">
 							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							        <h4 class="modal-title" id="myModalLabel">新建角色</h4>
+							        <h4 class="modal-title" id="myModalLabel">新增</h4>
 							      </div>
 							      <div class="modal-body">
 							      		<form id="form-edit" class="form-horizontal">
 							      			<input type="hidden" name="id">
 							      		  <div class="form-group">
-										    <label for="roleCode" class="col-sm-4 control-label">角色代码</label>
+										    <label for="userName" class="col-sm-4 control-label">用户名</label>
 										    <div class="col-sm-8">
-										      <input type="text" name="roleCode" class="form-control" placeholder="请输入角色代码">
+										      <input type="text" name="userName" id="userName" class="form-control" placeholder="请输入用户名">
 										    </div>
 										  </div>
 										  <div class="form-group">
-										    <label for="roleName" class="col-sm-4 control-label">角色名称</label>
+										    <label for="password" class="col-sm-4 control-label">密码</label>
 										    <div class="col-sm-8">
-										      <input type="text" name="roleName" class="form-control" placeholder="请输入角色名称">
+										      <input type="password" name="password" id="password" class="form-control" placeholder="请输入密码">
 										    </div>
 										  </div>
 										  <div class="form-group">
-										    <label for="menu_names" class="col-sm-4 control-label">授权菜单</label>
+										    <label for="password2" class="col-sm-4 control-label">再次输入</label>
 										    <div class="col-sm-8">
-										      <input type="text" name="menu_names" class="form-control" data-toggle="modal" data-target=".menu-module-modal" placeholder="请选择授权菜单">
+										      <input type="password" name="password2" id="password2" class="form-control" placeholder="请输入确认密码">
+										    </div>
+										  </div>
+										  <div class="form-group">
+										    <label for="user_role_names" class="col-sm-4 control-label">所属角色</label>
+										    <div class="col-sm-8">
+										      <input type="text" name="user_role_names" id="user_role_names" class="form-control" placeholder="请选择所属范围" data-toggle="modal" data-target=".role-module-modal" >
 										    </div>
 										  </div>
 										</form>
 							      </div>
 							      <div class="modal-footer">
 							        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-							        <button type="button" id="btn-update" class="btn btn-primary">确定</button>
+							        <button type="button" id="btn-update" class="btn btn-primary">修改</button>
 							      </div>
 							    </div>
 							  </div>
 						</div>
-						
-						
-						
-						<div class="modal fade menu-module-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+						<div class="modal fade role-module-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 							  <div class="modal-dialog modal-sm">
 							    <div class="modal-content">
 							     <div class="modal-header">
 							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							        <h4 class="modal-title">授权菜单</h4>
+							        <h4 class="modal-title">授权角色</h4>
 							      </div>
 							      <div class="modal-body">
-							      	<ul id="menu-tree" class="ztree">
+							      	<ul id="role-tree" class="ztree">
 							      		
 							      	</ul>
 							      </div>
 							      <div class="modal-footer">
 							        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-							        <button type="button" id="sel-menu-btn" class="btn btn-primary" data-dismiss="modal">确定</button>
+							        <button id="sel-role-btn" type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
 							      </div>
 							    </div>
 							  </div>
 						</div>
-						
-						
-						
 				</div>
 			</div>
 		</div>

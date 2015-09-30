@@ -20,4 +20,8 @@ public interface RoleService {
 
     public Response remove(Long id);
 
+    public Response loadAllRolesAndWithCurRoles(Long userId);
+    
+    public Response addUserRoles(Long userId, List<Long> roleIds);
+
 }

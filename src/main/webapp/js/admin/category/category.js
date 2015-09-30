@@ -33,8 +33,11 @@ $(function() {
 				if (data.code == 10000) {
 					BaseUtils.reload();
 				} else {
-					var msg = Alert.succ('添加失败:' + data.message,'text-center');
-					$('#form-edit>div:last').after(msg);
+					var msg = Alert.succ('添加失败:' + data.message,'text-center', function(msg) {
+						$('#form-edit>div:last').after(msg);
+					}, function(msg) {
+						Alert.leave();
+					});
 				}
 			}
 		}
@@ -53,8 +56,12 @@ $(function() {
 				if (data.code == 10000) {
 					BaseUtils.reload();
 				} else {
-					var msg = Alert.succ('删除失败:' + data.message,'text-center');
-					$('.remove-modal .modal-body').append(msg);
+					var msg = Alert.succ('删除失败:' + data.message,'text-center', function(msg) {
+						$('.remove-modal .modal-body').append(msg);
+					}, function(msg) {
+						Alert.leave();
+					});
+					
 				}
 			}
 		}

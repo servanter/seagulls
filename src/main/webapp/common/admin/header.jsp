@@ -54,16 +54,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">欧阳锋
-							<img
-								src="/images/932400529822720ecfd987dc78cb0a46f31fabd1_meitu_1.jpg">
 							<span class="caret"></span> </a>
-						<ul class="dropdown-menu" role="menu">
+						<ul class="dropdown-menu dropmenu" role="menu">
 							<li>
 								<a href="#"><span class="glyphicon glyphicon-envelope"></span>设置</a>
 							</li>
 							<li class="divider"></li>
 							<li>
-								<a href="/logout/">退出</a>
+								<a href="${ctx }/admin/logout/">退出</a>
 							</li>
 						</ul>
 					</li>

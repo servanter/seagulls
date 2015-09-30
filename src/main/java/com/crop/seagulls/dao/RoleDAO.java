@@ -30,4 +30,6 @@ public interface RoleDAO {
     
     int saveRoleMenus(@Param("roleId") Long roleId, @Param("menuIds") List<Long> menuIds);
 
+    int saveUserRoles(@Param("userId") Long userId, @Param("roleIds") List<Long> roleIds);
+
 }

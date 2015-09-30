@@ -72,7 +72,7 @@ public class RoleServiceImpl implements RoleService {
         if (isSuccess) {
             roleDAO.deleteRoleMenu(null, role.getId());
             List<Long> ids = com.crop.seagulls.util.StringUtils.string2Long(role.getMenuIds(), ",");
-            if(CollectionUtils.isNotEmpty(ids)) {
+            if (CollectionUtils.isNotEmpty(ids)) {
                 isSuccess = roleDAO.saveRoleMenus(role.getId(), ids) > 0;
             }
         }
@@ -87,6 +87,49 @@ public class RoleServiceImpl implements RoleService {
             isSuccess = roleDAO.deleteRoleMenu(-1L, id) > 0;
         }
         return isSuccess ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+    }
+
+    @Override
+    public Response loadAllRolesAndWithCurRoles(Long userId) {
+        Response response = new Response(ReturnCode.SUCCESS);
+        Map<String, List<Map<String, Object>>> result = new HashMap<String, List<Map<String, Object>>>();
+        List<Role> curRoles = findByUserId(userId);
+
+        if (CollectionUtils.isNotEmpty(curRoles)) {
+            List<Map<String, Object>> cur = new ArrayList<Map<String, Object>>();
+            if (CollectionUtils.isNotEmpty(curRoles)) {
+                for (Role r : curRoles) {
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map.put("id", r.getId());
+                    map.put("parentId", -1);
+                    map.put("text", r.getRoleName());
+                    cur.add(map);
+                }
+            }
+            result.put("cur", cur);
+        }
+
+        Role role = new Role();
+        role.setPageSize(-1);
+        Paging<Role> rolePaging = findByRole(role);
+        if (rolePaging != null && CollectionUtils.isNotEmpty(rolePaging.getResult())) {
+            List<Map<String, Object>> all = new ArrayList<Map<String, Object>>();
+            for (Role r : rolePaging.getResult()) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("id", r.getId());
+                map.put("parentId", -1);
+                map.put("text", r.getRoleName());
+                all.add(map);
+            }
+            result.put("all", all);
+        }
+        response.setResult(result);
+        return response;
+    }
+
+    @Override
+    public Response addUserRoles(Long userId, List<Long> roleIds) {
+        return roleDAO.saveUserRoles(userId, roleIds) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
     }
 
 }

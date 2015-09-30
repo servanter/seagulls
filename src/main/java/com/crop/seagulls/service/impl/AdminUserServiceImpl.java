@@ -22,6 +22,7 @@ import com.crop.seagulls.entities.admin.Menu;
 import com.crop.seagulls.entities.admin.User;
 import com.crop.seagulls.service.AdminUserService;
 import com.crop.seagulls.service.MenuService;
+import com.crop.seagulls.service.RoleService;
 
 @Service("adminUserService")
 public class AdminUserServiceImpl implements AdminUserService, UserDetailsService {
@@ -31,6 +32,9 @@ public class AdminUserServiceImpl implements AdminUserService, UserDetailsServic
 
     @Autowired
     private MenuService menuService;
+
+    @Autowired
+    private RoleService roleService;
 
     @Override
     public Response login(User user) {
@@ -74,14 +78,21 @@ public class AdminUserServiceImpl implements AdminUserService, UserDetailsServic
         }
         Md5PasswordEncoder encoder = new Md5PasswordEncoder();
         user.setPassword(encoder.encodePassword(user.getPassword(), ""));
-        Response response = adminUserDAO.save(user) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
-        return response;
+        boolean isSuccess = adminUserDAO.save(user) > 0;
+        if (isSuccess) {
+            if (StringUtils.isNotBlank(user.getRoleIds())) {
+                List<Long> ids = com.crop.seagulls.util.StringUtils.string2Long(user.getRoleIds(), ",");
+                isSuccess = ReturnCode.isSuccess(roleService.addUserRoles(user.getId(), ids).getReturnCode());
+            }
+        }
+        return isSuccess ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
     }
 
     @Override
     public Response findById(Long id) {
         Response response = new Response(ReturnCode.SUCCESS);
         User user = adminUserDAO.getById(id);
+        user.setRoles(roleService.findByUserId(user.getId()));
         response.setResult(user);
         return response;
     }

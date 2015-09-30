@@ -18,7 +18,7 @@
 			username-parameter="userName"
 			password-parameter="password"/>
 
-		<security:logout />
+		<security:logout logout-url="/admin/logout/" logout-success-url="/admin/login/"/>
 		<!-- 实现免登陆验证 -->
 		<!-- <security:remember-me/> -->
 		<security:session-management>

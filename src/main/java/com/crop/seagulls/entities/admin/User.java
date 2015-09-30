@@ -37,6 +37,8 @@ public class User extends Page implements UserDetails {
     
     private List<Menu> menus;
     
+    private List<Role> roles;
+    
     private Map<Long, List<Menu>> menuMap;
     
     private Long exceptId;
@@ -166,6 +168,14 @@ public class User extends Page implements UserDetails {
 
     public void setExceptId(Long exceptId) {
         this.exceptId = exceptId;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
 }

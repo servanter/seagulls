@@ -37,8 +37,11 @@ $(function() {
 				if (data.code == 10000) {
 					BaseUtils.reload();
 				} else {
-					var msg = Alert.succ('添加失败:' + data.message,'text-center');
-					$('#form-edit>div:last').after(msg);
+					var msg = Alert.error('添加失败:' + data.message,'text-center', function(msg) {
+						$('#form-edit>div:last').after(msg);
+					}, function(msg) {
+						Alert.leave();
+					});
 				}
 			}
 		}
@@ -54,9 +57,43 @@ $(function() {
 			if (data.code == 10000) {
 				BaseUtils.reload();
 			} else {
-				var msg = Alert.succ('添加失败:' + data.message,'text-center');
-				$('#form-edit>div:last').after(msg);
+				var msg = Alert.error('添加失败:' + data.message,'text-center', function(msg) {
+						$('#form-edit>div:last').after(msg);
+					}, function(msg) {
+						Alert.leave();
+					});
 			}
 		});
 	});
+	
+	$('input[name=menu_names]').click(function() {
+		var settings = {
+			check: {
+				enable: true
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			}
+		};
+		var initData = '';
+		if($('input[name=menuIds]').length > 0) {
+			initData = $('input[name=menuIds]').val();;
+		}
+		buildTree($('#menu-tree'), 'admin/menu/findMenus', '?role_ids=' + $('input[name=id]').val(), initData, settings);
+	});
+	
+	$('#sel-menu-btn').click(function() {
+		getTreeData('menu-tree', function(data) {
+			var cur = $("input[name=menu_names]");
+			$(cur).val(data.val);
+			if($('input[name=menuIds]').length == 1) {
+				$('input[name=menuIds]').val(data.ids);
+			} else {
+				$(cur).after('<input type="hidden" name="menuIds" value="' + data.ids + '"/>');
+			}
+		});
+	});
+	
 })

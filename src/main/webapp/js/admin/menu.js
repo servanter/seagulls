@@ -13,23 +13,7 @@ $(function() {
 	});
 	initMenuTrigger(mId);
 	
-	$('input[name=menu_names]').click(function() {
-		var settings = {
-			check: {
-				enable: true
-			},
-			data: {
-				simpleData: {
-					enable: true
-				}
-			},
-			callback: {
-				onCheck: loadData
-			}
-		};
-		loadMenu($('input[name=id]').val(),settings);
-	});
-	
+
 });
 
 
@@ -61,7 +45,7 @@ function loadMenu(_id, settings) {
 						}
 					});
 				}
-				var node ={id:item.id, pId:item.parentId, name:item.menuName, open:true};
+				var node ={id:item.id, pId:item.parentId, name:item.text, open:true};
 				if(isContains) {
 					node.checked = true;
 				} else {
@@ -83,9 +67,43 @@ function loadMenu(_id, settings) {
 	});
 }
 
-		
-function loadData(e, treeId, treeNode) {
-	var zTree = $.fn.zTree.getZTreeObj("menu-tree"),
+
+function buildTree(treeObj, url, queryString, initData, settings, closeFunction) {
+	$.getJSON(BaseUtils.proPath + url + queryString, function(data) {
+		if(data) {
+			var arr = new Array();
+			$.each(data.result.all, function(index, item) {
+				var isContains = false;
+				if(data.result.cur && data.result.cur.length) {
+					$.each(data.result.cur, function(index2, curItem) {
+						if(curItem.id == item.id) {
+							isContains = true;
+						}
+					});
+				}
+				var node ={id:item.id, pId:item.parentId, name:item.text, open:true};
+				if(isContains) {
+					node.checked = true;
+				} else {
+					var selectedMenuIds = initData;
+					if(selectedMenuIds) {
+						for(var e in selectedMenuIds.split(',')) {
+							if(selectedMenuIds.split(',')[e] == item.id) {
+								node.checked = true;
+								break;
+							}
+						}
+					}
+				}
+				arr.push(node);
+			});
+			$.fn.zTree.init($(treeObj), settings, arr);
+		}
+	});
+}
+
+function getTreeData (treeId, callback) {
+	var zTree = $.fn.zTree.getZTreeObj(treeId),
 	nodes = zTree.getCheckedNodes(true),
 	v = "";
 	ids = "";
@@ -95,12 +113,29 @@ function loadData(e, treeId, treeNode) {
 	}
 	if (v.length > 0 ) v = v.substring(0, v.length-1);
 	if (ids.length > 0 ) ids = ids.substring(0, ids.length-1);
-	var cur = $("input[name=menu_names]");
-	$(cur).val(v);
-	if($('input[name=menuIds]').length == 1) {
-		$('input[name=menuIds]').val(ids);
-	} else {
-		$(cur).after('<input type="hidden" name="menuIds" value="' + ids + '"/>');
+	callback({val:v, ids:ids});
+}
+
+		
+function loadData(e, treeId, treeNode) {
+	if(treeId) {
+		var zTree = $.fn.zTree.getZTreeObj(treeId),
+		nodes = zTree.getCheckedNodes(true),
+		v = "";
+		ids = "";
+		for (var i=0, l=nodes.length; i<l; i++) {
+			v += nodes[i].name + ",";
+			ids += nodes[i].id + ",";
+		}
+		if (v.length > 0 ) v = v.substring(0, v.length-1);
+		if (ids.length > 0 ) ids = ids.substring(0, ids.length-1);
+		var cur = $("input[name=menu_names]");
+		$(cur).val(v);
+		if($('input[name=menuIds]').length == 1) {
+			$('input[name=menuIds]').val(ids);
+		} else {
+			$(cur).after('<input type="hidden" name="menuIds" value="' + ids + '"/>');
+		}
 	}
 }
 

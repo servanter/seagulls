@@ -20,6 +20,13 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
+    @ResponseBody
+    @RequestMapping("/loadRoles")
+    public Response findMenus(@RequestParam("userId")
+    Long userId) {
+        return roleService.loadAllRolesAndWithCurRoles(userId);
+    }
+    
     @RequestMapping("/list_n{page:\\d+}")
     public String list(@PathVariable("page")
     Integer page, @RequestParam(value = "roleCode", required = false)

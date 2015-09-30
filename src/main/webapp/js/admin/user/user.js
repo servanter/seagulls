@@ -36,6 +36,17 @@ $(function() {
 			$.getJSON(BaseUtils.proPath + 'admin/user/ajaxFindById/?id=' + $(this).attr('param'), function(data) {
 				$('input[name=userName]').val(data.result.userName);
 				$('input[name=password]').val(data.result.password);
+				if(data.result.roles && data.result.roles.length) {
+					var text = '';
+					$.each(data.result.roles, function(index, item) {
+						text += item.roleName + ',';
+					});
+					if(text.length > 0) {
+						text = text.substring(0, text.length - 1);
+					}
+					$('input[name=user_role_names]').val(text);
+				}
+				
 			});
 			$('input[name=userName]').attr('disabled','disabled');
 		} else {
@@ -80,8 +91,11 @@ $(function() {
 				if (data.code == 10000) {
 					BaseUtils.reload();
 				} else {
-					var msg = Alert.error('添加失败:' + data.message,'text-center');
-					$('#form-edit>div:last').after(msg);
+					var msg = Alert.error('添加失败:' + data.message,'text-center', function(msg) {
+						$('#form-edit>div:last').after(msg);
+					}, function(msg) {
+						Alert.leave();
+					});
 				}
 			}
 		}
@@ -97,8 +111,41 @@ $(function() {
 			if (data.code == 10000) {
 				BaseUtils.reload();
 			} else {
-				var msg = Alert.error('删除失败:' + data.message,'text-center');
-				$('#form-edit>div:last').after(msg);
+				var msg = Alert.error('删除失败:' + data.message,'text-center', function(msg) {
+					$('#form-edit>div:last').after(msg);
+				}, function(msg) {
+					Alert.leave();
+				});
+			}
+		});
+	});
+	
+	$('#user_role_names').click(function() {
+		var settings = {
+			check: {
+				enable: true
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			}
+		};
+		var initData = '';
+		if($('input[name=roleIds]').length > 0) {
+			initData = $('input[name=roleIds]').val();;
+		}
+		buildTree($('#role-tree'), 'admin/role/loadRoles/', '?userId=' + $('input[name=id]').val(), initData, settings);
+	});
+	
+	$('#sel-role-btn').click(function() {
+		getTreeData('role-tree', function(data) {
+			var cur = $("input[name=user_role_names]");
+			$(cur).val(data.val);
+			if($('input[name=roleIds]').length == 1) {
+				$('input[name=roleIds]').val(data.ids);
+			} else {
+				$(cur).after('<input type="hidden" name="roleIds" value="' + data.ids + '"/>');
 			}
 		});
 	});

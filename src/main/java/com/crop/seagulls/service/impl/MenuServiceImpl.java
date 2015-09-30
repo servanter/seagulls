@@ -29,7 +29,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Autowired
     private SecurityMetadataSource securityMetadataSource;
-    
+
     @Autowired
     private AdminUserService adminUserService;
 
@@ -45,17 +45,41 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Response loadMenusAndWithCurMenus(String roleIds) {
-        Map<String, List<Menu>> result = new HashMap<String, List<Menu>>();
+        Map<String, List<Map<String, Object>>> result = new HashMap<String, List<Map<String, Object>>>();
         List<Menu> allMenus = findAll();
+
+        if (CollectionUtils.isNotEmpty(allMenus)) {
+            List<Map<String, Object>> all = new ArrayList<Map<String, Object>>();
+            if (CollectionUtils.isNotEmpty(allMenus)) {
+                for (Menu m : allMenus) {
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map.put("id", m.getId());
+                    map.put("parentId", m.getParentId());
+                    map.put("text", m.getMenuName());
+                    all.add(map);
+                }
+            }
+            result.put("all", all);
+        }
         if (StringUtils.isNotBlank(roleIds)) {
             List<Long> ids = new ArrayList<Long>();
             for (String id : roleIds.split(",")) {
                 ids.add(Long.parseLong(id));
             }
             List<Menu> curMenus = findByRoles(ids);
-            result.put("curMenus", curMenus);
+
+            List<Map<String, Object>> cur = new ArrayList<Map<String, Object>>();
+            if (CollectionUtils.isNotEmpty(curMenus)) {
+                for (Menu m : curMenus) {
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map.put("id", m.getId());
+                    map.put("parentId", m.getParentId());
+                    map.put("text", m.getMenuName());
+                    cur.add(map);
+                }
+            }
+            result.put("cur", cur);
         }
-        result.put("allMenus", allMenus);
         Response response = new Response();
         response.setReturnCode(ReturnCode.SUCCESS);
         response.setResult(result);
@@ -76,15 +100,15 @@ public class MenuServiceImpl implements MenuService {
             return new Response(ReturnCode.MENU_NAME_ALREADY_UNVALID);
         }
         Response response = menuDAO.save(menu) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
-        if(ReturnCode.isSuccess(response.getReturnCode()) && menu.getParentId() > 0 && StringUtils.isNotBlank(menu.getUrl())) {
-            
+        if (ReturnCode.isSuccess(response.getReturnCode()) && menu.getParentId() > 0 && StringUtils.isNotBlank(menu.getUrl())) {
+
             // Update the parent url is empty
             Response parentMenuResponse = findById(menu.getParentId());
-            if(ReturnCode.isSuccess(parentMenuResponse.getReturnCode()) && ((Menu) parentMenuResponse.getResult()).getParentId() > 0) {
+            if (ReturnCode.isSuccess(parentMenuResponse.getReturnCode()) && ((Menu) parentMenuResponse.getResult()).getParentId() > 0) {
                 Menu updateParentMenu = (Menu) parentMenuResponse.getResult();
                 updateParentMenu.setUrl("");
                 modify(updateParentMenu);
-                
+
             }
         }
         refresh(response);
@@ -119,7 +143,7 @@ public class MenuServiceImpl implements MenuService {
     private void refresh(Response response) {
         if (ReturnCode.isSuccess(response.getReturnCode())) {
             securityMetadataSource.loadResourceDefine();
-            adminUserService.refreshUserMenus((User)SecurityUtils.getLoginedPrincipal());
+            adminUserService.refreshUserMenus((User) SecurityUtils.getLoginedPrincipal());
         }
     }
 }
