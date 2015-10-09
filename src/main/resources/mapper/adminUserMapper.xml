@@ -36,6 +36,14 @@
 		r.is_valid = 1 GROUP BY u.id
 	</select>
 	
+	<select id="getUsersWithRoles" resultMap="adminUserWithRolesMap">
+		SELECT u.*, GROUP_CONCAT(r.role_code) AS role_codes,
+		GROUP_CONCAT(CONVERT(r.id, char)) AS role_ids FROM
+		crop_admin_user u INNER JOIN crop_admin_user_role ur INNER JOIN
+		crop_admin_role r ON u.id = ur.user_id AND r.id = ur.role_id
+		WHERE u.is_valid = 1 AND r.is_valid = 1 GROUP BY u.id
+	</select>
+	
 	<select id="getList" parameterType="adminUser" resultMap="adminUserMap">
 		SELECT
 		<include refid="base_columns" />

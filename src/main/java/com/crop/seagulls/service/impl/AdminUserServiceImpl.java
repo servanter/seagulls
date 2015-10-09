@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -114,6 +115,22 @@ public class AdminUserServiceImpl implements AdminUserService, UserDetailsServic
         Md5PasswordEncoder encoder = new Md5PasswordEncoder();
         user.setPassword(encoder.encodePassword(user.getPassword(), ""));
         Response response = adminUserDAO.update(user) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+        if (ReturnCode.isSuccess(response.getReturnCode())) {
+            Pair<Long, Long> userRolePair = Pair.of(user.getId(), -1L);
+            response = roleService.removeUserRole(userRolePair);
+            if (StringUtils.isNotBlank(user.getRoleIds())) {
+                List<Long> ids = com.crop.seagulls.util.StringUtils.string2Long(user.getRoleIds(), ",");
+                response = roleService.addUserRoles(user.getId(), ids);
+                if (ReturnCode.isSuccess(response.getReturnCode())) {
+                    List<User> usersWithRoles = adminUserDAO.getUsersWithRoles();
+                    if (CollectionUtils.isNotEmpty(usersWithRoles)) {
+                        for (User u : usersWithRoles) {
+                            refreshUserMenus(u);
+                        }
+                    }
+                }
+            }
+        }
         return response;
     }
 

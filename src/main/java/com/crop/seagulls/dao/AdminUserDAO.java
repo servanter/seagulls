@@ -25,4 +25,6 @@ public interface AdminUserDAO {
 
     int save(User user);
 
+    List<User> getUsersWithRoles();
+
 }

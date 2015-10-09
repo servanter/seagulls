@@ -32,15 +32,6 @@
 			<div class="row">
 				<jsp:include page="/common/admin/left.jsp"></jsp:include>
 
-				<div class="right-content">
-					<ol class="breadcrumb">
-					  <li><a href="#">Home</a></li>
-					  <li><a href="#">Library</a></li>
-					  <li class="active">Data</li>
-					</ol>
-					
-					<!-- <iframe src="${ctx }/admin/category/list_n1/" frameborder="1" marginheight="0" marginwidth="0" frameborder="0" scrolling="auto" id="ifm" name="ifm" width="100%" height="550" > -->
-				</div>
 			</div>
 		</div>
 	</body>
