@@ -16,7 +16,7 @@ public class Page implements java.io.Serializable {
     /**
      * 默认页大小
      */
-    private int pageSize = 3;
+    private int pageSize = 20;
 
     /**
      * 当前页

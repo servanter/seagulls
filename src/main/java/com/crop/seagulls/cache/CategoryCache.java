@@ -24,7 +24,6 @@ public class CategoryCache {
     private static Map<Long, List<Category>> CATEGORY_RELATION_MAP = new HashMap<Long, List<Category>>();
 
     private static List<String> CATEGORIES_DB_METHODS = new ArrayList<String>();
-    private static List<String> CATEGORIES_PAGE_METHODS = new ArrayList<String>();
 
     @Autowired
     private DictCategoryService dictCategoryService;
@@ -34,16 +33,12 @@ public class CategoryCache {
         CATEGORIES_DB_METHODS.add("setCategoryId1");
         CATEGORIES_DB_METHODS.add("setCategoryId2");
         CATEGORIES_DB_METHODS.add("setCategoryId3");
-        CATEGORIES_PAGE_METHODS.add("setSearchCategory1");
-        CATEGORIES_PAGE_METHODS.add("setSearchCategory2");
-        CATEGORIES_PAGE_METHODS.add("setSearchCategory3");
     }
 
     @Scheduled(cron = "0 0 * * * ?")
     @PostConstruct
     public void init() {
         List<Category> categories = dictCategoryService.findList();
-        // List<Category> categories = new ArrayList<Category>();
         if (CollectionUtils.isNotEmpty(categories)) {
             Map<Long, Category> map = new HashMap<Long, Category>();
             Map<Long, List<Category>> mapRelation = new HashMap<Long, List<Category>>();
@@ -74,7 +69,7 @@ public class CategoryCache {
         return CATEGORY_RELATION_MAP.get(pid);
     }
 
-    public Map<String, Category> getSequenceCategoies(Long id, int type) {
+    public Map<String, Category> getSequenceCategoies(Long id) {
         Map<String, Category> result = new HashMap<String, Category>();
         List<Long> categoies = new ArrayList<Long>();
         if (ALL_CATEGORY_MAP.containsKey(id)) {
@@ -93,12 +88,7 @@ public class CategoryCache {
         if (CollectionUtils.isNotEmpty(categoies)) {
 
             // before : cur parent parentparent after : parentparent parent cur
-            List<String> methods = new ArrayList<String>();
-            if (type == 1) {
-                methods = CATEGORIES_DB_METHODS;
-            } else if (type == 2) {
-                methods = CATEGORIES_PAGE_METHODS;
-            }
+            List<String> methods = CATEGORIES_DB_METHODS;
             Collections.reverse(categoies);
             for (int i = 0; i < categoies.size(); i++) {
                 if (methods.size() > i) {

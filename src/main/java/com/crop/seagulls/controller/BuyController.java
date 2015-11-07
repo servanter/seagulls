@@ -78,7 +78,7 @@ public class BuyController {
         buy.setStartTime(startPeriod);
         buy.setProvinceId(province);
         buy.setPage(page);
-        Map<String, Object> map = buyService.querySuppliesWithExt(buy);
+        Map<String, Object> map = buyService.findList(buy);
         for (Entry<String, Object> entry : map.entrySet()) {
             model.addAttribute(entry.getKey(), entry.getValue());
         }

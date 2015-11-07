@@ -58,4 +58,14 @@ public class Constant {
      */
     public static final String ADMIN_USER_VISIT_MENU = "AUVM";
 
+    /**
+     * period all year round
+     */
+    public static final int PERIOD_ALL_YEAR_ROUND = 999;
+
+    /**
+     * category first level category
+     */
+    public static final long CATEGORY_TOP_PID = 0L;
+
 }

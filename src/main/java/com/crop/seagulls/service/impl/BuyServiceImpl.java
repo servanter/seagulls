@@ -69,7 +69,7 @@ public class BuyServiceImpl implements BuyService {
     }
 
     @Override
-    public Response modifyBuy(Buy buy) {
+    public Response modify(Buy buy) {
         Response response = new Response();
         response.setReturnCode(ReturnCode.SUCCESS);
         Response checkResponse = checkValidate(buy);
@@ -85,7 +85,7 @@ public class BuyServiceImpl implements BuyService {
     }
 
     @Override
-    public Map<String, Object> querySuppliesWithExt(Buy buy) {
+    public Map<String, Object> findList(Buy buy) {
         Map<String, Object> map = new HashMap<String, Object>();
         packageCategory(buy, buy.getSearchCategoryId());
         List<Buy> list = buyDAO.findBuies(buy);
@@ -110,21 +110,6 @@ public class BuyServiceImpl implements BuyService {
     }
 
     private void packageSearchModel(Buy buy) {
-        buy.setSearchArea(areaCache.getById(buy.getProvinceId()));
-        Map<String, Category> map = categoryCache.getSequenceCategoies(buy.getSearchCategoryId(), 2);
-        if (MapUtils.isNotEmpty(map)) {
-            for (String key : map.keySet()) {
-                try {
-                    MethodUtils.invokeMethod(buy, key, map.get(key));
-                } catch (Exception e) {
-                    logger.error("Invoke {0} methods error.", map);
-                }
-            }
-        }
-        if (productRelationCache.getPeriodById(buy.getStartTime()) != null) {
-            buy.setSearchStartTime(productRelationCache.getPeriodById(buy.getStartTime()));
-        }
-
         buy.setSearchCategory(categoryCache.getById(buy.getSearchCategoryId()));
     }
 
@@ -132,10 +117,8 @@ public class BuyServiceImpl implements BuyService {
         if (CollectionUtils.isNotEmpty(buies)) {
             for (Buy buy : buies) {
                 ProductUnit unit = productRelationCache.getUnitById(buy.getUnitId());
-                buy.setPagePrice(templateService.getMessage("page.product.price", buy.getStartPrice().toString(), buy.getEndPrice().toString(), unit.getTitle()));
+                buy.setPageUnit(unit);
 
-                ProductUnit buyUnit = productRelationCache.getUnitById(buy.getBuyUnitId());
-                buy.setPageBuyUnit(buyUnit);
                 // find category
                 if (NumberUtils.isValidateNumber(buy.getCategoryId3()) && categoryCache.getById(buy.getCategoryId3()) != null) {
                     buy.setPageCategory(categoryCache.getById(buy.getCategoryId3()));
@@ -157,13 +140,12 @@ public class BuyServiceImpl implements BuyService {
     private Response checkValidate(Buy buy) {
         Response result = new Response();
         result.setReturnCode(ReturnCode.SUCCESS);
-        packageCategory(buy, buy.getAddCategoryId());
         return result;
     }
 
     private void packageCategory(Buy buy, Long passCategoryId) {
         if (passCategoryId != null && passCategoryId > 0) {
-            Map<String, Category> map = categoryCache.getSequenceCategoies(passCategoryId, 1);
+            Map<String, Category> map = categoryCache.getSequenceCategoies(passCategoryId);
             if (MapUtils.isNotEmpty(map)) {
                 for (String key : map.keySet()) {
                     try {
@@ -177,13 +159,6 @@ public class BuyServiceImpl implements BuyService {
     }
 
     @Override
-    public Paging<Buy> queryBuies(Buy buy) {
-        List<Buy> list = buyDAO.findBuies(buy);
-        Integer totalCount = buyDAO.findBuiesCount(buy);
-        return new Paging<Buy>(totalCount, buy.getPage(), buy.getPageSize(), list);
-    }
-
-    @Override
     public Map<String, Object> findById(Long id) {
         Map<String, Object> map = new HashMap<String, Object>();
         Buy buy = buyDAO.getById(id);
@@ -193,7 +168,6 @@ public class BuyServiceImpl implements BuyService {
         buy.setPageEndPeriod(productRelationCache.getPeriodById(buy.getEndTime()));
 
         buy.setPageUnit(productRelationCache.getUnitById(buy.getUnitId()));
-        buy.setPageBuyUnit(productRelationCache.getUnitById(buy.getBuyUnitId()));
 
         buy.setPageStartPeriod(productRelationCache.getPeriodById(buy.getStartTime()));
         buy.setPageEndPeriod(productRelationCache.getPeriodById(buy.getEndTime()));
@@ -201,29 +175,15 @@ public class BuyServiceImpl implements BuyService {
         packageSearchModel(buy);
         buy.setPageQuantity(TextUtils.removeEndZero(buy.getQuantity().toString()));
 
-        long category = -1;
         // find category
         if (NumberUtils.isValidateNumber(buy.getCategoryId3()) && categoryCache.getById(buy.getCategoryId3()) != null) {
             buy.setPageCategory(categoryCache.getById(buy.getCategoryId3()));
-            category = categoryCache.getById(buy.getCategoryId3()).getId();
         } else if (NumberUtils.isValidateNumber(buy.getCategoryId2()) && categoryCache.getById(buy.getCategoryId2()) != null) {
             buy.setPageCategory(categoryCache.getById(buy.getCategoryId2()));
-            category = categoryCache.getById(buy.getCategoryId2()).getId();
         } else if (NumberUtils.isValidateNumber(buy.getCategoryId1()) && categoryCache.getById(buy.getCategoryId1()) != null) {
             buy.setPageCategory(categoryCache.getById(buy.getCategoryId1()));
-            category = categoryCache.getById(buy.getCategoryId1()).getId();
         }
 
-        Map<String, Category> methodMap = categoryCache.getSequenceCategoies(category, 2);
-        if (MapUtils.isNotEmpty(methodMap)) {
-            for (String key : methodMap.keySet()) {
-                try {
-                    MethodUtils.invokeMethod(buy, key, methodMap.get(key));
-                } catch (Exception e) {
-                    logger.error("Invoke {0} methods error.", methodMap);
-                }
-            }
-        }
         return map;
     }
 

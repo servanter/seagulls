@@ -7,12 +7,13 @@
 		<result property="pId" column="p_id" />
 		<result property="enName" column="en_name" />
 		<result property="zhName" column="zh_name" />
-		<result property="createTime" column="create_time" />
 		<result property="firstLetter" column="first_letter" />
+		<result property="imgUrl" column="img_url" />
+		<result property="createTime" column="create_time" />
 	</resultMap>
 
 	<sql id="base_columns">
-		id, p_id, en_name, zh_name, create_time, first_letter
+		id, p_id, en_name, zh_name, create_time, first_letter, img_url
 	</sql>
 	<select id="getList" resultMap="dictCategoryMap">
 		SELECT
@@ -28,8 +29,8 @@
 	</select>
 
 	<insert id="insert" parameterType="category">
-		INSERT INTO crop_category (p_id, zh_name, en_name, first_letter) VALUES
-		(#{pId},#{zhName}, #{enName}, #{firstLetter})
+		INSERT INTO crop_category (p_id, zh_name, en_name, first_letter, img_url) VALUES
+		(#{pId},#{zhName}, #{enName}, #{firstLetter}, #{imgUrl})
 		<selectKey resultType="Long" keyProperty="id">
 			SELECT LAST_INSERT_ID()
 		</selectKey>

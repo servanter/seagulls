@@ -46,6 +46,9 @@ public class AdminUserServiceImpl implements AdminUserService, UserDetailsServic
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = adminUserDAO.getByUserName(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("Can't find the user " + username);
+        }
         if (StringUtils.isNotBlank(user.getRoleIds())) {
             refreshUserMenus(user);
         }

@@ -23,6 +23,8 @@ public class User extends Page {
 
     private String realName;
 
+    private Integer sex;
+
     private String phone;
 
     private String password;
@@ -35,33 +37,15 @@ public class User extends Page {
 
     private String headUrl;
 
-    private Integer identityId;
+    private Boolean isAuthReal;
 
-    private Boolean isValid;
+    private Integer status;
 
     private Timestamp createTime;
 
     private Timestamp updateTime;
 
     public User() {
-    }
-
-    public User(Long id, String nickName, String realName, String phone, String password, Long provinceId, Long cityId, Long areaId, String headUrl,
-            Integer identityId, Boolean isValid, Timestamp createTime, Timestamp updateTime) {
-        super();
-        this.id = id;
-        this.nickName = nickName;
-        this.realName = realName;
-        this.phone = phone;
-        this.password = password;
-        this.provinceId = provinceId;
-        this.cityId = cityId;
-        this.areaId = areaId;
-        this.headUrl = headUrl;
-        this.identityId = identityId;
-        this.isValid = isValid;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
     }
 
     public Long getId() {
@@ -136,20 +120,12 @@ public class User extends Page {
         this.headUrl = headUrl;
     }
 
-    public Integer getIdentityId() {
-        return identityId;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setIdentityId(Integer identityId) {
-        this.identityId = identityId;
-    }
-
-    public Boolean getIsValid() {
-        return isValid;
-    }
-
-    public void setIsValid(Boolean isValid) {
-        this.isValid = isValid;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Timestamp getCreateTime() {
@@ -168,108 +144,20 @@ public class User extends Page {
         this.updateTime = updateTime;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((areaId == null) ? 0 : areaId.hashCode());
-        result = prime * result + ((cityId == null) ? 0 : cityId.hashCode());
-        result = prime * result + ((createTime == null) ? 0 : createTime.hashCode());
-        result = prime * result + ((headUrl == null) ? 0 : headUrl.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((identityId == null) ? 0 : identityId.hashCode());
-        result = prime * result + ((isValid == null) ? 0 : isValid.hashCode());
-        result = prime * result + ((nickName == null) ? 0 : nickName.hashCode());
-        result = prime * result + ((password == null) ? 0 : password.hashCode());
-        result = prime * result + ((phone == null) ? 0 : phone.hashCode());
-        result = prime * result + ((provinceId == null) ? 0 : provinceId.hashCode());
-        result = prime * result + ((realName == null) ? 0 : realName.hashCode());
-        result = prime * result + ((updateTime == null) ? 0 : updateTime.hashCode());
-        return result;
+    public Integer getSex() {
+        return sex;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        final User other = (User) obj;
-        if (areaId == null) {
-            if (other.areaId != null)
-                return false;
-        } else if (!areaId.equals(other.areaId))
-            return false;
-        if (cityId == null) {
-            if (other.cityId != null)
-                return false;
-        } else if (!cityId.equals(other.cityId))
-            return false;
-        if (createTime == null) {
-            if (other.createTime != null)
-                return false;
-        } else if (!createTime.equals(other.createTime))
-            return false;
-        if (headUrl == null) {
-            if (other.headUrl != null)
-                return false;
-        } else if (!headUrl.equals(other.headUrl))
-            return false;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (identityId == null) {
-            if (other.identityId != null)
-                return false;
-        } else if (!identityId.equals(other.identityId))
-            return false;
-        if (isValid == null) {
-            if (other.isValid != null)
-                return false;
-        } else if (!isValid.equals(other.isValid))
-            return false;
-        if (nickName == null) {
-            if (other.nickName != null)
-                return false;
-        } else if (!nickName.equals(other.nickName))
-            return false;
-        if (password == null) {
-            if (other.password != null)
-                return false;
-        } else if (!password.equals(other.password))
-            return false;
-        if (phone == null) {
-            if (other.phone != null)
-                return false;
-        } else if (!phone.equals(other.phone))
-            return false;
-        if (provinceId == null) {
-            if (other.provinceId != null)
-                return false;
-        } else if (!provinceId.equals(other.provinceId))
-            return false;
-        if (realName == null) {
-            if (other.realName != null)
-                return false;
-        } else if (!realName.equals(other.realName))
-            return false;
-        if (updateTime == null) {
-            if (other.updateTime != null)
-                return false;
-        } else if (!updateTime.equals(other.updateTime))
-            return false;
-        return true;
+    public void setSex(Integer sex) {
+        this.sex = sex;
     }
 
-    @Override
-    public String toString() {
-        return "User [id=" + id + ", nickName=" + nickName + ", realName=" + realName + ", phone=" + phone + ", password=" + password
-                + ", provinceId=" + provinceId + ", cityId=" + cityId + ", areaId=" + areaId + ", headUrl=" + headUrl + ", identityId=" + identityId
-                + ", isValid=" + isValid + ", createTime=" + createTime + ", updateTime=" + updateTime + "]";
+    public Boolean getIsAuthReal() {
+        return isAuthReal;
+    }
+
+    public void setIsAuthReal(Boolean isAuthReal) {
+        this.isAuthReal = isAuthReal;
     }
 
 }

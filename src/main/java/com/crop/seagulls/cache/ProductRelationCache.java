@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.entities.ProductPeriod;
 import com.crop.seagulls.entities.ProductUnit;
 import com.crop.seagulls.service.DictProductPeriodService;
@@ -90,5 +91,9 @@ public class ProductRelationCache {
 
     public ProductPeriod getPeriodById(Long id) {
         return PERIODS_MAP.get(id);
+    }
+
+    public boolean isDefaultPeriod(Long id) {
+        return id == Constant.PERIOD_ALL_YEAR_ROUND;
     }
 }

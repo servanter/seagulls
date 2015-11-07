@@ -2,7 +2,6 @@ package com.crop.seagulls.service;
 
 import java.util.Map;
 
-import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.entities.Buy;
 
@@ -23,21 +22,12 @@ public interface BuyService {
     public Response add(Buy buy);
 
     /**
-     * Query buies
-     * 
-     * @param buy
-     *            search model
-     * @return
-     */
-    public Paging<Buy> queryBuies(Buy buy);
-
-    /**
      * Modify buy
      * 
      * @param buy
      * @return
      */
-    public Response modifyBuy(Buy buy);
+    public Response modify(Buy buy);
 
     /**
      * Find list
@@ -45,7 +35,7 @@ public interface BuyService {
      * @param buy
      * @return
      */
-    public Map<String, Object> querySuppliesWithExt(Buy buy);
+    public Map<String, Object> findList(Buy buy);
 
     public Map<String, Object> findById(Long id);
 

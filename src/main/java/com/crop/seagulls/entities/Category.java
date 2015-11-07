@@ -27,6 +27,8 @@ public class Category extends Page {
 
     private String firstLetter;
 
+    private String imgUrl;
+
     private Timestamp createTime;
 
     public Category() {
@@ -34,13 +36,14 @@ public class Category extends Page {
         // TODO Auto-generated constructor stub
     }
 
-    public Category(Long id, Long id2, String enName, String zhName, String firstLetter) {
+    public Category(Long id, Long id2, String enName, String zhName, String firstLetter, String imgUrl) {
         super();
         this.id = id;
-        pId = id2;
+        this.pId = id2;
         this.enName = enName;
         this.zhName = zhName;
         this.firstLetter = firstLetter;
+        this.imgUrl = imgUrl;
     }
 
     public Long getId() {
@@ -58,7 +61,7 @@ public class Category extends Page {
     public Long getParentId() {
         return pId;
     }
-    
+
     public void setPId(Long id) {
         pId = id;
     }
@@ -95,59 +98,12 @@ public class Category extends Page {
         this.createTime = createTime;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((createTime == null) ? 0 : createTime.hashCode());
-        result = prime * result + ((enName == null) ? 0 : enName.hashCode());
-        result = prime * result + ((firstLetter == null) ? 0 : firstLetter.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((pId == null) ? 0 : pId.hashCode());
-        result = prime * result + ((zhName == null) ? 0 : zhName.hashCode());
-        return result;
+    public String getImgUrl() {
+        return imgUrl;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        final Category other = (Category) obj;
-        if (createTime == null) {
-            if (other.createTime != null)
-                return false;
-        } else if (!createTime.equals(other.createTime))
-            return false;
-        if (enName == null) {
-            if (other.enName != null)
-                return false;
-        } else if (!enName.equals(other.enName))
-            return false;
-        if (firstLetter == null) {
-            if (other.firstLetter != null)
-                return false;
-        } else if (!firstLetter.equals(other.firstLetter))
-            return false;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (pId == null) {
-            if (other.pId != null)
-                return false;
-        } else if (!pId.equals(other.pId))
-            return false;
-        if (zhName == null) {
-            if (other.zhName != null)
-                return false;
-        } else if (!zhName.equals(other.zhName))
-            return false;
-        return true;
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
 }
