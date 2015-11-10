@@ -2,6 +2,7 @@ package com.crop.seagulls.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.crop.seagulls.entities.Sell;
@@ -20,4 +21,6 @@ public interface SellDAO {
     public List<Long> findAllProvincesBySell(Sell sell);
 
     public Sell getById(Long id);
+
+    public List<Long> getTopCategories(@Param("categoryAlias") String string);
 }

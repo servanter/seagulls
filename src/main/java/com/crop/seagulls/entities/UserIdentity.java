@@ -6,8 +6,6 @@ public class UserIdentity {
 
     private Long id;
 
-    private String title;
-
     private Long userId;
 
     private Long identityId;
@@ -24,14 +22,6 @@ public class UserIdentity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public Long getUserId() {

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.crop.seagulls.bean.Response;
+import com.crop.seagulls.entities.Category;
 import com.crop.seagulls.entities.Sell;
 
 /**
@@ -44,4 +45,8 @@ public interface SellService {
     public Map<String, Object> findById(Long id);
 
     public Map<String, Object> findByUserId(Sell sell);
+
+    public int findCount(Sell sell);
+
+    public List<Category> findHotCategories();
 }

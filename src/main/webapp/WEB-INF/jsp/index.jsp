@@ -204,13 +204,13 @@ $(function(){
 	<div class="supplyProcurement">
 		<ul>
 			<li>
-				<a href="#">
+				<a target="_top" href="${ctx }/sell/sell_index/">
 					<img src="${ctx }/images/supply.png" />
-					<span><strong class="colorGreen">3746</strong>人正在出售</span>
+					<span><strong class="colorGreen">${totalSell }</strong>人正在出售</span>
 				</a>
 			</li>
 			<li>
-				<a href="#">
+				<a target="_top" href="#">
 					<img src="${ctx }/images/procurement.png" />
 					<span><strong class="colorOrange">4253</strong>人正在采购</span>
 				</a>
@@ -222,72 +222,21 @@ $(function(){
 	<div class="hotType">
 		<h3><span>当季热卖</span></h3>
 		<ul>
-			<li>
-				<a href="#">
-					<dl>
-						<dt><img src="${ctx }/images/img_mangguo.jpg" /></dt>
-						<dd>
-							<h4>芒果</h4>
-							<p>最新上市</p>
-						</dd>
-					</dl>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<dl>
-						<dt><img src="${ctx }/images/img_huolongguo.jpg" /></dt>
-						<dd>
-							<h4>火龙果</h4>
-							<p>最新上市</p>
-						</dd>
-					</dl>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<dl>
-						<dt><img src="${ctx }/images/img_shanzhu.jpg" /></dt>
-						<dd>
-							<h4>山竹</h4>
-							<p>最新上市</p>
-						</dd>
-					</dl>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<dl>
-						<dt><img src="${ctx }/images/img_mangguo.jpg" /></dt>
-						<dd>
-							<h4>芒果</h4>
-							<p>最新上市</p>
-						</dd>
-					</dl>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<dl>
-						<dt><img src="${ctx }/images/img_huolongguo.jpg" /></dt>
-						<dd>
-							<h4>火龙果</h4>
-							<p>最新上市</p>
-						</dd>
-					</dl>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<dl>
-						<dt><img src="${ctx }/images/img_shanzhu.jpg" /></dt>
-						<dd>
-							<h4>山竹</h4>
-							<p>最新上市</p>
-						</dd>
-					</dl>
-				</a>
-			</li>
+			<c:if test="${hotCategories ne null && fn:length(hotCategories) > 0}">
+				<c:forEach var="model" items="${hotCategories}">
+					<li>
+						<a target="_top" href="${ctx }/sell/sell_list_c${model.id }/">
+							<dl>
+								<dt><img src="${ctx }/images/${model.imgUrl }" /></dt>
+								<dd>
+									<h4>${model.zhName }</h4>
+									<p>最新上市</p>
+								</dd>
+							</dl>
+						</a>
+					</li>
+				</c:forEach>
+			</c:if>
 		</ul>
 		<div class="splitLine"></div>
 	</div>

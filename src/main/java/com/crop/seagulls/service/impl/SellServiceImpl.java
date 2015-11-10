@@ -1,5 +1,6 @@
 package com.crop.seagulls.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -24,8 +25,6 @@ import com.crop.seagulls.entities.Category;
 import com.crop.seagulls.entities.ProductUnit;
 import com.crop.seagulls.entities.Sell;
 import com.crop.seagulls.entities.SupplyPic;
-import com.crop.seagulls.entities.UserIdentity;
-import com.crop.seagulls.service.IdentityService;
 import com.crop.seagulls.service.SellService;
 import com.crop.seagulls.service.SupplyPicService;
 import com.crop.seagulls.service.TemplateService;
@@ -52,9 +51,6 @@ public class SellServiceImpl implements SellService {
 
     @Autowired
     private SupplyPicService supplyPicService;
-    
-    @Autowired
-    private IdentityService identityService;
 
     @Autowired
     private AreaCache areaCache;
@@ -99,7 +95,7 @@ public class SellServiceImpl implements SellService {
         Map<String, Object> map = new HashMap<String, Object>();
         packageCategory(sell, sell.getSearchCategoryId());
         sell.setIsValid(true);
-        sell.setIsShelf(true);
+        sell.setIsPublish(true);
         List<Sell> list = sellDAO.findSells(sell);
         Integer totalCount = sellDAO.findSellCount(sell);
         Paging<Sell> result = new Paging<Sell>(totalCount, sell.getPage(), sell.getPageSize(), list);
@@ -160,15 +156,6 @@ public class SellServiceImpl implements SellService {
                 // } else if (areaCache.getById(provinceId) != null) {
                 // addr = areaCache.getById(provinceId).getZhName();
                 // }
-                
-                UserIdentity userIdentity = new UserIdentity();
-                userIdentity.setUserId(sell.getCreateUserId());
-                List<UserIdentity> identities = identityService.findList(userIdentity);
-                if(CollectionUtils.isNotEmpty(identities)) {
-                    sell.setPageContactName(identities.get(0).getTitle());
-                } else {
-                    sell.setPageContactName(sell.getContactName());
-                }
 
                 sell.setPageAddress(addr);
             }
@@ -222,5 +209,20 @@ public class SellServiceImpl implements SellService {
         map.put("list", result);
         packageModel(list);
         return map;
+    }
+
+    @Override
+    public int findCount(Sell sell) {
+        return sellDAO.findSellCount(sell);
+    }
+
+    @Override
+    public List<Category> findHotCategories() {
+        List<Category> categories = new ArrayList<Category>();
+        List<Long> categoryIds = sellDAO.getTopCategories("category_id_2");
+        for (Long id : categoryIds) {
+            categories.add(categoryCache.getById(id));
+        }
+        return categories;
     }
 }

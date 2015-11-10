@@ -50,9 +50,13 @@ public class Sell extends Page {
 
     private String contactPhone;
 
+    private String companyName;
+
+    private Long companyId;
+
     private Boolean isValid;
 
-    private Boolean isShelf;
+    private Boolean isPublish;
 
     private Date createTime;
 
@@ -74,7 +78,6 @@ public class Sell extends Page {
     private ProductUnit pageUnit;
     private String pageAddress;
     private String pagePeriod;
-    private String pageContactName;
 
     public Sell() {
         super();
@@ -304,14 +307,6 @@ public class Sell extends Page {
         this.isValid = isValid;
     }
 
-    public Boolean getIsShelf() {
-        return isShelf;
-    }
-
-    public void setIsShelf(Boolean isShelf) {
-        this.isShelf = isShelf;
-    }
-
     public String getPageAddress() {
         return pageAddress;
     }
@@ -328,12 +323,28 @@ public class Sell extends Page {
         this.pagePeriod = pagePeriod;
     }
 
-    public String getPageContactName() {
-        return pageContactName;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setPageContactName(String pageContactName) {
-        this.pageContactName = pageContactName;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public Boolean getIsPublish() {
+        return isPublish;
+    }
+
+    public void setIsPublish(Boolean isPublish) {
+        this.isPublish = isPublish;
     }
 
 }

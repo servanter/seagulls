@@ -4,10 +4,9 @@
 
 	<resultMap id="userIdentityMap" type="userIdentity">
 		<result property="id" column="id" />
-		<result property="title" column="title" />
 		<result property="identityId" column="identity_id" />
 		<result property="userId" column="user_id" />
-		<result property="status" column="status" />
+		<result property="isValid" column="is_valid" />
 		<result property="createTime" column="create_Time" />
 		<result property="updateTime" column="update_time" />
 	</resultMap>

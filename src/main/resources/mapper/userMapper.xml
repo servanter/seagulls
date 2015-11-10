@@ -5,14 +5,12 @@
 	<resultMap id="userMap" type="user">
 		<result property="id" column="id" />
 		<result property="nickName" column="nick_name" />
-		<result property="realName" column="real_name" />
 		<result property="sex" column="sex" />
 		<result property="phone" column="phone" />
 		<result property="password" column="password" />
 		<result property="provinceId" column="province_id" />
 		<result property="cityId" column="city_id" />
 		<result property="areaId" column="area_id" />
-		<result property="isAuthReal" column="is_auth_real" />
 		<result property="headUrl" column="head_url" />
 		<result property="status" column="status" />
 		<result property="createTime" column="create_Time" />
@@ -53,14 +51,12 @@
 		<set>
 			<if test="password != null and password != '' ">password=#{password},</if>
 			<if test="nickName != null and nickName != ''">nick_name=#{nickName},</if>
-			<if test="realName != null and realName != ''">real_name=#{realName},</if>
 			<if test="sex != null and sex >= 0">sex=#{sex},</if>
 			<if test="phone != null and phone != ''">phone=#{phone},</if>
 			<if test="provinceId != null and provinceId > 0">province_id=#{provinceId},</if>
 			<if test="cityId != null and cityId > 0">city_id=#{cityId},</if>
 			<if test="areaId != null and areaId > 0">area_id=#{areaId},</if>
 			<if test="headUrl != null and headUrl != ''">head_url=#{headUrl},</if>
-			<if test="is_auth_real != null and is_auth_real >= 0">is_auth_real=#{isAuthReal},</if>
 			<if test="status != null">is_valid=#{status},</if>
 		</set>
 		WHERE id=#{id}

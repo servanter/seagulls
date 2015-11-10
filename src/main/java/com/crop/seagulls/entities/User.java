@@ -21,8 +21,6 @@ public class User extends Page {
 
     private String nickName;
 
-    private String realName;
-
     private Integer sex;
 
     private String phone;
@@ -36,8 +34,6 @@ public class User extends Page {
     private Long areaId;
 
     private String headUrl;
-
-    private Boolean isAuthReal;
 
     private Integer status;
 
@@ -62,14 +58,6 @@ public class User extends Page {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
-    }
-
-    public String getRealName() {
-        return realName;
-    }
-
-    public void setRealName(String realName) {
-        this.realName = realName;
     }
 
     public String getPhone() {
@@ -150,14 +138,6 @@ public class User extends Page {
 
     public void setSex(Integer sex) {
         this.sex = sex;
-    }
-
-    public Boolean getIsAuthReal() {
-        return isAuthReal;
-    }
-
-    public void setIsAuthReal(Boolean isAuthReal) {
-        this.isAuthReal = isAuthReal;
     }
 
 }

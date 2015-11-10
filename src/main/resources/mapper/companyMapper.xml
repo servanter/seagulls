@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crop.seagulls.dao.CompanyDAO">
+
+	<resultMap id="companyMap" type="company">
+		<result property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="userId" column="user_id" />
+		<result property="status" column="status" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="auditId" column="audit_id" />
+		<result property="auditTime" column="audit_time" />
+	</resultMap>
+
+	<select id="getList" parameterType="company"
+		resultMap="companyMap">
+		SELECT * FROM crop_company WHERE user_id = #{userId}
+		<if test="status != null">AND status = #{status}</if>
+		ORDER BY update_time DESC
+	</select>
+
+	<select id="getListCount" parameterType="company"
+		resultType="int">
+		SELECT COUNT(*) FROM crop_company WHERE user_id = #{userId}
+		<if test="status != null">AND status = #{status}</if>
+	</select>
+	
+	<insert id="save" parameterType="company">
+		INSERT INTO crop_company (title, user_id, createTime) VALUES (#{title}, #{userId}, NOW())
+		<selectKey resultType="Long" keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+</mapper>

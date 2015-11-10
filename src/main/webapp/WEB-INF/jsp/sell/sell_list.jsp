@@ -39,7 +39,7 @@ $(function(){
 </header>
 <section>
 	<!--分类-->
-	<c:if test="${subCategory ne null && fn:length(subCategory) > 0}">
+	<c:if test="${subCategories ne null && fn:length(subCategories) > 0}">
 		<div class="classification heightAuto">
 		<!--展开<div class="allClassification heightAuto">-->
 			<div class="allClassification">
@@ -73,7 +73,17 @@ $(function(){
 					<dl>
 						<dt>${model.title }</dt>
 						<dd class="address">
-							<span>${model.pageAddress }</span><span>${model.pageContactName }</span>
+							<span>${model.pageAddress }</span>
+							<span>
+								<c:choose>
+									<c:when test="${model.companyName ne null && fn:length(model.companyName) > 0}">
+										${model.companyName }
+									</c:when>
+									<c:otherwise>
+										${model.contactName }
+									</c:otherwise>
+								</c:choose>
+							</span>
 						</dd>
 						<dd class="time">
 							<span>${model.pageTimeAlias }发布</span><span>${model.pagePeriod }</span>
