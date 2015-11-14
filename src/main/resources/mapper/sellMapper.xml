@@ -187,6 +187,6 @@
 	</select>
 	
 	<select id="getTopCategories" parameterType="string" resultType="long">
-		SELECT ${categoryAlias} FROM crop_sell GROUP BY ${categoryAlias} ORDER BY MAX(update_time) DESC
+		SELECT ${categoryAlias} FROM crop_sell GROUP BY ${categoryAlias} ORDER BY MAX(update_time) DESC LIMIT 6
 	</select>
 </mapper>

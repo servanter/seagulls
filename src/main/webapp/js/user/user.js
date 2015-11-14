@@ -16,11 +16,11 @@ $(function() {
 			alert("请输入密码");
 			return;
 		}
-		var captcha = $('#imageCode').val();
-		if (!captcha || captcha.length == 0) {
-			alert("请输入验证码");
-			return;
-		}
+//		var captcha = $('#imageCode').val();
+//		if (!captcha || captcha.length == 0) {
+//			alert("请输入验证码");
+//			return;
+//		}
 
 		var option = {
 			type: 'POST',
@@ -34,7 +34,7 @@ $(function() {
 				}
 			}
 		}
-		$('#login_form').ajaxSubmit(option);
+		$('#form_login').ajaxSubmit(option);
 	});
 
 	$('.btn-send').click(function() {

@@ -13,11 +13,11 @@ public interface BuyDAO {
 
     public int update(Buy buy);
 
-    public List<Buy> findBuies(Buy buy);
+    public List<Buy> getList(Buy buy);
 
-    public Integer findBuiesCount(Buy buy);
+    public Integer getListCount(Buy buy);
     
-    public List<Long> findAllProvincesByBuy(Buy buy);
+    public List<Long> getAllProvinces(Buy buy);
 
     public Buy getById(Long id);
 }

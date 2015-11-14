@@ -40,4 +40,6 @@ public interface BuyService {
     public Map<String, Object> findById(Long id);
 
     public Map<String, Object> findByUserId(Buy buy);
+    
+    public int findCount(Buy buy);
 }

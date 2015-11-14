@@ -25,7 +25,7 @@
 	<select id="getUserByNameAndPass" parameterType="user"
 		resultMap="userMap">
 		SELECT * FROM crop_user WHERE phone = #{phone} AND password =
-		#{password} AND is_valid = 1
+		#{password} AND status = 1
 	</select>
 
 	<select id="getUserById" parameterType="java.lang.Long"
@@ -57,7 +57,7 @@
 			<if test="cityId != null and cityId > 0">city_id=#{cityId},</if>
 			<if test="areaId != null and areaId > 0">area_id=#{areaId},</if>
 			<if test="headUrl != null and headUrl != ''">head_url=#{headUrl},</if>
-			<if test="status != null">is_valid=#{status},</if>
+			<if test="status != null">status=#{status},</if>
 		</set>
 		WHERE id=#{id}
 	</update>

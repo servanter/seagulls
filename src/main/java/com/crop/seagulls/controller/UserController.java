@@ -5,6 +5,7 @@ import java.util.Map.Entry;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,6 +54,9 @@ public class UserController {
         Response result = userService.login(user);
         if (ReturnCode.isSuccess(result.getReturnCode())) {
             SessionUtils.setValue(session, Constant.LOGIN_USER, result.getResult());
+            if (StringUtils.isBlank(redirect)) {
+                redirect = "/user/profile/";
+            }
             result.setResult(redirect);
         }
         return result;
@@ -96,9 +100,7 @@ public class UserController {
     @RequestMapping(value = "/user/profile", method = RequestMethod.GET)
     public String profile(HttpSession session, Model model) {
         Map<String, Object> map = userService.userProfile(SessionUtils.getCurUser(session).getId());
-        for (Entry<String, Object> entry : map.entrySet()) {
-            model.addAttribute(entry.getKey(), entry.getValue());
-        }
+        model.mergeAttributes(map);
         return "user/profile";
     }
 
@@ -108,5 +110,40 @@ public class UserController {
         user.setId(SessionUtils.getCurUser(session).getId());
         Response response = userService.completeInfo(user);
         return response;
+    }
+    
+    
+    @RequestMapping(value = "/user/profileDetail", method = RequestMethod.GET)
+    public String enterProfileDetail() {
+        return "user/profile_detail";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/user/profileDetail", method = RequestMethod.POST)
+    public Response profileDetail(HttpSession session, User user) {
+        return null;
+    }
+    
+    @RequestMapping(value = "/user/certificationPersonal", method = RequestMethod.GET)
+    public String enterCertificationPersonal() {
+        return "user/personal_certification";
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/user/certificationPersonal", method = RequestMethod.POST)
+    public Response certificationPersonal() {
+        
+        return null;
+    }
+    
+    @RequestMapping(value = "/user/certificationOrganization", method = RequestMethod.GET)
+    public String enterCertificationOrganization() {
+        return "user/organization_certification";
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/user/certificationOrganization", method = RequestMethod.POST)
+    public Response certificationOrganization() {
+        return null;
     }
 }

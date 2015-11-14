@@ -20,7 +20,9 @@
 		<result property="note" column="note" />
 		<result property="contactName" column="contact_name" />
 		<result property="contactPhone" column="contact_phone" />
-		<result property="isShelf" column="is_shelf" />
+		<result property="companyId" column="company_id" />
+		<result property="companyName" column="company_name" />
+		<result property="isPublish" column="is_publish" />
 		<result property="isValid" column="is_valid" />
 		<result property="createTime" column="create_time" />
 		<result property="createUserId" column="create_user_id" />
@@ -33,7 +35,7 @@
 	<sql id="base_columns">
 		id, category_id_1, category_id_2, category_id_3, varieties_id,
 		title, province_id, city_id, area_id, start_time, end_time,
-		quantity, price, unit_id, note, contact_name, contact_phone, is_shelf, is_valid,
+		quantity, price, unit_id, note, contact_name, contact_phone, company_id, company_name， is_publish, is_valid,
 		create_time, create_user_id, update_time, audit_time, audit_id, status
 	</sql>
 
@@ -55,6 +57,8 @@
 		<if test="note != null and note !='' ">,note</if>
 		<if test="contactName != null and contactName !='' ">,contact_name</if>
 		<if test="contactPhone != null and contactPhone !='' ">,contact_phone</if>
+		<if test="companyId != null and companyId > 0 ">,company_id</if>
+		<if test="companyName != null and companyName !='' ">,company_name</if>
 		,create_time
 		<if test="createUserId != null and createUserId > 0">,create_user_id</if>
 		<if test="status != null and status > 0">,status</if>
@@ -76,6 +80,8 @@
 		<if test="note != null and note !='' ">,#{note}</if>
 		<if test="contactName != null and contactName !='' ">,#{contactName}</if>
 		<if test="contactPhone != null and contactPhone !='' ">,#{contactPhone}</if>
+		<if test="companyId != null and companyId > 0 ">,company_id</if>
+		<if test="companyName != null and companyName !='' ">,company_name</if>
 		,#{createTime}
 		<if test="createUserId != null and createUserId > 0">,#{createUserId}</if>
 		<if test="status != null and status > 0">,#{status}</if>
@@ -85,7 +91,7 @@
 		</selectKey>
 	</insert>
 
-	<select id="findBuies" parameterType="buy" resultMap="buyMap">
+	<select id="getList" parameterType="buy" resultMap="buyMap">
 		SELECT <include refid="base_columns"/> FROM crop_buy
 		<where>
 			<if test="categoryId1 != null and categoryId1 > 0">
@@ -109,8 +115,8 @@
 			<if test="endTime != null and endTime > 0">
 				AND end_time = #{endTime}
 			</if>
-			<if test="isShelf != null and isShelf >= 0">
-				AND is_shelf = #{isShelf}
+			<if test="isPublish != null and isPublish >= 0">
+				AND is_publish = #{isPublish}
 			</if>
 			<if test="isValid != null and isValid >= 0">
 				AND is_valid = #{isValid}
@@ -123,7 +129,7 @@
 		ORDER BY update_time DESC LIMIT #{sinceCount}, #{pageSize} 
 	</select>
 	
-	<select id="findBuiesCount" parameterType="buy" resultType="int">
+	<select id="getListCount" parameterType="buy" resultType="int">
 		SELECT COUNT(*) FROM crop_buy
 		<where>
 			<if test="categoryId1 != null and categoryId1 > 0">
@@ -147,8 +153,8 @@
 			<if test="endTime != null and endTime > 0">
 				AND end_time = #{endTime}
 			</if>
-			<if test="isShelf != null and isShelf >= 0">
-				AND is_shelf = #{isShelf}
+			<if test="isPublish != null and isPublish >= 0">
+				AND is_publish = #{isPublish}
 			</if>
 			<if test="isValid != null and isValid >= 0">
 				AND is_valid = #{isValid}
@@ -160,7 +166,7 @@
 		</where>
 	</select>
 	
-	<select id="findAllProvincesByBuy" parameterType="buy" resultType="long">
+	<select id="getAllProvinces" parameterType="buy" resultType="long">
 		SELECT DISTINCT(province_id) FROM crop_buy
 		<where>
 			<if test="categoryId1 != null and categoryId1 > 0">

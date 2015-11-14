@@ -24,4 +24,9 @@ public class IndexController {
         model.mergeAttributes(seriesService.index());
         return "index";
     }
+
+    @RequestMapping("/publish")
+    public String publish() {
+        return "publish/publish";
+    }
 }

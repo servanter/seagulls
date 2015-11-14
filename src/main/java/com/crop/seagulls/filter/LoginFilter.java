@@ -1,6 +1,7 @@
 package com.crop.seagulls.filter;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -55,15 +56,27 @@ public class LoginFilter implements Filter {
         String contextPath = req.getContextPath();
         String fullURL = req.getRequestURI();
         String targetURL = "";
-        if(fullURL.length() > 0) {
+        if (fullURL.length() > 0) {
             targetURL = fullURL.substring(contextPath.length() + 1);
+        }
+        if (targetURL.indexOf(".") > 0) {
+            String post = targetURL.substring(targetURL.lastIndexOf(".") + 1);
+            if (StringUtils.isNotBlank(post) && (post.equals("css") || post.equals("js") || post.equals("jpg") || post.equals("png") || post.equals("ico") || post.equals("gif"))) {
+                filter.doFilter(request, response);
+                return;
+            }
         }
 
         boolean flag = false;
         boolean needRedirect = false;
-        if (StringUtils.isNotBlank(targetURL) && !targetURL.equals("/")){
+        if (StringUtils.isNotBlank(targetURL) && !targetURL.equals("/")) {
             for (int i = 0; i < includeURL.length; i++) {
                 if (includeURL[i].contains(targetURL)) {
+                    flag = true;
+                    break;
+                }
+                Pattern pattern = Pattern.compile(includeURL[i]);
+                if (pattern.matcher(targetURL).find()) {
                     flag = true;
                     break;
                 }

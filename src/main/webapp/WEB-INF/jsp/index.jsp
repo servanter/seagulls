@@ -138,37 +138,7 @@ $(function(){
 	</div>
 	<div id="search"><a href="#">搜索农产品 如：芒果  香蕉</a></div>
 </header>
-<!--导航-->
-<nav id="nav">
-	<ul>
-		<li class="selected">
-		<a href="#">
-			<img src="${ctx }/images/nav01_selected.png" />
-			<span>首页</span>
-		</a>
-		</li>
-		<li>
-		<a href="#">
-			<img src="${ctx }/images/nav02.png" />
-			<span>消息</span>
-		</a>
-		</li>
-		<li>
-		<a href="#">
-			<img src="${ctx }/images/nav03.png" />
-			<span>发布</span>
-		</a>
-		</li>
-		<li>
-		<a href="#">
-			<img src="${ctx }/images/nav04.png" />
-			<span>我的</span>
-		</a>
-		</li>
-		
-	</ul>
-</nav>
-<!--内容-->
+<jsp:include page="/common/nav.jsp?nav=1"></jsp:include>
 <section>
 	<!--轮播图-->
 	<div id="iSlide" class="slide">
@@ -212,7 +182,7 @@ $(function(){
 			<li>
 				<a target="_top" href="#">
 					<img src="${ctx }/images/procurement.png" />
-					<span><strong class="colorOrange">4253</strong>人正在采购</span>
+					<span><strong class="colorOrange">${totalBuy }</strong>人正在采购</span>
 				</a>
 			</li>
 		</ul>

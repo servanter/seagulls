@@ -51,10 +51,14 @@ public class Buy extends Page {
     private String contactName;
 
     private String contactPhone;
+    
+    private String companyName;
+
+    private Long companyId;
+
+    private Boolean isPublish;
 
     private Boolean isValid;
-
-    private Boolean isShelf;
 
     private Date createTime;
 
@@ -348,12 +352,29 @@ public class Buy extends Page {
         this.isValid = isValid;
     }
 
-    public Boolean getIsShelf() {
-        return isShelf;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setIsShelf(Boolean isShelf) {
-        this.isShelf = isShelf;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public Boolean getIsPublish() {
+        return isPublish;
+    }
+
+    public void setIsPublish(Boolean isPublish) {
+        this.isPublish = isPublish;
+    }
+
 
 }

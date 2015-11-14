@@ -88,10 +88,10 @@ public class BuyServiceImpl implements BuyService {
     public Map<String, Object> findList(Buy buy) {
         Map<String, Object> map = new HashMap<String, Object>();
         packageCategory(buy, buy.getSearchCategoryId());
-        List<Buy> list = buyDAO.findBuies(buy);
-        Integer totalCount = buyDAO.findBuiesCount(buy);
+        List<Buy> list = buyDAO.getList(buy);
+        Integer totalCount = buyDAO.getListCount(buy);
         Paging<Buy> result = new Paging<Buy>(totalCount, buy.getPage(), buy.getPageSize(), list);
-        List<Long> areaIds = buyDAO.findAllProvincesByBuy(buy);
+        List<Long> areaIds = buyDAO.getAllProvinces(buy);
         List<Area> areas = new ArrayList<Area>();
         if (CollectionUtils.isNotEmpty(areaIds)) {
             for (Long areaId : areaIds) {
@@ -209,12 +209,17 @@ public class BuyServiceImpl implements BuyService {
     public Map<String, Object> findByUserId(Buy buy) {
         Map<String, Object> map = new HashMap<String, Object>();
         packageCategory(buy, buy.getSearchCategoryId());
-        List<Buy> list = buyDAO.findBuies(buy);
-        Integer totalCount = buyDAO.findBuiesCount(buy);
+        List<Buy> list = buyDAO.getList(buy);
+        Integer totalCount = buyDAO.getListCount(buy);
         Paging<Buy> result = new Paging<Buy>(totalCount, buy.getPage(), buy.getPageSize(), list);
         map.put("list", result);
         packageModel(list);
         return map;
+    }
+
+    @Override
+    public int findCount(Buy buy) {
+        return buyDAO.getListCount(buy);
     }
 
 }
