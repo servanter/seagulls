@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -23,16 +24,16 @@ public class UploadUtils {
      */
     public static final long DEFAULT_MAX_SIZE = 5 * 1024 * 1024L;
 
-    public static final String WEB_PATH = "/images/upload/";
+    public static final String WEB_PATH = "images/upload/";
 
-    public static Response upload(HttpServletRequest request) {
+    public static Response upload(String webPath, String realPath, HttpServletRequest request) {
         Response response = new Response();
         response.setReturnCode(ReturnCode.ERROR);
         List<String> webPaths = new ArrayList<String>();
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-        List<MultipartFile> fileList = multipartRequest.getFiles("files[]");
-        if (CollectionUtils.isNotEmpty(fileList)) {
-            for (MultipartFile f : fileList) {
+        if (MapUtils.isNotEmpty(multipartRequest.getFileMap())) {
+            for (String filename : multipartRequest.getFileMap().keySet()) {
+                MultipartFile f = multipartRequest.getFileMap().get(filename);
                 CommonsMultipartFile file = (CommonsMultipartFile) f;
                 // 获得文件名：
                 String realFileName = file.getOriginalFilename();
@@ -41,7 +42,7 @@ public class UploadUtils {
                 } else {
                     String newRealFileName = System.currentTimeMillis() + RandomUtils.generateNumberString(10) + realFileName.substring(realFileName.indexOf("."));
                     // 获取路径
-                    String ctxPath = request.getSession().getServletContext().getRealPath("//") + "//images//upload//";
+                    String ctxPath = request.getSession().getServletContext().getRealPath("/") + realPath;
 
                     // 创建文件
                     File dirPath = new File(ctxPath);
@@ -51,7 +52,7 @@ public class UploadUtils {
                     File uploadFile = new File(ctxPath + newRealFileName);
                     try {
                         FileCopyUtils.copy(file.getBytes(), uploadFile);
-                        webPaths.add(WEB_PATH + newRealFileName);
+                        webPaths.add(webPath + newRealFileName);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

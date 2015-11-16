@@ -48,7 +48,7 @@ public class SellController {
     @ResponseBody
     @RequestMapping(value = "/sell/publish", method = RequestMethod.POST)
     public Response publish(Sell supply, HttpServletRequest request, HttpSession session) {
-        Response uploadResponse = UploadUtils.upload(request);
+        Response uploadResponse = UploadUtils.upload("images/publish/","images/publish/",request);
         if (ReturnCode.isSuccess(uploadResponse.getReturnCode())) {
             supply.setCreateUserId(SessionUtils.getCurUser(session).getId());
             Response response = sellService.add(supply, (List<String>) uploadResponse.getResult());

@@ -1,10 +1,12 @@
 package com.crop.seagulls.controller;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +16,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.entities.User;
+import com.crop.seagulls.entities.UserAuth;
+import com.crop.seagulls.service.UserAuthService;
 import com.crop.seagulls.service.UserService;
 import com.crop.seagulls.util.SessionUtils;
+import com.crop.seagulls.util.UploadUtils;
 
 /**
  * 用户控制层
@@ -32,6 +38,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserAuthService userAuthService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String enterLogin(@RequestParam(value = "redirectUrl", required = false)
@@ -111,8 +120,7 @@ public class UserController {
         Response response = userService.completeInfo(user);
         return response;
     }
-    
-    
+
     @RequestMapping(value = "/user/profileDetail", method = RequestMethod.GET)
     public String enterProfileDetail() {
         return "user/profile_detail";
@@ -120,27 +128,40 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/user/profileDetail", method = RequestMethod.POST)
-    public Response profileDetail(HttpSession session, User user) {
+    public Response profileDetail(HttpServletRequest request, UserAuth userAuth) {
         return null;
     }
-    
+
     @RequestMapping(value = "/user/certificationPersonal", method = RequestMethod.GET)
-    public String enterCertificationPersonal() {
+    public String enterCertificationPersonal(Model model, HttpServletRequest request) {
+        UserAuth userAuth = new UserAuth();
+        userAuth.setUserId(SessionUtils.getCurUser(request.getSession()).getId());
+        Paging<UserAuth> list = userAuthService.findList(userAuth);
+        if (list != null && CollectionUtils.isNotEmpty(list.getResult())) {
+            model.addAttribute("model", list.getResult().get(0));
+        }
         return "user/personal_certification";
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/user/certificationPersonal", method = RequestMethod.POST)
-    public Response certificationPersonal() {
-        
-        return null;
+    public Response certificationPersonal(UserAuth userAuth, HttpServletRequest request) {
+        userAuth.setUserId(SessionUtils.getCurUser(request.getSession()).getId());
+        Response result = UploadUtils.upload("images/auth/", "images/auth/", request);
+        if (ReturnCode.isSuccess(result.getReturnCode())) {
+            userAuth.setImgFront(((List<String>) result.getResult()).get(0));
+            userAuth.setImgBackground(((List<String>) result.getResult()).get(1));
+            userAuth.setImgPerson(((List<String>) result.getResult()).get(2));
+            result = userAuthService.add(userAuth);
+        }
+        return result;
     }
-    
+
     @RequestMapping(value = "/user/certificationOrganization", method = RequestMethod.GET)
     public String enterCertificationOrganization() {
         return "user/organization_certification";
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/user/certificationOrganization", method = RequestMethod.POST)
     public Response certificationOrganization() {

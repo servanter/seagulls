@@ -32,7 +32,7 @@
 
 	<insert id="save" parameterType="userAuth">
 		INSERT INTO crop_user_auth 
-		(user_id, real_name, id_card_num, img_front, img_background, img_person, createTime) 
+		(user_id, real_name, id_card_num, img_front, img_background, img_person, create_time) 
 		VALUES
 		(#{userId}, #{realName}, #{idCardNum}, #{imgFront}, #{imgBackground}, #{imgPerson}, NOW())
 		<selectKey resultType="Long" keyProperty="id">
