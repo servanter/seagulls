@@ -19,6 +19,8 @@ import com.crop.seagulls.bean.ReturnCode;
 
 public class UploadUtils {
 
+    public static Logger logger = Logger.getLogger(UploadUtils.class);
+    
     /**
      * 5MB
      */
@@ -28,7 +30,7 @@ public class UploadUtils {
 
     public static Response upload(String webPath, String realPath, HttpServletRequest request) {
         Response response = new Response();
-        response.setReturnCode(ReturnCode.ERROR);
+        response.setReturnCode(ReturnCode.SUCCESS);
         List<String> webPaths = new ArrayList<String>();
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         if (MapUtils.isNotEmpty(multipartRequest.getFileMap())) {
@@ -54,12 +56,11 @@ public class UploadUtils {
                         FileCopyUtils.copy(file.getBytes(), uploadFile);
                         webPaths.add(webPath + newRealFileName);
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        logger.error("Upload error {0}", uploadFile);
                     }
                 }
             }
             response.setResult(webPaths);
-            response.setReturnCode(ReturnCode.SUCCESS);
         }
         return response;
     }

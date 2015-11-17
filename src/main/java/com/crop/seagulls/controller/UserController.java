@@ -129,8 +129,15 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/user/profileDetail", method = RequestMethod.POST)
-    public Response profileDetail(HttpServletRequest request, UserAuth userAuth) {
-        return null;
+    public Response profileDetail(HttpServletRequest request, User user) {
+        Response result = UploadUtils.upload("images/profile/", "images/profile", request);
+        if (ReturnCode.isSuccess(result.getReturnCode())) {
+            if (result.getResult() != null && ((List<String>) result.getResult()).size() > 0) {
+                user.setHeadUrl(((List<String>) result.getResult()).get(0));
+            }
+            result = userService.completeInfo(user);
+        }
+        return result;
     }
 
     @RequestMapping(value = "/user/certificationPersonal", method = RequestMethod.GET)

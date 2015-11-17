@@ -64,12 +64,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Response completeInfo(User user) {
-        Response response = new Response();
-        response.setReturnCode(ReturnCode.ERROR);
-        if (userDAO.update(user) > 0) {
-            response.setReturnCode(ReturnCode.SUCCESS);
-        }
-        return response;
+        return userDAO.update(user) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
     }
 
     @Override
