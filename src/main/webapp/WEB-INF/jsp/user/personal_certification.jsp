@@ -34,7 +34,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<a href="#"><img src="${ctx }/images/icon_back.png" /></a>
 	</div>
 	<h1>个人认证</h1>
-	<div class="headerRight"><a id="a-save" href="javascript:void(0)">保存</a></div>
+	<c:if test="${ model eq null || model.status eq commonStatus['NO_AUDIT'].code}">
+		<div class="headerRight"><a id="a-save" href="javascript:void(0)">保存</a></div>
+	</c:if>
 </header>
 <!--列表-->
 <section>
@@ -44,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li>
 					<h4>姓名</h4>
 					<c:choose>
-						<c:when test="${model eq null || model.status eq -1}">
+						<c:when test="${model eq null || model.status eq commonStatus['NO_AUDIT'].code}">
 							<input class="formInput" name="realName" type="text" value="${model.realName }"/>
 						</c:when>
 						<c:otherwise>
@@ -55,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li>
 					<h4>身份证号</h4>
 					<c:choose>
-						<c:when test="${model eq null || model.status eq -1}">
+						<c:when test="${model eq null || model.status eq commonStatus['NO_AUDIT'].code}">
 							<input class="formInput" name="idCardNum" type="text" value="${model.idCardNum }" />
 						</c:when>
 						<c:otherwise>
@@ -108,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<c:choose>
 						<c:when test="${model.imgPerson ne null && model.imgPerson ne ''}">
 							<c:choose>
-								<c:when test="${model.status eq -1 }">
+								<c:when test="${model.status eq commonStatus.NO_AUDIT.code }">
 									<img class="click_img" src="${ctx }/${model.imgPerson }" />
 								</c:when>
 								<c:otherwise>

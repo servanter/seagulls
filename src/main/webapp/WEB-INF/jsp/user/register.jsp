@@ -19,6 +19,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <title>注册</title>
+<script type="text/javascript" src="${ctx }/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
+<script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
+<script type="text/javascript" src="${ctx }/js/user/user.js"></script>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 
 </head>
@@ -35,21 +39,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <section>
 	<!--详情-->
 	
-	<div class="contentBg2">
-		<ul class="loginList">
-			<li>
-				<input placeholder="请输入手机号" type="text" />
-				<a class="loginCode bgOrange" href="#">获取验证码</a>
-			</li>
-			<li><input placeholder="请输入6位手机验证码" type="text" /></li>
-			<li><input placeholder="请输入登录密码" type="text" /></li>
-		</ul>
-	</div>
-		<a href="" class="button_Login bgGreen">注 册</a>
+	<form id="register-form">
+		<div class="contentBg2">
+			<ul class="loginList">
+				<li>
+					<input id="phone" name="phone" placeholder="请输入手机号" type="text" />
+					<a id="a-send" class="loginCode bgOrange a-send" href="javascript:void(0)">获取验证码</a>
+				</li>
+				<li><input name="smsCode" placeholder="请输入6位手机验证码" type="text" /></li>
+				<li><input id="password" name="password" placeholder="请输入登录密码" type="text" /></li>
+			</ul>
+		</div>
+		<a id="a-register" href="javascript:void(0)" class="button_Login bgGreen">注 册</a>
 		<div class="login_jiange">
 			<span>已有账号？</span>
 			<a class="button_Login2" href="${ctx }/login/">立即登录</a>
 		</div>
+	</form>
 </section>
 </body>
 </html>

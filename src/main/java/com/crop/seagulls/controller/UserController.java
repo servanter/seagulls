@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.crop.seagulls.bean.CommonStatus;
 import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
@@ -140,6 +141,7 @@ public class UserController {
         if (list != null && CollectionUtils.isNotEmpty(list.getResult())) {
             model.addAttribute("model", list.getResult().get(0));
         }
+        model.addAttribute("commonStatus", CommonStatus.getMap());
         return "user/personal_certification";
     }
 

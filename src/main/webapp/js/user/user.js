@@ -37,7 +37,7 @@ $(function() {
 		$('#form_login').ajaxSubmit(option);
 	});
 
-	$('.btn-send').click(function() {
+	$('body').delegate('.a-send', 'click', function() {
 		var phone = $('#phone').val();
 		if (!phone || phone.length == 0) {
 			alert("请输入手机号码");
@@ -51,8 +51,7 @@ $(function() {
 				$('.send-div').removeClass('dn');
 				countNum = 60;
 				Time = setInterval(countdown, 1000);
-				$('.btn-send').attr('disabled','disabled');
-				$('.btn-send').addClass('btn-send-disabled');
+				$('.a-send').removeClass('a-send');
 			}
 		})
 	});
@@ -71,7 +70,7 @@ $(function() {
 			})
 		}
 	});
-	$('.btn-register').click(function() {
+	$('#a-register').click(function() {
 		var phone = $('#phone').val();
 		if (!phone || phone.length == 0) {
 			alert("请输入手机号码");
@@ -117,11 +116,10 @@ $(function() {
 
 function countdown(num) {
 	countNum--;
-	$('#btn-send').val("重新发送剩余" + countNum + "秒");
+	$('#a-send').text("重新发送剩余" + countNum + "秒");
 	if (countNum == 0) {
-		$('#btn-send').val("发送验证码");
-		$('#btn-send').removeAttr('disabled');
-		$('#btn-send').removeClass('btn-send-disabled');
+		$('#a-send').text("发送验证码");
+		$('#a-send').addClass('a-send');
 		clearInterval(Time);
 	}
 
