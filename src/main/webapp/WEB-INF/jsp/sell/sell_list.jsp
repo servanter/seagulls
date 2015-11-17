@@ -17,7 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="Cache" content="no-cache">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<title>供应大厅</title>
+<title>供应列表</title>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript">
@@ -66,7 +66,7 @@ $(function(){
 		<ul>
 			<c:forEach var="model" items="${list.result}">
 				<li>
-				<a href="${ctx }/sell/sell_detail_${model.id }/">
+				<a href="${ctx }/sell/sell_detail_${model.id }.html">
 					<div class="list_img">
 						<img src="${ctx }/images/sheguo.jpg" />
 					</div>

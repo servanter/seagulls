@@ -6,7 +6,7 @@ body{
 	margin:0; padding:0; list-style:none; text-decoration:none;}
 @font-face {
     font-family: "DINCond-Bold";
-    src: url("../font/DINCond-Bold.otf");
+    src: url("../fonts/DINCond-Bold.otf");
 }
 html{
 	width:100%; height:100%;}
@@ -325,8 +325,46 @@ li.formAvatar b{
 .renzheng_shuoming p img{ width:280px; display:block; margin:10px auto;}
 
 
+/*消息*/
+.header_tab{width:140px; height:30px; position:absolute; left:50%; top:7px; margin-left:-70px; border-radius:3px; overflow:hidden;}
+.header_tab ul li{ float:left; width:50%; height:100%;}
+.header_tab ul li a.header_tab_left,.header_tab ul li a.header_tab_right{ display:block; width:69px; height:28px; line-height:28px; color:#fff; border:1px solid #fff; text-align:center; font-size:14px; font-family:"microsoft yahei";}
+.header_tab ul li a.header_tab_left{
+	border-right:none; border-top-left-radius:3px; border-bottom-left-radius:3px;}
+.header_tab ul li a.header_tab_right{
+	border-left:none; border-top-right-radius:3px; border-bottom-right-radius:3px;}
+.header_tab ul li.selected a.header_tab_left,.header_tab ul li.selected a.header_tab_right{
+	background:#fff; color:#00c9a1;}
 
 
+.messageList{}
+.messageList li{ background:#fff; border-bottom:1px solid #eee; height:70px; overflow:hidden; position:relative;}
+.messageList li a{ display:block; width:100%; height:100%;}
+.messageList li .messageList_avatar,.chat_avatar{ width:50px; height:50px; overflow:hidden; border-radius:5px; position:absolute; top:10px; left:15px;}
+.messageList li .messageList_avatar img,.chat_avatar img{ width:100%; height:100%;}
+.messageList li dl{ margin-left:65px; padding:10px 15px; height:50px; font-family:"microsoft yahei";}
+.messageList li dl dt{ height:25px; overflow:hidden; line-height:25px; font-size:15px; color:#444a4d;}
+.messageList li dl dd.messageList_text{ height:25px; overflow:hidden; line-height:25px; font-size:14px; color:#8e8e93;}
+.messageList li dl dd.messageList_time{ height:25px; line-height:25px; position:absolute; right:15px; top:10px; font-size:13px; color:#c7c7cc;}
+.messageList li .contactList{margin-left:65px; padding:10px 15px; height:50px; line-height:50px; color:#444a4d; font-size:15px;  font-family:"microsoft yahei";}
 
+.chat_bottomBar{ height:44px; background:#fff; border-top:1px solid #eee; position:fixed; left:0; bottom:0; width:100%; z-index:100;}
+.chat_input{ margin:5px 80px 5px 10px; border:1px solid #eee; border-radius:3px; overflow:hidden;}
+.chat_input input{ height:32px; line-height:32px; background:#f5f5f5; width:100%; border:0; padding-left:10px;}
+.chat_button{ width:60px; height:34px; position:absolute; right:10px; top:5px; border-radius:3px; text-align:center; line-height:34px; background:#00c9a1; color:#fff; font-family:"microsoft yahei"; font-size:15px;}
 
-
+.chat_box{font-family:"microsoft yahei";}
+.chat_time{ height:20px; margin-top:15px; text-align:center;}
+.chat_time span{ background:#c4c4c4; color:#fff; font-size:12px; line-height:20px; border-radius:4px; padding:0 7px; display:inline-block;}
+.chat_left,.chat_right{ margin-top:15px; position:relative;}
+.chat_text{ position:relative;}
+.chat_text .chat_dialogBox{ border:1px solid #e9e9e9; border-radius:4px; font-size:14px; color:#444a4d; line-height:22px; padding:13px 15px; background:#fff;}
+.chat_text .chat_arrow{ width:8px; height:14px; overflow:hidden; position:absolute; top:19px;}
+.chat_left .chat_avatar{ left:20px; top:0;}
+.chat_left .chat_text{ margin:0 50px 0 80px; }
+.chat_left .chat_text .chat_dialogBox{margin-left:7px; }
+.chat_left .chat_text .chat_arrow{ background:url(../images/chatArrow_left.png) no-repeat 0 0; background-size:100% 100%; left:0;}
+.chat_right .chat_avatar{ left:auto; right:20px; top:0;}
+.chat_right .chat_text{ margin:0 80px 0 50px; }
+.chat_right .chat_text .chat_dialogBox{margin-right:7px; }
+.chat_right .chat_text .chat_arrow{ background:url(../images/chatArrow_right.png) no-repeat 0 0; background-size:100% 100%; right:0;}

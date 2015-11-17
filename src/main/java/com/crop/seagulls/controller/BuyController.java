@@ -20,6 +20,7 @@ import com.crop.seagulls.cache.CategoryCache;
 import com.crop.seagulls.cache.ProductRelationCache;
 import com.crop.seagulls.entities.Buy;
 import com.crop.seagulls.entities.Category;
+import com.crop.seagulls.entities.Sell;
 import com.crop.seagulls.service.BuyService;
 import com.crop.seagulls.util.SessionUtils;
 
@@ -56,37 +57,25 @@ public class BuyController {
         return response;
     }
 
-    @RequestMapping(value = "/buy_cate_{cate:\\d+}", method = RequestMethod.GET)
-    public String supplyCategory(@PathVariable("cate")
-    Long category, Model model) {
-        List<Category> categories = categoryCache.getByPid(category);
-        if (CollectionUtils.isEmpty(categories) && categoryCache.getById(category) != null) {
-            return "redirect:/buy/buy_list_c" + category + "p0t0n1/";
-        }
-        model.addAttribute("categories", categories);
-        return "buy/category_list";
+    @RequestMapping(value = { "/buy/buy_index" }, method = RequestMethod.GET)
+    public String buyIndex(Model model) {
+        Map<String, Object> map = buyService.findList(new Buy());
+        model.mergeAttributes(map);
+        return "buy/buy_index";
     }
 
-    @RequestMapping(value = { "/buy/buy_list_c{cate:\\d+}p{province:\\d+}t{startPeriod:\\d+}n{page:\\d+}" }, method = RequestMethod.GET)
-    public String supplyList(@PathVariable("cate")
-    Long category, @PathVariable("province")
-    Long province, @PathVariable("startPeriod")
-    Long startPeriod, @PathVariable("page")
-    Integer page, Model model) {
+    @RequestMapping(value = { "/buy/buy_list_c{cate:\\d+}" }, method = RequestMethod.GET)
+    public String buyList(@PathVariable("cate")
+    Long category, Model model) {
         Buy buy = new Buy();
         buy.setSearchCategoryId(category);
-        buy.setStartTime(startPeriod);
-        buy.setProvinceId(province);
-        buy.setPage(page);
         Map<String, Object> map = buyService.findList(buy);
-        for (Entry<String, Object> entry : map.entrySet()) {
-            model.addAttribute(entry.getKey(), entry.getValue());
-        }
+        model.mergeAttributes(map);
         model.addAttribute("s", buy);
         return "buy/buy_list";
     }
 
-    @RequestMapping("/buy/buy_order_{id:\\d+}")
+    @RequestMapping("/buy/buy_{id:\\d+}.html")
     public String detail(@PathVariable("id")
     Long id, Model model) {
         Map<String, Object> map = buyService.findById(id);

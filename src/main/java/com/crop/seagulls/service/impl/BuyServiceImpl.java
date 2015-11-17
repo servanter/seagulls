@@ -1,6 +1,5 @@
 package com.crop.seagulls.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +18,8 @@ import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.cache.AreaCache;
 import com.crop.seagulls.cache.CategoryCache;
 import com.crop.seagulls.cache.ProductRelationCache;
+import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.dao.BuyDAO;
-import com.crop.seagulls.entities.Area;
 import com.crop.seagulls.entities.Buy;
 import com.crop.seagulls.entities.Category;
 import com.crop.seagulls.entities.ProductUnit;
@@ -88,24 +88,19 @@ public class BuyServiceImpl implements BuyService {
     public Map<String, Object> findList(Buy buy) {
         Map<String, Object> map = new HashMap<String, Object>();
         packageCategory(buy, buy.getSearchCategoryId());
+        buy.setIsValid(true);
+        buy.setIsPublish(true);
         List<Buy> list = buyDAO.getList(buy);
         Integer totalCount = buyDAO.getListCount(buy);
         Paging<Buy> result = new Paging<Buy>(totalCount, buy.getPage(), buy.getPageSize(), list);
-        List<Long> areaIds = buyDAO.getAllProvinces(buy);
-        List<Area> areas = new ArrayList<Area>();
-        if (CollectionUtils.isNotEmpty(areaIds)) {
-            for (Long areaId : areaIds) {
-                Area area = areaCache.getById(areaId);
-                if (area != null) {
-                    areas.add(area);
-                }
-            }
+        packageModel(list);
+
+        // fetch and display sub categories and
+        if (buy.getSearchCategoryId() != null) {
+            map.put("subCategories", categoryCache.getByPid(buy.getSearchCategoryId()));
         }
         map.put("list", result);
-        map.put("areas", areas);
-        map.put("periods", productRelationCache.getPERIODS());
-        packageModel(list);
-        packageSearchModel(buy);
+        map.put("topCategories", categoryCache.getByPid(Constant.CATEGORY_TOP_PID));
         return map;
     }
 
@@ -120,19 +115,38 @@ public class BuyServiceImpl implements BuyService {
                 buy.setPageUnit(unit);
 
                 // find category
-                if (NumberUtils.isValidateNumber(buy.getCategoryId3()) && categoryCache.getById(buy.getCategoryId3()) != null) {
-                    buy.setPageCategory(categoryCache.getById(buy.getCategoryId3()));
-                } else if (NumberUtils.isValidateNumber(buy.getCategoryId2()) && categoryCache.getById(buy.getCategoryId2()) != null) {
-                    buy.setPageCategory(categoryCache.getById(buy.getCategoryId2()));
-                } else if (NumberUtils.isValidateNumber(buy.getCategoryId1()) && categoryCache.getById(buy.getCategoryId1()) != null) {
-                    buy.setPageCategory(categoryCache.getById(buy.getCategoryId1()));
+                // if (NumberUtils.isValidateNumber(buy.getCategoryId3()) && categoryCache.getById(buy.getCategoryId3()) != null) {
+                // buy.setPageCategory(categoryCache.getById(buy.getCategoryId3()));
+                // } else if (NumberUtils.isValidateNumber(buy.getCategoryId2()) && categoryCache.getById(buy.getCategoryId2()) != null) {
+                // buy.setPageCategory(categoryCache.getById(buy.getCategoryId2()));
+                // } else if (NumberUtils.isValidateNumber(buy.getCategoryId1()) && categoryCache.getById(buy.getCategoryId1()) != null) {
+                // buy.setPageCategory(categoryCache.getById(buy.getCategoryId1()));
+                // }
+                String pagePeriod = StringUtils.EMPTY;
+                if (productRelationCache.isDefaultPeriod(buy.getStartTime()) && productRelationCache.isDefaultPeriod(buy.getEndTime())) {
+                    pagePeriod = productRelationCache.getPeriodById(buy.getStartTime()).getTitle();
+                } else {
+                    pagePeriod = templateService.getMessage("page.sell.list.period.separator", productRelationCache.getPeriodById(buy.getStartTime()).getTitle(), productRelationCache.getPeriodById(buy.getEndTime()).getTitle());
+                }
+                buy.setPagePeriod(pagePeriod);
+
+                // time alias
+                DateType dateType = DateUtils.getTimeDesc(buy.getUpdateTime());
+                buy.setPageTimeAlias(templateService.getMessage("page.time.alias." + dateType.getType(), String.valueOf(dateType.getMoreThan())));
+
+                String addr = "";
+                Long cityId = buy.getCityId();
+                // Long provinceId = sell.getProvinceId();
+                // Long areaId = sell.getAreaId();
+
+                // if has area, then display province and area.
+                // else display province and city
+                if (cityId != null && cityId > 0L && areaCache.getById(cityId) != null) {
+                    addr = areaCache.getById(cityId).getZhName();
                 }
 
-                buy.setPageStartPeriod(productRelationCache.getPeriodById(buy.getStartTime()));
-                buy.setPageEndPeriod(productRelationCache.getPeriodById(buy.getEndTime()));
+                buy.setPageAddress(addr);
 
-                DateType dateType = DateUtils.getTimeDesc(buy.getUpdateTime());
-                buy.setPageTimeAlias(templateService.getMessage("page.time_alias_" + dateType.getType(), String.valueOf(dateType.getMoreThan())));
             }
         }
     }
@@ -164,13 +178,8 @@ public class BuyServiceImpl implements BuyService {
         Buy buy = buyDAO.getById(id);
         map.put("buy", buy);
         initAttr(buy);
-        buy.setPageStartPeriod(productRelationCache.getPeriodById(buy.getStartTime()));
-        buy.setPageEndPeriod(productRelationCache.getPeriodById(buy.getEndTime()));
 
         buy.setPageUnit(productRelationCache.getUnitById(buy.getUnitId()));
-
-        buy.setPageStartPeriod(productRelationCache.getPeriodById(buy.getStartTime()));
-        buy.setPageEndPeriod(productRelationCache.getPeriodById(buy.getEndTime()));
 
         packageSearchModel(buy);
         buy.setPageQuantity(TextUtils.removeEndZero(buy.getQuantity().toString()));

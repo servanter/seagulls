@@ -59,22 +59,20 @@ public class SellController {
     }
 
     @RequestMapping(value = { "/sell/sell_index" }, method = RequestMethod.GET)
-    public String supplyList(Sell sell, Model model) {
-        Sell supply = new Sell();
-        Map<String, Object> map = sellService.findList(supply);
+    public String sellIndex(Model model) {
+        Map<String, Object> map = sellService.findList(new Sell());
         model.mergeAttributes(map);
-        model.addAttribute("s", supply);
         return "sell/sell_index";
     }
 
     @RequestMapping(value = { "/sell/sell_list_c{cate:\\d+}" }, method = RequestMethod.GET)
-    public String supplyList(@PathVariable("cate")
+    public String sellList(@PathVariable("cate")
     Long category, Model model) {
-        Sell supply = new Sell();
-        supply.setSearchCategoryId(category);
-        Map<String, Object> map = sellService.findList(supply);
+        Sell sell = new Sell();
+        sell.setSearchCategoryId(category);
+        Map<String, Object> map = sellService.findList(sell);
         model.mergeAttributes(map);
-        model.addAttribute("s", supply);
+        model.addAttribute("s", sell);
         return "sell/sell_list";
     }
 

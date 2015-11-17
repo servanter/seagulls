@@ -51,7 +51,7 @@ public class Buy extends Page {
     private String contactName;
 
     private String contactPhone;
-    
+
     private String companyName;
 
     private Long companyId;
@@ -77,11 +77,11 @@ public class Buy extends Page {
 
     private String pageTimeAlias;
     private Category pageCategory;
-    private ProductPeriod pageStartPeriod;
-    private ProductPeriod pageEndPeriod;
     private ProductUnit pageUnit;
     private String pageOriginAddr;
+    private String pageAddress;
     private String pageQuantity;
+    private String pagePeriod;
 
     public Buy() {
         super();
@@ -296,22 +296,6 @@ public class Buy extends Page {
         this.pageCategory = pageCategory;
     }
 
-    public ProductPeriod getPageStartPeriod() {
-        return pageStartPeriod;
-    }
-
-    public void setPageStartPeriod(ProductPeriod pageStartPeriod) {
-        this.pageStartPeriod = pageStartPeriod;
-    }
-
-    public ProductPeriod getPageEndPeriod() {
-        return pageEndPeriod;
-    }
-
-    public void setPageEndPeriod(ProductPeriod pageEndPeriod) {
-        this.pageEndPeriod = pageEndPeriod;
-    }
-
     public String getPageOriginAddr() {
         return pageOriginAddr;
     }
@@ -376,5 +360,20 @@ public class Buy extends Page {
         this.isPublish = isPublish;
     }
 
+    public String getPageAddress() {
+        return pageAddress;
+    }
+
+    public void setPageAddress(String pageAddress) {
+        this.pageAddress = pageAddress;
+    }
+
+    public String getPagePeriod() {
+        return pagePeriod;
+    }
+
+    public void setPagePeriod(String pagePeriod) {
+        this.pagePeriod = pagePeriod;
+    }
 
 }
