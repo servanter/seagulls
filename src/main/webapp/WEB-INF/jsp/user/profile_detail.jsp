@@ -19,7 +19,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <title>我的资料</title>
-<link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript" src="${ctx }/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
+<script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
+<script type="text/javascript" src="${ctx }/js/user/profile_detail.js"></script>
+<link rel="stylesheet" type="text/css" href="${ctx }/css/style.css">
+<link rel="stylesheet" type="text/css" href="${ctx }/css/extra.css">
 
 </head>
 
@@ -36,6 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<div class="contentBg2">
 		<ul class="formList ">
+			<input type="file" name="header" class="dn-file dn">
 			<li class="formAvatar">
 				<h4>头像</h4>
 				<b><img src="images/touxiang.jpg" /></b>

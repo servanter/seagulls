@@ -180,7 +180,7 @@ $(function(){
 				</a>
 			</li>
 			<li>
-				<a target="_top" href="#">
+				<a target="_top" href="${ctx }/buy/buy_index/">
 					<img src="${ctx }/images/procurement.png" />
 					<span><strong class="colorOrange">${totalBuy }</strong>人正在采购</span>
 				</a>

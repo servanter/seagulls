@@ -44,7 +44,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<ul class="loginList">
 				<li>
 					<input id="phone" name="phone" placeholder="请输入手机号" type="text" />
-					<a class="loginCode bgOrange" href="#">获取验证码</a>
 				</li>
 				<li><input id="password" name="password" placeholder="请输入登录密码" type="password" /></li>
 			</ul>
