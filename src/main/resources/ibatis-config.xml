@@ -5,7 +5,6 @@
 		<typeAlias alias="user" type="com.crop.seagulls.entities.User" />
 		<typeAlias alias="category" type="com.crop.seagulls.entities.Category" />
 		<typeAlias alias="area" type="com.crop.seagulls.entities.Area" />
-		
 		<typeAlias alias="productUnit" type="com.crop.seagulls.entities.ProductUnit" />
 		<typeAlias alias="productPeriod" type="com.crop.seagulls.entities.ProductPeriod" />
 		<typeAlias alias="sell" type="com.crop.seagulls.entities.Sell" />
@@ -13,7 +12,10 @@
 		<typeAlias alias="userIdentity" type="com.crop.seagulls.entities.UserIdentity" />
 		<typeAlias alias="company" type="com.crop.seagulls.entities.Company" />
 		<typeAlias alias="userAuth" type="com.crop.seagulls.entities.UserAuth" />
+		<typeAlias alias="userCompany" type="com.crop.seagulls.entities.UserCompany" />
 		<typeAlias alias="supplyPic" type="com.crop.seagulls.entities.SupplyPic" />
+		
+		
 		<typeAlias alias="adminUser" type="com.crop.seagulls.entities.admin.User" />
 		<typeAlias alias="role" type="com.crop.seagulls.entities.admin.Role" />
 		<typeAlias alias="menu" type="com.crop.seagulls.entities.admin.Menu" />

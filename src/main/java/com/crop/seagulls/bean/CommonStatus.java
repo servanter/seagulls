@@ -5,7 +5,9 @@ import java.util.Map;
 
 public enum CommonStatus {
 
-    NO_AUDIT(-1, "审核未通过"),
+    NO_AUDIT(-2, "审核未通过"),
+    
+    UN_SUBMIT(-1, "未提交"),
 
     AUDITING(0, "正在审核"),
 
@@ -15,6 +17,7 @@ public enum CommonStatus {
 
     static {
         map.put(CommonStatus.NO_AUDIT.name(), CommonStatus.NO_AUDIT);
+        map.put(CommonStatus.UN_SUBMIT.name(), CommonStatus.UN_SUBMIT);
         map.put(CommonStatus.AUDITING.name(), CommonStatus.AUDITING);
         map.put(CommonStatus.PASS.name(), CommonStatus.PASS);
     }

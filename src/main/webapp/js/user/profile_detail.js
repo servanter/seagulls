@@ -1,10 +1,10 @@
 $(function() {
 	$('.formAvatar').click(function() {
-		$(this).prev().trigger('click')
+		$('input[name=header]').trigger('click');
 	});
 	
 	$('.dn-file').change(function() {
-		preImg($(this), $(this).next().find('img'));
+		preImg($(this), $('#headImg'));
 	});
 	
 	$('#a-save').click(function() {
@@ -18,6 +18,9 @@ $(function() {
 					BaseUtils.reload();
 				}
 			}
+		}
+		if($('.dn-file').eq(0).val() != '') {
+			$('.dn-file').after('<input type="hidden" name="has_img" value="1">');
 		}
 		$('#form-personal').ajaxSubmit(option);
 	});

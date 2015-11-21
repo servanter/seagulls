@@ -49,15 +49,15 @@
 	<update id="update" parameterType="user">
 		UPDATE crop_user
 		<set>
-			<if test="password != null and password != '' ">password=#{password},</if>
-			<if test="nickName != null and nickName != ''">nick_name=#{nickName},</if>
-			<if test="sex != null and sex >= 0">sex=#{sex},</if>
-			<if test="phone != null and phone != ''">phone=#{phone},</if>
-			<if test="provinceId != null and provinceId > 0">province_id=#{provinceId},</if>
-			<if test="cityId != null and cityId > 0">city_id=#{cityId},</if>
-			<if test="areaId != null and areaId > 0">area_id=#{areaId},</if>
-			<if test="headUrl != null and headUrl != ''">head_url=#{headUrl},</if>
-			<if test="status != null">status=#{status},</if>
+			update_time = NOW()
+			<if test="password != null and password != '' ">,password=#{password}</if>
+			<if test="nickName != null and nickName != ''">,nick_name=#{nickName}</if>
+			<if test="sex != null and sex >= 0">,sex=#{sex}</if>
+			<if test="provinceId != null and provinceId > 0">,province_id=#{provinceId}</if>
+			<if test="cityId != null and cityId > 0">,city_id=#{cityId}</if>
+			<if test="areaId != null and areaId > 0">,area_id=#{areaId}</if>
+			<if test="headUrl != null and headUrl != ''">,head_url=#{headUrl}</if>
+			<if test="status != null">,status=#{status}</if>
 		</set>
 		WHERE id=#{id}
 	</update>

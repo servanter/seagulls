@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +22,10 @@ import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.common.Constant;
+import com.crop.seagulls.entities.Company;
 import com.crop.seagulls.entities.User;
 import com.crop.seagulls.entities.UserAuth;
+import com.crop.seagulls.service.CompanyService;
 import com.crop.seagulls.service.UserAuthService;
 import com.crop.seagulls.service.UserService;
 import com.crop.seagulls.util.SessionUtils;
@@ -42,6 +45,9 @@ public class UserController {
 
     @Autowired
     private UserAuthService userAuthService;
+
+    @Autowired
+    private CompanyService companyService;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String enterLogin(@RequestParam(value = "redirectUrl", required = false)
@@ -123,14 +129,15 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/profileDetail", method = RequestMethod.GET)
-    public String enterProfileDetail() {
+    public String enterProfileDetail(HttpSession session, Model model) {
+        model.mergeAttributes(userService.findUserByIdWithCompany(SessionUtils.getCurUser(session)));
         return "user/profile_detail";
     }
 
     @ResponseBody
     @RequestMapping(value = "/user/profileDetail", method = RequestMethod.POST)
-    public Response profileDetail(HttpServletRequest request, User user) {
-        Response result = UploadUtils.upload("images/profile/", "images/profile", request);
+    public Response profileDetail(User user, HttpServletRequest request) {
+        Response result = UploadUtils.upload("images/profile/", "images/profile/", request);
         if (ReturnCode.isSuccess(result.getReturnCode())) {
             if (result.getResult() != null && ((List<String>) result.getResult()).size() > 0) {
                 user.setHeadUrl(((List<String>) result.getResult()).get(0));
@@ -142,12 +149,8 @@ public class UserController {
 
     @RequestMapping(value = "/user/certificationPersonal", method = RequestMethod.GET)
     public String enterCertificationPersonal(Model model, HttpServletRequest request) {
-        UserAuth userAuth = new UserAuth();
-        userAuth.setUserId(SessionUtils.getCurUser(request.getSession()).getId());
-        Paging<UserAuth> list = userAuthService.findList(userAuth);
-        if (list != null && CollectionUtils.isNotEmpty(list.getResult())) {
-            model.addAttribute("model", list.getResult().get(0));
-        }
+        UserAuth userAuth = userAuthService.findByUserId(SessionUtils.getCurUser(request.getSession()).getId());
+        model.addAttribute("model", userAuth);
         model.addAttribute("commonStatus", CommonStatus.getMap());
         return "user/personal_certification";
     }
@@ -156,24 +159,43 @@ public class UserController {
     @RequestMapping(value = "/user/certificationPersonal", method = RequestMethod.POST)
     public Response certificationPersonal(UserAuth userAuth, HttpServletRequest request) {
         userAuth.setUserId(SessionUtils.getCurUser(request.getSession()).getId());
-        Response result = UploadUtils.upload("images/auth/", "images/auth/", request);
+        Response result = UploadUtils.upload("images/auth/", "images/auth/", userAuth, request);
         if (ReturnCode.isSuccess(result.getReturnCode())) {
-            userAuth.setImgFront(((List<String>) result.getResult()).get(0));
-            userAuth.setImgBackground(((List<String>) result.getResult()).get(1));
-            userAuth.setImgPerson(((List<String>) result.getResult()).get(2));
-            result = userAuthService.add(userAuth);
+            userAuth.setStatus(CommonStatus.AUDITING.getCode());
+            if (!ObjectUtils.equals(userAuth.getId(), null) && userAuth.getId() > 0) {
+                result = userAuthService.modify(userAuth);
+            } else {
+                result = userAuthService.add(userAuth);
+            }
         }
         return result;
     }
 
     @RequestMapping(value = "/user/certificationOrganization", method = RequestMethod.GET)
-    public String enterCertificationOrganization() {
+    public String enterCertificationOrganization(Model model, HttpServletRequest request) {
+        User user = new User();
+        user.setId(SessionUtils.getCurUser(request.getSession()).getId());
+        Paging<Company> companies = companyService.findByUserId(user);
+        if (!ObjectUtils.equals(companies, null) && CollectionUtils.isNotEmpty(companies.getResult())) {
+            model.addAttribute("model", companies.getResult().get(0));
+        }
+        model.addAttribute("commonStatus", CommonStatus.getMap());
         return "user/organization_certification";
     }
 
     @ResponseBody
     @RequestMapping(value = "/user/certificationOrganization", method = RequestMethod.POST)
-    public Response certificationOrganization() {
-        return null;
+    public Response certificationOrganization(Company company, HttpServletRequest request) {
+        company.setUserId(SessionUtils.getCurUser(request.getSession()).getId());
+        Response result = UploadUtils.upload("images/company/", "images/company/", company, request);
+        if (ReturnCode.isSuccess(result.getReturnCode())) {
+            company.setStatus(CommonStatus.AUDITING.getCode());
+            if (!ObjectUtils.equals(company.getId(), null) && company.getId() > 0) {
+                result = companyService.modify(company);
+            } else {
+                result = companyService.add(company);
+            }
+        }
+        return result;
     }
 }

@@ -5,14 +5,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crop.seagulls.bean.CommonStatus;
+import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.dao.UserDAO;
+import com.crop.seagulls.entities.Company;
 import com.crop.seagulls.entities.User;
+import com.crop.seagulls.entities.UserAuth;
+import com.crop.seagulls.service.CompanyService;
 import com.crop.seagulls.service.TemplateService;
+import com.crop.seagulls.service.UserAuthService;
 import com.crop.seagulls.service.UserService;
 
 @Service("userService")
@@ -20,6 +29,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private TemplateService templateService;
+
+    @Autowired
+    private CompanyService companyService;
+
+    @Autowired
+    private UserAuthService userAuthService;
 
     @Autowired
     private UserDAO userDAO;
@@ -64,7 +79,41 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Response completeInfo(User user) {
-        return userDAO.update(user) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+        Response result = new Response(ReturnCode.SUCCESS);
+        if(StringUtils.isNotBlank(user.getRealName())) {
+            
+            // need update realname
+            UserAuth userAuth = new UserAuth();
+            userAuth.setUserId(user.getId());
+            userAuth.setStatus(CommonStatus.UN_SUBMIT.getCode());
+            userAuth.setRealName(user.getRealName());
+            if(!ObjectUtils.equals(user.getUserAuthId(), null) && user.getUserAuthId() > 0) {
+                userAuth.setId(user.getUserAuthId());
+                result = userAuthService.modify(userAuth);
+            } else {
+                result = userAuthService.add(userAuth);
+            }
+        }
+        if(StringUtils.isNotBlank(user.getCompanyTitle())) {
+            
+            // need update company
+            if(!ObjectUtils.equals(user.getCompanyId(), null) && user.getCompanyId() > 0) {
+                Company company = new Company(user.getCompanyId());
+                company.setTitle(user.getCompanyTitle());
+                result = companyService.modify(company);
+            } else {
+               
+                // add the company
+                Company company = new Company();
+                company.setTitle(user.getCompanyTitle());
+                company.setUserId(user.getId());
+                result = companyService.add(company);
+            }
+        }
+        if(ReturnCode.isSuccess(result.getReturnCode())) {
+            result = userDAO.update(user) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+        }
+        return result;
     }
 
     @Override
@@ -111,6 +160,26 @@ public class UserServiceImpl implements UserService {
         Map<String, Object> map = new HashMap<String, Object>();
         User user = findUserById(id);
         map.put("user", user);
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> findUserByIdWithCompany(User user) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        User model = userDAO.getUserById(user.getId());
+
+        // company infos
+        Paging<Company> companies = companyService.findByUserId(user);
+        if (companies != null && CollectionUtils.isNotEmpty(companies.getResult())) {
+            map.put("company", companies.getResult().get(0));
+        }
+
+        // user auth infos
+        UserAuth userAuth = new UserAuth();
+        userAuth.setUserId(user.getId());
+        map.put("userAuth", userAuthService.findByUserId(user.getId()));
+        map.put("model", model);
+        map.put("commonStatus", CommonStatus.getMap());
         return map;
     }
 

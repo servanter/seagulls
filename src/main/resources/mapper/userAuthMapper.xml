@@ -17,27 +17,100 @@
 		<result property="auditTime" column="audit_time" />
 	</resultMap>
 
+	<select id="getById" parameterType="long"
+		resultMap="userAuthMap">
+		SELECT * FROM crop_user_auth WHERE id = #{id}
+	</select>
+	
 	<select id="getList" parameterType="userAuth"
 		resultMap="userAuthMap">
-		SELECT * FROM crop_user_auth WHERE user_id = #{userId}
+		SELECT * FROM crop_user_auth
+		<where>
+			<if test="userId != null and userId > 0 ">
+				AND user_id = #{userId}
+			</if>
+		</where>
 		<if test="status != null">AND status = #{status}</if>
 		ORDER BY update_time DESC
 	</select>
 
 	<select id="getListCount" parameterType="userAuth"
 		resultType="int">
-		SELECT COUNT(*) FROM crop_user_auth WHERE user_id = #{userId}
+		SELECT COUNT(*) FROM crop_user_auth
+		<where>
+			<if test="userId != null and userId > 0 ">
+				AND user_id = #{userId}
+			</if>
+		</where>
 		<if test="status != null">AND status = #{status}</if>
 	</select>
 
 	<insert id="save" parameterType="userAuth">
-		INSERT INTO crop_user_auth 
-		(user_id, real_name, id_card_num, img_front, img_background, img_person, create_time) 
-		VALUES
-		(#{userId}, #{realName}, #{idCardNum}, #{imgFront}, #{imgBackground}, #{imgPerson}, NOW())
-		<selectKey resultType="Long" keyProperty="id">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
+		INSERT INTO crop_user_auth SET
+		update_time = NOW(),create_time = NOW()
+		<if test="realName != null and realName.length() > 0">
+			,real_name = #{realName}
+		</if>
+		<if test="idCardNum != null and idCardNum.length() > 0">
+			,id_card_num = #{idCardNum}
+		</if>
+		<if test="imgFront != null and imgFront.length() > 0">
+			,img_front = #{imgFront}
+		</if>
+		<if test="imgBackground != null and imgBackground.length() > 0">
+			,img_background = #{imgBackground}
+		</if>
+		<if test="imgPerson != null and imgPerson.length() > 0">
+			,img_person = #{imgPerson}
+		</if>
+		<if test="userId != null and userId > 0">
+			,user_id = #{userId}
+		</if>
+		<if test="status != null ">
+			,status = #{status}
+		</if>
+		<if test="auditId != null and auditId > 0">
+			,audit_id = #{auditId}
+			, audit_time = NOW()
+		</if>
+		<if test="id != null and id > 0">
+			,id = #{id}
+		</if>
 	</insert>
+	
+	<update id="update" parameterType="userAuth">
+		UPDATE crop_user_auth SET
+		update_time = NOW()
+		<if test="realName != null and realName.length() > 0">
+			,real_name = #{realName}
+		</if>
+		<if test="idCardNum != null and idCardNum.length() > 0">
+			,id_card_num = #{idCardNum}
+		</if>
+		<if test="imgFront != null and imgFront.length() > 0">
+			,img_front = #{imgFront}
+		</if>
+		<if test="imgBackground != null and imgBackground.length() > 0">
+			,img_background = #{imgBackground}
+		</if>
+		<if test="imgPerson != null and imgPerson.length() > 0">
+			,img_person = #{imgPerson}
+		</if>
+		<if test="status != null ">
+			,status = #{status}
+		</if>
+		<if test="auditId != null and auditId > 0">
+			,audit_id = #{auditId}
+			, audit_time = NOW()
+		</if>
+		<where>
+			<if test="id != null and id > 0">
+				AND id = #{id}
+			</if>
+			<if test="userId != null and userId > 0">
+				AND user_id = #{userId}
+			</if>
+		</where>
+	</update>
 
 </mapper>

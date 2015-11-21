@@ -31,39 +31,72 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 <header>
 	<div class="icon_back">
-		<a href="#"><img src="images/icon_back.png" /></a>
+		<a href="#"><img src="${ctx }/images/icon_back.png" /></a>
 	</div>
 	<h1>我的资料</h1>
-	<div class="headerRight"><a href="#">保存</a></div>
+	<div class="headerRight"><a id="a-save" href="javascript:void(0)">保存</a></div>
 </header>
 <!--列表-->
 <section>
 
-	<div class="contentBg2">
-		<ul class="formList ">
-			<input type="file" name="header" class="dn-file dn">
-			<li class="formAvatar">
-				<h4>头像</h4>
-				<b><img src="images/touxiang.jpg" /></b>
-			</li>
-			<li>
-				<h4>姓名</h4>
-				<input class="formInput" type="text" />
-			</li>
-			<li>
-				<h4>电话</h4>
-				<input class="formInput" type="text" />
-			</li>
-			<li>
-				<h4>性别</h4>
-				<input class="formInput" type="text" />
-			</li>
-			<li>
-				<h4>机构名称</h4>
-				<input class="formInput" type="text" />
-			</li>
-		</ul>
-	</div>
+	<form id="form-personal">
+		<input name="id" type="hidden" value="${sessionScope.CUSER.id }">
+		<div class="contentBg2">
+			<input type="file" type="hidden" name="header" class="dn-file dn">
+			<ul class="formList ">
+				<li class="formAvatar">
+					<h4>头像</h4>
+					<b><img id="headImg" src="${ctx }/${model.headUrl }" /></b>
+				</li>
+				<li>
+					<h4>姓名</h4>
+					<c:choose>
+						<c:when test="${userAuth ne null }">
+							<c:choose>
+								<c:when test="${userAuth.status ne commonStatus['AUDITING'].code && userAuth.status ne commonStatus['PASS'].code}">
+									<input class="formInput" type="text" name="realName" value="${userAuth.realName }"/>
+									<input name="userAuthId" type="hidden" value="${userAuth.id }" />
+								</c:when>
+								<c:otherwise>
+									<input class="formInput" type="text" name="realName" value="${userAuth.realName }" disabled="disabled"/>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+							<input class="formInput" type="text" name="realName" value=""/>
+						</c:otherwise>
+					</c:choose>
+				</li>
+				<li>
+					<h4>电话</h4>
+					<input class="formInput" type="text" value="${model.phone }" disabled="disabled"/>
+				</li>
+				<li>
+					<h4>性别</h4>
+					<input class="formInput" type="text" value="${model.sex }"/>
+				</li>
+				<li>
+					<h4>机构名称</h4>
+					<c:choose>
+						<c:when test="${company ne null}">
+							<c:choose>
+								<c:when test="${company.status ne commonStatus['AUDITING'].code && company.status ne commonStatus['PASS'].code}">
+									<input class="formInput" type="text" name="companyTitle" value="${company.title }"/>
+									<input name="companyId" type="hidden" value="${company.id }" />
+								</c:when>
+								<c:otherwise>
+									<input class="formInput" type="text" name="companyTitle" value="${company.title }" disabled="disabled"/>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+							<input class="formInput" type="text" name="companyTitle" value=""/>
+						</c:otherwise>
+					</c:choose>
+				</li>
+			</ul>
+		</div>
+	</form>
 </section>
 </body>
 </html>

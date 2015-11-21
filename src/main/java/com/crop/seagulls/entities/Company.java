@@ -16,6 +16,16 @@ public class Company extends Page {
 
     private String title;
 
+    private String legalName;
+
+    private String organizationCode;
+
+    private String imgLicense;
+
+    private String imgOrganization;
+
+    private String imgTax;
+
     private Long userId;
 
     private Integer status;
@@ -27,6 +37,16 @@ public class Company extends Page {
     private Long auditId;
 
     private Date auditTime;
+
+    public Company() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+    public Company(Long id) {
+        super();
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
@@ -90,6 +110,46 @@ public class Company extends Page {
 
     public void setAuditTime(Date auditTime) {
         this.auditTime = auditTime;
+    }
+
+    public String getLegalName() {
+        return legalName;
+    }
+
+    public void setLegalName(String legalName) {
+        this.legalName = legalName;
+    }
+
+    public String getOrganizationCode() {
+        return organizationCode;
+    }
+
+    public void setOrganizationCode(String organizationCode) {
+        this.organizationCode = organizationCode;
+    }
+
+    public String getImgLicense() {
+        return imgLicense;
+    }
+
+    public void setImgLicense(String imgLicense) {
+        this.imgLicense = imgLicense;
+    }
+
+    public String getImgOrganization() {
+        return imgOrganization;
+    }
+
+    public void setImgOrganization(String imgOrganization) {
+        this.imgOrganization = imgOrganization;
+    }
+
+    public String getImgTax() {
+        return imgTax;
+    }
+
+    public void setImgTax(String imgTax) {
+        this.imgTax = imgTax;
     }
 
 }

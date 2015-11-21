@@ -15,4 +15,8 @@ public interface UserAuthDAO {
 
     int getListCount(UserAuth userAuth);
 
+    int update(UserAuth userAuth);
+
+    UserAuth getById(Long id);
+
 }

@@ -10,4 +10,9 @@ public interface UserAuthService {
     
     public Paging<UserAuth> findList(UserAuth userAuth);
     
+    public UserAuth findByUserId(Long userId);
+    
+    public Response modify(UserAuth userAuth);
+    
+    public UserAuth findById(Long id);
 }

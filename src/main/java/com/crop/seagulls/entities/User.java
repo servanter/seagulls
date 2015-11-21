@@ -41,6 +41,11 @@ public class User extends Page {
 
     private Timestamp updateTime;
 
+    private String realName;
+    private String companyTitle;
+    private Long userAuthId;
+    private Long companyId;
+
     public User() {
     }
 
@@ -138,6 +143,38 @@ public class User extends Page {
 
     public void setSex(Integer sex) {
         this.sex = sex;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getCompanyTitle() {
+        return companyTitle;
+    }
+
+    public void setCompanyTitle(String companyTitle) {
+        this.companyTitle = companyTitle;
+    }
+
+    public Long getUserAuthId() {
+        return userAuthId;
+    }
+
+    public void setUserAuthId(Long userAuthId) {
+        this.userAuthId = userAuthId;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
 }

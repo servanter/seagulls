@@ -88,4 +88,6 @@ public interface UserService {
 
     public Map<String, Object> userProfile(Long id);
 
+    public Map<String, Object> findUserByIdWithCompany(User curUser);
+
 }

@@ -10,7 +10,7 @@ $(function() {
 	$('#a-save').click(function() {
 		var option = {
 			type: 'POST',
-			url: BaseUtils.proPath + 'user/certificationPersonal/',
+			url: BaseUtils.proPath + 'user/certificationOrganization/',
 			success: function(data) {
 				if (data.code != 10000) {
 					alert(data.message);
@@ -19,10 +19,17 @@ $(function() {
 				}
 			}
 		}
-		if($('.dn-file').eq(0).val() != '') {
-			$('.dn-file').after('<input type="hidden" name="has_img" value="1">');
+		var hasImg = false;
+		$.each($('.dn-file'), function(index, item) {
+			if($(this).val() != '') {
+				hasImg = true;
+				return;
+			}
+		});
+		if(hasImg) {
+			$('.dn-file').eq(0).after('<input type="hidden" name="has_img" value="1">');
 		}
-		$('#form-personal').ajaxSubmit(option);
+		$('#form-organization').ajaxSubmit(option);
 	});
 });
 

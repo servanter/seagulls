@@ -2,6 +2,7 @@ package com.crop.seagulls.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,28 @@ public class UserAuthServiceImpl implements UserAuthService {
         List<UserAuth> result = userAuthDAO.getList(userAuth);
         int total = userAuthDAO.getListCount(userAuth);
         return new Paging<UserAuth>(total, userAuth.getPage(), userAuth.getPageSize(), result);
+    }
+
+    @Override
+    public Response modify(UserAuth userAuth) {
+        return userAuthDAO.update(userAuth) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+    }
+
+    @Override
+    public UserAuth findByUserId(Long userId) {
+        UserAuth result = null;
+        UserAuth auth = new UserAuth();
+        auth.setUserId(userId);
+        Paging<UserAuth> auths = findList(auth);
+        if (auths != null && CollectionUtils.isNotEmpty(auths.getResult())) {
+            result = auths.getResult().get(0);
+        }
+        return result;
+    }
+
+    @Override
+    public UserAuth findById(Long id) {
+        return userAuthDAO.getById(id);
     }
 
 }

@@ -5,6 +5,22 @@
 	<resultMap id="companyMap" type="company">
 		<result property="id" column="id" />
 		<result property="title" column="title" />
+		<result property="legalName" column="legal_name" />
+		<result property="organizationCode" column="organization_code" />
+		<result property="imgLicense" column="img_license" />
+		<result property="imgOrganization" column="img_organization" />
+		<result property="imgTax" column="img_tax" />
+		<result property="userId" column="user_id" />
+		<result property="status" column="status" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="auditId" column="audit_id" />
+		<result property="auditTime" column="audit_time" />
+	</resultMap>
+	
+	<resultMap id="userCompanyMap" type="userCompany">
+		<result property="id" column="id" />
+		<result property="companyId" column="company_id" />
 		<result property="userId" column="user_id" />
 		<result property="status" column="status" />
 		<result property="createTime" column="create_time" />
@@ -26,11 +42,92 @@
 		<if test="status != null">AND status = #{status}</if>
 	</select>
 	
-	<insert id="save" parameterType="company">
-		INSERT INTO crop_company (title, user_id, createTime) VALUES (#{title}, #{userId}, NOW())
+	<select id="getByUserId" parameterType="user"
+		resultMap="companyMap">
+		SELECT c.* FROM crop_user u INNER JOIN
+		crop_user_company uc INNER JOIN 
+		crop_company c 
+		ON u.id = uc.user_id AND c.id = uc.company_id WHERE u.status = 1
+		<if test="id != null and id > 0">
+			AND u.id = #{id}
+		</if>
+		ORDER BY uc.update_time DESC LIMIT #{sinceCount}, #{pageSize}
+	</select>
+	
+	<select id="getByUserIdCount" parameterType="user"
+		resultType="int">
+		SELECT COUNT(*) FROM crop_user u INNER JOIN
+		crop_user_company uc INNER JOIN 
+		crop_company c 
+		ON u.id = uc.user_id AND c.id = uc.company_id WHERE u.status = 1
+		<if test="id != null and id > 0">
+			AND u.id = #{id}
+		</if>
+	</select>
+	
+	<insert id="save" parameterType="company" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO crop_company 
+		<set>
+			title = #{title}
+			, user_id = #{userId}
+			, create_time = NOW()
+			<if test="legalName != null and legalName.length() > 0">
+				,legal_name = #{legalName}
+			</if>
+			<if test="organizationCode != null and organizationCode.length() > 0">
+				,organization_code = #{organizationCode}
+			</if>
+			<if test="imgLicense != null and imgLicense.length() > 0">
+				,img_license = #{imgLicense}
+			</if>
+			<if test="imgOrganization != null and imgOrganization.length() > 0">
+				,img_organization = #{imgOrganization}
+			</if>
+			<if test="imgTax != null and imgTax.length() > 0">
+				,img_tax = #{imgTax}
+			</if>
+			<if test="status != null ">
+				,status = #{status}
+			</if>
+		</set>
+	</insert>
+	
+	<update id="update" parameterType="company">
+		UPDATE crop_company SET
+		update_time = NOW() 
+		<if test="title != null and title.length() > 0">
+			,title = #{title}
+		</if>
+		<if test="legalName != null and legalName.length() > 0">
+			,legal_name = #{legalName}
+		</if>
+		<if test="organizationCode != null and organizationCode.length() > 0">
+			,organization_code = #{organizationCode}
+		</if>
+		<if test="imgLicense != null and imgLicense.length() > 0">
+			,img_license = #{imgLicense}
+		</if>
+		<if test="imgOrganization != null and imgOrganization.length() > 0">
+			,img_organization = #{imgOrganization}
+		</if>
+		<if test="imgTax != null and imgTax.length() > 0">
+			,img_tax = #{imgTax}
+		</if>
+		<if test="status != null ">
+			,status = #{status}
+		</if>
+		<if test="auditId != null and auditId > 0">
+			,audit_id = #{auditId}
+			,audit_time = NOW()
+		</if>
+	</update>
+	
+	<insert id="saveUserCompany" parameterType="userCompany">
+		INSERT INTO crop_user_company (user_id, company_id, status, create_time) VALUES (#{userId}, #{companyId}, #{status}, NOW())
 		<selectKey resultType="Long" keyProperty="id">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
+	
 
 </mapper>
