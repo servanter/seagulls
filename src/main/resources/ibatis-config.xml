@@ -13,7 +13,7 @@
 		<typeAlias alias="company" type="com.crop.seagulls.entities.Company" />
 		<typeAlias alias="userAuth" type="com.crop.seagulls.entities.UserAuth" />
 		<typeAlias alias="userCompany" type="com.crop.seagulls.entities.UserCompany" />
-		<typeAlias alias="supplyPic" type="com.crop.seagulls.entities.SupplyPic" />
+		<typeAlias alias="sellPic" type="com.crop.seagulls.entities.SellPic" />
 		
 		
 		<typeAlias alias="adminUser" type="com.crop.seagulls.entities.admin.User" />

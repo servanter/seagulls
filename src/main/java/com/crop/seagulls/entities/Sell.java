@@ -2,6 +2,7 @@ package com.crop.seagulls.entities;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import com.crop.seagulls.bean.Page;
 
@@ -78,6 +79,7 @@ public class Sell extends Page {
     private ProductUnit pageUnit;
     private String pageAddress;
     private String pagePeriod;
+    private SellPic firstPic;
 
     public Sell() {
         super();
@@ -345,6 +347,14 @@ public class Sell extends Page {
 
     public void setIsPublish(Boolean isPublish) {
         this.isPublish = isPublish;
+    }
+
+    public SellPic getFirstPic() {
+        return firstPic;
+    }
+
+    public void setFirstPic(SellPic firstPic) {
+        this.firstPic = firstPic;
     }
 
 }

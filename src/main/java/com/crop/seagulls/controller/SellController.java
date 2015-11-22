@@ -48,7 +48,7 @@ public class SellController {
     @ResponseBody
     @RequestMapping(value = "/sell/publish", method = RequestMethod.POST)
     public Response publish(Sell supply, HttpServletRequest request, HttpSession session) {
-        Response uploadResponse = UploadUtils.upload("images/publish/","images/publish/",request);
+        Response uploadResponse = UploadUtils.upload("images/publish/", "images/publish/", request);
         if (ReturnCode.isSuccess(uploadResponse.getReturnCode())) {
             supply.setCreateUserId(SessionUtils.getCurUser(session).getId());
             Response response = sellService.add(supply, (List<String>) uploadResponse.getResult());
@@ -76,12 +76,11 @@ public class SellController {
         return "sell/sell_list";
     }
 
-    @RequestMapping("/supply/sell_detail_{id:\\d+}")
+    @RequestMapping("/sell/sell_detail_{id:\\d+}.html")
     public String detail(@PathVariable("id")
     Long id, Model model) {
-        Map<String, Object> map = sellService.findById(id);
-        model.mergeAttributes(map);
-        return "supply/supply_detail";
+        model.mergeAttributes(sellService.findById(id));
+        return "sell/sell_detail";
     }
 
     @RequestMapping(value = "/sell/my_sell_list_{page:\\d+}")

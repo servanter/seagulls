@@ -52,9 +52,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<ul>
 			<c:forEach var="model" items="${list.result}">
 				<li>
-				<a href="${ctx }/sell/sell_detail_${model.id }/">
+				<a href="${ctx }/sell/sell_detail_${model.id }.html">
 					<div class="list_img">
-						<img src="${ctx }/images/sheguo.jpg" />
+						<c:choose>
+							<c:when test="${model.firstPic ne null}">
+								<img src="${ctx }/${model.firstPic.imgUrl }" />
+							</c:when>
+							<c:otherwise>
+								<img src="${ctx }/images/sheguo.jpg" />
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<dl>
 						<dt>${model.title }</dt>

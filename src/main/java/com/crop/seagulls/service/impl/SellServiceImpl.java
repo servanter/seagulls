@@ -13,24 +13,27 @@ import org.apache.commons.lang3.reflect.MethodUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crop.seagulls.bean.BuySell;
 import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.cache.AreaCache;
 import com.crop.seagulls.cache.CategoryCache;
+import com.crop.seagulls.cache.DetailPicCache;
 import com.crop.seagulls.cache.ProductRelationCache;
 import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.dao.SellDAO;
 import com.crop.seagulls.entities.Category;
 import com.crop.seagulls.entities.ProductUnit;
 import com.crop.seagulls.entities.Sell;
-import com.crop.seagulls.entities.SupplyPic;
+import com.crop.seagulls.entities.SellPic;
 import com.crop.seagulls.service.SellService;
-import com.crop.seagulls.service.SupplyPicService;
+import com.crop.seagulls.service.SellPicService;
 import com.crop.seagulls.service.TemplateService;
 import com.crop.seagulls.util.DateType;
 import com.crop.seagulls.util.DateUtils;
 import com.crop.seagulls.util.Logger;
+import com.crop.seagulls.util.NumberUtils;
 
 @Service
 public class SellServiceImpl implements SellService {
@@ -50,10 +53,13 @@ public class SellServiceImpl implements SellService {
     private TemplateService templateService;
 
     @Autowired
-    private SupplyPicService supplyPicService;
+    private SellPicService supplyPicService;
 
     @Autowired
     private AreaCache areaCache;
+
+    @Autowired
+    private DetailPicCache detailPicCache;
 
     @Override
     public Response add(Sell sell, List<String> webImagesPath) {
@@ -66,8 +72,8 @@ public class SellServiceImpl implements SellService {
         } else {
             if (CollectionUtils.isNotEmpty(webImagesPath)) {
                 for (String picUrl : webImagesPath) {
-                    SupplyPic pic = new SupplyPic();
-                    pic.setSupplyId(sell.getId());
+                    SellPic pic = new SellPic();
+                    pic.setSellId(sell.getId());
                     pic.setCreateUserId(sell.getCreateUserId());
                     pic.setCreateTime(new Date());
                     pic.setImgUrl(picUrl);
@@ -157,6 +163,11 @@ public class SellServiceImpl implements SellService {
                 // addr = areaCache.getById(provinceId).getZhName();
                 // }
 
+                List<SellPic> pics = detailPicCache.getById(BuySell.SELL, sell.getId());
+                if (CollectionUtils.isNotEmpty(pics)) {
+                    sell.setFirstPic(pics.get(0));
+                }
+
                 sell.setPageAddress(addr);
             }
         }
@@ -185,17 +196,42 @@ public class SellServiceImpl implements SellService {
             ProductUnit unit = productRelationCache.getUnitById(sell.getUnitId());
             sell.setPageUnit(unit);
 
+            String pagePeriod = StringUtils.EMPTY;
+            if (productRelationCache.isDefaultPeriod(sell.getStartTime()) && productRelationCache.isDefaultPeriod(sell.getEndTime())) {
+                pagePeriod = productRelationCache.getPeriodById(sell.getStartTime()).getTitle();
+            } else {
+                pagePeriod = templateService.getMessage("page.sell.list.period.separator", productRelationCache.getPeriodById(sell.getStartTime()).getTitle(), productRelationCache.getPeriodById(sell.getEndTime()).getTitle());
+            }
+            sell.setPagePeriod(pagePeriod);
+
             // find category
-            // if (NumberUtils.isValidateNumber(sell.getCategoryId3()) && categoryCache.getById(sell.getCategoryId3()) != null) {
-            // sell.setPageCategory(categoryCache.getById(sell.getCategoryId3()));
-            // } else if (NumberUtils.isValidateNumber(sell.getCategoryId2()) && categoryCache.getById(sell.getCategoryId2()) != null) {
-            // sell.setPageCategory(categoryCache.getById(sell.getCategoryId2()));
-            // } else if (NumberUtils.isValidateNumber(sell.getCategoryId1()) && categoryCache.getById(sell.getCategoryId1()) != null) {
-            // sell.setPageCategory(categoryCache.getById(sell.getCategoryId1()));
-            // }
+            if (NumberUtils.isValidateNumber(sell.getCategoryId3()) && categoryCache.getById(sell.getCategoryId3()) != null) {
+                sell.setPageCategory(categoryCache.getById(sell.getCategoryId3()));
+            } else if (NumberUtils.isValidateNumber(sell.getCategoryId2()) && categoryCache.getById(sell.getCategoryId2()) != null) {
+                sell.setPageCategory(categoryCache.getById(sell.getCategoryId2()));
+            } else if (NumberUtils.isValidateNumber(sell.getCategoryId1()) && categoryCache.getById(sell.getCategoryId1()) != null) {
+                sell.setPageCategory(categoryCache.getById(sell.getCategoryId1()));
+            }
+
+            Long cityId = sell.getCityId();
+            Long provinceId = sell.getProvinceId();
+            Long areaId = sell.getAreaId();
+            String addr = "";
+
+            if (areaId != null && areaId > 0L && cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(areaId) != null && areaCache.getById(provinceId) != null) {
+                addr = areaCache.getById(provinceId).getZhName() + (areaCache.isSpecial(provinceId) ? "市" : "省") + areaCache.getById(cityId).getZhName() + (areaCache.isSpecial(provinceId) ? "" : "市")
+                        + areaCache.getById(areaId).getZhName();
+            } else if (cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(provinceId) != null) {
+                addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(cityId).getZhName();
+            } else if (areaCache.getById(provinceId) != null) {
+                addr = areaCache.getById(provinceId).getZhName();
+            }
+
+            sell.setPageAddress(addr);
+            
         }
-        result.put("pics", supplyPicService.queryBySupplyId(id));
-        result.put("sell", sell);
+        result.put("pics", detailPicCache.getById(BuySell.SELL, sell.getId()));
+        result.put("model", sell);
         return result;
     }
 

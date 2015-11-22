@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crop.seagulls.dao.SellPicDAO">
+
+	<resultMap id="sellPicMap" type="sellPic">
+		<result property="id" column="id" />
+		<result property="sellId" column="sell_id" />
+		<result property="imgUrl" column="img_url" />
+		<result property="isFirst" column="is_first" />
+		<result property="isValid" column="is_valid" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="createUserId" column="create_user_id" />
+		<result property="operatorId" column="operator_id" />
+	</resultMap>
+
+	<sql id="base_columns">id, sell_id, img_url, is_first, is_valid, create_time, update_time, create_user_id, operator_id </sql>
+	<select id="getBySell" parameterType="long" resultMap="sellPicMap">
+		SELECT
+		<include refid="base_columns" />
+		FROM crop_sell_pic WHERE sell_id = #{sellId} AND is_valid = 1
+	</select>
+	
+	<select id="getAll" resultMap="sellPicMap">
+		SELECT
+		<include refid="base_columns" />
+		FROM crop_sell_pic WHERE is_valid = 1
+	</select>
+
+	<insert id="save" parameterType="sellPic">
+		INSERT INTO crop_sell_pic (supply_id, img_url, create_time, create_user_id, operator_id) VALUES
+		(#{sellId}, #{imgUrl}, #{createTime}, #{createUserId}, #{operatorId})
+		<selectKey resultType="Long" keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+</mapper>

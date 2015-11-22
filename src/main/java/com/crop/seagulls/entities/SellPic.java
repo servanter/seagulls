@@ -11,7 +11,7 @@ import com.crop.seagulls.bean.Page;
  * @author zhanghongyan@outlook.com
  * 
  */
-public class SupplyPic extends Page {
+public class SellPic extends Page {
 
     /**
      * 
@@ -20,7 +20,7 @@ public class SupplyPic extends Page {
 
     private Long id;
 
-    private Long supplyId;
+    private Long sellId;
 
     private String imgUrl;
 
@@ -36,15 +36,15 @@ public class SupplyPic extends Page {
 
     private Long operatorId;
 
-    public SupplyPic() {
+    public SellPic() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    public SupplyPic(Long id, Long supplyId, String imgUrl, Boolean isFirst, Boolean isValid, Date createTime, Timestamp updateTime, Long createUserId, Long operatorId) {
+    public SellPic(Long id, Long sellId, String imgUrl, Boolean isFirst, Boolean isValid, Date createTime, Timestamp updateTime, Long createUserId, Long operatorId) {
         super();
         this.id = id;
-        this.supplyId = supplyId;
+        this.sellId = sellId;
         this.imgUrl = imgUrl;
         this.isFirst = isFirst;
         this.isValid = isValid;
@@ -65,7 +65,7 @@ public class SupplyPic extends Page {
         result = prime * result + ((isFirst == null) ? 0 : isFirst.hashCode());
         result = prime * result + ((isValid == null) ? 0 : isValid.hashCode());
         result = prime * result + ((operatorId == null) ? 0 : operatorId.hashCode());
-        result = prime * result + ((supplyId == null) ? 0 : supplyId.hashCode());
+        result = prime * result + ((sellId == null) ? 0 : sellId.hashCode());
         result = prime * result + ((updateTime == null) ? 0 : updateTime.hashCode());
         return result;
     }
@@ -78,7 +78,7 @@ public class SupplyPic extends Page {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        final SupplyPic other = (SupplyPic) obj;
+        final SellPic other = (SellPic) obj;
         if (createTime == null) {
             if (other.createTime != null)
                 return false;
@@ -114,10 +114,10 @@ public class SupplyPic extends Page {
                 return false;
         } else if (!operatorId.equals(other.operatorId))
             return false;
-        if (supplyId == null) {
-            if (other.supplyId != null)
+        if (sellId == null) {
+            if (other.sellId != null)
                 return false;
-        } else if (!supplyId.equals(other.supplyId))
+        } else if (!sellId.equals(other.sellId))
             return false;
         if (updateTime == null) {
             if (other.updateTime != null)
@@ -143,12 +143,12 @@ public class SupplyPic extends Page {
         this.id = id;
     }
 
-    public Long getSupplyId() {
-        return supplyId;
+    public Long getSellId() {
+        return sellId;
     }
 
-    public void setSupplyId(Long supplyId) {
-        this.supplyId = supplyId;
+    public void setSellId(Long sellId) {
+        this.sellId = sellId;
     }
 
     public String getImgUrl() {

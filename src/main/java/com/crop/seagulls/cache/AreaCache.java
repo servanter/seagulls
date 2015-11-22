@@ -25,7 +25,7 @@ public class AreaCache {
     @Autowired
     private DictAreaService dictAreaService;
 
-//    @Scheduled(cron = "0 0 * * * ?")
+    // @Scheduled(cron = "0 0 * * * ?")
     @PostConstruct
     public void init() {
         List<Area> areas = dictAreaService.findList();
@@ -58,4 +58,7 @@ public class AreaCache {
         return AREA_RELATION_MAP.get(pid);
     }
 
+    public boolean isSpecial(Long id) {
+        return id == 1 || id == 2 || id == 3 || id == 4;
+    }
 }

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 60003
 File Encoding         : 65001
 
-Date: 2015-11-18 00:27:06
+Date: 2015-11-23 00:02:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -294,18 +294,24 @@ DROP TABLE IF EXISTS `crop_company`;
 CREATE TABLE `crop_company` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
+  `legal_name` varchar(20) NOT NULL DEFAULT '' COMMENT '法人姓名',
+  `organization_code` varchar(50) NOT NULL DEFAULT '' COMMENT '组织代码',
+  `img_license` varchar(100) NOT NULL DEFAULT '',
+  `img_organization` varchar(100) NOT NULL DEFAULT '',
+  `img_tax` varchar(100) NOT NULL DEFAULT '' COMMENT '税务证',
   `user_id` bigint(20) NOT NULL DEFAULT '-1' COMMENT '上传用户ID',
-  `status` int(2) NOT NULL DEFAULT '0' COMMENT '审核状态 -1审核未通过；0正在审核；1审核通过',
+  `status` int(2) NOT NULL DEFAULT '-1' COMMENT '审核状态 -2审核未通过；-1未提交；0正在审核；1审核通过',
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `audit_id` bigint(20) NOT NULL DEFAULT '-1',
   `audit_time` datetime DEFAULT NULL COMMENT '审核时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_company
 -- ----------------------------
+INSERT INTO crop_company VALUES ('7', '张三公司', '张三', 'asdsadsadad', 'images/company/14481182793800150667906.jpg', 'images/company/14481182794307596723010.jpg', 'images/company/14481182794307215329713.jpg', '5', '0', '2015-11-21 23:04:44', '2015-11-21 23:04:44', '-1', null);
 
 -- ----------------------------
 -- Table structure for `crop_dict_area`
@@ -6116,12 +6122,12 @@ INSERT INTO crop_sell VALUES ('27', '1', '1006', '-1', '-1', '我是标题', '1'
 INSERT INTO crop_sell VALUES ('28', '1', '1009', '-1', '-1', '我是标题', '8', '8010', '8010002', '42', '52', '12.00', '1', 'asd as d啊大赛啊', '阿斯达阿斯达', '15901074186', '-1', '机构名称', '1', '1', '2015-08-23 12:02:03', '5', '2015-11-10 20:45:44', null, '-1', '1');
 
 -- ----------------------------
--- Table structure for `crop_supply_pic`
+-- Table structure for `crop_sell_pic`
 -- ----------------------------
-DROP TABLE IF EXISTS `crop_supply_pic`;
-CREATE TABLE `crop_supply_pic` (
+DROP TABLE IF EXISTS `crop_sell_pic`;
+CREATE TABLE `crop_sell_pic` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `supply_id` bigint(20) NOT NULL DEFAULT '-1',
+  `sell_id` bigint(20) NOT NULL DEFAULT '-1',
   `img_url` varchar(100) NOT NULL DEFAULT '',
   `is_first` tinyint(1) NOT NULL DEFAULT '0',
   `is_valid` tinyint(1) NOT NULL DEFAULT '1',
@@ -6133,24 +6139,24 @@ CREATE TABLE `crop_supply_pic` (
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of crop_supply_pic
+-- Records of crop_sell_pic
 -- ----------------------------
-INSERT INTO crop_supply_pic VALUES ('1', '22', '/images/upload/1440180461101.jpg', '0', '1', '5', '2015-08-22 02:07:42', '5', '2015-08-22 02:07:42');
-INSERT INTO crop_supply_pic VALUES ('2', '22', '/images/upload/1440180461101.jpg', '0', '1', '5', '2015-08-22 02:21:00', '-1', '2015-08-22 02:07:42');
-INSERT INTO crop_supply_pic VALUES ('3', '23', '/images/upload/1440293429288.jpg', '0', '1', '5', '2015-08-23 09:30:42', '5', '2015-08-23 09:30:42');
-INSERT INTO crop_supply_pic VALUES ('4', '24', '/images/upload/1440300233098.jpg', '0', '1', '5', '2015-08-23 11:23:53', '5', '2015-08-23 11:23:53');
-INSERT INTO crop_supply_pic VALUES ('5', '25', '/images/upload/1440300773029.jpg', '0', '1', '5', '2015-08-23 11:33:01', '5', '2015-08-23 11:33:01');
-INSERT INTO crop_supply_pic VALUES ('6', '25', '/images/upload/1440300780413.jpg', '0', '1', '5', '2015-08-23 11:33:01', '5', '2015-08-23 11:33:01');
-INSERT INTO crop_supply_pic VALUES ('7', '25', '/images/upload/1440300780428.jpg', '0', '1', '5', '2015-08-23 11:33:01', '5', '2015-08-23 11:33:01');
-INSERT INTO crop_supply_pic VALUES ('8', '25', '/images/upload/1440300780475.jpg', '0', '1', '5', '2015-08-23 11:33:01', '5', '2015-08-23 11:33:01');
-INSERT INTO crop_supply_pic VALUES ('9', '26', '/images/upload/1440301596746.jpg', '0', '1', '5', '2015-08-23 11:46:38', '5', '2015-08-23 11:46:38');
-INSERT INTO crop_supply_pic VALUES ('10', '27', '/images/upload/1440302428764.jpg', '0', '1', '5', '2015-08-23 12:00:30', '5', '2015-08-23 12:00:30');
-INSERT INTO crop_supply_pic VALUES ('11', '27', '/images/upload/1440302428764.jpg', '0', '1', '5', '2015-08-23 12:00:30', '5', '2015-08-23 12:00:30');
-INSERT INTO crop_supply_pic VALUES ('12', '27', '/images/upload/1440302428780.jpg', '0', '1', '5', '2015-08-23 12:00:30', '5', '2015-08-23 12:00:30');
-INSERT INTO crop_supply_pic VALUES ('13', '28', '/images/upload/14403025236976052258547.jpg', '0', '1', '5', '2015-08-23 12:02:03', '5', '2015-08-23 12:02:03');
-INSERT INTO crop_supply_pic VALUES ('14', '28', '/images/upload/14403025237596527914685.jpg', '0', '1', '5', '2015-08-23 12:02:03', '5', '2015-08-23 12:02:03');
-INSERT INTO crop_supply_pic VALUES ('15', '28', '/images/upload/14403025237596950132426.jpg', '0', '1', '5', '2015-08-23 12:02:03', '5', '2015-08-23 12:02:03');
-INSERT INTO crop_supply_pic VALUES ('16', '28', '/images/upload/14403025237595176441750.jpg', '0', '1', '5', '2015-08-23 12:02:03', '5', '2015-08-23 12:02:03');
+INSERT INTO crop_sell_pic VALUES ('1', '22', '/images/upload/1440180461101.jpg', '0', '1', '5', '2015-08-22 02:07:42', '5', '2015-08-22 02:07:42');
+INSERT INTO crop_sell_pic VALUES ('2', '22', '/images/upload/1440180461101.jpg', '0', '1', '5', '2015-08-22 02:21:00', '-1', '2015-08-22 02:07:42');
+INSERT INTO crop_sell_pic VALUES ('3', '23', '/images/upload/1440293429288.jpg', '0', '1', '5', '2015-08-23 09:30:42', '5', '2015-08-23 09:30:42');
+INSERT INTO crop_sell_pic VALUES ('4', '24', '/images/upload/1440300233098.jpg', '0', '1', '5', '2015-08-23 11:23:53', '5', '2015-08-23 11:23:53');
+INSERT INTO crop_sell_pic VALUES ('5', '25', '/images/upload/1440300773029.jpg', '0', '1', '5', '2015-08-23 11:33:01', '5', '2015-08-23 11:33:01');
+INSERT INTO crop_sell_pic VALUES ('6', '25', '/images/upload/1440300780413.jpg', '0', '1', '5', '2015-08-23 11:33:01', '5', '2015-08-23 11:33:01');
+INSERT INTO crop_sell_pic VALUES ('7', '25', '/images/upload/1440300780428.jpg', '0', '1', '5', '2015-08-23 11:33:01', '5', '2015-08-23 11:33:01');
+INSERT INTO crop_sell_pic VALUES ('8', '25', '/images/upload/1440300780475.jpg', '0', '1', '5', '2015-08-23 11:33:01', '5', '2015-08-23 11:33:01');
+INSERT INTO crop_sell_pic VALUES ('9', '26', '/images/upload/1440301596746.jpg', '0', '1', '5', '2015-08-23 11:46:38', '5', '2015-08-23 11:46:38');
+INSERT INTO crop_sell_pic VALUES ('10', '27', '/images/upload/1440302428764.jpg', '0', '1', '5', '2015-08-23 12:00:30', '5', '2015-08-23 12:00:30');
+INSERT INTO crop_sell_pic VALUES ('11', '27', '/images/upload/1440302428764.jpg', '0', '1', '5', '2015-08-23 12:00:30', '5', '2015-08-23 12:00:30');
+INSERT INTO crop_sell_pic VALUES ('12', '27', '/images/upload/1440302428780.jpg', '0', '1', '5', '2015-08-23 12:00:30', '5', '2015-08-23 12:00:30');
+INSERT INTO crop_sell_pic VALUES ('13', '28', '/images/upload/14403025236976052258547.jpg', '0', '1', '5', '2015-08-23 12:02:03', '5', '2015-08-23 12:02:03');
+INSERT INTO crop_sell_pic VALUES ('14', '28', '/images/upload/14403025237596527914685.jpg', '0', '1', '5', '2015-08-23 12:02:03', '5', '2015-08-23 12:02:03');
+INSERT INTO crop_sell_pic VALUES ('15', '28', '/images/upload/14403025237596950132426.jpg', '0', '1', '5', '2015-08-23 12:02:03', '5', '2015-08-23 12:02:03');
+INSERT INTO crop_sell_pic VALUES ('16', '28', '/images/upload/14403025237595176441750.jpg', '0', '1', '5', '2015-08-23 12:02:03', '5', '2015-08-23 12:02:03');
 
 -- ----------------------------
 -- Table structure for `crop_user`
@@ -6168,15 +6174,15 @@ CREATE TABLE `crop_user` (
   `head_url` varchar(200) NOT NULL DEFAULT '' COMMENT '头像',
   `status` int(1) NOT NULL DEFAULT '1' COMMENT '状态',
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00' COMMENT '创建时间',
-  `update_tme` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_user
 -- ----------------------------
 INSERT INTO crop_user VALUES ('4', '我试水', '1', '15900000000', '444444', '8', '8012', '8012004', '', '1', '2015-08-02 14:53:22', '2015-11-08 02:12:51');
-INSERT INTO crop_user VALUES ('5', 'hongyan', '1', '15901074186', '222222', '10', '10010', '10010010', '', '1', '2015-08-23 12:46:50', '2015-11-17 23:13:13');
+INSERT INTO crop_user VALUES ('5', 'hongyan', '1', '15901074186', '222222', '10', '10010', '10010010', 'images/profile/14481184059663987691099.jpg', '1', '2015-08-23 12:46:50', '2015-11-21 23:06:45');
 
 -- ----------------------------
 -- Table structure for `crop_user_auth`
@@ -6190,19 +6196,19 @@ CREATE TABLE `crop_user_auth` (
   `img_front` varchar(100) NOT NULL DEFAULT '',
   `img_background` varchar(100) NOT NULL DEFAULT '',
   `img_person` varchar(100) NOT NULL DEFAULT '',
-  `status` int(2) NOT NULL DEFAULT '0' COMMENT '审核状态 -1审核未通过；0正在审核；1审核通过',
+  `status` int(2) NOT NULL DEFAULT '-1' COMMENT '审核状态 -2审核未通过；-1未提交；0正在审核；1审核通过',
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `audit_id` bigint(20) NOT NULL DEFAULT '-1',
   `audit_time` datetime DEFAULT NULL COMMENT '审核时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_user_auth
 -- ----------------------------
-INSERT INTO crop_user_auth VALUES ('1', '5', '13213213', '123213213213', 'images/auth/14477705274087055219333.jpg', 'images/auth/14477705274554456774153.jpg', 'images/auth/14477705274558640041591.jpg', '0', '2015-11-17 22:28:47', '2015-11-17 22:28:47', '-1', null);
 INSERT INTO crop_user_auth VALUES ('2', '6', '123123', '313123213123213', 'images/auth/14477731791937987019407.jpg', 'images/auth/14477731792035137983756.jpg', 'images/auth/14477731792030719356806.jpg', '0', '2015-11-17 23:12:59', '2015-11-17 23:12:59', '-1', null);
+INSERT INTO crop_user_auth VALUES ('7', '5', '张', '岁123432432432432', 'images/auth/14481183832535046571996.jpg', 'images/auth/14481183832573377757560.jpg', 'images/auth/14481183832650476469220.jpg', '0', '2015-11-21 23:05:35', '2015-11-21 23:06:23', '-1', null);
 
 -- ----------------------------
 -- Table structure for `crop_user_company`
@@ -6212,17 +6218,18 @@ CREATE TABLE `crop_user_company` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `company_id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
-  `status` int(2) NOT NULL DEFAULT '0' COMMENT '审核状态 -1审核未通过；0正在审核；1审核通过',
+  `status` int(2) NOT NULL DEFAULT '0' COMMENT '审核状态 -2审核未通过；0正在审核；1审核通过',
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `audit_id` bigint(20) NOT NULL DEFAULT '-1',
   `audit_time` datetime DEFAULT NULL COMMENT '审核时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_user_company
 -- ----------------------------
+INSERT INTO crop_user_company VALUES ('7', '7', '5', '1', '2015-11-21 23:04:44', '2015-11-21 23:04:44', '-1', null);
 
 -- ----------------------------
 -- Table structure for `crop_user_identity`

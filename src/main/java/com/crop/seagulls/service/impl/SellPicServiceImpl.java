@@ -7,30 +7,35 @@ import org.springframework.stereotype.Service;
 
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
-import com.crop.seagulls.dao.SupplyPicDAO;
-import com.crop.seagulls.entities.SupplyPic;
-import com.crop.seagulls.service.SupplyPicService;
+import com.crop.seagulls.dao.SellPicDAO;
+import com.crop.seagulls.entities.SellPic;
+import com.crop.seagulls.service.SellPicService;
 
 @Service
-public class SupplyPicServiceImpl implements SupplyPicService {
+public class SellPicServiceImpl implements SellPicService {
 
     @Autowired
-    private SupplyPicDAO supplyPicDAO;
+    private SellPicDAO sellPicDAO;
 
     @Override
-    public List<SupplyPic> queryBySupplyId(Long id) {
-        return supplyPicDAO.findBySupplyId(id);
+    public List<SellPic> findBySupplyId(Long id) {
+        return sellPicDAO.getBySell(id);
     }
 
     @Override
-    public Response add(SupplyPic supplyPic) {
+    public Response add(SellPic supplyPic) {
         Response response = new Response();
         response.setReturnCode(ReturnCode.SUCCESS);
-        supplyPicDAO.save(supplyPic);
+        sellPicDAO.save(supplyPic);
         if (supplyPic.getId() == null || supplyPic.getId() <= 0L) {
             response.setReturnCode(ReturnCode.ERROR);
         }
         return response;
+    }
+
+    @Override
+    public List<SellPic> findAll() {
+        return sellPicDAO.getAll();
     }
 
 }
