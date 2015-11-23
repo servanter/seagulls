@@ -4,7 +4,6 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
 <!doctype html>
 <html>
 <head>
@@ -18,13 +17,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="Cache" content="no-cache">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<title>供应详情</title>
+<title>采购详情</title>
 <link rel="stylesheet" type="text/css" href="${ctx }/css/style.css">
 <script type="text/javascript" src="${ctx }/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
-<script type="text/javascript" src="${ctx }/js/sell/sell.js"></script>
+<script type="text/javascript" src="${ctx }/js/buy/buy.js"></script>
 
+<script type="text/javascript">
+$(function(){
+	$("#arrowOpne").click(function(){
+		$("#allClassification").toggleClass("heightAuto");
+	})
+})
+</script>
 </head>
 
 <body>
@@ -33,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="icon_back">
 		<a href="#"><img src="${ctx }/images/icon_back.png" /></a>
 	</div>
-	<h1>供应详情</h1>
+	<h1>我要买&nbsp;${model.pageCategory.zhName }</h1>
 </header>
 <!--底部工具栏-->
 <div class="bottomBar">
@@ -48,8 +54,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</c:otherwise>
 			</c:choose>
 		</li>
-		<li class="chat"><a href="#"><img src="${ctx }/images/icon_chat.png" />聊一聊</a></li>
-		<li class="tel"><a href="#"><img src="${ctx }/images/icon_tel.png" />电话联系</a></li>
+		<li class="chat"><a href="#"><img src="images/icon_chat.png" />聊一聊</a></li>
+		<li class="tel"><a href="#"><img src="images/icon_tel.png" />电话联系</a></li>
 	</ul>
 </div>
 <section>
@@ -72,8 +78,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<ul>
 				<li>供应编号：${model.id }</li>
 				<li>品类：${model.pageCategory.zhName }</li>
-				<li>品种：111111111111111黄金芒果</li>
-				<li>上市时间：${model.pagePeriod }</li>
+				<li>采购时间：${model.pagePeriod }</li>
+				<li>采购量：${model.quantity }${model.pageUnit.title }</li>
 				<li>机构名称：${model.companyName }</li>
 				<li>联系人：${model.contactName }</li>
 				<li>供货地：${model.pageAddress }</li>
@@ -87,15 +93,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="contentBg2">
 		<h3><span>Ta的店铺</span><a href="#" class="more">进入Ta的店铺 >></a></h3>
 		<ul class="contentImgList">
-			<li><a href="#"><img src="${ctx }/images/img_huolongguo.jpg" /></a></li>
-			<li><a href="#"><img src="${ctx }/images/img_huolongguo.jpg" /></a></li>
-			<li><a href="#"><img src="${ctx }/images/img_huolongguo.jpg" /></a></li>
-			<li><a href="#"><img src="${ctx }/images/img_huolongguo.jpg" /></a></li>
-			<li><a href="#"><img src="${ctx }/images/img_huolongguo.jpg" /></a></li>
+			<li><a href="#"><img src="images/img_huolongguo.jpg" /></a></li>
+			<li><a href="#"><img src="images/img_huolongguo.jpg" /></a></li>
+			<li><a href="#"><img src="images/img_huolongguo.jpg" /></a></li>
+			<li><a href="#"><img src="images/img_huolongguo.jpg" /></a></li>
+			<li><a href="#"><img src="images/img_huolongguo.jpg" /></a></li>
 		</ul>
 		<div style="clear:both;"></div>
 	</div>
-	 --%>
+	--%>
 </section>
 </body>
 </html>

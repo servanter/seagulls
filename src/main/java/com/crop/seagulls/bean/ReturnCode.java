@@ -18,6 +18,10 @@ public enum ReturnCode {
     
     MENU_NAME_ALREADY_UNVALID(20103, "菜单名称已被注册"),
     
+    FAVOURITE_ALREADY_FOLLOW(20203, "已关注"),
+    
+    USER_NOT_LOGINED(90000, "请先登录"),
+    
     IMAGE_CODE_ERROR(99990, "验证码错误"),
     
     SMS_CODE_ERROR(99991, "验证码错误"),

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.crop.seagulls.dao.SellPicDAO">
+<mapper namespace="com.crop.seagulls.dao.BuyPicDAO">
 
-	<resultMap id="sellPicMap" type="sellPic">
+	<resultMap id="buyPicMap" type="buyPic">
 		<result property="id" column="id" />
-		<result property="sellId" column="sell_id" />
+		<result property="buyId" column="buy_id" />
 		<result property="imgUrl" column="img_url" />
 		<result property="isFirst" column="is_first" />
 		<result property="isValid" column="is_valid" />
@@ -14,22 +14,22 @@
 		<result property="operatorId" column="operator_id" />
 	</resultMap>
 
-	<sql id="base_columns">id, sell_id, img_url, is_first, is_valid, create_time, update_time, create_user_id, operator_id </sql>
-	<select id="getBySell" parameterType="long" resultMap="sellPicMap">
+	<sql id="base_columns">id, buy_id, img_url, is_first, is_valid, create_time, update_time, create_user_id, operator_id </sql>
+	<select id="getByBuy" parameterType="long" resultMap="buyPicMap">
 		SELECT
 		<include refid="base_columns" />
-		FROM crop_sell_pic WHERE sell_id = #{sellId} AND is_valid = 1
+		FROM crop_buy_pic WHERE buy_id = #{buyId} AND is_valid = 1
 	</select>
 	
-	<select id="getAll" resultMap="sellPicMap">
+	<select id="getAll" resultMap="buyPicMap">
 		SELECT
 		<include refid="base_columns" />
-		FROM crop_sell_pic WHERE is_valid = 1
+		FROM crop_buy_pic WHERE is_valid = 1
 	</select>
 
-	<insert id="save" parameterType="sellPic">
-		INSERT INTO crop_sell_pic (sell_id, img_url, create_time, create_user_id, operator_id) VALUES
-		(#{sellId}, #{imgUrl}, #{createTime}, #{createUserId}, #{operatorId})
+	<insert id="save" parameterType="buyPic">
+		INSERT INTO crop_buy_pic (buy_id, img_url, create_time, create_user_id, operator_id) VALUES
+		(#{buyId}, #{imgUrl}, #{createTime}, #{createUserId}, #{operatorId})
 		<selectKey resultType="Long" keyProperty="id">
 			SELECT LAST_INSERT_ID()
 		</selectKey>

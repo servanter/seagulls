@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import com.crop.seagulls.bean.Base;
 import com.crop.seagulls.bean.Page;
 
 /**
@@ -12,7 +13,7 @@ import com.crop.seagulls.bean.Page;
  * @author zhanghongyan@outlook.com
  * 
  */
-public class Sell extends Page {
+public class Sell extends Base {
 
     /**
      * 

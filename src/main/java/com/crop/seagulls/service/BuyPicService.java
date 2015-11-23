@@ -3,7 +3,7 @@ package com.crop.seagulls.service;
 import java.util.List;
 
 import com.crop.seagulls.bean.Response;
-import com.crop.seagulls.entities.SellPic;
+import com.crop.seagulls.entities.BuyPic;
 
 /**
  * Product supply pic serivce
@@ -11,9 +11,9 @@ import com.crop.seagulls.entities.SellPic;
  * @author zhanghongyan@outlook.com
  * 
  */
-public interface SellPicService {
+public interface BuyPicService {
 
-    public List<SellPic> findAll();
+    public List<BuyPic> findAll();
 
     /**
      * 
@@ -22,7 +22,7 @@ public interface SellPicService {
      * @param id
      * @return
      */
-    public List<SellPic> findBySellId(Long id);
+    public List<BuyPic> findByBuyId(Long id);
 
     /**
      * Add supply pic
@@ -30,5 +30,5 @@ public interface SellPicService {
      * @param supplyPic
      * @return
      */
-    public Response add(SellPic supplyPic);
+    public Response add(BuyPic buyPic);
 }

@@ -36,7 +36,11 @@ public class SessionUtils {
     }
 
     public static User getCurUser(HttpSession session) {
-        return (User) getValue(session, Constant.LOGIN_USER);
+        User u = (User) getValue(session, Constant.LOGIN_USER);
+        if(u != null) {
+            return u;
+        }
+        return new User(-1L);
     }
 
     public static void mapSet(HttpSession session, Map<String, Object> map) {

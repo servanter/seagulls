@@ -78,8 +78,11 @@ public class SellController {
 
     @RequestMapping("/sell/sell_detail_{id:\\d+}.html")
     public String detail(@PathVariable("id")
-    Long id, Model model) {
-        model.mergeAttributes(sellService.findById(id));
+    Long id, HttpSession session, Model model) {
+        Sell sell = new Sell();
+        sell.setId(id);
+        sell.setLoginUser(SessionUtils.getCurUser(session));
+        model.mergeAttributes(sellService.findById(sell));
         return "sell/sell_detail";
     }
 
@@ -98,8 +101,11 @@ public class SellController {
 
     @RequestMapping("/sell/my_sell_order_{id:\\d+}")
     public String myDetail(@PathVariable("id")
-    Long id, Model model) {
-        Map<String, Object> map = sellService.findById(id);
+    Long id, HttpSession session, Model model) {
+        Sell sell = new Sell();
+        sell.setId(id);
+        sell.setLoginUser(SessionUtils.getCurUser(session));
+        Map<String, Object> map = sellService.findById(sell);
         for (Entry<String, Object> entry : map.entrySet()) {
             model.addAttribute(entry.getKey(), entry.getValue());
         }

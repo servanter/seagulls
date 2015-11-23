@@ -7,23 +7,30 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crop.seagulls.bean.SellBuy;
+import com.crop.seagulls.bean.FavouriteType;
 import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.cache.AreaCache;
 import com.crop.seagulls.cache.CategoryCache;
+import com.crop.seagulls.cache.DetailPicCache;
 import com.crop.seagulls.cache.ProductRelationCache;
 import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.dao.BuyDAO;
 import com.crop.seagulls.entities.Buy;
 import com.crop.seagulls.entities.Category;
+import com.crop.seagulls.entities.Favourite;
 import com.crop.seagulls.entities.ProductUnit;
+import com.crop.seagulls.entities.Sell;
 import com.crop.seagulls.service.BuyService;
+import com.crop.seagulls.service.FavouriteService;
 import com.crop.seagulls.service.TemplateService;
 import com.crop.seagulls.util.DateType;
 import com.crop.seagulls.util.DateUtils;
@@ -50,6 +57,12 @@ public class BuyServiceImpl implements BuyService {
 
     @Autowired
     private TemplateService templateService;
+    
+    @Autowired
+    private FavouriteService favouriteService;
+    
+    @Autowired
+    private DetailPicCache detailPicCache;
 
     @Override
     public Response add(Buy buy) {
@@ -173,27 +186,79 @@ public class BuyServiceImpl implements BuyService {
     }
 
     @Override
-    public Map<String, Object> findById(Long id) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        Buy buy = buyDAO.getById(id);
-        map.put("buy", buy);
-        initAttr(buy);
+    public Map<String, Object> findById(Buy b) {
+//        Map<String, Object> map = new HashMap<String, Object>();
+//        Buy buy = buyDAO.getById(b.getId());
+//        map.put("buy", buy);
+//        initAttr(buy);
+//
+//        buy.setPageUnit(productRelationCache.getUnitById(buy.getUnitId()));
+//
+//        packageSearchModel(buy);
+//        buy.setPageQuantity(TextUtils.removeEndZero(buy.getQuantity().toString()));
+//
+//        // find category
+//        if (NumberUtils.isValidateNumber(buy.getCategoryId3()) && categoryCache.getById(buy.getCategoryId3()) != null) {
+//            buy.setPageCategory(categoryCache.getById(buy.getCategoryId3()));
+//        } else if (NumberUtils.isValidateNumber(buy.getCategoryId2()) && categoryCache.getById(buy.getCategoryId2()) != null) {
+//            buy.setPageCategory(categoryCache.getById(buy.getCategoryId2()));
+//        } else if (NumberUtils.isValidateNumber(buy.getCategoryId1()) && categoryCache.getById(buy.getCategoryId1()) != null) {
+//            buy.setPageCategory(categoryCache.getById(buy.getCategoryId1()));
+//        }
 
-        buy.setPageUnit(productRelationCache.getUnitById(buy.getUnitId()));
+//        return map;
+        
+        Map<String, Object> result = new HashMap<String, Object>();
+        Buy buy = buyDAO.getById(b.getId());
+        if (buy != null) {
+            ProductUnit unit = productRelationCache.getUnitById(buy.getUnitId());
+            buy.setPageUnit(unit);
 
-        packageSearchModel(buy);
-        buy.setPageQuantity(TextUtils.removeEndZero(buy.getQuantity().toString()));
+            String pagePeriod = StringUtils.EMPTY;
+            if (productRelationCache.isDefaultPeriod(buy.getStartTime()) && productRelationCache.isDefaultPeriod(buy.getEndTime())) {
+                pagePeriod = productRelationCache.getPeriodById(buy.getStartTime()).getTitle();
+            } else {
+                pagePeriod = templateService.getMessage("page.sell.list.period.separator", productRelationCache.getPeriodById(buy.getStartTime()).getTitle(), productRelationCache.getPeriodById(buy.getEndTime()).getTitle());
+            }
+            buy.setPagePeriod(pagePeriod);
 
-        // find category
-        if (NumberUtils.isValidateNumber(buy.getCategoryId3()) && categoryCache.getById(buy.getCategoryId3()) != null) {
-            buy.setPageCategory(categoryCache.getById(buy.getCategoryId3()));
-        } else if (NumberUtils.isValidateNumber(buy.getCategoryId2()) && categoryCache.getById(buy.getCategoryId2()) != null) {
-            buy.setPageCategory(categoryCache.getById(buy.getCategoryId2()));
-        } else if (NumberUtils.isValidateNumber(buy.getCategoryId1()) && categoryCache.getById(buy.getCategoryId1()) != null) {
-            buy.setPageCategory(categoryCache.getById(buy.getCategoryId1()));
+            // find category
+            if (NumberUtils.isValidateNumber(buy.getCategoryId3()) && categoryCache.getById(buy.getCategoryId3()) != null) {
+                buy.setPageCategory(categoryCache.getById(buy.getCategoryId3()));
+            } else if (NumberUtils.isValidateNumber(buy.getCategoryId2()) && categoryCache.getById(buy.getCategoryId2()) != null) {
+                buy.setPageCategory(categoryCache.getById(buy.getCategoryId2()));
+            } else if (NumberUtils.isValidateNumber(buy.getCategoryId1()) && categoryCache.getById(buy.getCategoryId1()) != null) {
+                buy.setPageCategory(categoryCache.getById(buy.getCategoryId1()));
+            }
+
+            Long cityId = buy.getCityId();
+            Long provinceId = buy.getProvinceId();
+            Long areaId = buy.getAreaId();
+            String addr = "";
+
+            if (areaId != null && areaId > 0L && cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(areaId) != null && areaCache.getById(provinceId) != null) {
+                addr = areaCache.getById(provinceId).getZhName() + (areaCache.isSpecial(provinceId) ? "市" : "省") + areaCache.getById(cityId).getZhName() + (areaCache.isSpecial(provinceId) ? "" : "市")
+                        + areaCache.getById(areaId).getZhName();
+            } else if (cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(provinceId) != null) {
+                addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(cityId).getZhName();
+            } else if (areaCache.getById(provinceId) != null) {
+                addr = areaCache.getById(provinceId).getZhName();
+            }
+
+            buy.setPageAddress(addr);
+
         }
+        result.put("pics", detailPicCache.getById(SellBuy.BUY, buy.getId()));
+        result.put("model", buy);
 
-        return map;
+        if (!ObjectUtils.equals(b.getLoginUser().getId(), null) && b.getLoginUser().getId() > 0) {
+            Favourite favourite = new Favourite();
+            favourite.setUserId(b.getLoginUser().getId());
+            favourite.setTargetId(b.getId());
+            favourite.setType(FavouriteType.SELL.getCode());
+            result.put("hasFollow", favouriteService.hasFavourite(favourite));
+        }
+        return result;
     }
 
     private void initAttr(Buy buy) {

@@ -7,35 +7,35 @@ import org.springframework.stereotype.Service;
 
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
-import com.crop.seagulls.dao.SellPicDAO;
-import com.crop.seagulls.entities.SellPic;
-import com.crop.seagulls.service.SellPicService;
+import com.crop.seagulls.dao.BuyPicDAO;
+import com.crop.seagulls.entities.BuyPic;
+import com.crop.seagulls.service.BuyPicService;
 
 @Service
-public class SellPicServiceImpl implements SellPicService {
+public class BuyPicServiceImpl implements BuyPicService {
 
     @Autowired
-    private SellPicDAO sellPicDAO;
+    private BuyPicDAO buyPicDAO;
 
     @Override
-    public List<SellPic> findBySellId(Long id) {
-        return sellPicDAO.getBySell(id);
+    public List<BuyPic> findByBuyId(Long id) {
+        return buyPicDAO.getByBuy(id);
     }
 
     @Override
-    public Response add(SellPic supplyPic) {
+    public Response add(BuyPic buyPic) {
         Response response = new Response();
         response.setReturnCode(ReturnCode.SUCCESS);
-        sellPicDAO.save(supplyPic);
-        if (supplyPic.getId() == null || supplyPic.getId() <= 0L) {
+        buyPicDAO.save(buyPic);
+        if (buyPic.getId() == null || buyPic.getId() <= 0L) {
             response.setReturnCode(ReturnCode.ERROR);
         }
         return response;
     }
 
     @Override
-    public List<SellPic> findAll() {
-        return sellPicDAO.getAll();
+    public List<BuyPic> findAll() {
+        return buyPicDAO.getAll();
     }
 
 }

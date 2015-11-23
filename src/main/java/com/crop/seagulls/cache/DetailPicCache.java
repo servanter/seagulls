@@ -11,26 +11,32 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.crop.seagulls.bean.BuySell;
+import com.crop.seagulls.bean.SellBuy;
+import com.crop.seagulls.entities.BuyPic;
 import com.crop.seagulls.entities.SellPic;
+import com.crop.seagulls.service.BuyPicService;
 import com.crop.seagulls.service.SellPicService;
 
 @Component
 public class DetailPicCache {
 
     private static Map<Long, List<SellPic>> SELL_PICS = new HashMap<Long, List<SellPic>>();
-    private static Map<BuySell, Map<Long, List<SellPic>>> PICS = new HashMap<BuySell, Map<Long, List<SellPic>>>();
+    private static Map<Long, List<BuyPic>> BUY_PICS = new HashMap<Long, List<BuyPic>>();
+    private static Map<SellBuy, Object> PICS = new HashMap<SellBuy, Object>();
 
     @Autowired
     private SellPicService sellPicService;
 
+    @Autowired
+    private BuyPicService buyPicService;
+
     // @Scheduled(cron = "0 0 * * * ?")
     @PostConstruct
     public void init() {
-        List<SellPic> pics = sellPicService.findAll();
-        if (CollectionUtils.isNotEmpty(pics)) {
+        List<SellPic> sellPics = sellPicService.findAll();
+        if (CollectionUtils.isNotEmpty(sellPics)) {
             Map<Long, List<SellPic>> map = new HashMap<Long, List<SellPic>>();
-            for (SellPic sellPic : pics) {
+            for (SellPic sellPic : sellPics) {
                 if (map.containsKey(sellPic.getSellId())) {
                     map.get(sellPic.getSellId()).add(sellPic);
                 } else {
@@ -41,12 +47,29 @@ public class DetailPicCache {
             }
             SELL_PICS = map;
         }
-        PICS.put(BuySell.SELL, SELL_PICS);
+
+        List<BuyPic> buyPics = buyPicService.findAll();
+        if (CollectionUtils.isNotEmpty(buyPics)) {
+            Map<Long, List<BuyPic>> map = new HashMap<Long, List<BuyPic>>();
+            for (BuyPic buyPic : buyPics) {
+                if (map.containsKey(buyPic.getBuyId())) {
+                    map.get(buyPic.getBuyId()).add(buyPic);
+                } else {
+                    List<BuyPic> curSell = new ArrayList<BuyPic>();
+                    curSell.add(buyPic);
+                    map.put(buyPic.getBuyId(), curSell);
+                }
+            }
+            BUY_PICS = map;
+        }
+
+        PICS.put(SellBuy.SELL, SELL_PICS);
+        PICS.put(SellBuy.BUY, BUY_PICS);
     }
 
-    public List<SellPic> getById(BuySell buySell, Long id) {
-        if (PICS.get(buySell).containsKey(id)) {
-            return PICS.get(buySell).get(id);
+    public <T> List<T> getById(SellBuy buySell, Long id) {
+        if (((Map<Long, Map<Long, List<T>>>) PICS.get(buySell)).containsKey(id)) {
+            return ((List<T>) ((Map<Long, Map<Long, List<T>>>) PICS.get(buySell)).get(id));
         }
         return null;
     }

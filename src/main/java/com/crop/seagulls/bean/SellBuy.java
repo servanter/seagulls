@@ -1,16 +1,16 @@
 package com.crop.seagulls.bean;
 
-public enum BuySell {
+public enum SellBuy {
 
-    BUY(1, "BUY"),
-
-    SELL(2, "SELL");
+    SELL(1, "SELL"),
+    
+    BUY(2, "BUY");
 
     private int code;
 
     private String description;
 
-    private BuySell(int code, String description) {
+    private SellBuy(int code, String description) {
         this.code = code;
         this.description = description;
     }

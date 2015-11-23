@@ -3,7 +3,7 @@ package com.crop.seagulls.entities;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import com.crop.seagulls.bean.Page;
+import com.crop.seagulls.bean.Base;
 
 /**
  * Buy Info
@@ -11,7 +11,7 @@ import com.crop.seagulls.bean.Page;
  * @author zhanghongyan@outlook.com
  * 
  */
-public class Buy extends Page {
+public class Buy extends Base {
 
     /**
      * 

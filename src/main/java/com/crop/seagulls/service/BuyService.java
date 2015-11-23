@@ -37,7 +37,7 @@ public interface BuyService {
      */
     public Map<String, Object> findList(Buy buy);
 
-    public Map<String, Object> findById(Long id);
+    public Map<String, Object> findById(Buy buy);
 
     public Map<String, Object> findByUserId(Buy buy);
     

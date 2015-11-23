@@ -8,12 +8,14 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.crop.seagulls.bean.BuySell;
+import com.crop.seagulls.bean.SellBuy;
+import com.crop.seagulls.bean.FavouriteType;
 import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
@@ -24,9 +26,11 @@ import com.crop.seagulls.cache.ProductRelationCache;
 import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.dao.SellDAO;
 import com.crop.seagulls.entities.Category;
+import com.crop.seagulls.entities.Favourite;
 import com.crop.seagulls.entities.ProductUnit;
 import com.crop.seagulls.entities.Sell;
 import com.crop.seagulls.entities.SellPic;
+import com.crop.seagulls.service.FavouriteService;
 import com.crop.seagulls.service.SellService;
 import com.crop.seagulls.service.SellPicService;
 import com.crop.seagulls.service.TemplateService;
@@ -60,6 +64,9 @@ public class SellServiceImpl implements SellService {
 
     @Autowired
     private DetailPicCache detailPicCache;
+
+    @Autowired
+    private FavouriteService favouriteService;
 
     @Override
     public Response add(Sell sell, List<String> webImagesPath) {
@@ -163,7 +170,7 @@ public class SellServiceImpl implements SellService {
                 // addr = areaCache.getById(provinceId).getZhName();
                 // }
 
-                List<SellPic> pics = detailPicCache.getById(BuySell.SELL, sell.getId());
+                List<SellPic> pics = detailPicCache.getById(SellBuy.SELL, sell.getId());
                 if (CollectionUtils.isNotEmpty(pics)) {
                     sell.setFirstPic(pics.get(0));
                 }
@@ -189,9 +196,9 @@ public class SellServiceImpl implements SellService {
     }
 
     @Override
-    public Map<String, Object> findById(Long id) {
+    public Map<String, Object> findById(Sell s) {
         Map<String, Object> result = new HashMap<String, Object>();
-        Sell sell = sellDAO.getById(id);
+        Sell sell = sellDAO.getById(s.getId());
         if (sell != null) {
             ProductUnit unit = productRelationCache.getUnitById(sell.getUnitId());
             sell.setPageUnit(unit);
@@ -228,10 +235,18 @@ public class SellServiceImpl implements SellService {
             }
 
             sell.setPageAddress(addr);
-            
+
         }
-        result.put("pics", detailPicCache.getById(BuySell.SELL, sell.getId()));
+        result.put("pics", detailPicCache.getById(SellBuy.SELL, sell.getId()));
         result.put("model", sell);
+
+        if (!ObjectUtils.equals(s.getLoginUser().getId(), null) && s.getLoginUser().getId() > 0) {
+            Favourite favourite = new Favourite();
+            favourite.setUserId(s.getLoginUser().getId());
+            favourite.setTargetId(s.getId());
+            favourite.setType(FavouriteType.SELL.getCode());
+            result.put("hasFollow", favouriteService.hasFavourite(favourite));
+        }
         return result;
     }
 

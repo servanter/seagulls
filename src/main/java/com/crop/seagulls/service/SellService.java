@@ -42,7 +42,7 @@ public interface SellService {
     public Response modify(Sell sell);
     
     
-    public Map<String, Object> findById(Long id);
+    public Map<String, Object> findById(Sell sell);
 
     public Map<String, Object> findByUserId(Sell sell);
 

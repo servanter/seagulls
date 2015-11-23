@@ -14,6 +14,8 @@
 		<typeAlias alias="userAuth" type="com.crop.seagulls.entities.UserAuth" />
 		<typeAlias alias="userCompany" type="com.crop.seagulls.entities.UserCompany" />
 		<typeAlias alias="sellPic" type="com.crop.seagulls.entities.SellPic" />
+		<typeAlias alias="buyPic" type="com.crop.seagulls.entities.BuyPic" />
+		<typeAlias alias="favourite" type="com.crop.seagulls.entities.Favourite" />
 		
 		
 		<typeAlias alias="adminUser" type="com.crop.seagulls.entities.admin.User" />

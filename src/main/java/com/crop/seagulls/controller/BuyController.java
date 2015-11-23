@@ -1,12 +1,10 @@
 package com.crop.seagulls.controller;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +17,6 @@ import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.cache.CategoryCache;
 import com.crop.seagulls.cache.ProductRelationCache;
 import com.crop.seagulls.entities.Buy;
-import com.crop.seagulls.entities.Category;
-import com.crop.seagulls.entities.Sell;
 import com.crop.seagulls.service.BuyService;
 import com.crop.seagulls.util.SessionUtils;
 
@@ -75,13 +71,13 @@ public class BuyController {
         return "buy/buy_list";
     }
 
-    @RequestMapping("/buy/buy_{id:\\d+}.html")
+    @RequestMapping("/buy/buy_detail_{id:\\d+}.html")
     public String detail(@PathVariable("id")
-    Long id, Model model) {
-        Map<String, Object> map = buyService.findById(id);
-        for (Entry<String, Object> entry : map.entrySet()) {
-            model.addAttribute(entry.getKey(), entry.getValue());
-        }
+    Long id, HttpSession session,Model model) {
+        Buy buy = new Buy();
+        buy.setId(id);
+        buy.setLoginUser(SessionUtils.getCurUser(session));
+        model.mergeAttributes(buyService.findById(buy));
         return "buy/buy_detail";
     }
 
@@ -100,8 +96,11 @@ public class BuyController {
 
     @RequestMapping("/buy/my_buy_order_{id:\\d+}")
     public String myDetail(@PathVariable("id")
-    Long id, Model model) {
-        Map<String, Object> map = buyService.findById(id);
+    Long id, HttpSession session,Model model) {
+        Buy buy = new Buy();
+        buy.setCreateUserId(SessionUtils.getCurUser(session).getId());
+        buy.setId(id);
+        Map<String, Object> map = buyService.findById(buy);
         for (Entry<String, Object> entry : map.entrySet()) {
             model.addAttribute(entry.getKey(), entry.getValue());
         }
