@@ -23,18 +23,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${ctx }/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
-<script type="text/javascript" src="${ctx }/js/sell/sell.js"></script>
+<script type="text/javascript" src="${ctx }/js/common.js"></script>
 
 </head>
 
 <body>
-<!--顶部-->
-<header>
-	<div class="icon_back">
-		<a href="#"><img src="${ctx }/images/icon_back.png" /></a>
-	</div>
-	<h1>供应详情</h1>
-</header>
+<jsp:include page="/common/header.jsp?displayText=供应详情"></jsp:include>
 <!--底部工具栏-->
 <div class="bottomBar">
 	<ul>
@@ -48,13 +42,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</c:otherwise>
 			</c:choose>
 		</li>
-		<li class="chat"><a href="#"><img src="${ctx }/images/icon_chat.png" />聊一聊</a></li>
+		<li class="chat"><a id="a-chat" href="javascript:void(0)"><img src="${ctx }/images/icon_chat.png" />聊一聊</a></li>
 		<li class="tel"><a href="#"><img src="${ctx }/images/icon_tel.png" />电话联系</a></li>
 	</ul>
 </div>
 <section>
 	<!--详情-->
 	<input type="hidden" id="id" value="${model.id }">
+	<input type="hidden" id="createId" value="${model.createUserId }">
 	<div class="contentBg article">
 		<c:if test="${fn:length(pics) > 0}">
 			<div class="articleImages">

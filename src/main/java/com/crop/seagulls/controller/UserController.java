@@ -49,6 +49,12 @@ public class UserController {
     @Autowired
     private CompanyService companyService;
 
+    @ResponseBody
+    @RequestMapping(value = "/loginError", method = RequestMethod.GET)
+    public Response loginError() {
+        return new Response(ReturnCode.USER_NOT_LOGINED);
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String enterLogin(@RequestParam(value = "redirectUrl", required = false)
     String redirect, HttpSession session, Model model) {
@@ -103,6 +109,17 @@ public class UserController {
             SessionUtils.setValue(session, Constant.LOGIN_USER, user);
         }
         return result;
+    }
+
+    @RequestMapping(value = "/forgetPassword", method = RequestMethod.GET)
+    public String enterForgetPassword(HttpSession session) {
+        return "user/forget_password";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
+    public Response forgetPassword(User user, HttpSession session) {
+        return userService.forgetPassword(user);
     }
 
     @ResponseBody
@@ -198,4 +215,5 @@ public class UserController {
         }
         return result;
     }
+
 }

@@ -6,7 +6,7 @@ body{
 	margin:0; padding:0; list-style:none; text-decoration:none;}
 @font-face {
     font-family: "DINCond-Bold";
-    src: url("../fonts/DINCond-Bold.otf");
+    src: url("../font/DINCond-Bold.otf");
 }
 html{
 	width:100%; height:100%;}
@@ -24,7 +24,7 @@ section{ padding-bottom:50px; width:100%; height:100%;}
 .contentBg2 h3 a.more{ display:block; height:40px; line-height:40px; font-size:14px; color:#444a4d; float:right; padding:0 15px; font-weight:normal;}
 .clear{ clear:both;}
 /*顶部*/
-header{
+header,.tanchu_topBar{
 	height:44px; position:fixed; top:0; left:0; width:100%; background:#00c9a1; z-index:90; box-shadow:rgba(0,0,0,0.1) 0px 1px 0; }
 header #logo{
 	float:left; width:71px; height:22px; overflow:hidden; position:absolute; top:11px; left:15px;}
@@ -33,11 +33,11 @@ header #logo img{
 header #search{ margin:8px 15px 8px 101px; background:#fff url(../images/icon_search.png) no-repeat 10px 8px; border-radius:4px; height:28px; background-size:12px 12px;}
 header #search a{
 	font-size:12px; color:#c0c0c3; padding-left:30px; line-height:28px; display:block; height:28px;}
-header .icon_back{
+header .icon_back,.tanchu_topBar .icon_back{
 	height:22px; width:22px; position:absolute; left:15px; top:11px;}
-header .icon_back img{
+header .icon_back img,.tanchu_topBar .icon_back img{
 	width:100%; height:100%;}
-header h1{height:44px; line-height:44px; text-align:center; overflow:hidden; width:200px; font-size:16px; color:#fff; position:absolute; left:50%; margin-left:-100px;}
+header h1,.tanchu_topBar h1{height:44px; line-height:44px; text-align:center; overflow:hidden; width:200px; font-size:16px; color:#fff; position:absolute; left:50%; margin-left:-100px;}
 header .headerRight{
 	position:absolute; right:15px; height:20px; line-height:20px; top:12px; font-size:14px; color:#fff; font-family:"microsoft yahei"} 
 header .headerRight a{ display:block; width:100%; height:100%; color:#fff;}
@@ -212,7 +212,7 @@ nav#nav ul li.selected a{
 .loginList li{
 	height:50px; border-bottom:1px solid #eee; line-height:50px; color:#444a4d; font-size:15px; overflow:hidden; position:relative; width:100%;}
 .loginList li input{
-	height:50px; border:none; padding:0 20px; width:100%; display:block; color:#444a4d;}
+	height:50px; border:none; padding:0 20px; width:100%; display:block; color:#444a4d; font-size:16px;}
 .button_Login{
 	display:block; height:44px; margin:20px;  line-height:44px; font-size:20px; color:#fff; border-radius:5px; text-align:center;}
 .loginCode{ display:block; width:120px; height:30px; right:10px; top:10px; position:absolute; text-align:center; line-height:30px; color:#fff; z-index:50; border-radius:5px; font-size:14px;}
@@ -314,7 +314,7 @@ li.formAvatar{height:60px;}
 li.formAvatar h4{ height:60px; line-height:60px;}
 li.formAvatar b{
 	display:block; width:40px; height:40px; float:right; margin:10px 15px; border-radius:20px; overflow:hidden; padding:0;}
-
+li.formAvatar b img{ width:100%;}
 .renzheng_tupian{ height:75px; position:relative; padding:15px 0;}
 .renzheng_tupian li{ position:absolute; width:100px; height:75px; top:15px; margin-left:-50px;}
 .renzheng_tupian li img{ width:100px; height:75px;}
@@ -368,3 +368,35 @@ li.formAvatar b{
 .chat_right .chat_text{ margin:0 80px 0 50px; }
 .chat_right .chat_text .chat_dialogBox{margin-right:7px; }
 .chat_right .chat_text .chat_arrow{ background:url(../images/chatArrow_right.png) no-repeat 0 0; background-size:100% 100%; right:0;}
+
+/*弹出层*/
+.tanchuceng{
+	position:fixed; width:100%; height:100%; left:0; top:0; z-index:500; background:#fff;}
+.tanchu_topBar{
+	position:absolute;}
+.topBar_right{ height:30px; line-height:30px; position:absolute; right:15px; top:7px; font-size:15px; color:#fff;}
+.tanchu_box{ width:100%; height:100%; overflow:auto;}
+.tanchuceng_zhezhao{ background:rgba(0,0,0,0.5);}
+.tanchuceng_menuList{ position:absolute; bottom:0; left:0; background:#fff; width:100%;}
+.tanchuceng_menuList li{ height:44px; line-height:44px; text-align:center; border-top:1px solid #eee; font-size:15px;}
+.tanchuceng_menuList li a{ display:block; width:100%; height:100%; color:#444a4d;}
+.tanchuceng_menuList li.close{ border-color:#999; color:#cc0000;}
+
+.forgetPassword{ text-align:right; margin-top:20px; padding:0 20px; }
+.forgetPassword a{ color:#00c9a1;}
+
+.location_box{
+	width:100%; height:100%; overflow:hidden; position:relative;}
+.location_01{width:100%; height:100%; overflow:auto;}
+.location_02{ position:absolute; right:0; top:0; width:66%; height:100%; background:#eee;}
+
+.location_03{ position:absolute; right:0; top:0; width:33%; height:100%; background:#ddd;}
+.location_list{ padding:44px 0 50px 0;}
+.location_list li{ height:44px; padding:0 10px; overflow:hidden; line-height:44px; font-size:15px;}
+.location_01 .location_list li{ border-bottom:1px solid #eee;}
+.location_02 .location_list li{ border-bottom:1px solid #ddd;}
+.location_03 .location_list li{ border-bottom:1px solid #ccc;}
+.location_01 .location_list li.selected{ background:#eee;}
+.location_02 .location_list li.selected{ background:#ddd;}
+.location_03 .location_list li.selected{ background:#ccc;}
+

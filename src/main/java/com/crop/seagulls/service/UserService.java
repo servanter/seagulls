@@ -77,6 +77,8 @@ public interface UserService {
      * @return
      */
     public Response completeInfo(User user);
+    
+    public Response forgetPassword(User user);
 
     /**
      * 根据用户昵称搜寻用户
@@ -89,5 +91,7 @@ public interface UserService {
     public Map<String, Object> userProfile(Long id);
 
     public Map<String, Object> findUserByIdWithCompany(User curUser);
+    
+    public List<User> findFriendUsers(Long userId);
 
 }

@@ -56,9 +56,13 @@ public class LoginFilter implements Filter {
         String contextPath = req.getContextPath();
         String fullURL = req.getRequestURI();
         String targetURL = "";
-        if (fullURL.length() > 0) {
+        if (fullURL.length() > 0 && !fullURL.equals(contextPath)) {
             targetURL = fullURL.substring(contextPath.length() + 1);
+        } else {
+            filter.doFilter(request, response);
+            return;
         }
+
         if (targetURL.indexOf(".") > 0) {
             String post = targetURL.substring(targetURL.lastIndexOf(".") + 1);
             if (StringUtils.isNotBlank(post) && (post.equals("css") || post.equals("js") || post.equals("jpg") || post.equals("png") || post.equals("ico") || post.equals("gif"))) {
@@ -76,7 +80,7 @@ public class LoginFilter implements Filter {
                     break;
                 }
                 Pattern pattern = Pattern.compile(includeURL[i]);
-                if (pattern.matcher(targetURL).find()) {
+                if (pattern.matcher(targetURL).find() && !targetURL.contains("admin")) {
                     flag = true;
                     break;
                 }
@@ -113,8 +117,13 @@ public class LoginFilter implements Filter {
         }
 
         if (needRedirect) {
-            resp.sendRedirect(contextPath + "/login/?redirectUrl=" + targetURL);
-            return;
+            if (targetURL.startsWith("/ajaxAuth") || targetURL.startsWith("ajaxAuth")) {
+                resp.sendRedirect(contextPath + "/loginError/");
+                return;
+            } else {
+                resp.sendRedirect(contextPath + "/login/?redirectUrl=" + targetURL);
+                return;
+            }
         }
         filter.doFilter(request, response);
     }

@@ -16,6 +16,10 @@
 		<typeAlias alias="sellPic" type="com.crop.seagulls.entities.SellPic" />
 		<typeAlias alias="buyPic" type="com.crop.seagulls.entities.BuyPic" />
 		<typeAlias alias="favourite" type="com.crop.seagulls.entities.Favourite" />
+		<typeAlias alias="friend" type="com.crop.seagulls.entities.Friend" />
+		<typeAlias alias="message" type="com.crop.seagulls.entities.Message" />
+		<typeAlias alias="banner" type="com.crop.seagulls.entities.Banner" />
+		
 		
 		
 		<typeAlias alias="adminUser" type="com.crop.seagulls.entities.admin.User" />

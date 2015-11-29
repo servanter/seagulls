@@ -1,14 +1,13 @@
 package com.crop.seagulls.service.impl;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crop.seagulls.cache.FrontCache;
 import com.crop.seagulls.entities.Buy;
-import com.crop.seagulls.entities.Category;
 import com.crop.seagulls.entities.Sell;
 import com.crop.seagulls.service.BuyService;
 import com.crop.seagulls.service.SellService;
@@ -23,6 +22,9 @@ public class SeriesServiceImpl implements SeriesService {
     @Autowired
     private BuyService buyService;
     
+    @Autowired
+    private FrontCache frontCache;
+    
     @Override
     public Map<String, Object> index() {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -31,7 +33,6 @@ public class SeriesServiceImpl implements SeriesService {
         sell.setIsValid(true);
         
         int totalSell = sellService.findCount(sell);
-        List<Category> hotCategories = sellService.findHotCategories();
         
         Buy buy = new Buy();
         buy.setIsPublish(true);
@@ -41,7 +42,8 @@ public class SeriesServiceImpl implements SeriesService {
         
         map.put("totalSell", totalSell);
         map.put("totalBuy", totalBuy);
-        map.put("hotCategories", hotCategories);
+        map.put("hotCategories", frontCache.getHotCategories());
+        map.put("banners", frontCache.getIndexBanners());
         return map;
     }
 

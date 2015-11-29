@@ -13,6 +13,8 @@ public class Message extends Page {
 
     private Long id;
 
+    private Long userId;
+
     private Long toUserId;
 
     private String message;
@@ -22,6 +24,11 @@ public class Message extends Page {
     private Timestamp updateTime;
 
     private Boolean isRead;
+
+    private Long targetId;
+    private String userAlias;
+    private String headUrl;
+    private String pageTimeAlias;
 
     public Long getId() {
         return id;
@@ -71,6 +78,30 @@ public class Message extends Page {
         this.isRead = isRead;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getUserAlias() {
+        return userAlias;
+    }
+
+    public void setUserAlias(String userAlias) {
+        this.userAlias = userAlias;
+    }
+
+    public String getHeadUrl() {
+        return headUrl;
+    }
+
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -81,6 +112,7 @@ public class Message extends Page {
         result = prime * result + ((message == null) ? 0 : message.hashCode());
         result = prime * result + ((toUserId == null) ? 0 : toUserId.hashCode());
         result = prime * result + ((updateTime == null) ? 0 : updateTime.hashCode());
+        result = prime * result + ((userId == null) ? 0 : userId.hashCode());
         return result;
     }
 
@@ -123,7 +155,28 @@ public class Message extends Page {
                 return false;
         } else if (!updateTime.equals(other.updateTime))
             return false;
+        if (userId == null) {
+            if (other.userId != null)
+                return false;
+        } else if (!userId.equals(other.userId))
+            return false;
         return true;
+    }
+
+    public String getPageTimeAlias() {
+        return pageTimeAlias;
+    }
+
+    public void setPageTimeAlias(String pageTimeAlias) {
+        this.pageTimeAlias = pageTimeAlias;
+    }
+
+    public Long getTargetId() {
+        return targetId;
+    }
+
+    public void setTargetId(Long targetId) {
+        this.targetId = targetId;
     }
 
 }

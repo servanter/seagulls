@@ -29,8 +29,16 @@
 	</select>
 
 	<insert id="insert" parameterType="category">
-		INSERT INTO crop_category (p_id, zh_name, en_name, first_letter, img_url) VALUES
-		(#{pId},#{zhName}, #{enName}, #{firstLetter}, #{imgUrl})
+		INSERT INTO crop_category (p_id, zh_name, en_name, first_letter 
+		<if test="imgUrl != null and imgUrl.length() > 0">
+			,img_url
+		</if>
+		) VALUES
+		(#{pId},#{zhName}, #{enName}, #{firstLetter}
+		<if test="imgUrl != null and imgUrl.length() > 0">
+			,#{imgUrl}
+		</if>
+		)
 		<selectKey resultType="Long" keyProperty="id">
 			SELECT LAST_INSERT_ID()
 		</selectKey>

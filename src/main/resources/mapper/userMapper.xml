@@ -61,6 +61,14 @@
 		</set>
 		WHERE id=#{id}
 	</update>
+	
+	<update id="updatePassword" parameterType="user">
+		UPDATE crop_user
+		SET
+		update_time = NOW(),
+		password=#{password}
+		WHERE phone=#{phone}
+	</update>
 
 	<select id="getUsersByIds" parameterType="java.lang.Long"
 		resultMap="userMap">
@@ -73,6 +81,10 @@
 	
 	<select id="findMaxId" resultType="long">
 		SELECT MAX(id) FROM crop_user
+	</select>
+	
+	<select id="getFriendUsers" parameterType="long" resultMap="userMap">
+		SELECT u.* FROM crop_user u INNER JOIN crop_friend f ON u.id = f.friend_id WHERE f.is_valid = 1 AND f.user_id = #{userId} ORDER BY f.create_time DESC 
 	</select>
 
 </mapper>

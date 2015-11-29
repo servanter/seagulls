@@ -71,7 +71,7 @@
 		<filter-class>com.crop.seagulls.filter.LoginFilter</filter-class>
 		<init-param>
 			<param-name>includeURL</param-name>
-			<param-value>user/\w*/?</param-value>
+			<param-value>user/\w*/?,ajaxAuth/\w*/?,message/\w*/?</param-value>
 		</init-param>
 	</filter>
 

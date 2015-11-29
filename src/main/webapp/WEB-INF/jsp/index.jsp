@@ -144,24 +144,14 @@ $(function(){
 	<div id="iSlide" class="slide">
 		<div class="iSlideBox">
 			<ul>
-				<li>
-					<a href="http://www.baidu.com">
-						<img src="${ctx }/images/slide.jpg" />
-						<span>标题1</span>
-					</a>
-				</li>
-				<li>
-					<a href="http://www.qq.com">
-						<img src="${ctx }/images/slide.jpg" />
-						<span>标题2</span>
-					</a>
-				</li>
-				<li>
-					<a href="http://mail.163.com">
-						<img src="${ctx }/images/slide.jpg" />
-						<span>标题3</span>
-					</a>
-				</li>
+				<c:forEach var="model" items="${banners }">
+					<li>
+						<a target="_top" href="${ctx }/${model.link }">
+							<img src="${ctx }/${model.imgUrl }" />
+							<span>${model.title }</span>
+						</a>
+					</li>
+				</c:forEach>
 			</ul>
 		</div>
 		<div class="pageNumb">

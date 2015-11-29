@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crop.seagulls.dao.BannerDAO">
+	
+	<resultMap id="bannerMap" type="banner">
+		<result property="id" column="id"/>
+		<result property="title" column="title"/>
+		<result property="link" column="link"/>
+		<result property="imgUrl" column="img_url"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="seq" column="seq"/>
+		<result property="isValid" column="is_valid"/>
+		<result property="operatorId" column="operator_id"/>
+	</resultMap>
+	
+	<sql id="base_columns">
+		id, title, link, img_url, create_time, update_time, seq, is_valid, operator_id
+	</sql>
+
+	<select id="getAll" resultMap="bannerMap">
+		SELECT 
+		<include refid="base_columns"/>
+		FROM crop_banner
+		WHERE is_valid = 1 ORDER BY seq ASC
+	</select>
+</mapper>

@@ -84,4 +84,8 @@ public interface UserDAO {
 
     public Long findMaxId();
 
+    public List<User> getFriendUsers(Long userId);
+
+    public int updatePassword(User user);
+
 }

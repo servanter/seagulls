@@ -42,7 +42,7 @@ public class SellController {
     public String enterPublish(Model model) {
         model.addAttribute("units", productRelationCache.getUNITS());
         model.addAttribute("periods", productRelationCache.getPERIODS());
-        return "supply/publish";
+        return "sell/publish";
     }
 
     @ResponseBody

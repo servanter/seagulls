@@ -80,29 +80,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public Response completeInfo(User user) {
         Response result = new Response(ReturnCode.SUCCESS);
-        if(StringUtils.isNotBlank(user.getRealName())) {
-            
+        if (StringUtils.isNotBlank(user.getRealName())) {
+
             // need update realname
             UserAuth userAuth = new UserAuth();
             userAuth.setUserId(user.getId());
             userAuth.setStatus(CommonStatus.UN_SUBMIT.getCode());
             userAuth.setRealName(user.getRealName());
-            if(!ObjectUtils.equals(user.getUserAuthId(), null) && user.getUserAuthId() > 0) {
+            if (!ObjectUtils.equals(user.getUserAuthId(), null) && user.getUserAuthId() > 0) {
                 userAuth.setId(user.getUserAuthId());
                 result = userAuthService.modify(userAuth);
             } else {
                 result = userAuthService.add(userAuth);
             }
         }
-        if(StringUtils.isNotBlank(user.getCompanyTitle())) {
-            
+        if (StringUtils.isNotBlank(user.getCompanyTitle())) {
+
             // need update company
-            if(!ObjectUtils.equals(user.getCompanyId(), null) && user.getCompanyId() > 0) {
+            if (!ObjectUtils.equals(user.getCompanyId(), null) && user.getCompanyId() > 0) {
                 Company company = new Company(user.getCompanyId());
                 company.setTitle(user.getCompanyTitle());
                 result = companyService.modify(company);
             } else {
-               
+
                 // add the company
                 Company company = new Company();
                 company.setTitle(user.getCompanyTitle());
@@ -110,7 +110,7 @@ public class UserServiceImpl implements UserService {
                 result = companyService.add(company);
             }
         }
-        if(ReturnCode.isSuccess(result.getReturnCode())) {
+        if (ReturnCode.isSuccess(result.getReturnCode())) {
             result = userDAO.update(user) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
         }
         return result;
@@ -159,7 +159,7 @@ public class UserServiceImpl implements UserService {
     public Map<String, Object> userProfile(Long id) {
         Map<String, Object> map = new HashMap<String, Object>();
         User user = findUserById(id);
-        map.put("user", user);
+        map.put("model", user);
         return map;
     }
 
@@ -183,4 +183,13 @@ public class UserServiceImpl implements UserService {
         return map;
     }
 
+    @Override
+    public List<User> findFriendUsers(Long userId) {
+        return userDAO.getFriendUsers(userId);
+    }
+
+    @Override
+    public Response forgetPassword(User user) {
+        return userDAO.updatePassword(user)> 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+    }
 }

@@ -19,22 +19,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <title>注册</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
 <script type="text/javascript" src="${ctx }/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
 <script type="text/javascript" src="${ctx }/js/user/user.js"></script>
-<link rel="stylesheet" type="text/css" href="css/style.css">
-
+<script type="text/javascript" src="${ctx }/js/common.js"></script>
 </head>
 
 <body>
 <!--顶部-->
-<header>
-	<div class="icon_back">
-		<a href="#"><img src="images/icon_back.png" /></a>
-	</div>
-	<h1>免费注册</h1>
-</header>
+<jsp:include page="/common/header.jsp?displayText=免费注册"></jsp:include>
 <!--底部工具栏-->
 <section>
 	<!--详情-->
@@ -47,7 +42,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<a id="a-send" class="loginCode bgOrange a-send" href="javascript:void(0)">获取验证码</a>
 				</li>
 				<li><input name="smsCode" placeholder="请输入6位手机验证码" type="text" /></li>
-				<li><input id="password" name="password" placeholder="请输入登录密码" type="text" /></li>
+				<li><input id="password" name="password" placeholder="请输入登录密码" type="password" /></li>
+				<li><input id="password2" name="password2" placeholder="请确认密码" type="password" /></li>
 			</ul>
 		</div>
 		<a id="a-register" href="javascript:void(0)" class="button_Login bgGreen">注 册</a>

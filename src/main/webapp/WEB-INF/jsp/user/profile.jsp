@@ -20,7 +20,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <title>我的</title>
 <link rel="stylesheet" type="text/css" href="${ctx }/css/style.css">
-
+<link rel="stylesheet" type="text/css" href="${ctx }/css/extra.css">
+<script type="text/javascript" src="${ctx }/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
+<script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
+<script type="text/javascript" src="${ctx }/js/user/profile.js"></script>
 </head>
 
 <body>
@@ -29,8 +33,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="wode_fengmian">
 	<div class="wode_touxiang">
 		<a href="${ctx }/user/profileDetail/">
-			<img src="${ctx }/images/touxiang.jpg" />
-			<h2>${sessionScope.CUSER.nickName }</h2>
+			<img src="${ctx }/${model.headUrl }" />
+			<h2>${model.nickName }</h2>
 		</a>
 	</div>
 </div>
@@ -45,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</li>
 		<li>
 			<div>
-				<a href="${ctx }/user/certificationPersonal/"><b><img src="${ctx }/images/wode_renzheng.png" /></b><span>实名认证</span></a>
+				<a id="a-certification" href="javascript:void(0)"><b><img src="${ctx }/images/wode_renzheng.png" /></b><span>实名认证</span></a>
 			</div>
 		</li>
 	</ul>
@@ -101,6 +105,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<b><img src="${ctx }/images/arrowRight.png" /></b>
 			</a>
 		</li>
+	</ul>
+</div>
+<div class="tanchuceng tanchuceng_zhezhao dn">
+	<ul class="tanchuceng_menuList">
+		<li><a href="#">机构认证</a></li>
+		<li><a href="#">个人认证</a></li>
+		<li class="close">取消</li>
 	</ul>
 </div>
 </body>

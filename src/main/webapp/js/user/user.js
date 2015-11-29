@@ -27,8 +27,7 @@ $(function() {
 			url: BaseUtils.proPath + 'login/',
 			success: function(data) {
 				if (data.code != 10000) {
-					$('.tip-item').removeClass('dn');
-					$('.tips').text(data.message);
+					alert(data.message);
 				} else {
 					BaseUtils.redirect(BaseUtils.proPath + data.result);
 				}
@@ -38,7 +37,7 @@ $(function() {
 	});
 
 	$('body').delegate('.a-send', 'click', function() {
-		var phone = $('#phone').val();
+		var phone = $('input[name=phone]').val();
 		if (!phone || phone.length == 0) {
 			alert("请输入手机号码");
 			return;
@@ -61,8 +60,7 @@ $(function() {
 		if(phone && phone.length) {
 			$.getJSON(BaseUtils.proPath + 'checkPhone/?phone=' + phone, function(data) {
 				if (data.code != 10000) {
-					$('.tip-item').removeClass('dn');
-					$('.tips').text(data.message);
+					alert(data.message);
 				} else {
 					$('.tip-item').addClass('dn');
 					$('.tips').text('');
@@ -80,9 +78,21 @@ $(function() {
 			alert("请输入正确的手机号码");
 			return;
 		}
+		var smsCode = $('input[name=smsCode]').val();
+		if (!smsCode || smsCode.length == 0) {
+			alert("请输入短信验证码");
+			return;
+		}
+		
 		var password = $('#password').val();
 		if (!password || password.length == 0) {
 			alert("请输入密码");
+			return;
+		}
+		
+		var password2 = $('#password2').val();
+		if (!password || password.length == 0) {
+			alert("请输入确认密码");
 			return;
 		}
 		
@@ -90,19 +100,18 @@ $(function() {
 			alert("请输入密码6-15位数字或字符");
 			return;
 		}
-
-		var smsCode = $('input[name=smsCode]').val();
-		if (!smsCode || smsCode.length == 0) {
-			alert("请输入短信验证码");
+		
+		if(password != password2) {
+			alert("两次输入的密码不一致");
 			return;
 		}
+
 		var option = {
 			type: 'POST',
 			url: BaseUtils.proPath + 'register/',
 			success: function(data) {
 				if (data.code != 10000) {
-					$('.tip-item').removeClass('dn');
-					$('.tips').text(data.message);
+					alert(data.message);
 				} else {
 					BaseUtils.redirect(BaseUtils.proPath);
 				}
@@ -111,6 +120,57 @@ $(function() {
 		$('#register-form').ajaxSubmit(option);
 	});
 
+	$('#a-forget').click(function() {
+		var phone = $('input[name=phone]').val();
+		if (!phone || phone.length == 0) {
+			alert("请输入手机号码");
+			return;
+		}
+		if (!BaseUtils.isMobile(phone)) {
+			alert("请输入正确的手机号码");
+			return;
+		}
+		var smsCode = $('input[name=smsCode]').val();
+		if (!smsCode || smsCode.length == 0) {
+			alert("请输入短信验证码");
+			return;
+		}
+		
+		var password = $('#password').val();
+		if (!password || password.length == 0) {
+			alert("请输入密码");
+			return;
+		}
+		
+		var password2 = $('#password2').val();
+		if (!password || password.length == 0) {
+			alert("请输入确认密码");
+			return;
+		}
+		
+		if(password.length < 6 || password.length > 15) {
+			alert("请输入密码6-15位数字或字符");
+			return;
+		}
+		
+		if(password != password2) {
+			alert("两次输入的密码不一致");
+			return;
+		}
+
+		var option = {
+			type: 'POST',
+			url: BaseUtils.proPath + 'forgetPassword/',
+			success: function(data) {
+				if (data.code != 10000) {
+					alert(data.message);
+				} else {
+					BaseUtils.redirect(BaseUtils.proPath);
+				}
+			}
+		}
+		$('#forget-form').ajaxSubmit(option);
+	});
 });
 
 

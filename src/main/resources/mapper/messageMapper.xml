@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crop.seagulls.dao.MessageDAO">
+
+	<resultMap id="messageMap" type="message">
+		<result property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="toUserId" column="to_user_id" />
+		<result property="message" column="message" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="isRead" column="is_read" />
+	</resultMap>
+	
+	<resultMap id="messageWithUserMap" type="message">
+		<result property="id" column="id" />
+		<result property="targetId" column="target_id" />
+		<result property="message" column="message" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="isRead" column="is_read" />
+		<result property="userAlias" column="user_alias" />
+		<result property="headUrl" column="head_url" />
+	</resultMap>
+
+	<sql id="base_columns">
+		id, user_id, to_user_id, message, is_read, create_time, update_time
+	</sql>
+    
+	<select id="getList" parameterType="message"
+		resultMap="messageMap">
+		SELECT
+		<include refid="base_columns" />
+		FROM crop_message
+		WHERE user_id = #{userId} OR to_user_id = #{userId}
+		ORDER BY create_time ASC LIMIT #{sinceCount}, #{pageSize}
+	</select>
+	
+	<select id="getAll" parameterType="message"
+		resultMap="messageMap">
+		SELECT <include refid="base_columns" />
+		FROM crop_message
+		WHERE user_id = #{userId}
+		  AND to_user_id = #{toUserId}
+		UNION
+		SELECT <include refid="base_columns" />
+		FROM crop_message
+		WHERE user_id = #{toUserId}
+		  AND to_user_id = #{userId}
+		ORDER BY create_time ASC
+	</select>
+
+	<select id="getListCount" parameterType="message"
+		resultType="int">
+		SELECT COUNT(*) FROM crop_message
+		WHERE user_id = #{userId} OR to_user_id = #{userId}
+	</select>
+
+	<select id="getListWithUser" parameterType="long" resultMap="messageWithUserMap">
+		SELECT mm.message AS message,
+		       tt.target_id AS target_id,
+		       u.head_url AS head_url,
+		       u.nick_name AS userAlias,
+		       mm.create_time AS create_time
+		FROM crop_message mm
+		INNER JOIN
+		  ( SELECT max(t.id) AS id,
+		           target_id
+		   FROM
+		     ( SELECT m.id,
+		              m.to_user_id AS target_id,
+		              m.is_read,
+		              m.message,
+		              m.create_time,
+		              m.update_time
+		      FROM crop_message m
+		      WHERE m.id IN
+		          (SELECT MAX(id) AS id
+		           FROM crop_message
+		           WHERE user_id = #{userId}
+		           GROUP BY to_user_id)
+		      UNION SELECT m.id,
+		                   m.user_id AS target_id,
+		                   m.is_read,
+		                   m.message,
+		                   m.create_time,
+		                   m.update_time
+		      FROM crop_message m
+		      WHERE m.id IN
+		          (SELECT MAX(id) AS id
+		           FROM crop_message
+		           WHERE to_user_id = #{userId}
+		           GROUP BY user_id)) t
+		   GROUP BY target_id) tt ON mm.id = tt.id
+		INNER JOIN crop_user u ON u.id = tt.target_id
+	</select>
+    
+	<insert id="save" parameterType="favourite" useGeneratedKeys="true"
+		keyProperty="id">
+		INSERT INTO crop_message (user_id, to_user_id, message, create_time) VALUES (#{userId}, #{toUserId}, #{message}, NOW())
+	</insert>
+
+</mapper>

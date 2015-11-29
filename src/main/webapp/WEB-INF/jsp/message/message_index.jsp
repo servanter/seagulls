@@ -18,37 +18,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="Cache" content="no-cache">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<title>登陆</title>
+<title>消息</title>
 <link rel="stylesheet" type="text/css" href="${ctx }/css/style.css">
 <script type="text/javascript" src="${ctx }/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
-<script type="text/javascript" src="${ctx }/js/user/user.js"></script>
-<script type="text/javascript" src="${ctx }/js/common.js"></script>
 </head>
 
 <body>
-<jsp:include page="/common/header.jsp?displayText=登录"></jsp:include>
-<!--底部工具栏-->
-<section>
-	<!--详情-->
-	
-	<div class="contentBg2">
-		<form id="form_login">
-			<ul class="loginList">
-				<li>
-					<input id="phone" name="phone" placeholder="请输入手机号" type="text" />
-				</li>
-				<li><input id="password" name="password" placeholder="请输入登录密码" type="password" /></li>
-			</ul>
-		</form>
+<!--顶部-->
+<header>
+	<div class="header_tab">
+		<ul>
+			<li class=" selected"><a class="header_tab_left" href="${ctx }/message/messageIndex/">消息</a></li>
+			<li><a class="header_tab_right" href="${ctx }/friend/friendIndex/">联系人</a></li>
+		</ul>
 	</div>
-		<div class="forgetPassword"><a href="${ctx }/forgetPassword/">忘记密码</a></div>
-		<a id="btn-login" href="javascript:void(0)" class="button_Login bgGreen">登 录</a>
-		<div class="login_jiange">
-			<span>还没有账号？</span>
-			<a class="button_Login2" href="${ctx }/register/">立即注册</a>
-		</div>
+</header>
+<jsp:include page="/common/nav.jsp?nav=2"></jsp:include>
+<!--内容-->
+<section>
+	<!--消息列表-->
+	<div class="messageList">
+		<c:if test="${fn:length(list) > 0}">
+			<ul>
+				<c:forEach var="model" items="${list}">
+					<li>
+						<a href="${ctx }/message/messageDetail/${model.targetId }/">
+							<div class="messageList_avatar"><img src="${ctx }/${model.headUrl }" /></div>
+							<dl>
+								<dt class="messageList_name">${model.userAlias }</dt>
+								<dd class="messageList_text">${model.message }</dd>
+								<dd class="messageList_time">${model.pageTimeAlias }</dd>
+							</dl>
+						</a>
+					</li>
+				</c:forEach>
+			</ul>
+		</c:if>
+	</div>
+	<!--供应采购大厅入口-->
+	
+	<!--热卖分类-->
+	
 </section>
 </body>
 </html>

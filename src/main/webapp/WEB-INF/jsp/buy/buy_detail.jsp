@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${ctx }/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
-<script type="text/javascript" src="${ctx }/js/buy/buy.js"></script>
+<script type="text/javascript" src="${ctx }/js/common.js"></script>
 
 <script type="text/javascript">
 $(function(){
@@ -34,13 +34,7 @@ $(function(){
 </head>
 
 <body>
-<!--顶部-->
-<header>
-	<div class="icon_back">
-		<a href="#"><img src="${ctx }/images/icon_back.png" /></a>
-	</div>
-	<h1>我要买&nbsp;${model.pageCategory.zhName }</h1>
-</header>
+<jsp:include page="/common/header.jsp?displayText=我要买&nbsp;${model.pageCategory.zhName }"></jsp:include>
 <!--底部工具栏-->
 <div class="bottomBar">
 	<ul>
@@ -61,6 +55,7 @@ $(function(){
 <section>
 	<!--详情-->
 	<input type="hidden" id="id" value="${model.id }">
+	<input type="hidden" id="createId" value="${model.createUserId }">
 	<div class="contentBg article">
 		<c:if test="${fn:length(pics) > 0}">
 			<div class="articleImages">

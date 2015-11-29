@@ -15,6 +15,9 @@ BaseUtils.redirect = function (url) {
 BaseUtils.reload = function () {
 	window.location.reload();
 };
+BaseUtils.prev = function () {
+	window.history.go(-1);
+};
 BaseUtils.proPath = $("base").attr("href");
 
 BaseUtils.clearData = function (obj, clazz) {
