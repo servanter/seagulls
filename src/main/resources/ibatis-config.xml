@@ -19,6 +19,7 @@
 		<typeAlias alias="friend" type="com.crop.seagulls.entities.Friend" />
 		<typeAlias alias="message" type="com.crop.seagulls.entities.Message" />
 		<typeAlias alias="banner" type="com.crop.seagulls.entities.Banner" />
+		<typeAlias alias="hotCategory" type="com.crop.seagulls.entities.HotCategory" />
 		
 		
 		

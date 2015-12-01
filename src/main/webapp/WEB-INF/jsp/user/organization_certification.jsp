@@ -23,6 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
 <script type="text/javascript" src="${ctx }/js/user/company.js"></script>
+<script type="text/javascript" src="${ctx }/js/common.js"></script>
 <link rel="stylesheet" type="text/css" href="${ctx }/css/style.css">
 <link rel="stylesheet" type="text/css" href="${ctx }/css/extra.css">
 
@@ -31,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 <header>
 	<div class="icon_back">
-		<a href="#"><img src="${ctx }/images/icon_back.png" /></a>
+		<a href="javascript:void(0)"><img src="${ctx }/images/icon_back.png" /></a>
 	</div>
 	<h1>机构认证</h1>
 	<c:if test="${ model eq null || model.status eq commonStatus['NO_AUDIT'].code || model.status eq commonStatus['UN_SUBMIT'].code}">

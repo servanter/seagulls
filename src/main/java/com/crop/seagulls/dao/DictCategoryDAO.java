@@ -2,6 +2,7 @@ package com.crop.seagulls.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.crop.seagulls.entities.Category;
@@ -48,4 +49,5 @@ public interface DictCategoryDAO {
 
     public int delete(Long id);
 
+    public Long getNextId(@Param("start") Long start, @Param("end") Long end);
 }

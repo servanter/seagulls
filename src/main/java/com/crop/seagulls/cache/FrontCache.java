@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.crop.seagulls.entities.Banner;
 import com.crop.seagulls.entities.Category;
+import com.crop.seagulls.entities.HotCategory;
 import com.crop.seagulls.service.BannerService;
 import com.crop.seagulls.service.HotCategoryService;
 import com.crop.seagulls.util.Logger;
@@ -37,11 +38,11 @@ public class FrontCache {
         logger.info("frontcache start");
 
         logger.info("-------------------{0}----------------", "hotCategory");
-        List<Long> ids = hotCategoryService.findAll();
-        if (CollectionUtils.isNotEmpty(ids)) {
+        List<HotCategory> hs = hotCategoryService.findAll();
+        if (CollectionUtils.isNotEmpty(hs)) {
             List<Category> list = new ArrayList<Category>();
-            for (Long id : ids) {
-                list.add(categoryCache.getById(id));
+            for (HotCategory hotCategory : hs) {
+                list.add(categoryCache.getById(hotCategory.getId()));
             }
             hotCategories = list;
         }

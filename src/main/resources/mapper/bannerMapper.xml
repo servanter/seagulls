@@ -24,4 +24,41 @@
 		FROM crop_banner
 		WHERE is_valid = 1 ORDER BY seq ASC
 	</select>
+	
+	<select id="getById" resultMap="bannerMap">
+		SELECT 
+		<include refid="base_columns"/>
+		FROM crop_banner
+		WHERE id = #{id}
+	</select>
+	
+	<update id="update" parameterType="banner">
+		UPDATE crop_banner
+		<set>
+			update_time = NOW()
+			,operator_id = #{operatorId}
+			<if test="isValid != null">
+				,is_valid = #{isValid}
+			</if>
+			<if test="title != null and title.length() > 0">
+				,title = #{title}
+			</if>
+			<if test="link != null and link.length() > 0">
+				,link = #{link}
+			</if>
+			<if test="imgUrl != null and imgUrl.length() > 0">
+				,img_url = #{imgUrl}
+			</if>
+			<if test="seq != null">
+				,seq = #{seq}
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<insert id="save">
+		INSERT INTO crop_banner(title, link, img_url, create_time, operator_id, seq, is_valid) 
+		VALUES
+		(#{title}, #{link}, #{imgUrl}, NOW(), #{operatorId}, #{seq}, #{isValid})
+	</insert>
 </mapper>

@@ -1,5 +1,7 @@
 package com.crop.seagulls.controller.admin;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.entities.Category;
 import com.crop.seagulls.service.DictCategoryService;
+import com.crop.seagulls.util.UploadUtils;
 
 @Controller
 @RequestMapping("/admin/category")
@@ -22,7 +25,7 @@ public class CategoryController {
 
     @RequestMapping("/list_n{page:\\d+}")
     public String list(@PathVariable("page")
-    Integer page, @RequestParam(value = "pId", defaultValue = "0" ,required = false)
+    Integer page, @RequestParam(value = "pId", defaultValue = "0", required = false)
     long pId, Model model) {
         Category category = new Category();
         category.setPId(pId);
@@ -30,38 +33,42 @@ public class CategoryController {
         category.setPage(page);
         Paging<Category> categories = categoryService.findByCategory(category);
         model.addAttribute("result", categories);
-        model.addAttribute("s",category);
+        model.addAttribute("s", category);
         return "admin/category/list";
     }
 
     @ResponseBody
     @RequestMapping("/ajaxFindById")
-    public Response ajaxFindById (@RequestParam("id") Integer id){
+    public Response ajaxFindById(@RequestParam("id")
+    Integer id) {
         Response response = categoryService.findById(id);
         return response;
     }
-    
-    
+
     @ResponseBody
     @RequestMapping("/modify")
-    public Response modify(@RequestParam("id") Long id,@RequestParam("pId") Long pId,@RequestParam("zhName") String zhName) {
-        Category category = new Category();
-        category.setId(id);
-        category.setPId(pId);
-        category.setZhName(zhName);
+    public Response modify(Category category, HttpServletRequest request) {
+        UploadUtils.upload("images/edit/category/", "images/edit/category/", category, "category_" + category.getId(), request);
         return categoryService.modify(category);
     }
- 
+
     @ResponseBody
     @RequestMapping("/add")
-    public Response add(Category category) {
+    public Response add(Category category, HttpServletRequest request) {
+        Long start = category.getPId() * 1000;
+        Long next = Long.parseLong(String.valueOf(Long.parseLong(String.valueOf(String.valueOf(category.getPId()).charAt(0))) + 1) + String.valueOf(category.getPId()).substring(1));
+        Long end = (next) * 1000;
+        Long insertId = categoryService.generateId(start, end);
+        category.setId(insertId);
+        UploadUtils.upload("images/edit/category/", "images/edit/category/", category, "category_" + insertId, request);
         return categoryService.add(category);
     }
-    
+
     @ResponseBody
     @RequestMapping("/remove")
-    public Response remove(@RequestParam("id") Long id) {
+    public Response remove(@RequestParam("id")
+    Long id) {
         return categoryService.remove(id);
     }
-    
+
 }

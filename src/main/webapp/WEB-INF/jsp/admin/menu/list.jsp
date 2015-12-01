@@ -41,7 +41,7 @@
 					<c:choose>
 				  		<c:when test="${result ne null && fn:length(result.result) > 0}">
 							<p class="pull-right"><button type="button" class="btn btn-success btn-edit" data-toggle="modal" data-target=".edit-modal" param="${model.id }"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新建</button></p>
-				  			<table class="table table-bordered table-striped table-hover f14 text-center">
+				  			<table class="table table-bordered table-striped table-hover f12 text-center">
 								<thead>
 									<tr>
 										<th class="text-center">id</th>

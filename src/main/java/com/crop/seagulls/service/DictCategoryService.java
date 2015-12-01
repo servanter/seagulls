@@ -36,8 +36,8 @@ public interface DictCategoryService {
      * @return
      */
     public Response add(Category category);
-    
-    public Response remove(Long id); 
+
+    public Response remove(Long id);
 
     /**
      * Modify
@@ -50,5 +50,7 @@ public interface DictCategoryService {
     public Paging<Category> findByCategory(Category category);
 
     public Response findById(Integer id);
+
+    public Long generateId(Long start, Long end);
 
 }

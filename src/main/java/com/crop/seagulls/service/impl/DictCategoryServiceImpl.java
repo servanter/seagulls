@@ -62,4 +62,13 @@ public class DictCategoryServiceImpl implements DictCategoryService {
     public Response remove(Long id) {
         return dictCategoryDAO.delete(id) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
     }
+
+    @Override
+    public Long generateId(Long start, Long end) {
+        Long generateId = dictCategoryDAO.getNextId(start, end);
+        if (generateId == null) {
+            generateId = start + 1;
+        }
+        return generateId;
+    }
 }

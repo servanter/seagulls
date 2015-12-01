@@ -30,10 +30,7 @@
 
 		<div class="all-container container-fluid">
 			<div class="row">
-
-				<div class="right-content">
-					
-				</div>
+				<jsp:include page="/common/admin/left.jsp"></jsp:include>
 			</div>
 		</div>
 	</body>

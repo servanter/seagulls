@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="contentBg2">
 	<ul class="menuList">
 		<li>
-			<a href="#" target="_top">
+			<a href="${ctx }/user/profileDetail/" target="_top">
 				<span><img src="${ctx }/images/wode_ziliao.png" /></span>
 				<h4>我的资料</h4>
 				<b><img src="${ctx }/images/arrowRight.png" /></b>
@@ -109,8 +109,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <div class="tanchuceng tanchuceng_zhezhao dn">
 	<ul class="tanchuceng_menuList">
-		<li><a href="#">机构认证</a></li>
-		<li><a href="#">个人认证</a></li>
+		<li><a href="${ctx }/user/certificationOrganization/">机构认证</a></li>
+		<li><a href="${ctx }/user/certificationPersonal/">个人认证</a></li>
 		<li class="close">取消</li>
 	</ul>
 </div>

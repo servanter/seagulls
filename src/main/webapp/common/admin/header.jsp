@@ -53,11 +53,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</a>
 					</li>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">欧阳锋
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><security:authentication property="principal.username"/>
 							<span class="caret"></span> </a>
 						<ul class="dropdown-menu dropmenu" role="menu">
 							<li>
-								<a href="#"><span class="glyphicon glyphicon-envelope"></span>设置</a>
+								<a href="#">设置</a>
 							</li>
 							<li class="divider"></li>
 							<li>

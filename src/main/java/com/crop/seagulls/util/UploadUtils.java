@@ -70,6 +70,10 @@ public class UploadUtils {
     }
 
     public static Response upload(String webPath, String realPath, Object object, HttpServletRequest request) {
+        return upload(webPath, realPath, object, StringUtils.EMPTY, request);
+    }
+    
+    public static Response upload(String webPath, String realPath, Object object, String prefix, HttpServletRequest request) {
         Response response = new Response();
         response.setReturnCode(ReturnCode.SUCCESS);
         if (StringUtils.isNotBlank(request.getParameter("has_img"))) {
@@ -84,6 +88,9 @@ public class UploadUtils {
                         response.setReturnCode(ReturnCode.UPLOAD_OVERFLOW_ERROR);
                     } else {
                         String newRealFileName = System.currentTimeMillis() + RandomUtils.generateNumberString(10) + realFileName.substring(realFileName.indexOf("."));
+                        if(StringUtils.isNotBlank(prefix)) {
+                            newRealFileName = prefix + realFileName.substring(realFileName.indexOf("."));
+                        }
                         // 获取路径
                         String ctxPath = request.getSession().getServletContext().getRealPath("/") + realPath;
 
@@ -108,7 +115,6 @@ public class UploadUtils {
                         } catch (Exception e) {
                             logger.error("invoke method error object={0}, method={1}", object, methodName);
                         }
-
                     }
                 }
             }

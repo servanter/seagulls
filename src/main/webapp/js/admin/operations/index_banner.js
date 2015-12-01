@@ -4,11 +4,12 @@ $(function() {
 		var id = $(this).attr('param');
 		if(id.length) {
 			$('#btn-update').text('修改');
-			$.getJSON(BaseUtils.proPath + 'admin/category/ajaxFindById/?id=' + id, function(data) {
+			$.getJSON(BaseUtils.proPath + 'admin/operations/indexBanner/ajaxFindById/?id=' + id, function(data) {
 				if(data && data.code == 10000) {
 					$('#form-edit [name=id]').val(id);
-					$('#form-edit [name=pId]').val(data.result.parentId);
-					$('#form-edit [name=zhName]').val(data.result.zhName);
+					$('#form-edit [name=title]').val(data.result.title);
+					$('#form-edit [name=link]').val(data.result.link);
+					$('#form-edit [name=seq]').val(data.result.seq);
 				} else {
 					alert(data.message);
 				}
@@ -21,10 +22,11 @@ $(function() {
 	$('#btn-update').click(function() {
 		var id = $('#form-edit [name=id]').val();
 		if(id == undefined || id.length == 0) {
-			url = BaseUtils.proPath + 'admin/category/add/';
+			url = BaseUtils.proPath + 'admin/operations/indexBanner/add/';
 		} else {
-			url = BaseUtils.proPath + 'admin/category/modify/';
+			url = BaseUtils.proPath + 'admin/operations/indexBanner/modify/';
 		}		
+		
 		if($('input[name=imgUrlPic]').val() != '') {
 			$('#form-edit').append('<input type="hidden" name="has_img" value="1">');			
 		}
@@ -54,7 +56,7 @@ $(function() {
 		var id = $('#form-edit [name=id]').val();
 		var option = {
 			type: 'POST',
-			url: BaseUtils.proPath + 'admin/category/remove/',
+			url: BaseUtils.proPath + 'admin/operations/indexBanner/remove/',
 			success: function(data) {
 				if (data.code == 10000) {
 					BaseUtils.reload();

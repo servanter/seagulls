@@ -11,4 +11,10 @@ public interface BannerDAO {
 
     List<Banner> getAll();
 
+    int save(Banner banner);
+
+    int update(Banner banner);
+
+    Banner getById(Integer id);
+
 }

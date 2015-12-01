@@ -29,12 +29,12 @@
 	</select>
 
 	<insert id="insert" parameterType="category">
-		INSERT INTO crop_category (p_id, zh_name, en_name, first_letter 
+		INSERT INTO crop_category (id, p_id, zh_name, en_name, first_letter 
 		<if test="imgUrl != null and imgUrl.length() > 0">
 			,img_url
 		</if>
 		) VALUES
-		(#{pId},#{zhName}, #{enName}, #{firstLetter}
+		(#{id}, #{pId},#{zhName}, #{enName}, #{firstLetter}
 		<if test="imgUrl != null and imgUrl.length() > 0">
 			,#{imgUrl}
 		</if>
@@ -50,6 +50,7 @@
 			<if test="zhName != null">zh_name=#{zhName},</if>
 			<if test="enName != null">en_name=#{enName},</if>
 			<if test="firstLetter != null">first_letter=#{firstLetter},</if>
+			<if test="imgUrl != null">img_url=#{imgUrl},</if>
 		</set>
 		WHERE id=#{id}
 	</update>
@@ -86,4 +87,8 @@
 	<delete id="delete" parameterType="long">
 		DELETE FROM crop_category WHERE id = #{id}
 	</delete>
+	
+	<select id="getNextId" resultType="long">
+		SELECT MAX(id + 1) AS nextId FROM crop_category WHERE id &gt; #{start} AND id &lt; #{end}
+	</select>
 </mapper>
