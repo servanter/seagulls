@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -54,8 +56,20 @@ public class MenuFilter implements Filter {
                 menus.addAll(entry.getValue());
             }
             Menu target = null;
+
+            String matchUrl = targetURL;
+            if (targetURL.contains("?")) {
+                matchUrl = targetURL.substring(0, targetURL.lastIndexOf("?"));
+            }
+            Pattern pattern = Pattern.compile("\\d+");
+            Matcher matcher = pattern.matcher(matchUrl);
+            while (matcher.find()) {
+                String num = matcher.group();
+                matchUrl = matchUrl.replace(num, "\\d+");
+            }
+            // admin/category/list_n3 to admin/category/list_n\\d+
             for (Menu menu : menus) {
-                if (targetURL.contains(menu.getUrl()) && StringUtils.isNotBlank(menu.getUrl())) {
+                if (StringUtils.isNotBlank(menu.getUrl()) && (targetURL.contains(menu.getUrl()) || (StringUtils.isNotBlank(matchUrl) && Pattern.compile(matchUrl).matcher(menu.getUrl()).find()))) {
                     target = menu;
                     break;
                 }

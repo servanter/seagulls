@@ -2,11 +2,13 @@ package com.crop.seagulls.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
+import com.crop.seagulls.cache.CategoryCache;
 import com.crop.seagulls.dao.HotCategoryDAO;
 import com.crop.seagulls.entities.HotCategory;
 import com.crop.seagulls.service.HotCategoryService;
@@ -18,9 +20,20 @@ public class HotCategoryServiceImpl implements HotCategoryService {
     @Autowired
     private HotCategoryDAO hotCategoryDAO;
 
+    @Autowired
+    private CategoryCache categoryCache;
+
     @Override
     public List<HotCategory> findAll() {
-        return hotCategoryDAO.getAll();
+        List<HotCategory> list = hotCategoryDAO.getAll();
+        if (CollectionUtils.isNotEmpty(list)) {
+            for (HotCategory category : list) {
+                if (categoryCache.getById(category.getCategoryId()) != null) {
+                    category.setCategoryName(categoryCache.getById(category.getCategoryId()).getZhName());
+                }
+            }
+        }
+        return list;
     }
 
     @Override

@@ -11,12 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.cache.CategoryCache;
 import com.crop.seagulls.cache.ProductRelationCache;
 import com.crop.seagulls.entities.Buy;
+import com.crop.seagulls.entities.Sell;
 import com.crop.seagulls.service.BuyService;
 import com.crop.seagulls.util.SessionUtils;
 
@@ -69,6 +71,17 @@ public class BuyController {
         model.mergeAttributes(map);
         model.addAttribute("s", buy);
         return "buy/buy_list";
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = { "/buy/ajaxFindList/" }, method = RequestMethod.GET)
+    public Response ajaxFindList(@RequestParam(value = "searchCategoryId", required = false)
+    Long category, @RequestParam(value = "page", required = false)
+    Integer page) {
+        Buy buy = new Buy();
+        buy.setSearchCategoryId(category);
+        buy.setPage(page);
+        return buyService.ajaxFindList(buy);
     }
 
     @RequestMapping("/buy/buy_detail_{id:\\d+}.html")

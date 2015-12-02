@@ -13,11 +13,11 @@
 	</resultMap>
 	
 	<sql id="base_columns">
-		id, category_id, create_time , update_time, is_valid, operator_id
+		id, category_id, seq, create_time , update_time, is_valid, operator_id
 	</sql>
 
 	<select id="getAll" resultMap="hotCategoryMap">
-		SELECT category_id
+		SELECT *
 		FROM crop_hot_category
 		WHERE is_valid = 1 ORDER BY seq ASC
 	</select>
@@ -37,8 +37,8 @@
 			<if test="isValid != null">
 				,is_valid = #{isValid}
 			</if>
-			<if test="title != null and title.length() > 0">
-				,category_id = #{category_id}
+			<if test="categoryId != null and categoryId > 0">
+				,category_id = #{categoryId}
 			</if>
 			<if test="seq != null">
 				,seq = #{seq}

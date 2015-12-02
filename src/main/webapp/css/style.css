@@ -260,7 +260,7 @@ nav#nav ul li.selected a{
 .formList li h4{ font-size:15px;
 	position:absolute; left:15px; top:0; height:44px; line-height:44px; color:#444a4d; font-weight:normal;}
 .formList li .formInput{
-	height:24px; line-height:24px; margin-top:10px; display:block; background:#fff; border:0; width:260px; text-align:right; padding-right:10px; float:right; font-size:15px; color:#8e8e93;}
+	height:24px; line-height:24px; margin-top:10px; display:block; background:#fff; border:0; width:220px; text-align:right; padding-right:10px; float:right; font-size:15px; color:#8e8e93;}
 .formList li .formTextarea{
 	 display:block; width:100%; background:#fff; border:0; font-size:15px; padding:10px 15px; color:#8e8e93; text-align:left; height:100px;}
 	.formList li span{
@@ -388,9 +388,9 @@ li.formAvatar b img{ width:100%;}
 .location_box{
 	width:100%; height:100%; overflow:hidden; position:relative;}
 .location_01{width:100%; height:100%; overflow:auto;}
-.location_02{ position:absolute; right:0; top:0; width:66%; height:100%; background:#eee;}
+.location_02{ position:absolute; right:0; top:0; width:67%; height:100%; background:#eee; overflow:auto;}
 
-.location_03{ position:absolute; right:0; top:0; width:33%; height:100%; background:#ddd;}
+.location_03{ position:absolute; right:0; top:0; width:33%; height:100%; background:#ddd; overflow:auto;}
 .location_list{ padding:44px 0 50px 0;}
 .location_list li{ height:44px; padding:0 10px; overflow:hidden; line-height:44px; font-size:15px;}
 .location_01 .location_list li{ border-bottom:1px solid #eee;}
@@ -399,4 +399,23 @@ li.formAvatar b img{ width:100%;}
 .location_01 .location_list li.selected{ background:#eee;}
 .location_02 .location_list li.selected{ background:#ddd;}
 .location_03 .location_list li.selected{ background:#ccc;}
+
+.location_01 select,.location_02 select,.location_03 select{ height:100%; width:100%; border:none;}
+.location_01 select option{ border-bottom:1px solid #eee;}
+.location_02 select option{ border-bottom:1px solid #ddd;}
+.location_03 select option{ border-bottom:1px solid #ccc;}
+.location_02 select{ background:#eee;}
+.location_03 select{ background:#ddd;}
+.location_box select { font-size:14px;}
+.location_box select option{ padding:12px 10px;}
+.location_02{ left:100%;}
+.location_03{ left:100%;}
+					
+
+
+.tanchu_pinlei{ margin-top:44px;}
+.tanchu_pinlei li{ padding-bottom:15px;}
+.tanchu_pinlei li h4{ height:40px; line-height:40px; background:#f2f2f2; padding-left:15px; font-size:16px; color:#00c9a1;}
+.tanchu_pinlei li div{ padding-left:15px;}
+.tanchu_pinlei li div span{ display:inline-block; border:1px solid #444a4d; height:35px; line-height:35px; padding:0 10px; border-radius:5px; margin-right:10px; margin-top:15px; font-size:14px; color:#444a4d;}
 

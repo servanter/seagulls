@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.crop.seagulls.bean.Response;
@@ -74,6 +75,17 @@ public class SellController {
         model.mergeAttributes(map);
         model.addAttribute("s", sell);
         return "sell/sell_list";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = { "/sell/ajaxFindList/" }, method = RequestMethod.GET)
+    public Response ajaxFindList(@RequestParam(value = "searchCategoryId", required = false)
+    Long category, @RequestParam(value = "page", required = false)
+    Integer page) {
+        Sell sell = new Sell();
+        sell.setSearchCategoryId(category);
+        sell.setPage(page);
+        return sellService.ajaxFindList(sell);
     }
 
     @RequestMapping("/sell/sell_detail_{id:\\d+}.html")

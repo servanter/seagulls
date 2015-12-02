@@ -42,7 +42,7 @@ public class FrontCache {
         if (CollectionUtils.isNotEmpty(hs)) {
             List<Category> list = new ArrayList<Category>();
             for (HotCategory hotCategory : hs) {
-                list.add(categoryCache.getById(hotCategory.getId()));
+                list.add(categoryCache.getById(hotCategory.getCategoryId()));
             }
             hotCategories = list;
         }

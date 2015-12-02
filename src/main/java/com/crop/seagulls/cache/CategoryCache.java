@@ -28,16 +28,13 @@ public class CategoryCache {
     @Autowired
     private DictCategoryService dictCategoryService;
 
-    @PostConstruct
-    public void initCategories2Columns() {
-        CATEGORIES_DB_METHODS.add("setCategoryId1");
-        CATEGORIES_DB_METHODS.add("setCategoryId2");
-        CATEGORIES_DB_METHODS.add("setCategoryId3");
-    }
-
     @Scheduled(cron = "0 0 * * * ?")
     @PostConstruct
     public void init() {
+        CATEGORIES_DB_METHODS.add("setCategoryId1");
+        CATEGORIES_DB_METHODS.add("setCategoryId2");
+        CATEGORIES_DB_METHODS.add("setCategoryId3");
+        
         List<Category> categories = dictCategoryService.findList();
         if (CollectionUtils.isNotEmpty(categories)) {
             Map<Long, Category> map = new HashMap<Long, Category>();

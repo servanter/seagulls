@@ -17,6 +17,9 @@ public class HotCategory {
     private Long operatorId;
 
     private Boolean isValid;
+    
+    
+    private String categoryName;
 
     public Long getId() {
         return id;
@@ -134,5 +137,15 @@ public class HotCategory {
             return false;
         return true;
     }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+    
+    
 
 }

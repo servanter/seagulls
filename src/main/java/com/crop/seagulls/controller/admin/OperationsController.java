@@ -72,7 +72,7 @@ public class OperationsController {
     Integer page, Model model) {
         List<HotCategory> hotCategories = hotCategoryService.findAll();
         model.addAttribute("list", new Paging<HotCategory>(hotCategories.size(), 1, 20, hotCategories));
-        return "admin/operations/index_banner_list";
+        return "admin/operations/hot_category_list";
     }
 
     @ResponseBody

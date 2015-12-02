@@ -19,10 +19,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <title>采购大厅</title>
 <link rel="stylesheet" type="text/css" href="${ctx }/css/style.css">
+<link rel="stylesheet" type="text/css" href="${ctx }/css/pullToRefresh.css">
+<link rel="stylesheet" type="text/css" href="${ctx }/css/reset.css">
 <script type="text/javascript" src="${ctx }/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
 <script type="text/javascript" src="${ctx }/js/common.js"></script>
+<script type="text/javascript" src="${ctx }/js/iscroll.js"></script>
+<script type="text/javascript" src="${ctx }/js/pullToRefresh.js"></script>
+<script type="text/javascript" src="${ctx }/js/colorful.js"></script>
+<script type="text/javascript" src="${ctx }/js/buy/buy.js"></script>
 </head>
 
 <body>
@@ -35,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<c:forEach var="topCategory" items="${topCategories}">
 				<li>
 					<a href="${ctx }/buy/buy_list_c${topCategory.id }/">
-						<img src="${ctx }/images/${topCategory.imgUrl }" />
+						<img src="${ctx }/${topCategory.imgUrl }" />
 						<span>${topCategory.zhName }</span>
 					</a>
 				</li>
@@ -45,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="splitLine" style="left:66%;"></div>
 	</div>
 	<!--列表-->
-	<div class="list">
+	<div class="list" id="wrapper">
 		<ul>
 			<c:forEach var="model" items="${list.result}">
 				<li>

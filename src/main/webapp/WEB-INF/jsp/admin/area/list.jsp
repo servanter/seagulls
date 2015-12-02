@@ -94,7 +94,7 @@
 				  		</c:when>
 				  		<c:otherwise>
 				  			<div class="alert alert-warning" role="alert">
-							    该分类下还没有子类别, <a href="#" class="alert-link" data-toggle="modal" data-target=".edit-modal" param="${param.parentId }">点击</a>创建
+							    该地区下没有下属区县
 							</div>
 				  		</c:otherwise>
 				  	</c:choose>

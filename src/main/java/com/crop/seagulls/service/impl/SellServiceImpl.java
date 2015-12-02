@@ -123,6 +123,23 @@ public class SellServiceImpl implements SellService {
         return map;
     }
 
+    @Override
+    public Response ajaxFindList(Sell sell) {
+        Response response = new Response(ReturnCode.SUCCESS);
+        if (ObjectUtils.equals(sell.getPage(), null)) {
+            sell.setPage(1);
+        }
+        Map<String, Object> data = findList(sell);
+        if (data.containsKey("list") && CollectionUtils.isEmpty(((Paging<Sell>) data.get("list")).getResult())) {
+            response.setReturnCode(ReturnCode.NO_MORE_PAGE);
+        } else {
+            int totalPage = ((Paging<Sell>) data.get("list")).getTotalPage();
+            data.put("nextPage", sell.getPage() + 1);
+        }
+        response.setResult(data);
+        return response;
+    }
+
     private void packageModel(List<Sell> sells) {
         if (CollectionUtils.isNotEmpty(sells)) {
             for (Sell sell : sells) {
@@ -276,4 +293,5 @@ public class SellServiceImpl implements SellService {
         }
         return categories;
     }
+
 }

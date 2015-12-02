@@ -34,6 +34,15 @@ public interface SellService {
     public Map<String, Object> findList(Sell sell);
     
     /**
+     * Query suppies
+     * 
+     * @param supply
+     *            search model
+     * @return
+     */
+    public Response ajaxFindList(Sell sell);
+    
+    /**
      * Modify supply
      * 
      * @param supply

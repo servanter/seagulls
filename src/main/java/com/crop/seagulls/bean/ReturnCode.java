@@ -22,6 +22,8 @@ public enum ReturnCode {
     
     USER_NOT_LOGINED(90000, "请先登录"),
     
+    NO_MORE_PAGE(91000, "没有更多了"),
+    
     IMAGE_CODE_ERROR(99990, "验证码错误"),
     
     SMS_CODE_ERROR(99991, "验证码错误"),

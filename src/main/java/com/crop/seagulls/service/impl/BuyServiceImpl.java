@@ -13,11 +13,11 @@ import org.apache.commons.lang3.reflect.MethodUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.crop.seagulls.bean.SellBuy;
 import com.crop.seagulls.bean.FavouriteType;
 import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
+import com.crop.seagulls.bean.SellBuy;
 import com.crop.seagulls.cache.AreaCache;
 import com.crop.seagulls.cache.CategoryCache;
 import com.crop.seagulls.cache.DetailPicCache;
@@ -28,7 +28,6 @@ import com.crop.seagulls.entities.Buy;
 import com.crop.seagulls.entities.Category;
 import com.crop.seagulls.entities.Favourite;
 import com.crop.seagulls.entities.ProductUnit;
-import com.crop.seagulls.entities.Sell;
 import com.crop.seagulls.service.BuyService;
 import com.crop.seagulls.service.FavouriteService;
 import com.crop.seagulls.service.TemplateService;
@@ -36,7 +35,6 @@ import com.crop.seagulls.util.DateType;
 import com.crop.seagulls.util.DateUtils;
 import com.crop.seagulls.util.Logger;
 import com.crop.seagulls.util.NumberUtils;
-import com.crop.seagulls.util.TextUtils;
 
 @Service
 public class BuyServiceImpl implements BuyService {
@@ -115,6 +113,23 @@ public class BuyServiceImpl implements BuyService {
         map.put("list", result);
         map.put("topCategories", categoryCache.getByPid(Constant.CATEGORY_TOP_PID));
         return map;
+    }
+    
+    @Override
+    public Response ajaxFindList(Buy buy) {
+        Response response = new Response(ReturnCode.SUCCESS);
+        if (ObjectUtils.equals(buy.getPage(), null)) {
+            buy.setPage(1);
+        }
+        Map<String, Object> data = findList(buy);
+        if (data.containsKey("list") && CollectionUtils.isEmpty(((Paging<Buy>) data.get("list")).getResult())) {
+            response.setReturnCode(ReturnCode.NO_MORE_PAGE);
+        } else {
+            int totalPage = ((Paging<Buy>) data.get("list")).getTotalPage();
+            data.put("nextPage", buy.getPage() + 1);
+        }
+        response.setResult(data);
+        return response;
     }
 
     private void packageSearchModel(Buy buy) {

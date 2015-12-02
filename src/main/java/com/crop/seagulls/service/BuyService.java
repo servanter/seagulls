@@ -42,4 +42,6 @@ public interface BuyService {
     public Map<String, Object> findByUserId(Buy buy);
     
     public int findCount(Buy buy);
+
+    public Response ajaxFindList(Buy buy);
 }

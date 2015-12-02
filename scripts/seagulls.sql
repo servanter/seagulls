@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 60003
 File Encoding         : 65001
 
-Date: 2015-12-02 01:19:29
+Date: 2015-12-03 01:37:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,7 +27,7 @@ CREATE TABLE `crop_admin_menu` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `is_valid` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=300020002022 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=300020002016 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_admin_menu
@@ -297,60 +297,60 @@ CREATE TABLE `crop_category` (
   `img_url` varchar(200) NOT NULL DEFAULT '',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2000002 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1001002 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_category
 -- ----------------------------
-INSERT INTO crop_category VALUES ('1', '0', '水果', 'shuiguo', 'S', 'edit/category/category_1.png', '2015-12-02 00:32:46');
-INSERT INTO crop_category VALUES ('2', '0', '蔬菜', 'shucai', 'S', 'edit/category/category_2.png', '2015-11-08 01:32:39');
-INSERT INTO crop_category VALUES ('900', '0', '其他', 'qita', 'Q', 'edit/category/category_900.png', '2015-11-08 01:32:32');
-INSERT INTO crop_category VALUES ('1001', '1', '苹果', 'pingguo', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1002', '1', '梨', 'li', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1003', '1', '脐橙', 'qicheng', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1004', '1', '草莓', 'caomei', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1005', '1', '柑桔', 'ganju', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1006', '1', '金橘', 'jinju', '', 'edit/category/category_1006.jpg', '2015-11-08 01:27:22');
-INSERT INTO crop_category VALUES ('1007', '1', '柚子', 'youzi', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1008', '1', '蜜橘', 'miju', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1009', '1', '沙糖桔', 'shatangju', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1010', '1', '西瓜', 'xigua', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1011', '1', '芒果', 'mangguo', '', 'edit/category/category_1011.jpg', '2015-11-08 01:27:12');
-INSERT INTO crop_category VALUES ('1012', '1', '大枣', 'dazao', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1013', '1', '甜橙', 'tiancheng', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1014', '1', '猕猴桃', 'nihoutao', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1015', '1', '圣女果', 'shengnvguo', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1016', '1', '甘蔗', 'ganzhe', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1017', '1', '甜瓜', 'tiangua', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1018', '1', '枣', 'zao', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1019', '1', '香蕉', 'xiangjiao', '', 'edit/category/category_1019.jpg', '2015-11-08 01:27:01');
-INSERT INTO crop_category VALUES ('1020', '1', '葡萄', 'putao', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1021', '1', '石榴', 'shiliu', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1022', '1', '油桃', 'youtao', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1023', '1', '枇杷', 'pipa', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1024', '1', '哈密瓜', 'hamigua', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1025', '1', '柠檬', 'ningmeng', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1026', '1', '山楂', 'shanzha', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1027', '1', '火龙果', 'huolongguo', '', 'edit/category/category_1027.jpg', '2015-11-08 01:27:32');
-INSERT INTO crop_category VALUES ('1028', '1', '菠萝', 'boluo', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1029', '1', '雪莲果', 'xuelianguo', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1030', '1', '樱桃', 'yingtao', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1031', '1', '香瓜', 'tiangua', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1032', '1', '车厘子', 'chelizi', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1033', '1', '菠萝蜜', 'boluomi', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1034', '1', '桃', 'tao', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1035', '1', '人参果', 'renshenguo', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1036', '1', '木瓜', 'mugua', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1037', '1', '蓝莓', 'lanmei', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1038', '1', '刺角瓜', 'cijiaogua', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1039', '1', '八月瓜', 'bayuegua', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1040', '1', '桔柚', 'jiyou', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1041', '1', '罗汉果', 'luohanguo', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1042', '1', '桑葚', 'sangshen', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1043', '1', '杨桃', 'yangtao', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1044', '1', '蛇果', 'sheguo', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1045', '1', '榴莲', 'liulian', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
-INSERT INTO crop_category VALUES ('1046', '1', '李子', 'lizi', '', 'edit/category/category_1006.jpg', '2015-11-08 01:46:33');
+INSERT INTO crop_category VALUES ('1', '0', '水果', 'shuiguo', 'S', 'images/edit/category/category_1.png', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('2', '0', '蔬菜', 'shucai', 'S', 'images/edit/category/category_2.png', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('900', '0', '其他', 'qita', 'Q', 'images/edit/category/category_900.png', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1001', '1', '苹果', 'pingguo', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1002', '1', '梨', 'li', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1003', '1', '脐橙', 'qicheng', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1004', '1', '草莓', 'caomei', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1005', '1', '柑桔', 'ganju', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1006', '1', '金橘', 'jinju', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1007', '1', '柚子', 'youzi', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1008', '1', '蜜橘', 'miju', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1009', '1', '沙糖桔', 'shatangju', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1010', '1', '西瓜', 'xigua', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1011', '1', '芒果', 'mangguo', '', 'images/edit/category/category_1011.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1012', '1', '大枣', 'dazao', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1013', '1', '甜橙', 'tiancheng', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1014', '1', '猕猴桃', 'nihoutao', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1015', '1', '圣女果', 'shengnvguo', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1016', '1', '甘蔗', 'ganzhe', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1017', '1', '甜瓜', 'tiangua', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1018', '1', '枣', 'zao', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1019', '1', '香蕉', 'xiangjiao', '', 'images/edit/category/category_1019.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1020', '1', '葡萄', 'putao', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1021', '1', '石榴', 'shiliu', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1022', '1', '油桃', 'youtao', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1023', '1', '枇杷', 'pipa', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1024', '1', '哈密瓜', 'hamigua', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1025', '1', '柠檬', 'ningmeng', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1026', '1', '山楂', 'shanzha', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1027', '1', '火龙果', 'huolongguo', '', 'images/edit/category/category_1027.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1028', '1', '菠萝', 'boluo', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1029', '1', '雪莲果', 'xuelianguo', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1030', '1', '樱桃', 'yingtao', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1031', '1', '香瓜', 'tiangua', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1032', '1', '车厘子', 'chelizi', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1033', '1', '菠萝蜜', 'boluomi', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1034', '1', '桃', 'tao', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1035', '1', '人参果', 'renshenguo', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1036', '1', '木瓜', 'mugua', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1037', '1', '蓝莓', 'lanmei', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1038', '1', '刺角瓜', 'cijiaogua', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1039', '1', '八月瓜', 'bayuegua', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1040', '1', '桔柚', 'jiyou', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1041', '1', '罗汉果', 'luohanguo', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1042', '1', '桑葚', 'sangshen', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1043', '1', '杨桃', 'yangtao', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1044', '1', '蛇果', 'sheguo', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1045', '1', '榴莲', 'liulian', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1046', '1', '李子', 'lizi', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
 
 -- ----------------------------
 -- Table structure for `crop_company`
@@ -6153,7 +6153,7 @@ CREATE TABLE `crop_hot_category` (
   `operator_id` bigint(20) NOT NULL DEFAULT '-1',
   `is_valid` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_hot_category
@@ -6163,7 +6163,11 @@ INSERT INTO crop_hot_category VALUES ('2', '1003', '1990-01-01 00:00:00', '2015-
 INSERT INTO crop_hot_category VALUES ('3', '1009', '1990-01-01 00:00:00', '2015-11-29 23:40:00', '3', '-1', '1');
 INSERT INTO crop_hot_category VALUES ('4', '1001', '1990-01-01 00:00:00', '2015-11-29 23:40:01', '4', '-1', '1');
 INSERT INTO crop_hot_category VALUES ('5', '1008', '1990-01-01 00:00:00', '2015-11-29 23:40:02', '5', '-1', '1');
-INSERT INTO crop_hot_category VALUES ('6', '1004', '1990-01-01 00:00:00', '2015-11-29 23:40:03', '6', '-1', '1');
+INSERT INTO crop_hot_category VALUES ('6', '1004', '1990-01-01 00:00:00', '2015-12-03 01:00:07', '6', '1', '0');
+INSERT INTO crop_hot_category VALUES ('7', '1011', '2015-12-03 01:03:14', '2015-12-03 01:06:43', '29', '1', '1');
+INSERT INTO crop_hot_category VALUES ('8', '1010', '2015-12-03 01:04:43', '2015-12-03 01:04:43', '0', '1', '1');
+INSERT INTO crop_hot_category VALUES ('9', '1011', '2015-12-03 01:04:53', '2015-12-03 01:04:53', '2', '1', '1');
+INSERT INTO crop_hot_category VALUES ('10', '1011', '2015-12-03 01:05:17', '2015-12-03 01:05:17', '4', '1', '1');
 
 -- ----------------------------
 -- Table structure for `crop_message`
