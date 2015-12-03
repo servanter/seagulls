@@ -14,11 +14,12 @@ import org.apache.commons.lang3.reflect.MethodUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.crop.seagulls.bean.SellBuy;
+import com.crop.seagulls.bean.CommonStatus;
 import com.crop.seagulls.bean.FavouriteType;
 import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
+import com.crop.seagulls.bean.SellBuy;
 import com.crop.seagulls.cache.AreaCache;
 import com.crop.seagulls.cache.CategoryCache;
 import com.crop.seagulls.cache.DetailPicCache;
@@ -26,14 +27,20 @@ import com.crop.seagulls.cache.ProductRelationCache;
 import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.dao.SellDAO;
 import com.crop.seagulls.entities.Category;
+import com.crop.seagulls.entities.Company;
 import com.crop.seagulls.entities.Favourite;
 import com.crop.seagulls.entities.ProductUnit;
 import com.crop.seagulls.entities.Sell;
 import com.crop.seagulls.entities.SellPic;
+import com.crop.seagulls.entities.User;
+import com.crop.seagulls.entities.UserAuth;
+import com.crop.seagulls.service.CompanyService;
 import com.crop.seagulls.service.FavouriteService;
-import com.crop.seagulls.service.SellService;
 import com.crop.seagulls.service.SellPicService;
+import com.crop.seagulls.service.SellService;
 import com.crop.seagulls.service.TemplateService;
+import com.crop.seagulls.service.UserAuthService;
+import com.crop.seagulls.service.UserService;
 import com.crop.seagulls.util.DateType;
 import com.crop.seagulls.util.DateUtils;
 import com.crop.seagulls.util.Logger;
@@ -67,6 +74,15 @@ public class SellServiceImpl implements SellService {
 
     @Autowired
     private FavouriteService favouriteService;
+    
+    @Autowired
+    private CompanyService companyService;
+
+    @Autowired
+    private UserAuthService userAuthService;
+    
+    @Autowired
+    private UserService userService;
 
     @Override
     public Response add(Sell sell, List<String> webImagesPath) {
@@ -292,6 +308,30 @@ public class SellServiceImpl implements SellService {
             categories.add(categoryCache.getById(id));
         }
         return categories;
+    }
+
+    @Override
+    public Map<String, Object> addPre(Long userId) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("units", productRelationCache.getUNITS());
+        map.put("periods", productRelationCache.getPERIODS());
+        
+        User user = userService.findUserById(userId);
+
+        map.put("user", user);
+        // company infos
+        Paging<Company> companies = companyService.findByUserId(user);
+        if (companies != null && CollectionUtils.isNotEmpty(companies.getResult())) {
+            map.put("company", companies.getResult().get(0));
+        }
+
+        // user auth infos
+        UserAuth userAuth = new UserAuth();
+        userAuth.setUserId(user.getId());
+        map.put("userAuth", userAuthService.findByUserId(user.getId()));
+        map.put("commonStatus", CommonStatus.getMap());
+        map.put("cvData", categoryCache.getCategoryVarierties());
+        return map;
     }
 
 }

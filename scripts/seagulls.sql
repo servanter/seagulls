@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 60003
 File Encoding         : 65001
 
-Date: 2015-12-03 01:37:30
+Date: 2015-12-04 01:22:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -297,7 +297,7 @@ CREATE TABLE `crop_category` (
   `img_url` varchar(200) NOT NULL DEFAULT '',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1001002 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1047 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_category
@@ -6420,3 +6420,35 @@ CREATE TABLE `crop_user_identity` (
 -- Records of crop_user_identity
 -- ----------------------------
 INSERT INTO crop_user_identity VALUES ('1', '2', '5', '1', '1990-01-01 00:00:00', '2015-11-08 02:40:34');
+
+-- ----------------------------
+-- Table structure for `crop_varieties`
+-- ----------------------------
+DROP TABLE IF EXISTS `crop_varieties`;
+CREATE TABLE `crop_varieties` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `category_id` bigint(20) NOT NULL DEFAULT '-1',
+  `zh_name` varchar(50) NOT NULL DEFAULT '' COMMENT '中文名称',
+  `en_name` varchar(100) NOT NULL DEFAULT '' COMMENT '汉语拼音',
+  `first_letter` varchar(2) NOT NULL DEFAULT '' COMMENT '汉语拼音首字母',
+  `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `operator_id` bigint(20) NOT NULL DEFAULT '-1',
+  `is_valid` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of crop_varieties
+-- ----------------------------
+INSERT INTO crop_varieties VALUES ('1', '1011', '桂七芒', '', '', '1990-01-01 00:00:00', '2015-12-04 01:15:53', '-1', '0');
+INSERT INTO crop_varieties VALUES ('2', '1011', '台农一号', '', '', '1990-01-01 00:00:00', '2015-12-04 01:15:53', '-1', '1');
+INSERT INTO crop_varieties VALUES ('3', '1011', '青皮芒', '', '', '1990-01-01 00:00:00', '2015-12-04 01:15:53', '-1', '1');
+INSERT INTO crop_varieties VALUES ('4', '1011', '金煌芒', '', '', '1990-01-01 00:00:00', '2015-12-04 01:15:53', '-1', '1');
+INSERT INTO crop_varieties VALUES ('5', '1011', '凯特芒', '', '', '1990-01-01 00:00:00', '2015-12-04 01:15:53', '-1', '1');
+INSERT INTO crop_varieties VALUES ('6', '1019', '仙人蕉', '', '', '1990-01-01 00:00:00', '2015-12-04 01:15:53', '-1', '1');
+INSERT INTO crop_varieties VALUES ('7', '1019', '齐尾', '', '', '1990-01-01 00:00:00', '2015-12-04 01:15:53', '-1', '1');
+INSERT INTO crop_varieties VALUES ('8', '1019', '大种高把', '', '', '1990-01-01 00:00:00', '2015-12-04 01:15:53', '-1', '1');
+INSERT INTO crop_varieties VALUES ('9', '1019', '香牙蕉', '', '', '1990-01-01 00:00:00', '2015-12-04 01:15:53', '-1', '1');
+INSERT INTO crop_varieties VALUES ('10', '1019', '大蕉', '', '', '1990-01-01 00:00:00', '2015-12-04 01:15:53', '-1', '1');
+INSERT INTO crop_varieties VALUES ('11', '1019', '粉蕉', '', '', '1990-01-01 00:00:00', '2015-12-04 01:15:53', '-1', '1');

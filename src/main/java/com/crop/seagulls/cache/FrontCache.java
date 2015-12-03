@@ -44,6 +44,9 @@ public class FrontCache {
             for (HotCategory hotCategory : hs) {
                 list.add(categoryCache.getById(hotCategory.getCategoryId()));
             }
+            if(list.size() > 6) {
+                list = list.subList(0, 6);
+            }
             hotCategories = list;
         }
         logger.info("-------------------{0}----------------", "indexBanners");

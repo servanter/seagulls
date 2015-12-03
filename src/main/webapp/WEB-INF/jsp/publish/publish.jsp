@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="fabu_bg">
 		<img src="${ctx }/images/fabu_bg.jpg" style="width:100%; height:100%;" />
 		<div class="fabu_sell">
-			<a href="#" target="_top">
+			<a href="${ctx }/sell/publish/" target="_top">
 			<span>我要</span>
 			<h3>卖</h3>
 			</a>

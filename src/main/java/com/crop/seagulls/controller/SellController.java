@@ -36,23 +36,19 @@ public class SellController {
     @Autowired
     private SellService sellService;
 
-    @Autowired
-    private ProductRelationCache productRelationCache;
-
     @RequestMapping(value = "/sell/publish", method = RequestMethod.GET)
-    public String enterPublish(Model model) {
-        model.addAttribute("units", productRelationCache.getUNITS());
-        model.addAttribute("periods", productRelationCache.getPERIODS());
+    public String enterPublish(HttpSession session,Model model) {
+        model.mergeAttributes(sellService.addPre(SessionUtils.getCurUser(session).getId()));
         return "sell/publish";
     }
 
     @ResponseBody
     @RequestMapping(value = "/sell/publish", method = RequestMethod.POST)
-    public Response publish(Sell supply, HttpServletRequest request, HttpSession session) {
+    public Response publish(Sell sell, HttpServletRequest request, HttpSession session) {
         Response uploadResponse = UploadUtils.upload("images/publish/", "images/publish/", request);
         if (ReturnCode.isSuccess(uploadResponse.getReturnCode())) {
-            supply.setCreateUserId(SessionUtils.getCurUser(session).getId());
-            Response response = sellService.add(supply, (List<String>) uploadResponse.getResult());
+            sell.setCreateUserId(SessionUtils.getCurUser(session).getId());
+            Response response = sellService.add(sell, (List<String>) uploadResponse.getResult());
             return response;
         } else {
             return uploadResponse;

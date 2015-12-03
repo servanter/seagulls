@@ -1,6 +1,7 @@
 package com.crop.seagulls.entities;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import com.crop.seagulls.bean.Page;
 
@@ -30,6 +31,9 @@ public class Category extends Page {
     private String imgUrl;
 
     private Timestamp createTime;
+    
+    
+    private List<Varieties> varieties;
 
     public Category() {
         super();
@@ -104,6 +108,14 @@ public class Category extends Page {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public List<Varieties> getVarieties() {
+        return varieties;
+    }
+
+    public void setVarieties(List<Varieties> varieties) {
+        this.varieties = varieties;
     }
 
 }

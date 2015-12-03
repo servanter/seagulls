@@ -4,6 +4,7 @@ $(function() {
 		pullDownAction: reload,
 		pullUpAction: nextPage
 	});
+	
 });
 
 

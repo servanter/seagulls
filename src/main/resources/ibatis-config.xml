@@ -20,6 +20,7 @@
 		<typeAlias alias="message" type="com.crop.seagulls.entities.Message" />
 		<typeAlias alias="banner" type="com.crop.seagulls.entities.Banner" />
 		<typeAlias alias="hotCategory" type="com.crop.seagulls.entities.HotCategory" />
+		<typeAlias alias="varieties" type="com.crop.seagulls.entities.Varieties" />
 		
 		
 		

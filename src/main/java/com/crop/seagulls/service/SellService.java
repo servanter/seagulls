@@ -15,6 +15,7 @@ import com.crop.seagulls.entities.Sell;
  */
 public interface SellService {
 
+    public Map<String, Object> addPre(Long userId);
     /**
      * Add supply
      * 

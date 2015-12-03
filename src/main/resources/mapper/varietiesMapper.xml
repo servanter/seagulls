@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crop.seagulls.dao.VarietiesDAO">
+
+	<resultMap id="varietiesMap" type="varieties">
+		<result property="id" column="id"/>
+		<result property="categoryId" column="category_id"/>
+		<result property="zhName" column="zh_name" />
+		<result property="enName" column="en_name" />
+		<result property="firstLetter" column="first_letter" />
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="isValid" column="is_valid"/>
+		<result property="operatorId" column="operator_id"/>
+	</resultMap>
+	
+	<sql id="base_columns">
+		id, category_id, zh_name, en_name, first_letter, create_time , update_time, is_valid, operator_id
+	</sql>
+
+	<select id="getAll" resultMap="varietiesMap">
+		SELECT
+		<include refid="base_columns"/>
+		FROM crop_varieties
+		WHERE is_valid = 1
+	</select>
+	
+	<select id="getById" resultMap="varietiesMap">
+		SELECT 
+		<include refid="base_columns"/>
+		FROM crop_varieties
+		WHERE id = #{id}
+	</select>
+	
+	<update id="update" parameterType="varieties">
+		UPDATE crop_varieties
+		<set>
+			update_time = NOW()
+			,operator_id = #{operatorId}
+			<if test="isValid != null">
+				,is_valid = #{isValid}
+			</if>
+			<if test="categoryId != null and categoryId > 0">
+				,category_id = #{categoryId}
+			</if>
+			<if test="zhName != null and zhName.length() > 0">
+				,zh_name = #{zhName}
+			</if>
+			<if test="enName != null and enName.length() > 0">
+				,en_name = #{enName}
+			</if>
+			<if test="firstLetter != null and firstLetter.length() > 0">
+				,first_letter = #{firstLetter}
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<insert id="save" parameterType="varieties">
+		INSERT INTO crop_varieties(category_id, zh_name, en_name, first_letter, create_time, operator_id) 
+		VALUES
+		(#{categoryId}, #{zhName}, #{enName}, #{firstLetter}, NOW(), #{operatorId})
+	</insert>
+	
+	
+</mapper>

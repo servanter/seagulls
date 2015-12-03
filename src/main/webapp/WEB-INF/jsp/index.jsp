@@ -187,7 +187,7 @@ $(function(){
 					<li>
 						<a target="_top" href="${ctx }/sell/sell_list_c${model.id }/">
 							<dl>
-								<dt><img src="${ctx }/images/${model.imgUrl }" /></dt>
+								<dt><img src="${ctx }/${model.imgUrl }" /></dt>
 								<dd>
 									<h4>${model.zhName }</h4>
 									<p>最新上市</p>

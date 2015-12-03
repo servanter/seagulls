@@ -393,6 +393,7 @@ li.formAvatar b img{ width:100%;}
 .location_03{ position:absolute; right:0; top:0; width:33%; height:100%; background:#ddd; overflow:auto;}
 .location_list{ padding:44px 0 50px 0;}
 .location_list li{ height:44px; padding:0 10px; overflow:hidden; line-height:44px; font-size:15px;}
+.location_01 ul,.location_02 ul,.location_03 ul{ padding-top:44px;}
 .location_01 .location_list li{ border-bottom:1px solid #eee;}
 .location_02 .location_list li{ border-bottom:1px solid #ddd;}
 .location_03 .location_list li{ border-bottom:1px solid #ccc;}

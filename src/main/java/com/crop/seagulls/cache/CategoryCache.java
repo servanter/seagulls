@@ -25,9 +25,14 @@ public class CategoryCache {
 
     private static List<String> CATEGORIES_DB_METHODS = new ArrayList<String>();
 
+    private static List<Category> ALL_CATEGORY_WITH_VARIERTIES = new ArrayList<Category>();
+    
     @Autowired
     private DictCategoryService dictCategoryService;
 
+    @Autowired
+    private VarietiesCache varietiesCache;
+    
     @Scheduled(cron = "0 0 * * * ?")
     @PostConstruct
     public void init() {
@@ -49,9 +54,11 @@ public class CategoryCache {
                     curCategories.add(category);
                     mapRelation.put(category.getPId(), curCategories);
                 }
+                category.setVarieties(varietiesCache.getByCategoryId(category.getId()));
             }
             ALL_CATEGORY_MAP = map;
             CATEGORY_RELATION_MAP = mapRelation;
+            ALL_CATEGORY_WITH_VARIERTIES = categories;
         }
     }
 
@@ -96,5 +103,9 @@ public class CategoryCache {
             }
         }
         return result;
+    }
+
+    public List<Category> getCategoryVarierties() {
+        return ALL_CATEGORY_WITH_VARIERTIES;
     }
 }
