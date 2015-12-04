@@ -67,5 +67,9 @@ public class Constant {
      * category first level category
      */
     public static final long CATEGORY_TOP_PID = 0L;
+    
+    public static final String SELL = "sell_";
+    
+    public static final String BUY = "buy_";
 
 }

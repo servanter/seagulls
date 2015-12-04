@@ -1,8 +1,10 @@
 package com.crop.seagulls.controller;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.crop.seagulls.bean.Response;
-import com.crop.seagulls.cache.CategoryCache;
-import com.crop.seagulls.cache.ProductRelationCache;
+import com.crop.seagulls.bean.ReturnCode;
+import com.crop.seagulls.bean.SellBuy;
+import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.entities.Buy;
-import com.crop.seagulls.entities.Sell;
 import com.crop.seagulls.service.BuyService;
 import com.crop.seagulls.util.SessionUtils;
+import com.crop.seagulls.util.UploadUtils;
 
 /**
  * Buy controller
@@ -34,25 +37,30 @@ public class BuyController {
     @Autowired
     private BuyService buyService;
 
-    @Autowired
-    private ProductRelationCache productRelationCache;
-
-    @Autowired
-    private CategoryCache categoryCache;
-
     @RequestMapping(value = "/buy/publish", method = RequestMethod.GET)
-    public String enterPublish(Model model) {
-        model.addAttribute("units", productRelationCache.getUNITS());
-        model.addAttribute("periods", productRelationCache.getPERIODS());
+    public String enterPublish(HttpSession session, Model model) {
+        model.mergeAttributes(buyService.addPre(SessionUtils.getCurUser(session).getId()));
         return "buy/publish";
     }
 
     @ResponseBody
     @RequestMapping(value = "/buy/publish", method = RequestMethod.POST)
-    public Response publish(Buy buy, HttpSession session) {
-        buy.setCreateUserId(SessionUtils.getCurUser(session).getId());
-        Response response = buyService.add(buy);
-        return response;
+    public Response publish(Buy buy, HttpServletRequest request, HttpSession session) {
+        Response uploadResponse = UploadUtils.upload("images/publish/", "images/publish/", Constant.BUY, request);
+        if (ReturnCode.isSuccess(uploadResponse.getReturnCode())) {
+            buy.setCreateUserId(SessionUtils.getCurUser(session).getId());
+            Response response = buyService.add(buy, (List<String>) uploadResponse.getResult());
+            return response;
+        } else {
+            return uploadResponse;
+        }
+    }
+    
+    @RequestMapping(value = "/buy/publishSuccess", method = RequestMethod.GET)
+    public String publishSuccess(@RequestParam("id") Long id,Model model) {
+        model.addAttribute("sellBuy", SellBuy.BUY.getCode());
+        model.addAttribute("id", id);
+        return "publish/publish_success";
     }
 
     @RequestMapping(value = { "/buy/buy_index" }, method = RequestMethod.GET)

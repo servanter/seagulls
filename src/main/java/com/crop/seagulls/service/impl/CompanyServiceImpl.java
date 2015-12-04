@@ -57,4 +57,9 @@ public class CompanyServiceImpl implements CompanyService {
         return companyDAO.update(company) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
     }
 
+    @Override
+    public List<Company> findAll() {
+        return companyDAO.getAll();
+    }
+
 }

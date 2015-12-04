@@ -13,6 +13,7 @@ import org.apache.commons.lang3.reflect.MethodUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crop.seagulls.bean.CommonStatus;
 import com.crop.seagulls.bean.FavouriteType;
 import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
@@ -20,17 +21,27 @@ import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.bean.SellBuy;
 import com.crop.seagulls.cache.AreaCache;
 import com.crop.seagulls.cache.CategoryCache;
+import com.crop.seagulls.cache.CompanyCache;
 import com.crop.seagulls.cache.DetailPicCache;
 import com.crop.seagulls.cache.ProductRelationCache;
+import com.crop.seagulls.cache.VarietiesCache;
 import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.dao.BuyDAO;
 import com.crop.seagulls.entities.Buy;
+import com.crop.seagulls.entities.BuyPic;
 import com.crop.seagulls.entities.Category;
+import com.crop.seagulls.entities.Company;
 import com.crop.seagulls.entities.Favourite;
 import com.crop.seagulls.entities.ProductUnit;
+import com.crop.seagulls.entities.User;
+import com.crop.seagulls.entities.UserAuth;
+import com.crop.seagulls.service.BuyPicService;
 import com.crop.seagulls.service.BuyService;
+import com.crop.seagulls.service.CompanyService;
 import com.crop.seagulls.service.FavouriteService;
 import com.crop.seagulls.service.TemplateService;
+import com.crop.seagulls.service.UserAuthService;
+import com.crop.seagulls.service.UserService;
 import com.crop.seagulls.util.DateType;
 import com.crop.seagulls.util.DateUtils;
 import com.crop.seagulls.util.Logger;
@@ -49,6 +60,9 @@ public class BuyServiceImpl implements BuyService {
 
     @Autowired
     private AreaCache areaCache;
+    
+    @Autowired
+    private CompanyCache companyCache;
 
     @Autowired
     private ProductRelationCache productRelationCache;
@@ -61,20 +75,70 @@ public class BuyServiceImpl implements BuyService {
     
     @Autowired
     private DetailPicCache detailPicCache;
+    
+    @Autowired
+    private UserService userService;
+    
+    @Autowired
+    private CompanyService companyService;
 
+    @Autowired
+    private UserAuthService userAuthService;
+    
+    @Autowired
+    private BuyPicService buyPicService;
+    
+    @Autowired
+    private VarietiesCache varietiesCache;
+    
     @Override
-    public Response add(Buy buy) {
+    public Map<String, Object> addPre(Long userId) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("units", productRelationCache.getUNITS());
+        map.put("periods", productRelationCache.getPERIODS());
+
+        User user = userService.findUserById(userId);
+
+        map.put("user", user);
+        // company infos
+        Paging<Company> companies = companyService.findByUserId(user);
+        if (companies != null && CollectionUtils.isNotEmpty(companies.getResult())) {
+            map.put("company", companies.getResult().get(0));
+        }
+
+        // user auth infos
+        UserAuth userAuth = new UserAuth();
+        userAuth.setUserId(user.getId());
+        map.put("userAuth", userAuthService.findByUserId(user.getId()));
+        map.put("commonStatus", CommonStatus.getMap());
+        map.put("cvData", categoryCache.getCategoryVarierties());
+        return map;
+    }
+    
+    @Override
+    public Response add(Buy buy,List<String> webImagesPath) {
         Response response = new Response();
         response.setReturnCode(ReturnCode.SUCCESS);
-        Response checkResponse = checkValidate(buy);
-        if (ReturnCode.isSuccess(checkResponse.getReturnCode())) {
-            buy.setCreateTime(new Date());
-            buyDAO.save(buy);
-            if (buy.getId() == null || buy.getId() <= 0L) {
-                response.setReturnCode(ReturnCode.ERROR);
-            }
+        buy.setCreateTime(new Date());
+        buy.setUnitId(productRelationCache.getDefaultUnit());
+        packageCategory(buy, buy.getSearchCategoryId());
+        buyDAO.save(buy);
+        if (buy.getId() == null || buy.getId() <= 0L) {
+            response.setReturnCode(ReturnCode.ERROR);
         } else {
-            response = checkResponse;
+            if (CollectionUtils.isNotEmpty(webImagesPath)) {
+                for (String picUrl : webImagesPath) {
+                    BuyPic pic = new BuyPic();
+                    pic.setBuyId(buy.getId());
+                    pic.setCreateUserId(buy.getCreateUserId());
+                    pic.setCreateTime(new Date());
+                    pic.setImgUrl(picUrl);
+                    pic.setOperatorId(buy.getCreateUserId());
+                    buyPicService.add(pic);
+                }
+            }
+            detailPicCache.refresh(SellBuy.BUY, buy.getId());
+            response.setResult(buy.getId());
         }
         return response;
     }
@@ -173,8 +237,20 @@ public class BuyServiceImpl implements BuyService {
                     addr = areaCache.getById(cityId).getZhName();
                 }
 
-                buy.setPageAddress(addr);
+                List<BuyPic> pics = detailPicCache.getById(SellBuy.BUY, buy.getId());
+                if (CollectionUtils.isNotEmpty(pics)) {
+                    buy.setFirstPic(pics.get(0));
+                }
 
+                buy.setPageAddress(addr);
+                
+                if (buy.getCompanyId() != null && buy.getCompanyId() > 0) {
+                    Company company = companyCache.getById(buy.getCompanyId());
+                    if (company != null) {
+                        buy.setCompanyName(company.getTitle());
+                    }
+                }
+                
             }
         }
     }
@@ -202,26 +278,6 @@ public class BuyServiceImpl implements BuyService {
 
     @Override
     public Map<String, Object> findById(Buy b) {
-//        Map<String, Object> map = new HashMap<String, Object>();
-//        Buy buy = buyDAO.getById(b.getId());
-//        map.put("buy", buy);
-//        initAttr(buy);
-//
-//        buy.setPageUnit(productRelationCache.getUnitById(buy.getUnitId()));
-//
-//        packageSearchModel(buy);
-//        buy.setPageQuantity(TextUtils.removeEndZero(buy.getQuantity().toString()));
-//
-//        // find category
-//        if (NumberUtils.isValidateNumber(buy.getCategoryId3()) && categoryCache.getById(buy.getCategoryId3()) != null) {
-//            buy.setPageCategory(categoryCache.getById(buy.getCategoryId3()));
-//        } else if (NumberUtils.isValidateNumber(buy.getCategoryId2()) && categoryCache.getById(buy.getCategoryId2()) != null) {
-//            buy.setPageCategory(categoryCache.getById(buy.getCategoryId2()));
-//        } else if (NumberUtils.isValidateNumber(buy.getCategoryId1()) && categoryCache.getById(buy.getCategoryId1()) != null) {
-//            buy.setPageCategory(categoryCache.getById(buy.getCategoryId1()));
-//        }
-
-//        return map;
         
         Map<String, Object> result = new HashMap<String, Object>();
         Buy buy = buyDAO.getById(b.getId());
@@ -261,6 +317,14 @@ public class BuyServiceImpl implements BuyService {
             }
 
             buy.setPageAddress(addr);
+            buy.setPageVarieties(varietiesCache.getById(buy.getVarietiesId()));
+            
+            if (buy.getCompanyId() != null && buy.getCompanyId() > 0) {
+                Company company = companyCache.getById(buy.getCompanyId());
+                if (company != null) {
+                    buy.setCompanyName(company.getTitle());
+                }
+            }
 
         }
         result.put("pics", detailPicCache.getById(SellBuy.BUY, buy.getId()));

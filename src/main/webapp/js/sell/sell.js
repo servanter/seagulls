@@ -26,7 +26,12 @@ function reload() {
 					every += '<li>';
 					every += '<a href="'+BaseUtils.proPath+'/sell/sell_detail_'+s.id+'.html">';
 					every += '<div class="list_img">';
-					every += '<img src="'+BaseUtils.proPath+'/images/sheguo.jpg">';
+					if(s.firstPic) {
+						every += '<img src="'+BaseUtils.proPath+'/' + s.firstPic.imgUrl + '">';
+					} else {
+						every += '<img src="'+BaseUtils.proPath+'/' + 'images/sheguo.jpg">';						
+					}
+					
 					every += '</div>';
 					every += '<dl>';
 					every += '<dt>'+s.title+'</dt>';

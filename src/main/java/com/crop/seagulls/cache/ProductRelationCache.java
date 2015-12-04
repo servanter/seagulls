@@ -96,4 +96,8 @@ public class ProductRelationCache {
     public boolean isDefaultPeriod(Long id) {
         return id == Constant.PERIOD_ALL_YEAR_ROUND;
     }
+    
+    public Long getDefaultUnit() {
+        return 1L;
+    }
 }

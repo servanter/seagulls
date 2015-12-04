@@ -18,38 +18,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="Cache" content="no-cache">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<title>登陆</title>
+<title>发布成功</title>
 <link rel="stylesheet" type="text/css" href="${ctx }/css/style.css">
 <script type="text/javascript" src="${ctx }/js/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
-<script type="text/javascript" src="${ctx }/js/user/user.js"></script>
 <script type="text/javascript" src="${ctx }/js/common.js"></script>
+
 </head>
 
 <body>
-<jsp:include page="/common/header.jsp?displayText=登录"></jsp:include>
-<!--底部工具栏-->
-<section>
+<!--顶部-->
+<jsp:include page="/common/header.jsp?displayText=供应详情"></jsp:include>	
 	<!--详情-->
-	
-	<div class="contentBg2">
-		<form id="form_login">
-			<ul class="loginList">
-				<li>
-					<input id="phone" name="phone" placeholder="请输入手机号" type="text" />
-				</li>
-				<li><input id="password" name="password" placeholder="请输入登录密码" type="password" /></li>
-			</ul>
-			<input name="redirectUrl" type="hidden" value="${redirectUrl }"/>
-		</form>
+<section>
+	<div class="fabuchenggong">
+		<img src="images/fabuchenggong.png" /><br>
+		恭喜，发布成功！
 	</div>
-		<div class="forgetPassword"><a href="${ctx }/forgetPassword/">忘记密码</a></div>
-		<a id="btn-login" href="javascript:void(0)" class="button_Login bgGreen">登 录</a>
-		<div class="login_jiange">
-			<span>还没有账号？</span>
-			<a class="button_Login2" href="${ctx }/register/">立即注册</a>
-		</div>
+	<div class="fabuchenggong_more">
+		<span>您现在可以</span>
+		<c:choose>
+			<c:when test="${sellBuy eq 1}">
+				<a href="${ctx }/sell/publish/">继续发布</a>
+				<a href="${ctx }/sell/sell_detail_${id }.html">查看信息</a>
+			</c:when>
+			<c:otherwise>
+				<a href="${ctx }/buy/publish/">继续发布</a>
+				<a href="${ctx }/buy/buy_detail_${id }.html">查看信息</a>
+			</c:otherwise>
+		</c:choose>
+		<a href="${ctx }/">返回首页</a>
+	</div>
 </section>
 </body>
 </html>

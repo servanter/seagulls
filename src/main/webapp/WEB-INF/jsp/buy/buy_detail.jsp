@@ -61,7 +61,7 @@ $(function(){
 			<div class="articleImages">
 				<ul>
 					<c:forEach var="pic" items="${pics }">
-						<li><img src="${ctx }/images/${pic.imgUrl }" /></li>
+						<li><img src="${ctx }/${pic.imgUrl }" /></li>
 					</c:forEach>
 				</ul>
 				<div style="clear:both;"></div>
@@ -73,6 +73,7 @@ $(function(){
 			<ul>
 				<li>供应编号：${model.id }</li>
 				<li>品类：${model.pageCategory.zhName }</li>
+				<li>品种：<c:if test="${model.pageVarieties ne null }">${model.pageVarieties.zhName}</c:if></li>
 				<li>采购时间：${model.pagePeriod }</li>
 				<li>采购量：${model.quantity }${model.pageUnit.title }</li>
 				<li>机构名称：${model.companyName }</li>

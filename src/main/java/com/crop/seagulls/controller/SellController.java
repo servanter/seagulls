@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
-import com.crop.seagulls.cache.ProductRelationCache;
+import com.crop.seagulls.bean.SellBuy;
+import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.entities.Sell;
 import com.crop.seagulls.service.SellService;
 import com.crop.seagulls.util.SessionUtils;
@@ -37,7 +38,7 @@ public class SellController {
     private SellService sellService;
 
     @RequestMapping(value = "/sell/publish", method = RequestMethod.GET)
-    public String enterPublish(HttpSession session,Model model) {
+    public String enterPublish(HttpSession session, Model model) {
         model.mergeAttributes(sellService.addPre(SessionUtils.getCurUser(session).getId()));
         return "sell/publish";
     }
@@ -45,7 +46,7 @@ public class SellController {
     @ResponseBody
     @RequestMapping(value = "/sell/publish", method = RequestMethod.POST)
     public Response publish(Sell sell, HttpServletRequest request, HttpSession session) {
-        Response uploadResponse = UploadUtils.upload("images/publish/", "images/publish/", request);
+        Response uploadResponse = UploadUtils.upload("images/publish/", "images/publish/", Constant.SELL, request);
         if (ReturnCode.isSuccess(uploadResponse.getReturnCode())) {
             sell.setCreateUserId(SessionUtils.getCurUser(session).getId());
             Response response = sellService.add(sell, (List<String>) uploadResponse.getResult());
@@ -53,6 +54,13 @@ public class SellController {
         } else {
             return uploadResponse;
         }
+    }
+    
+    @RequestMapping(value = "/sell/publishSuccess", method = RequestMethod.GET)
+    public String publishSuccess(@RequestParam("id") Long id,Model model) {
+        model.addAttribute("sellBuy", SellBuy.SELL.getCode());
+        model.addAttribute("id", id);
+        return "publish/publish_success";
     }
 
     @RequestMapping(value = { "/sell/sell_index" }, method = RequestMethod.GET)

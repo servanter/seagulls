@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <title>发布</title>
-<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="${ctx }/css/style.css">
 
 </head>
 
@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</a>
 		</div>
 		<div class="fabu_buy">
-			<a href="#" target="_top">
+			<a href="${ctx }/buy/publish/" target="_top">
 			<span>我要</span>
 			<h3>买</h3>
 			</a>

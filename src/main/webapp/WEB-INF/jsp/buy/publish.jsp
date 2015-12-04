@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
 <script type="text/javascript" src="${ctx }/js/common.js"></script>
-<script type="text/javascript" src="${ctx }/js/sell/sell_publish.js"></script>
+<script type="text/javascript" src="${ctx }/js/buy/buy_publish.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -108,12 +108,22 @@ $(document).ready(function() {
 					<input class="formInput" type="text" disabled />
 				</li>
 				<li>
-					<h4>价格</h4>
+					<h4>采购价格</h4>
 					<span>元/千克</span>
 					<input class="formInput" type="number" name="price" />
 				</li>
 				<li>
-					<h4>供货时段</h4>
+					<h4>采购量</h4>
+					<span>千克</span>
+					<input class="formInput" type="number" name="quantity" />
+				</li>
+				<li id="formLocation">
+					<h4>采购地</h4>
+					<span></span>
+					<input class="formInput" type="text">
+				</li>
+				<li>
+					<h4>采购时段</h4>
 					<div class="formTimeSlot">
 					<select name="endTime">
 						<option value="999">常年有效</option>
@@ -135,7 +145,7 @@ $(document).ready(function() {
 					</div>
 				</li>
 				<li style="height:auto;">
-					<textarea class="formTextarea" placeholder="供货简介" name="note"></textarea>
+					<textarea class="formTextarea" placeholder="采购要求" name="note"></textarea>
 				</li>
 			</ul>
 		</div>
@@ -163,11 +173,6 @@ $(document).ready(function() {
 					<h4>联系电话</h4>
 					<span></span>
 					<input class="formInput" type="text" name="contactPhone" value="${user.phone }"/>
-				</li>
-				<li id="formLocation">
-					<h4>供货地</h4>
-					<span></span>
-					<input class="formInput" type="text" />
 				</li>
 			</ul>
 		</div>

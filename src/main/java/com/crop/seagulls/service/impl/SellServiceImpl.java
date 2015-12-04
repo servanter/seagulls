@@ -22,8 +22,10 @@ import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.bean.SellBuy;
 import com.crop.seagulls.cache.AreaCache;
 import com.crop.seagulls.cache.CategoryCache;
+import com.crop.seagulls.cache.CompanyCache;
 import com.crop.seagulls.cache.DetailPicCache;
 import com.crop.seagulls.cache.ProductRelationCache;
+import com.crop.seagulls.cache.VarietiesCache;
 import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.dao.SellDAO;
 import com.crop.seagulls.entities.Category;
@@ -64,31 +66,39 @@ public class SellServiceImpl implements SellService {
     private TemplateService templateService;
 
     @Autowired
-    private SellPicService supplyPicService;
+    private SellPicService sellPicService;
 
     @Autowired
     private AreaCache areaCache;
+
+    @Autowired
+    private VarietiesCache varietiesCache;
 
     @Autowired
     private DetailPicCache detailPicCache;
 
     @Autowired
     private FavouriteService favouriteService;
-    
+
     @Autowired
     private CompanyService companyService;
 
     @Autowired
     private UserAuthService userAuthService;
-    
+
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CompanyCache companyCache;
 
     @Override
     public Response add(Sell sell, List<String> webImagesPath) {
         Response response = new Response();
         response.setReturnCode(ReturnCode.SUCCESS);
         sell.setCreateTime(new Date());
+        sell.setUnitId(productRelationCache.getDefaultUnit());
+        packageCategory(sell, sell.getSearchCategoryId());
         sellDAO.save(sell);
         if (sell.getId() == null || sell.getId() <= 0L) {
             response.setReturnCode(ReturnCode.ERROR);
@@ -101,9 +111,11 @@ public class SellServiceImpl implements SellService {
                     pic.setCreateTime(new Date());
                     pic.setImgUrl(picUrl);
                     pic.setOperatorId(sell.getCreateUserId());
-                    supplyPicService.add(pic);
+                    sellPicService.add(pic);
                 }
             }
+            detailPicCache.refresh(SellBuy.SELL, sell.getId());
+            response.setResult(sell.getId());
         }
         return response;
     }
@@ -209,6 +221,13 @@ public class SellServiceImpl implements SellService {
                 }
 
                 sell.setPageAddress(addr);
+                
+                if (sell.getCompanyId() != null && sell.getCompanyId() > 0) {
+                    Company company = companyCache.getById(sell.getCompanyId());
+                    if (company != null) {
+                        sell.setCompanyName(company.getTitle());
+                    }
+                }
             }
         }
     }
@@ -269,6 +288,14 @@ public class SellServiceImpl implements SellService {
 
             sell.setPageAddress(addr);
 
+            sell.setPageVarieties(varietiesCache.getById(sell.getVarietiesId()));
+
+            if (sell.getCompanyId() != null && sell.getCompanyId() > 0) {
+                Company company = companyCache.getById(sell.getCompanyId());
+                if (company != null) {
+                    sell.setCompanyName(company.getTitle());
+                }
+            }
         }
         result.put("pics", detailPicCache.getById(SellBuy.SELL, sell.getId()));
         result.put("model", sell);
@@ -315,7 +342,7 @@ public class SellServiceImpl implements SellService {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("units", productRelationCache.getUNITS());
         map.put("periods", productRelationCache.getPERIODS());
-        
+
         User user = userService.findUserById(userId);
 
         map.put("user", user);

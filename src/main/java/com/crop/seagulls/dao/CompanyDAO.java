@@ -25,4 +25,6 @@ public interface CompanyDAO {
     
     Long saveUserCompany(UserCompany userCompany);
 
+    List<Company> getAll();
+
 }

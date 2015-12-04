@@ -2,10 +2,8 @@ package com.crop.seagulls.entities;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 
 import com.crop.seagulls.bean.Base;
-import com.crop.seagulls.bean.Page;
 
 /**
  * Supply Info
@@ -77,6 +75,7 @@ public class Sell extends Base {
 
     private String pageTimeAlias;
     private Category pageCategory;
+    private Varieties pageVarieties;
     private ProductUnit pageUnit;
     private String pageAddress;
     private String pagePeriod;
@@ -356,6 +355,14 @@ public class Sell extends Base {
 
     public void setFirstPic(SellPic firstPic) {
         this.firstPic = firstPic;
+    }
+
+    public Varieties getPageVarieties() {
+        return pageVarieties;
+    }
+
+    public void setPageVarieties(Varieties pageVarieties) {
+        this.pageVarieties = pageVarieties;
     }
 
 }

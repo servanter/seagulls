@@ -55,9 +55,9 @@ public class DetailPicCache {
                 if (map.containsKey(buyPic.getBuyId())) {
                     map.get(buyPic.getBuyId()).add(buyPic);
                 } else {
-                    List<BuyPic> curSell = new ArrayList<BuyPic>();
-                    curSell.add(buyPic);
-                    map.put(buyPic.getBuyId(), curSell);
+                    List<BuyPic> buySell = new ArrayList<BuyPic>();
+                    buySell.add(buyPic);
+                    map.put(buyPic.getBuyId(), buySell);
                 }
             }
             BUY_PICS = map;
@@ -65,6 +65,23 @@ public class DetailPicCache {
 
         PICS.put(SellBuy.SELL, SELL_PICS);
         PICS.put(SellBuy.BUY, BUY_PICS);
+    }
+
+    public void refresh(SellBuy sellBuy, Long id) {
+        switch (sellBuy) {
+        case SELL:
+            List<SellPic> pics = sellPicService.findBySellId(id);
+            if (CollectionUtils.isNotEmpty(pics)) {
+                SELL_PICS.put(id, pics);
+            }
+            break;
+        case BUY:
+            List<BuyPic> ps = buyPicService.findByBuyId(id);
+            if (CollectionUtils.isNotEmpty(ps)) {
+                BUY_PICS.put(id, ps);
+            }
+            break;
+        }
     }
 
     public <T> List<T> getById(SellBuy buySell, Long id) {

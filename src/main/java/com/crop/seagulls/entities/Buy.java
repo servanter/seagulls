@@ -79,9 +79,12 @@ public class Buy extends Base {
     private Category pageCategory;
     private ProductUnit pageUnit;
     private String pageOriginAddr;
+    private Varieties pageVarieties;
     private String pageAddress;
     private String pageQuantity;
     private String pagePeriod;
+
+    private BuyPic firstPic;
 
     public Buy() {
         super();
@@ -374,6 +377,22 @@ public class Buy extends Base {
 
     public void setPagePeriod(String pagePeriod) {
         this.pagePeriod = pagePeriod;
+    }
+
+    public Varieties getPageVarieties() {
+        return pageVarieties;
+    }
+
+    public void setPageVarieties(Varieties pageVarieties) {
+        this.pageVarieties = pageVarieties;
+    }
+
+    public BuyPic getFirstPic() {
+        return firstPic;
+    }
+
+    public void setFirstPic(BuyPic firstPic) {
+        this.firstPic = firstPic;
     }
 
 }

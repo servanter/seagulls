@@ -77,8 +77,8 @@
 		<if test="note != null and note !='' ">,#{note}</if>
 		<if test="contactName != null and contactName !='' ">,#{contactName}</if>
 		<if test="contactPhone != null and contactPhone !='' ">,#{contactPhone}</if>
-		<if test="companyId != null and companyId > 0 ">,company_id</if>
-		<if test="companyName != null and companyName !='' ">,company_name</if>
+		<if test="companyId != null and companyId > 0 ">,#{companyId}</if>
+		<if test="companyName != null and companyName !='' ">,#{companyName}</if>
 		,#{createTime}
 		<if test="createUserId != null and createUserId > 0">,#{createUserId}</if>
 		<if test="status != null and status > 0">,#{status}</if>

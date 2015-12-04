@@ -122,6 +122,7 @@ public class LoginFilter implements Filter {
                 return;
             } else {
                 resp.sendRedirect(contextPath + "/login/?redirectUrl=" + targetURL);
+                request.setAttribute("redirectUrl", targetURL);
                 return;
             }
         }

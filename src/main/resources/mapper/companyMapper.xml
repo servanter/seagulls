@@ -29,6 +29,9 @@
 		<result property="auditTime" column="audit_time" />
 	</resultMap>
 
+	<select id="getAll" resultMap="companyMap">
+		SELECT * FROM crop_company ORDER BY update_time DESC
+	</select>
 	<select id="getList" parameterType="company"
 		resultMap="companyMap">
 		SELECT * FROM crop_company WHERE user_id = #{userId}

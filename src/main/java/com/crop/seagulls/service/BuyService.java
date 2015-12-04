@@ -1,5 +1,6 @@
 package com.crop.seagulls.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.crop.seagulls.bean.Response;
@@ -19,7 +20,7 @@ public interface BuyService {
      * @param buy
      * @return
      */
-    public Response add(Buy buy);
+    public Response add(Buy buy, List<String> picUrls);
 
     /**
      * Modify buy
@@ -44,4 +45,6 @@ public interface BuyService {
     public int findCount(Buy buy);
 
     public Response ajaxFindList(Buy buy);
+
+    public Map<String, ?> addPre(Long id);
 }

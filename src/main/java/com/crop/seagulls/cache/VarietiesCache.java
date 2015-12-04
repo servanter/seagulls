@@ -16,7 +16,9 @@ import com.crop.seagulls.service.VarietiesService;
 @Component
 public class VarietiesCache {
 
-    private static Map<Long, List<Varieties>> ALL_VARIETIES_MAP = new HashMap<Long, List<Varieties>>();
+    private static Map<Long, List<Varieties>> VARIETIES_CATEGORY_MAP = new HashMap<Long, List<Varieties>>();
+
+    private static Map<Long, Varieties> ALL_VARIETIES_MAP = new HashMap<Long, Varieties>();
 
     @Autowired
     private VarietiesService varietiesService;
@@ -25,6 +27,7 @@ public class VarietiesCache {
     public void init() {
         List<Varieties> varieties = varietiesService.findAll();
         Map<Long, List<Varieties>> map = new HashMap<Long, List<Varieties>>();
+        Map<Long, Varieties> all = new HashMap<Long, Varieties>();
         for (Varieties v : varieties) {
             if (map.containsKey(v.getCategoryId())) {
                 map.get(v.getCategoryId()).add(v);
@@ -33,15 +36,21 @@ public class VarietiesCache {
                 list.add(v);
                 map.put(v.getCategoryId(), list);
             }
+            all.put(v.getId(), v);
         }
-        ALL_VARIETIES_MAP = map;
+        VARIETIES_CATEGORY_MAP = map;
+        ALL_VARIETIES_MAP = all;
     }
 
     public Map<Long, List<Varieties>> getAllVarieties() {
-        return ALL_VARIETIES_MAP;
+        return VARIETIES_CATEGORY_MAP;
     }
 
     public List<Varieties> getByCategoryId(Long cateogryId) {
-        return ALL_VARIETIES_MAP.get(cateogryId);
+        return VARIETIES_CATEGORY_MAP.get(cateogryId);
+    }
+
+    public Varieties getById(Long id) {
+        return ALL_VARIETIES_MAP.get(id);
     }
 }

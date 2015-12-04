@@ -18,12 +18,12 @@ $(function() {
 	$('#a-publish').click(function(){
 		var option = {
 			type: 'POST',
-			url: BaseUtils.proPath + 'sell/publish/',
+			url: BaseUtils.proPath + 'buy/publish/',
 			success: function(data) {
 				if (data.code != 10000) {
 					alert(data.message);
 				} else {
-					BaseUtils.redirect(BaseUtils.proPath + 'sell/publishSuccess/?id=' + data.result);
+					BaseUtils.redirect(BaseUtils.proPath + 'buy/publishSuccess/?id=' + data.result);
 				}
 			}
 		}
