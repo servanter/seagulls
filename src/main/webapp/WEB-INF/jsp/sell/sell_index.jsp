@@ -52,48 +52,61 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="splitLine" style="left:66%;"></div>
 	</div>
 	<!--列表-->
-	<div class="list" id="wrapper">
-		<ul>
-			<c:forEach var="model" items="${list.result}">
-				<li>
-				<a href="${ctx }/sell/sell_detail_${model.id }.html">
-					<div class="list_img">
-						<c:choose>
-							<c:when test="${model.firstPic ne null}">
-								<img src="${ctx }/${model.firstPic.imgUrl }" />
-							</c:when>
-							<c:otherwise>
-								<img src="${ctx }/images/sheguo.jpg" />
-							</c:otherwise>
-						</c:choose>
-					</div>
-					<dl>
-						<dt>${model.title }</dt>
-						<dd class="address">
-							<span>${model.pageAddress }</span>
-							<span>
-								<c:choose>
-									<c:when test="${model.companyName ne null && fn:length(model.companyName) > 0}">
-										${model.companyName }
-									</c:when>
-									<c:otherwise>
-										${model.contactName }
-									</c:otherwise>
-								</c:choose>
-							</span>
-						</dd>
-						<dd class="time">
-							<span>${model.pageTimeAlias }发布</span><span>${model.pagePeriod }</span>
-						</dd>
-					</dl>
-					<div class="price">
-						<strong>${model.price }</strong>元/${model.pageUnit.title }
-					</div>
-				</a>	
-				</li>
-			</c:forEach>
-		</ul>
-	</div>
+	<c:choose>
+		<c:when test="${fn:length(list.result) > 0}">
+			<div class="list" id="wrapper">
+					<ul>
+						<c:forEach var="model" items="${list.result}">
+							<li>
+							<a href="${ctx }/sell/sell_detail_${model.id }.html">
+								<div class="list_img">
+									<c:choose>
+										<c:when test="${model.firstPic ne null}">
+											<img src="${ctx }/${model.firstPic.imgUrl }" />
+										</c:when>
+										<c:otherwise>
+											<img src="${ctx }/images/sheguo.jpg" />
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<dl style="position:relative;">
+									<dt>${model.title }</dt>
+									<dd class="address">
+										<span>${model.pageAddress }</span>
+										<span>
+											<c:choose>
+												<c:when test="${model.companyName ne null && fn:length(model.companyName) > 0}">
+													${model.companyName }
+												</c:when>
+												<c:otherwise>
+													${model.contactName }
+												</c:otherwise>
+											</c:choose>
+										</span>
+									</dd>
+									<dd class="time">
+										<span>${model.pageTimeAlias }发布</span>
+									</dd>
+									
+									<dd class="shixiao">
+										<span>${model.pagePeriod }</span>
+									</dd>
+								</dl>
+								<div class="price">
+									<strong>${model.price }</strong>元/${model.pageUnit.title }
+								</div>
+							</a>	
+						</li>
+					</c:forEach>
+				</ul>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div class="blankPage">
+				<p>暂无相关内容</p>
+			</div>
+		</c:otherwise>
+	</c:choose>
 </section>
 </body>
 </html>

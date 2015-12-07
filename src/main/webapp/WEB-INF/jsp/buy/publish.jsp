@@ -43,7 +43,7 @@ $(document).ready(function() {
 	$("#loc_city").click(function(){
 		$("#location_03").animate({left:"67%"},100);
 	});
-	$('body').on('click', "#loc_town li",function(){
+	$('#tanchu_location').on('click', "#loc_town li",function(){
 		$(this).addClass("selected");
 		$(this).siblings().removeClass("selected");
 		$("#formLocation input").val($("#loc_province li.selected").text()+$("#loc_city li.selected").text()+$(this).text());
@@ -78,7 +78,7 @@ $(document).ready(function() {
 </script>
 </head>
 
-<body  style="height:900px;">
+<body>
 <!--顶部-->
 <jsp:include page="/common/header.jsp?displayText=发布供货"></jsp:include>
 <!--底部按钮-->
@@ -87,7 +87,7 @@ $(document).ready(function() {
 	<a id="a-publish" href="javascript:void(0)" target="_top" class="bgGreen">确认发布</a>
 </div>
 	<!--详情-->
-<section>
+<div style="padding:44px 0 60px 0;">
 	<form id="form-publish">
 		<div class="contentBg2">
 			<div class="formAddImg">
@@ -110,12 +110,12 @@ $(document).ready(function() {
 				<li>
 					<h4>采购价格</h4>
 					<span>元/千克</span>
-					<input class="formInput" type="number" name="price" />
+					<input class="formInput" type="text" name="price" />
 				</li>
 				<li>
 					<h4>采购量</h4>
 					<span>千克</span>
-					<input class="formInput" type="number" name="quantity" />
+					<input class="formInput" type="text" name="quantity" />
 				</li>
 				<li id="formLocation">
 					<h4>采购地</h4>
@@ -133,7 +133,7 @@ $(document).ready(function() {
 							</c:if>
 						</c:forEach>
 					</select>
-					<span>到</span>
+					<span>-</span>
 					<select name="startTime">
 						<option value="999">常年有效</option>
 						<c:forEach var="period" items="${periods}">
@@ -176,7 +176,7 @@ $(document).ready(function() {
 				</li>
 			</ul>
 		</div>
-	</section>
+	</div>
 	<!--供货地-->
 	<div class="tanchuceng" id="tanchu_location" style="display:none;">
 		<div class="tanchu_topBar">

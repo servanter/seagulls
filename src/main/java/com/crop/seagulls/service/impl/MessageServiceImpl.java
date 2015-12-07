@@ -11,7 +11,6 @@ import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.dao.MessageDAO;
 import com.crop.seagulls.entities.Message;
-import com.crop.seagulls.entities.User;
 import com.crop.seagulls.service.MessageService;
 import com.crop.seagulls.service.TemplateService;
 import com.crop.seagulls.service.UserService;

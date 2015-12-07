@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<h1>个人认证</h1>
 	<c:if test="${ model eq null || model.status eq commonStatus['NO_AUDIT'].code || model.status eq commonStatus['UN_SUBMIT'].code}">
-		<div class="headerRight"><a id="a-save" href="javascript:void(0)">保存</a></div>
+		<div class="headerRight"><a id="a-save" href="javascript:void(0)">提交认证</a></div>
 	</c:if>
 </header>
 <!--列表-->

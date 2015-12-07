@@ -105,6 +105,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<b><img src="${ctx }/images/arrowRight.png" /></b>
 			</a>
 		</li>
+		<li>
+			<a href="#" target="_top">
+				<span><img src="images/wode_mima.png" /></span>
+				<h4>修改密码</h4>
+				<b><img src="images/arrowRight.png" /></b>
+			</a>
+		</li>
+	</ul>
+</div>
+<div class="contentBg2" style="margin-bottom:60px;" >
+	<ul class="menuList">
+		<li class="logout">
+			<a href="#" target="_top">
+				<h4>退出登录</h4>
+			</a>
+		</li>
 	</ul>
 </div>
 <div class="tanchuceng tanchuceng_zhezhao dn">

@@ -4,7 +4,6 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
 <!doctype html>
 <html>
 <head>
@@ -20,7 +19,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <title>发布</title>
 <link rel="stylesheet" type="text/css" href="${ctx }/css/style.css">
-
+<script type="text/javascript" src="${ctx }/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	function resize(){
+		pageWidth = $(window).width();
+		pageHeight = $(window).height();
+		if(pageWidth/pageHeight < 1){
+			$(".fabu_sell").css({left:"50%",top:"30%"});
+			$(".fabu_buy").css({left:"50%",top:"70%"});
+		}else{
+			$(".fabu_sell").css({left:"30%",top:"50%"});
+			$(".fabu_buy").css({left:"70%",top:"50%"});
+		}
+	}
+	resize();
+	$(window).resize(function(){
+		resize();
+	})
+})
+</script>
 </head>
 
 <body>

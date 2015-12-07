@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<h1>机构认证</h1>
 	<c:if test="${ model eq null || model.status eq commonStatus['NO_AUDIT'].code || model.status eq commonStatus['UN_SUBMIT'].code}">
-		<div class="headerRight"><a id="a-save" href="javascript:void(0)">保存</a></div>
+		<div class="headerRight"><a id="a-save" href="javascript:void(0)">提交认证</a></div>
 	</c:if>
 </header>
 <!--列表-->
@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</c:choose>
 				</li>
 				<li>
-					<h4>组织机构代码</h4>
+					<h4>营业执照编号</h4>
 					<c:choose>
 						<c:when test="${model eq null || model.status eq commonStatus['NO_AUDIT'].code  || model.status eq commonStatus['UN_SUBMIT'].code}">
 							<input class="formInput" name="organizationCode" type="text" value="${model.organizationCode }"/>

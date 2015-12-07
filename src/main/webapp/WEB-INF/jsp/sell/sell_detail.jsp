@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
-<jsp:include page="/common/header.jsp?displayText=供应详情"></jsp:include>
+<jsp:include page="/common/header.jsp?displayText=出售${model.pageCategory.zhName }"></jsp:include>
 <!--底部工具栏-->
 <div class="bottomBar">
 	<ul>
@@ -43,10 +43,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</c:choose>
 		</li>
 		<li class="chat"><a id="a-chat" href="javascript:void(0)"><img src="${ctx }/images/icon_chat.png" />聊一聊</a></li>
-		<li class="tel"><a href="#"><img src="${ctx }/images/icon_tel.png" />电话联系</a></li>
+		<li class="tel"><a href="tel:${model.contactPhone }"><img src="${ctx }/images/icon_tel.png" />电话联系</a></li>
 	</ul>
 </div>
-<section>
+<div style="padding:44px 0 60px 0;">
 	<!--详情-->
 	<input type="hidden" id="id" value="${model.id }">
 	<input type="hidden" id="createId" value="${model.createUserId }">
@@ -66,12 +66,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="price"><strong>${model.price }</strong>元/${model.pageUnit.title }</div>
 			<ul>
 				<li>供应编号：${model.id }</li>
-				<li>品类：${model.pageCategory.zhName }</li>
-				<li>品种：<c:if test="${model.pageVarieties ne null }">${model.pageVarieties.zhName}</c:if></li>
+				<li>品　　类：${model.pageCategory.zhName }</li>
+				<li>品　　种：<c:if test="${model.pageVarieties ne null }">${model.pageVarieties.zhName}</c:if></li>
 				<li>上市时间：${model.pagePeriod }</li>
 				<li>机构名称：${model.companyName }</li>
-				<li>联系人：${model.contactName }</li>
-				<li>供货地：${model.pageAddress }</li>
+				<li>联 系 人：${model.contactName }</li>
+				<li>供 货 地：${model.pageAddress }</li>
+				<li>商品详情：</li>
 			</ul>
 			<p>${model.note }</p>
 		</div>
@@ -91,6 +92,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="clear:both;"></div>
 	</div>
 	 --%>
-</section>
+</div>
+<script type="text/javascript">
+	$(".articleImages ul li img").each(function() {
+		$(this).load(function(){
+			imgWidth =  parseInt($(this).width());
+			imgHeight = parseInt($(this).height());
+			if(imgWidth/imgHeight < 1){
+				$(this).css({width:110,"margin-top":-parseInt((imgHeight/imgWidth-1)*55)});
+			}else{
+				$(this).css({height:110,"margin-left":-parseInt((imgWidth/imgHeight-1)*55)});
+			}
+			
+		});
+		
+	});
+</script>
 </body>
 </html>

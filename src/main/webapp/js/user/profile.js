@@ -1,17 +1,13 @@
 $(function() {
 	$('#a-certification').click(function() {
-		$('.tanchuceng_zhezhao').toggleClass('dn');
+		$('.tanchuceng_zhezhao').fadeIn(500);
 	});
 	$('.tanchuceng_menuList .close').click(function () {
-		if(!$('.tanchuceng_zhezhao').hasClass('dn')) {
-			$('.tanchuceng_zhezhao').addClass('dn');
-		}
+		$('.tanchuceng_zhezhao').fadeOut(500);
 	});
 	
 	$('.tanchuceng_zhezhao').click(function() {
-		if(!$('.tanchuceng_zhezhao').hasClass('dn')) {
-			$('.tanchuceng_zhezhao').addClass('dn');
-		}
+		$('.tanchuceng_zhezhao').fadeOut(500);
 	})
 });
 

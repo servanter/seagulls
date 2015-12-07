@@ -1,9 +1,11 @@
 $(function() {
-	refresher.init({
-		id: "wrapper",
-		pullDownAction: reload,
-		pullUpAction: nextPage
-	});
+	if($('#wrapper') && $('#wrapper').length) {
+		refresher.init({
+			id: "wrapper",
+			pullDownAction: reload,
+			pullUpAction: nextPage
+		});
+	}
 	
 });
 

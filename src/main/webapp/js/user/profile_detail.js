@@ -3,6 +3,10 @@ $(function() {
 		$('input[name=header]').trigger('click');
 	});
 	
+	$('#headImg').click(function() {
+		event.stopPropagation();
+	});
+	
 	$('.dn-file').change(function() {
 		preImg($(this), $('#headImg'));
 	});
