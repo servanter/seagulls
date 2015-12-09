@@ -23,7 +23,7 @@
 		<script src="${ctx }/js/jquery.form.js" type="text/javascript" ></script>
 		<script src="${ctx }/js/bootstrap.min.js"></script>
 		<script src="${ctx }/js/baseutils.js" type="text/javascript"></script>
-		<script src="${ctx }/js/alert.js" type="text/javascript"></script>
+		<script src="${ctx }/js/admin/alert.js" type="text/javascript"></script>
 		<script src="${ctx }/js/admin/menu.js" type="text/javascript"></script>
 		<script src="${ctx }/js/admin/category/category.js?da=1211" type="text/javascript"></script>
 	</head>

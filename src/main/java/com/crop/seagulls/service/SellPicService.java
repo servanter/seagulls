@@ -23,6 +23,15 @@ public interface SellPicService {
      * @return
      */
     public List<SellPic> findBySellId(Long id);
+    
+    /**
+     * 
+     * Query by supply id
+     * 
+     * @param id
+     * @return
+     */
+    public List<SellPic> findPicsById(Long picId);
 
     /**
      * Add supply pic

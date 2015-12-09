@@ -25,7 +25,7 @@
 		<script src="${ctx }/js/bootstrap.min.js"></script>
 		<script src="${ctx }/js/ztree/jquery.ztree.all-3.5.min.js" type="text/javascript"></script>
 		<script src="${ctx }/js/baseutils.js" type="text/javascript"></script>
-		<script src="${ctx }/js/alert.js" type="text/javascript"></script>
+		<script src="${ctx }/js/admin/alert.js" type="text/javascript"></script>
 		<script src="${ctx }/js/admin/menu.js" type="text/javascript"></script>
 		<script src="${ctx }/js/admin/menu/menu.js" type="text/javascript"></script>
 	</head>

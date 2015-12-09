@@ -7,3 +7,15 @@
 .db {
 	display:block;
 }
+
+.alert-notice {
+	background-image:url(../images/icon_notice.png);background-size:60px 60px;width:60px;height:60px;margin:0 auto
+}
+
+.alert-error {
+	background-image:url(../images/icon_error.png);background-size:60px 60px;width:60px;height:60px;margin:0 auto
+}
+
+.alert-success {
+	background-image:url(../images/icon_success.png);background-size:60px 60px;width:60px;height:60px;margin:0 auto
+}

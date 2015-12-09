@@ -20,11 +20,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <title>登陆</title>
 <link rel="stylesheet" type="text/css" href="${ctx }/css/style.css">
+<link rel="stylesheet" type="text/css" href="${ctx }/css/extra.css">
 <script type="text/javascript" src="${ctx }/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
 <script type="text/javascript" src="${ctx }/js/user/user.js"></script>
 <script type="text/javascript" src="${ctx }/js/common.js"></script>
+<script type="text/javascript" src="${ctx }/js/alert.js"></script>
 </head>
 
 <body>
@@ -51,5 +53,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a class="button_Login2" href="${ctx }/register/">立即注册</a>
 		</div>
 </section>
+
 </body>
 </html>
