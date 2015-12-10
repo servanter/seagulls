@@ -16,12 +16,17 @@ $(function() {
 			Alert.info("请输入密码");
 			return;
 		}
+		if(password.length < 6 || password.length > 20) {
+			Alert.info("请输入密码6-20位数字或字符");
+			return;
+		}
+		
 		var option = {
 			type: 'POST',
 			url: BaseUtils.proPath + 'login/',
 			success: function(data) {
 				if (data.code != 10000) {
-					Alert.info(message);
+					Alert.info(data.message);
 				} else {
 					BaseUtils.redirect(BaseUtils.proPath + data.result);
 				}
@@ -90,8 +95,8 @@ $(function() {
 			return;
 		}
 		
-		if(password.length < 6 || password.length > 15) {
-			Alert.info("请输入密码6-15位数字或字符");
+		if(password.length < 6 || password.length > 20) {
+			Alert.info("请输入密码6-20位数字或字符");
 			return;
 		}
 		
@@ -142,8 +147,8 @@ $(function() {
 			return;
 		}
 		
-		if(password.length < 6 || password.length > 15) {
-			Alert.info("请输入密码6-15位数字或字符");
+		if(password.length < 6 || password.length > 20) {
+			Alert.info("请输入密码6-20位数字或字符");
 			return;
 		}
 		

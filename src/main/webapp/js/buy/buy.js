@@ -46,8 +46,12 @@ function reload() {
 					every += '</span>';
 					every += '</dd>';
 					every += '<dd class="time">';
-					every += '<span>'+s.pageTimeAlias+'发布</span><span>'+s.pagePeriod+'</span>';
+					every += '<span>'+s.pageTimeAlias+'发布</span>';
 					every += '</dd>';
+					every += '<dd class="shixiao">';
+					every += '<span>'+s.pagePeriod+'</span>';
+					every += '</dd>';
+					
 					every += '</dl>';
 					every += '<div class="price">';
 					every += '<strong>'+s.price+'</strong>元/' + s.pageUnit.title;

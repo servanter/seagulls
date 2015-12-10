@@ -20,10 +20,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <title>联系人</title>
 <link rel="stylesheet" type="text/css" href="${ctx }/css/style.css">
+<link rel="stylesheet" type="text/css" href="${ctx }/css/extra.css">
 <script type="text/javascript" src="${ctx }/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
 <script type="text/javascript" src="${ctx }/js/common.js"></script>
+<script type="text/javascript" src="${ctx }/js/alert.js"></script>
 <script type="text/javascript" src="${ctx }/js/message/chat.js"></script>
 </head>
 

@@ -1,7 +1,9 @@
 package com.crop.seagulls.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,7 @@ import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.dao.BuyPicDAO;
 import com.crop.seagulls.entities.BuyPic;
+import com.crop.seagulls.entities.SellPic;
 import com.crop.seagulls.service.BuyPicService;
 
 @Service
@@ -36,6 +39,18 @@ public class BuyPicServiceImpl implements BuyPicService {
     @Override
     public List<BuyPic> findAll() {
         return buyPicDAO.getAll();
+    }
+
+    @Override
+    public List<BuyPic> findPicsById(Long picId) {
+        List<BuyPic> result = new ArrayList<BuyPic>();
+        BuyPic pic = new BuyPic();
+        pic.setId(picId);
+        List<BuyPic> pics = buyPicDAO.getList(pic);
+        if (CollectionUtils.isNotEmpty(pics)) {
+            result = findByBuyId(pics.get(0).getBuyId());
+        }
+        return result;
     }
 
 }

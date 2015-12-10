@@ -31,4 +31,6 @@ public interface BuyPicService {
      * @return
      */
     public Response add(BuyPic buyPic);
+
+    public List<BuyPic> findPicsById(Long picId);
 }

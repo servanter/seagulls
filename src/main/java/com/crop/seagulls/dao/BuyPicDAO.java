@@ -14,4 +14,6 @@ public interface BuyPicDAO {
     public void save(BuyPic pic);
 
     public List<BuyPic> getAll();
+
+    public List<BuyPic> getList(BuyPic pic);
 }

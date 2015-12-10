@@ -3,8 +3,9 @@ $(function() {
 		$('input[name=header]').trigger('click');
 	});
 	
-	$('#headImg').click(function() {
+	$('#headImg').click(function(event) {
 		event.stopPropagation();
+		BaseUtils.redirect(BaseUtils.proPath + 'user/headBigPic/?headPic=' + $('#headImg').attr('src'));
 	});
 	
 	$('.dn-file').change(function() {
@@ -17,7 +18,7 @@ $(function() {
 			url: BaseUtils.proPath + 'user/profileDetail/',
 			success: function(data) {
 				if (data.code != 10000) {
-					alert(data.message);
+					Alert.info(data.message);
 				} else {
 					BaseUtils.reload();
 				}
@@ -32,7 +33,7 @@ $(function() {
 
 function preImg(source, target) {
 	if (typeof FileReader === 'undefined') {
-		alert('Your browser does not support FileReader...');
+		Alert.info('您的浏览器不支持上传图片');
 		return;
 	}
 	var reader = new FileReader();

@@ -21,6 +21,9 @@ import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.bean.SellBuy;
 import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.entities.Buy;
+import com.crop.seagulls.entities.BuyPic;
+import com.crop.seagulls.entities.SellPic;
+import com.crop.seagulls.service.BuyPicService;
 import com.crop.seagulls.service.BuyService;
 import com.crop.seagulls.util.SessionUtils;
 import com.crop.seagulls.util.UploadUtils;
@@ -36,6 +39,9 @@ public class BuyController {
 
     @Autowired
     private BuyService buyService;
+    
+    @Autowired
+    private BuyPicService buyPicService;
 
     @RequestMapping(value = "/buy/publish", method = RequestMethod.GET)
     public String enterPublish(HttpSession session, Model model) {
@@ -126,5 +132,12 @@ public class BuyController {
             model.addAttribute(entry.getKey(), entry.getValue());
         }
         return "buy/my_buy_detail";
+    }
+    
+    @RequestMapping(value = "/buy/buyPics", method = RequestMethod.GET)
+    public String picDetail(@RequestParam("picId") Long picId, Model model) {
+        List<BuyPic> pics = buyPicService.findPicsById(picId);
+        model.addAttribute("pics", pics);
+        return "buy/buy_pic";
     }
 }

@@ -216,4 +216,11 @@ public class UserController {
         return result;
     }
 
+    @RequestMapping(value = "/user/headBigPic", method = RequestMethod.GET)
+    public String headBigPic(@RequestParam("headPic")
+    String picUrl, Model model) {
+        model.addAttribute("headUrl", picUrl);
+        return "user/head_big_pic";
+    }
+
 }

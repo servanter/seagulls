@@ -18,6 +18,10 @@ BaseUtils.reload = function () {
 BaseUtils.prev = function () {
 	window.history.go(-1);
 };
+BaseUtils.checkImgValidate = function (post) {
+	return post == 'jpg' || post == 'jpeg' || post == 'png';
+};
+
 BaseUtils.proPath = $("base").attr("href");
 
 BaseUtils.clearData = function (obj, clazz) {

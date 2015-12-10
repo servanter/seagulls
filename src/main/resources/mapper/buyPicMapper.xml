@@ -26,6 +26,18 @@
 		<include refid="base_columns" />
 		FROM crop_buy_pic WHERE is_valid = 1
 	</select>
+	
+	<select id="getList" parameterType="buyPic" resultMap="buyPicMap">
+		SELECT
+		<include refid="base_columns" />
+		FROM crop_buy_pic
+		<where>
+			<if test="id != null and id > 0">
+				AND id = #{id}
+			</if>
+		</where>
+	</select>
+	
 
 	<insert id="save" parameterType="buyPic">
 		INSERT INTO crop_buy_pic (buy_id, img_url, create_time, create_user_id, operator_id) VALUES

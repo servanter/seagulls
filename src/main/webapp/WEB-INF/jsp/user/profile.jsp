@@ -117,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="contentBg2" style="margin-bottom:60px;" >
 	<ul class="menuList">
 		<li class="logout">
-			<a href="#" target="_top">
+			<a href="${ctx }/logout/" target="_top">
 				<h4>退出登录</h4>
 			</a>
 		</li>
