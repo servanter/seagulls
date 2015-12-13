@@ -39,7 +39,7 @@ public class ImageCodeFilter implements Filter {
         if (StringUtils.isNotBlank(smsCode)) {
             boolean isExpect = SessionUtils.equals(request.getSession(), Constant.SMSCODE, smsCode);
             if(!isExpect) {
-                response.sendRedirect(request.getContextPath() + "/system/imageError/");
+                response.sendRedirect(request.getContextPath() + "/system/smsError/");
                 return;
             }
         }

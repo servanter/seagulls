@@ -40,7 +40,7 @@
 
 	<insert id="save" parameterType="user">
 		INSERT INTO crop_user (phone, password, create_time) VALUES
-		(#{phone},#{password}, #{createTime})
+		(#{phone},#{password}, NOW())
 		<selectKey resultType="Long" keyProperty="id">
 			SELECT LAST_INSERT_ID()
 		</selectKey>

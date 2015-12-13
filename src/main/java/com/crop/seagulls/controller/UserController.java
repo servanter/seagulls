@@ -106,7 +106,7 @@ public class UserController {
     public Response register(User user, HttpSession session) {
         Response result = userService.register(user);
         if (ReturnCode.isSuccess(result.getReturnCode())) {
-            SessionUtils.setValue(session, Constant.LOGIN_USER, user);
+            // SessionUtils.setValue(session, Constant.LOGIN_USER, user);
         }
         return result;
     }
@@ -118,8 +118,7 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
-    public Response forgetPassword(@RequestParam("id")
-    User user, HttpSession session) {
+    public Response forgetPassword(User user, HttpSession session) {
         return userService.forgetPassword(user);
     }
 
@@ -135,8 +134,8 @@ public class UserController {
     String passwordNew, HttpSession session) {
         User user = SessionUtils.getCurUser(session);
         user.setPassword(password);
-        Response response =  userService.modifyPassword(user, passwordNew);
-        if(ReturnCode.isSuccess(response.getReturnCode())) {
+        Response response = userService.modifyPassword(user, passwordNew);
+        if (ReturnCode.isSuccess(response.getReturnCode())) {
             SessionUtils.setValue(session, Constant.LOGIN_USER, null);
         }
         return response;

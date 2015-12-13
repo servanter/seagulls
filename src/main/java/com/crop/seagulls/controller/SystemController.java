@@ -65,7 +65,7 @@ public class SystemController {
         response.setHeader("Cache-Control", "no-cache");
         response.setDateHeader("Expires", 0);
 
-        int width = 130, height = 37;
+        int width = 130, height = 50;
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
         Graphics g = image.getGraphics();
@@ -88,7 +88,7 @@ public class SystemController {
             String rand = String.valueOf(random.nextInt(10));
             sRand += rand;
             g.setColor(new Color(20 + random.nextInt(110), 20 + random.nextInt(110), 20 + random.nextInt(110)));
-            g.drawString(rand, 20 * i + 30, 24);
+            g.drawString(rand, 20 * i + 30, 35);
         }
         g.dispose();
         SessionUtils.setValue(session, Constant.VERIFICATIONCODE, sRand);
