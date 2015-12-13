@@ -61,7 +61,7 @@ $(function(){
 			<div class="articleImages">
 				<ul>
 					<c:forEach var="pic" items="${pics }">
-						<li><a href="${ctx }/sell/sellPics/?picId=${pic.id }"><img src="${ctx }/${pic.imgUrl }" /></a></li>
+						<li><a href="${ctx }/buy/buyPics/?picId=${pic.id }"><img src="${ctx }/${pic.imgUrl }" /></a></li>
 					</c:forEach>
 				</ul>
 				<div style="clear:both;"></div>

@@ -2,17 +2,22 @@ var index=2;
 $(function() {
 	
 	$('body').on('click', '.formAddImg .img-click', function() {
-		console.log($(this).prev());
 		$(this).prev().trigger('click');
 	});
 	
 	$('body').on('change', '.formAddImg .img-file', function() {
-		console.log(this);
-		var html = '<li><input type="file" name="img'+index+'" class="img-file dn"><img class="img-click" src="'+BaseUtils.proPath+'/images/addImage.jpg" /></li>';
-		preImg($(this), $(this).next());
-		console.log($('.formAddImg>ul>li:last'));
-		$('.formAddImg>ul>li:last').after(html);
-		index+=1;		
+		var has = $(this).next().hasClass('already');
+		if(has) {
+			preImg($(this), $(this).next());
+		} else {
+			if(index < 10) {
+				var html = '<li><input type="file" name="img'+index+'" class="img-file dn"><img class="img-click" src="'+BaseUtils.proPath+'/images/addImage.jpg" /></li>';
+				$('.formAddImg>ul>li:last').after(html);
+				$(this).next().addClass('already');
+			}
+			preImg($(this), $(this).next());
+			index+=1;
+		}		
 	});
 	
 	$('#a-publish').click(function(){
@@ -53,9 +58,17 @@ $(function() {
 			return;
 		}
 		
-		var qInt = parseFloat(quantity);
+		if(quantity.indexOf('.') > 0) {
+			Alert.info('采购量只支持数字');
+			return;
+		}
+		var qInt = parseInt(quantity);
 		if(isNaN(qInt)) {
-			Alert.info('请输入采购量只支持数字');
+			Alert.info('采购量只支持数字');
+			return;
+		}
+		if(qInt <= 0) {
+			Alert.info('采购量只支持大于0的数字');
 			return;
 		}
 		

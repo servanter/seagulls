@@ -40,7 +40,7 @@ public class Buy extends Base {
 
     private Long endTime;
 
-    private Double quantity;
+    private Integer quantity;
 
     private Double price;
 
@@ -179,11 +179,11 @@ public class Buy extends Base {
         this.endTime = endTime;
     }
 
-    public Double getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Double quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
