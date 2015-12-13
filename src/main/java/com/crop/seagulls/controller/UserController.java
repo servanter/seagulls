@@ -118,8 +118,28 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/forgetPassword", method = RequestMethod.POST)
-    public Response forgetPassword(User user, HttpSession session) {
+    public Response forgetPassword(@RequestParam("id")
+    User user, HttpSession session) {
         return userService.forgetPassword(user);
+    }
+
+    @RequestMapping(value = "user/modifyPassword", method = RequestMethod.GET)
+    public String modifyPassword(HttpSession session) {
+        return "user/modify_password";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "user/modifyPassword", method = RequestMethod.POST)
+    public Response modifyPassword(Long id, @RequestParam("password")
+    String password, @RequestParam("passwordNew")
+    String passwordNew, HttpSession session) {
+        User user = SessionUtils.getCurUser(session);
+        user.setPassword(password);
+        Response response =  userService.modifyPassword(user, passwordNew);
+        if(ReturnCode.isSuccess(response.getReturnCode())) {
+            SessionUtils.setValue(session, Constant.LOGIN_USER, null);
+        }
+        return response;
     }
 
     @ResponseBody

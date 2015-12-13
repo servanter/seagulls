@@ -166,13 +166,13 @@ $(function(){
 			<li>
 				<a target="_top" href="${ctx }/sell/sell_index/">
 					<img src="${ctx }/images/supply.png" />
-					<span><strong class="colorGreen">${totalSell }</strong>人正在出售</span>
+					<span><strong class="colorGreen">${totalSell }</strong>条出售信息</span>
 				</a>
 			</li>
 			<li>
 				<a target="_top" href="${ctx }/buy/buy_index/">
 					<img src="${ctx }/images/procurement.png" />
-					<span><strong class="colorOrange">${totalBuy }</strong>人正在采购</span>
+					<span><strong class="colorOrange">${totalBuy }</strong>条采购信息</span>
 				</a>
 			</li>
 		</ul>

@@ -71,6 +71,38 @@ $(function() {
 		$('#form-edit').ajaxSubmit(option);
 	});
 	
+	$('.btn-down').click(function() {
+		var id = $(this).attr('param');
+		$.getJSON(BaseUtils.proPath + 'admin/category/publish/?id=' + id + "&publish=" + 0, function(data) {
+			if (data.code == 10000) {
+				BaseUtils.reload();
+			} else {
+				var msg = Alert.succ('操作失败:' + data.message,'text-center', function(msg) {
+					$('.remove-modal .modal-body').append(msg);
+				}, function(msg) {
+					Alert.leave();
+				});
+				
+			}
+		});
+	});
+	
+	$('.btn-up').click(function() {
+		var id = $(this).attr('param');
+		$.getJSON(BaseUtils.proPath + 'admin/category/publish/?id=' + id + "&publish=" + 1, function(data) {
+			if (data.code == 10000) {
+				BaseUtils.reload();
+			} else {
+				var msg = Alert.succ('操作失败:' + data.message,'text-center', function(msg) {
+					$('.remove-modal .modal-body').append(msg);
+				}, function(msg) {
+					Alert.leave();
+				});
+				
+			}
+		});
+	});
+	
 	$('.alert-link').click(function() {
 		$('.edit-modal input[name=pId]').val($(this).attr('param'));
 	});

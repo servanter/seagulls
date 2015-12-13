@@ -20,8 +20,8 @@ public class DictCategoryServiceImpl implements DictCategoryService {
     private DictCategoryDAO dictCategoryDAO;
 
     @Override
-    public List<Category> findList() {
-        return dictCategoryDAO.getList();
+    public List<Category> findAll() {
+        return dictCategoryDAO.getAll();
     }
 
     @Override
@@ -70,5 +70,10 @@ public class DictCategoryServiceImpl implements DictCategoryService {
             generateId = start + 1;
         }
         return generateId;
+    }
+
+    @Override
+    public Response publish(Category category) {
+        return dictCategoryDAO.update(category) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
     }
 }

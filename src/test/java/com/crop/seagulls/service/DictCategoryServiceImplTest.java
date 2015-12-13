@@ -17,7 +17,7 @@ public class DictCategoryServiceImplTest extends SuperTest {
 
     @Test
     public void testFindList() {
-        Assert.assertTrue(!dictCategoryService.findList().isEmpty());
+        Assert.assertTrue(!dictCategoryService.findAll().isEmpty());
     }
 
     @Test

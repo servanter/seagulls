@@ -40,7 +40,7 @@ public class CategoryCache {
         CATEGORIES_DB_METHODS.add("setCategoryId2");
         CATEGORIES_DB_METHODS.add("setCategoryId3");
         
-        List<Category> categories = dictCategoryService.findList();
+        List<Category> categories = dictCategoryService.findAll();
         if (CollectionUtils.isNotEmpty(categories)) {
             Map<Long, Category> map = new HashMap<Long, Category>();
             Map<Long, List<Category>> mapRelation = new HashMap<Long, List<Category>>();

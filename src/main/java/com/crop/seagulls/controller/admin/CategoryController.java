@@ -70,5 +70,15 @@ public class CategoryController {
     Long id) {
         return categoryService.remove(id);
     }
+    
+    @ResponseBody
+    @RequestMapping("/publish")
+    public Response remove(@RequestParam("id")
+    Long id, @RequestParam("publish") Integer publish) {
+        Category category = new Category();
+        category.setId(id);
+        category.setIsValid(publish == 1);
+        return categoryService.publish(category);
+    }
 
 }

@@ -141,7 +141,7 @@
 							      		<form id="form-edit" class="form-horizontal">
 							      			<input type="hidden" name="id" value="">
 							      	      <div class="form-group">
-										    <label for="categoryId" class="col-sm-4 control-label">标题</label>
+										    <label for="categoryId" class="col-sm-4 control-label">分类ID</label>
 										    <div class="col-sm-8">
 										      <input type="number" name="categoryId" class="form-control" placeholder="请输入分类ID">
 										    </div>

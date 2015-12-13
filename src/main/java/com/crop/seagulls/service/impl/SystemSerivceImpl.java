@@ -27,7 +27,7 @@ public class SystemSerivceImpl implements SystemSerivce {
     public Response send(String phone) {
         Response response = new Response();
         response.setReturnCode(ReturnCode.SUCCESS);
-        String number = RandomUtils.generateNumberString(6);
+        String number = RandomUtils.generateNumberString(4);
         response.setResult(number);
         HashMap<String, Object> result = null;
 

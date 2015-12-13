@@ -21,6 +21,7 @@ import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.service.SystemSerivce;
+import com.crop.seagulls.service.UserService;
 import com.crop.seagulls.util.SessionUtils;
 
 /**
@@ -36,13 +37,24 @@ public class SystemController {
     @Autowired
     private SystemSerivce systemService;
 
+    @Autowired
+    private UserService userService;
+
     @ResponseBody
     @RequestMapping(value = "/sendCode", method = RequestMethod.GET)
-    public Response sendVerificationCode(@RequestParam("phone") String phone, HttpSession session) {
-        Response response = systemService.send(phone);
-        System.out.println(response.getResult() + "+++++++++++++++++++==");
+    public Response sendVerificationCode(@RequestParam("phone")
+    String phone, @RequestParam(value = "validate", required = false)
+    Integer validate, HttpSession session) {
+        Response response = new Response(ReturnCode.SUCCESS);
+        if(validate != null && validate == 1) {
+            response = userService.hasPhone(phone);
+        }
         if (ReturnCode.isSuccess(response.getReturnCode())) {
-            SessionUtils.setValue(session, Constant.SMSCODE, response.getResult());
+            response = systemService.send(phone);
+            System.out.println(response.getResult() + "+++++++++++++++++++==");
+            if (ReturnCode.isSuccess(response.getReturnCode())) {
+                SessionUtils.setValue(session, Constant.SMSCODE, response.getResult());
+            }
         }
         return response;
     }
@@ -90,7 +102,7 @@ public class SystemController {
         response.setReturnCode(ReturnCode.IMAGE_CODE_ERROR);
         return response;
     }
-    
+
     @ResponseBody
     @RequestMapping("/smsError")
     public Response checkSMSCodeError() {

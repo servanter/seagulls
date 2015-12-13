@@ -6,8 +6,11 @@ BaseUtils.random = function () {
 	return Math.random();
 };
 BaseUtils.isMobile = function (phone) {
-	var r = new RegExp("\\d{11}");
-	return r.test(phone);
+	if(!/^(13[0-9]|14[0-9]|15[0-9]|18[0-9]|17[0-9])\d{8}$/i.test(phone))
+	{
+	  return false;
+	}
+	return true;
 };
 BaseUtils.redirect = function (url) {
 	window.location.href = url;

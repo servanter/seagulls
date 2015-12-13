@@ -43,10 +43,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input name="phone" placeholder="请输入手机号" type="text" />
 					<a id="a-send" class="loginCode bgOrange a-send" href="javascript:void(0)">获取验证码</a>
 				</li>
-				<li><input name="smsCode" placeholder="请输入6位手机验证码" type="text" /></li>
+				<li><input name="smsCode" placeholder="请输入4位手机验证码" type="text" /></li>
 				<li><input id="password" name="password" placeholder="请重置密码" type="password" /></li>
 				<li><input id="password2" name="password2" placeholder="请确认密码" type="password" /></li>
 			</ul>
+			<input type="hidden" id="validate" name="validate" value="1">
 		</div>
 		<a id="a-forget" href="javascript:void(0)" class="button_Login bgGreen">重 置</a>
 		<div class="login_jiange">

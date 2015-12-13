@@ -1,16 +1,23 @@
 var Alert = new Alert();
 function Alert() {
 }
-Alert.succ = function (msg, clazz) {
-	var msg = '<div class="alert tanchuceng tanchuceng_zhezhao" ><div class="tanchuang_box"><div class="alert-success ' + clazz + '"></div><p>' + msg + '</p><a class="tanchuang_button" href="javascript:void(0)">我知道了</a></div></div>';
+Alert.succ = function (message, clazz) {
+	var msg = '<div class="alert tanchuceng tanchuceng_zhezhao" ><div class="tanchuang_box"><div class="alert-success ' + clazz + '"></div><p>' + message + '</p><a class="tanchuang_button" href="javascript:void(0)">我知道了</a></div></div>';
 	$('body').append(msg);
 };
 Alert.error = function (msg, clazz) {
-	var msg = '<div class="alert tanchuceng tanchuceng_zhezhao" ><div class="tanchuang_box"><div class="alert-error ' + clazz + '"></div><p>' + msg + '</p><a class="tanchuang_button" href="javascript:void(0)">我知道了</a></div></div>';
+	var msg = '<div class="alert tanchuceng tanchuceng_zhezhao" ><div class="tanchuang_box"><div class="alert-error ' + clazz + '"></div><p>' + message + '</p><a class="tanchuang_button" href="javascript:void(0)">我知道了</a></div></div>';
 	$('body').append(msg);
 };
-Alert.info = function (msg, clazz) {
-	var msg = '<div class="alert tanchuceng tanchuceng_zhezhao" ><div class="tanchuang_box"><div class="alert-notice ' + clazz + '"></div><p>' + msg + '</p><a class="tanchuang_button" href="javascript:void(0)">我知道了</a></div></div>';
+Alert.info = function (message, clazz, tip, href) {
+	var msg = '<div class="alert tanchuceng tanchuceng_zhezhao" ><div class="tanchuang_box"><div class="alert-notice ' + clazz + '"></div><p>' + message + '</p><a class="tanchuang_button" href="javascript:void(0)">我知道了</a></div></div>';
+	if(tip != undefined && tip.length) {
+		msg = '<div class="alert tanchuceng tanchuceng_zhezhao" ><div class="tanchuang_box"><div class="alert-notice ' + clazz + '"></div><p>' + message + '</p><a class="tanchuang_button" href="javascript:void(0)">'+tip+'</a></div></div>';
+	}
+	if(href != undefined && href.length) {
+		msg = '<div class="alert tanchuceng tanchuceng_zhezhao" ><div class="tanchuang_box"><div class="alert-notice ' + clazz + '"></div><p>' + message + '</p><a class="tanchuang_button" href="'+href+'">'+tip+'</a></div></div>';
+	}
+	
 	$('body').append(msg);
 };
 

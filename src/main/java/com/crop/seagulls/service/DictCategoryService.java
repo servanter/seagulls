@@ -19,7 +19,7 @@ public interface DictCategoryService {
      * 
      * @return
      */
-    public List<Category> findList();
+    public List<Category> findAll();
 
     /**
      * Find by pid
@@ -52,5 +52,7 @@ public interface DictCategoryService {
     public Response findById(Integer id);
 
     public Long generateId(Long start, Long end);
+
+    public Response publish(Category category);
 
 }

@@ -3,12 +3,13 @@ $(function () {
 		var id = $('#id').val();
 		$.getJSON(BaseUtils.proPath + 'favourite/favourite/?targetId=' + id + "&type=" + 1, function(data) {
 			if (data.code == 10000) {
-				alert('已关注');
-				$('.btn-favo').text('已关注');
+				Alert.info('已关注');
+				$('.btn-favo').empty();
+				$('.btn-favo').append('<img src="'+ BaseUtils.proPath+'/images/icon_followed.png">已关注');
 				$('.btn-favo').addClass('btn-unfavo');
 				$('.btn-favo').removeClass('btn-favo');
 			} else {
-				alert(data.message);
+				Alert.info(data.message);
 			}
 		});
 		
@@ -17,11 +18,13 @@ $(function () {
 	$('body').delegate('.btn-unfavo', 'click', function() {
 		var id = $('#id').val();
 		$.getJSON(BaseUtils.proPath + 'favourite/unFavourite/?targetId=' + id + "&type=" + 1, function(data) {
-			alert(data.message);
+			Alert.info(data.message);
 			if (data.code == 10000) {
-				$('.btn-unfavo').text('关注');
+				$('.btn-unfavo').empty();
+				$('.btn-unfavo').append('<img src="'+ BaseUtils.proPath+'/images/icon_follow.png">关注');
 				$('.btn-unfavo').addClass('btn-favo');
 				$('.btn-unfavo').removeClass('btn-unfavo');
+				$(this).find('image').eq(0).attr('src', BaseUtils.proPath + 'images/icon_follow.png');
 			}
 		});
 		
@@ -32,7 +35,7 @@ $(function () {
 			if (data.code == 10000) {
 				BaseUtils.redirect(BaseUtils.proPath + 'message/messageDetail/' + $('#createId').val() + '/');
 			} else {
-				alert(data.message);
+				Alert.info(data.message);
 			}
 		});
 	});

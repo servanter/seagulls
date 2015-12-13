@@ -69,6 +69,9 @@ public interface UserService {
      * @return
      */
     public Response checkPhone(String phone);
+    
+    
+    public Response hasPhone(String phone);
 
     /**
      * 完善信息
@@ -93,5 +96,7 @@ public interface UserService {
     public Map<String, Object> findUserByIdWithCompany(User curUser);
     
     public List<User> findFriendUsers(Long userId);
+
+    public Response modifyPassword(User user, String passwordNew);
 
 }

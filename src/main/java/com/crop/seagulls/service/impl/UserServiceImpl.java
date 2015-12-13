@@ -190,6 +190,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Response forgetPassword(User user) {
-        return userDAO.updatePassword(user)> 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+        return userDAO.updatePassword(user) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+    }
+
+    @Override
+    public Response hasPhone(String phone) {
+        Response response = new Response();
+        if (isNameValid(phone)) {
+            response.setReturnCode(ReturnCode.USER_NOT_FOUND);
+        } else {
+            response.setReturnCode(ReturnCode.SUCCESS);
+        }
+        return response;
+    }
+
+    @Override
+    public Response modifyPassword(User user, String passwordNew) {
+        User u = userDAO.getUserByNameAndPass(user);
+        Response response = new Response(u != null ? ReturnCode.SUCCESS : ReturnCode.USER_OR_PASSWORD_UNVALID);
+        if (ReturnCode.isSuccess(response.getReturnCode())) {
+            user.setPassword(passwordNew);
+            response = userDAO.update(user) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+        }
+        return response;
     }
 }

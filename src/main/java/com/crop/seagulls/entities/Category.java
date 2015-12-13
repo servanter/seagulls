@@ -32,6 +32,10 @@ public class Category extends Page {
 
     private Timestamp createTime;
     
+    private Boolean isValid;
+    
+    private Timestamp updateTime;
+    
     
     private List<Varieties> varieties;
 
@@ -117,5 +121,23 @@ public class Category extends Page {
     public void setVarieties(List<Varieties> varieties) {
         this.varieties = varieties;
     }
+
+    public Boolean getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(Boolean isValid) {
+        this.isValid = isValid;
+    }
+
+    public Timestamp getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Timestamp updateTime) {
+        this.updateTime = updateTime;
+    }
+    
+    
 
 }

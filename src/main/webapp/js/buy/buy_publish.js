@@ -79,6 +79,11 @@ $(function() {
 			Alert.info('请输入联系电话');
 			return;
 		}
+		var note = $('textarea[name=note]').val();
+		if (note.length > 500) {
+			Alert.info('简介只能输入500字以内');
+			return;
+		}
 		
 		var successFlag = true;
 		$.each($('.img-file'), function(index, item) {

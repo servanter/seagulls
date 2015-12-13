@@ -10,15 +10,18 @@
 		<result property="firstLetter" column="first_letter" />
 		<result property="imgUrl" column="img_url" />
 		<result property="createTime" column="create_time" />
+		<result property="isValid" column="is_valid" />
+		<result property="updateTime" column="update_time" />
 	</resultMap>
 
 	<sql id="base_columns">
-		id, p_id, en_name, zh_name, create_time, first_letter, img_url
+		id, p_id, en_name, zh_name, create_time, first_letter, img_url, is_valid, update_time
 	</sql>
-	<select id="getList" resultMap="dictCategoryMap">
+	<select id="getAll" resultMap="dictCategoryMap">
 		SELECT
 		<include refid="base_columns" />
 		FROM crop_category
+		WHERE is_valid = 1
 	</select>
 
 	<select id="getByPId" parameterType="long"
@@ -29,12 +32,12 @@
 	</select>
 
 	<insert id="insert" parameterType="category">
-		INSERT INTO crop_category (id, p_id, zh_name, en_name, first_letter 
+		INSERT INTO crop_category (id, p_id, zh_name, en_name, first_letter, update_time 
 		<if test="imgUrl != null and imgUrl.length() > 0">
 			,img_url
 		</if>
 		) VALUES
-		(#{id}, #{pId},#{zhName}, #{enName}, #{firstLetter}
+		(#{id}, #{pId},#{zhName}, #{enName}, #{firstLetter}, NOW()
 		<if test="imgUrl != null and imgUrl.length() > 0">
 			,#{imgUrl}
 		</if>
@@ -47,10 +50,12 @@
 	<update id="update" parameterType="category">
 		UPDATE crop_category
 		<set>
+			update_time = NOW(),
 			<if test="zhName != null">zh_name=#{zhName},</if>
 			<if test="enName != null">en_name=#{enName},</if>
 			<if test="firstLetter != null">first_letter=#{firstLetter},</if>
 			<if test="imgUrl != null">img_url=#{imgUrl},</if>
+			<if test="isValid != null">is_valid = #{isValid},</if>
 		</set>
 		WHERE id=#{id}
 	</update>

@@ -106,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</a>
 		</li>
 		<li>
-			<a href="#" target="_top">
+			<a href="${ctx }/user/modifyPassword/" target="_top">
 				<span><img src="images/wode_mima.png" /></span>
 				<h4>修改密码</h4>
 				<b><img src="images/arrowRight.png" /></b>

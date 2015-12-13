@@ -15,7 +15,7 @@ public interface DictCategoryDAO {
      * 
      * @return
      */
-    public List<Category> getList();
+    public List<Category> getAll();
 
     /**
      * Get by pId

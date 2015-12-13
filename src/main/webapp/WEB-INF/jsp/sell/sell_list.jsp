@@ -21,14 +21,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" type="text/css" href="${ctx }/css/style.css">
 <link rel="stylesheet" type="text/css" href="${ctx }/css/pullToRefresh.css">
 <link rel="stylesheet" type="text/css" href="${ctx }/css/reset.css">
+<link rel="stylesheet" type="text/css" href="${ctx }/css/extra.css">
 <script type="text/javascript" src="${ctx }/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
 <script type="text/javascript" src="${ctx }/js/common.js"></script>
+<script type="text/javascript" src="${ctx }/js/alert.js"></script>
 <script type="text/javascript" src="${ctx }/js/iscroll.js"></script>
 <script type="text/javascript" src="${ctx }/js/pullToRefresh.js"></script>
 <script type="text/javascript" src="${ctx }/js/colorful.js"></script>
-<script type="text/javascript" src="${ctx }/js/sell/sell.js"></script>
+<script type="text/javascript" src="${ctx }/js/sell/sell.js?123=123"></script>
 <script type="text/javascript">
 $(function(){
 	$("#arrowOpne").click(function(){

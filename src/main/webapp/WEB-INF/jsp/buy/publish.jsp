@@ -18,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="Cache" content="no-cache">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<title>发布供货</title>
+<title>发布求购</title>
 <link rel="stylesheet" type="text/css" href="${ctx }/css/style.css">
 <link rel="stylesheet" type="text/css" href="${ctx }/css/extra.css">
 <script type="text/javascript" src="${ctx }/js/jquery-1.11.0.min.js"></script>
@@ -81,7 +81,7 @@ $(document).ready(function() {
 
 <body>
 <!--顶部-->
-<jsp:include page="/common/header.jsp?displayText=发布供货"></jsp:include>
+<jsp:include page="/common/header.jsp?displayText=发布求购"></jsp:include>
 <!--底部按钮-->
 
 <div class="bottom_button">

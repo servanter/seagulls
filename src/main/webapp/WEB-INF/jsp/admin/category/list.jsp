@@ -25,7 +25,7 @@
 		<script src="${ctx }/js/baseutils.js" type="text/javascript"></script>
 		<script src="${ctx }/js/admin/alert.js" type="text/javascript"></script>
 		<script src="${ctx }/js/admin/menu.js" type="text/javascript"></script>
-		<script src="${ctx }/js/admin/category/category.js?da=1211" type="text/javascript"></script>
+		<script src="${ctx }/js/admin/category/category.js?da=1123211" type="text/javascript"></script>
 	</head>
 
 	<body>
@@ -49,6 +49,7 @@
 										<th class="text-center">首字母</th>
 										<th class="text-center">分类图片</th>
 										<th class="text-center">创建时间</th>
+										<th class="text-center">状态</th>
 										<th class="text-center">操作</th>
 									</tr>
 								</thead>
@@ -61,9 +62,28 @@
 											<td>${model.enName }</td>
 											<td>${model.firstLetter }</td>
 											<td><img style="width:80px;" src="${ctx }/${model.imgUrl }"></td>
+											<td>
+												<c:choose>
+													<c:when test="${model.isValid }">
+														上架
+													</c:when>
+													<c:otherwise>
+														下架
+													</c:otherwise>
+												</c:choose>
+											</td>
 											<td>${model.createTime }</td>
 											<td>
+												<c:choose>
+													<c:when test="${model.isValid }">
+														<button type="button" class="btn btn-success btn-down" param="${model.id }"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>下架</button>
+													</c:when>
+													<c:otherwise>
+														<button type="button" class="btn btn-success btn-up" param="${model.id }"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>上架</button>
+													</c:otherwise>
+												</c:choose>
 												<button type="button" class="btn btn-primary btn-edit" data-toggle="modal" data-target=".edit-modal" param="${model.id }"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改</button>
+												
 												<button type="button" class="btn btn-danger btn-remove" data-toggle="modal" data-target=".remove-modal" param="${model.id }"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除</button>
 											</td>
 										</tr>

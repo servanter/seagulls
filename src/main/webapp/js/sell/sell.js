@@ -18,7 +18,7 @@ function reload() {
 	}
 	$.getJSON(BaseUtils.proPath + 'sell/ajaxFindList/?page=1&searchCategoryId=' + cate, function(data) {
 		if (data.code != 10000) {
-			alert(data.message);
+			Alert.info(data.message);
 		} else {
 			$('#wrapper ul').empty();
 			if(data.result) {
@@ -75,7 +75,7 @@ function nextPage() {
 	}
 	$.getJSON(BaseUtils.proPath + 'sell/ajaxFindList/?page=' + curPage + '&searchCategoryId=' + cate, function(data) {
 		if (data.code != 10000) {
-			alert(data.message);
+			Alert.info(data.message);
 		} else {
 			curPage = data.result.nextPage;
 			if(data.result.list.result && data.result.list.result.length) {
@@ -86,7 +86,7 @@ function nextPage() {
 					every += '<div class="list_img">';
 					every += '<img src="'+BaseUtils.proPath+'/images/sheguo.jpg">';
 					every += '</div>';
-					every += '<dl>';
+					every += '<dl style="position:relative;">';
 					every += '<dt>'+s.title+'</dt>';
 					every += '<dd class="address">';
 					every += '<span>'+s.pageAddress+'</span>';
@@ -99,8 +99,12 @@ function nextPage() {
 					every += '</span>';
 					every += '</dd>';
 					every += '<dd class="time">';
-					every += '<span>'+s.pageTimeAlias+'发布</span><span>'+s.pagePeriod+'</span>';
+					every += '<span>'+s.pageTimeAlias+'发布</span>';
 					every += '</dd>';
+					every += '<dd class="shixiao">';
+					every += '<span>'+s.pagePeriod+'</span>';
+					every += '</dd>';
+					
 					every += '</dl>';
 					every += '<div class="price">';
 					every += '<strong>'+s.price+'</strong>元/' + s.pageUnit.title;

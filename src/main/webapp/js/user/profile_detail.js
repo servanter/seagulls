@@ -13,6 +13,7 @@ $(function() {
 	});
 	
 	$('#a-save').click(function() {
+		Alert.loading();
 		var option = {
 			type: 'POST',
 			url: BaseUtils.proPath + 'user/profileDetail/',

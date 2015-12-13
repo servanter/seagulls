@@ -41,10 +41,19 @@ $(function() {
 			Alert.info("请输入手机号码");
 			return;
 		}
-		$.getJSON(BaseUtils.proPath + 'system/sendCode/?phone=' + phone, function(data) {
+		
+		if(!BaseUtils.isMobile(phone)) {
+			Alert.info("请输入正确的手机号码");
+			return;
+		}
+		var validate = $('#validate').val();
+		if(!validate) {
+			validate = 0;
+		}
+		$.getJSON(BaseUtils.proPath + 'system/sendCode/?phone=' + phone + "&validate=" + validate, function(data) {
 			if (data.code != 10000) {
-				$('.tips').text(data.message);
 				$('.tip-item').removeClass('dn');
+				Alert.info(data.message);
 			} else {
 				$('.send-div').removeClass('dn');
 				countNum = 60;
@@ -169,6 +178,49 @@ $(function() {
 			}
 		}
 		$('#forget-form').ajaxSubmit(option);
+	});
+	
+	
+	$('#a-modify-pass').click(function() {
+		var password = $('#password').val();
+		if (!password || password.length == 0) {
+			Alert.info("请输入密码");
+			return;
+		}
+		
+		var passwordNew = $('#passwordNew').val();
+		if (!passwordNew || passwordNew.length == 0) {
+			Alert.info("请输入新密码");
+			return;
+		}
+		var passwordNew2 = $('#passwordNew2').val();
+		if (!passwordNew2 || passwordNew2.length == 0) {
+			Alert.info("请输入确认密码");
+			return;
+		}
+		
+		if(passwordNew.length < 6 || passwordNew.length > 20) {
+			Alert.info("请输入密码6-20位数字或字符");
+			return;
+		}
+		
+		if(passwordNew != passwordNew2) {
+			Alert.info("两次输入的密码不一致");
+			return;
+		}
+
+		var option = {
+			type: 'POST',
+			url: BaseUtils.proPath + 'user/modifyPassword/',
+			success: function(data) {
+				if (data.code != 10000) {
+					Alert.info(data.message);
+				} else {
+					Alert.info("操作成功, 请重新登录", '', '去登陆', BaseUtils.proPath + 'login/');
+				}
+			}
+		}
+		$('#password-form').ajaxSubmit(option);
 	});
 });
 
