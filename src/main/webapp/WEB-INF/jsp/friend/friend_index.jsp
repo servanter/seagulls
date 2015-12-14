@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <title>联系人</title>
-<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="${ctx }/text/css" href="${ctx }/css/style.css">
 </head>
 
 <body>

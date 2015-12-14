@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,7 +47,7 @@ public class SystemController {
     String phone, @RequestParam(value = "validate", required = false)
     Integer validate, HttpSession session) {
         Response response = new Response(ReturnCode.SUCCESS);
-        if(validate != null && validate == 1) {
+        if (validate != null && validate == 1) {
             response = userService.hasPhone(phone);
         }
         if (ReturnCode.isSuccess(response.getReturnCode())) {
@@ -93,6 +94,23 @@ public class SystemController {
         g.dispose();
         SessionUtils.setValue(session, Constant.VERIFICATIONCODE, sRand);
         ImageIO.write(image, "JPEG", response.getOutputStream());
+    }
+
+    @ResponseBody
+    @RequestMapping("/checkImageCode")
+    public Response checkImageCode(@RequestParam("imageCode")
+    String imageCode, HttpSession session) {
+        Response response = new Response();
+        response.setReturnCode(ReturnCode.SUCCESS);
+        if (StringUtils.isNotBlank(imageCode)) {
+            boolean isExpect = SessionUtils.equals(session, Constant.VERIFICATIONCODE, imageCode);
+            if (!isExpect) {
+                response.setReturnCode(ReturnCode.IMAGE_CODE_ERROR);
+            }
+        } else {
+            response.setReturnCode(ReturnCode.IMAGE_CODE_ERROR);
+        }
+        return response;
     }
 
     @ResponseBody

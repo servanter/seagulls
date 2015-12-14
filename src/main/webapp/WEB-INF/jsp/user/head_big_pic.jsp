@@ -13,8 +13,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="author" content=" LiYuxi" /> 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
 <title>轮播图</title>
-<link rel="stylesheet" href="css/style.css" type="text/css">
-<link rel="stylesheet" href="css/slide.css" type="text/css">
+<link rel="stylesheet" href="${ctx }/css/style.css" type="text/css">
+<link rel="stylesheet" href="${ctx }/css/slide.css" type="text/css">
 <script type="text/javascript" src="${ctx }/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>

@@ -45,6 +45,7 @@ public class LoginFilter implements Filter {
             includeURL = new String[1];
             includeURL[0] = value;
         }
+        
     }
 
     @Override

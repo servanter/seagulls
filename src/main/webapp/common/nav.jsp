@@ -6,7 +6,7 @@
 		<c:choose>
 			<c:when test="${param.nav eq 1 }">
 				<li class="selected">
-				<a href="${ctx }" target="_top">
+				<a href="${ctx }/" target="_top">
 					<img src="${ctx }/images/nav01_selected.png" />
 					<span>首页</span>
 				</a>
@@ -14,7 +14,7 @@
 			</c:when>
 			<c:otherwise>
 				<li>
-				<a href="${ctx }" target="_top">
+				<a href="${ctx }/" target="_top">
 					<img src="${ctx }/images/nav01.png" />
 					<span>首页</span>
 				</a>

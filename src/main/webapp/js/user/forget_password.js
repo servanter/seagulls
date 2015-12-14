@@ -3,6 +3,12 @@ var Time;
 $(function() {
 
 	$('body').delegate('.a-send', 'click', function() {
+		var imageCode = $('input[name=imageCode]').val();
+		if (!imageCode || imageCode.length == 0) {
+			Alert.info("请输入验证码");
+			return;
+		}
+		
 		var phone = $('input[name=phone]').val();
 		if (!phone || phone.length == 0) {
 			Alert.info("请输入手机号码");
@@ -14,23 +20,31 @@ $(function() {
 			return;
 		}
 		
-		$.getJSON(BaseUtils.proPath + 'checkPhone/?phone=' + phone, function(data) {
-			if (data.code != 10000) {
-				$.getJSON(BaseUtils.proPath + 'system/sendCode/?phone=' + phone, function(data) {
-					if (data.code != 10000) {
-						$('.tip-item').removeClass('dn');
-						Alert.info(data.message);
-					} else {
-						$('.send-div').removeClass('dn');
-						countNum = 60;
-						Time = setInterval(countdown, 1000);
-						$('.a-send').removeClass('a-send');
-					}
-				})
+		$.getJSON(BaseUtils.proPath + 'system/checkImageCode/?imageCode=' + imageCode, function(data1) {
+			if (data1.code != 10000) {
+				Alert.info(data1.message);
 			} else {
-				Alert.info('用户名还没有注册');
+				$.getJSON(BaseUtils.proPath + 'checkPhone/?phone=' + phone, function(data2) {
+					if (data2.code == 10000) {
+						Alert.info('手机号码未注册');
+					} else {
+						$.getJSON(BaseUtils.proPath + 'system/sendCode/?phone=' + phone, function(data3) {
+							if (data3.code != 10000) {
+								$('.tip-item').removeClass('dn');
+								Alert.info(data3.message);
+							} else {
+								$('.send-div').removeClass('dn');
+								countNum = 60;
+								Time = setInterval(countdown, 1000);
+								$('.a-send').removeClass('a-send');
+							}
+						})
+					}
+				});
 			}
-		});
+		})
+		
+		
 	});
 	
 	$('#a-forget').click(function() {

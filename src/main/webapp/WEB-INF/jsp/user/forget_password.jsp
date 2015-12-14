@@ -40,14 +40,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="contentBg2">
 			<ul class="loginList">
 				<li>
+				<input placeholder="图片验证码" type="text" name="imageCode" />
+					<a class="verificationCode" href="javascript:void(0)"><img src="${ctx }/system/generateCode/" /></a>
+				</li>
+				<li>
 					<input name="phone" placeholder="请输入手机号" type="text" />
 					<a id="a-send" class="loginCode bgOrange a-send" href="javascript:void(0)">获取验证码</a>
 				</li>
 				<li><input name="smsCode" placeholder="请输入4位手机验证码" type="text" /></li>
-				<li>
-				<input placeholder="图片验证码" type="text" name="imageCode" />
-					<a class="verificationCode" href="javascript:void(0)"><img src="${ctx }/system/generateCode/" /></a>
-				</li>
 				<li><input id="password" name="password" placeholder="请重置密码" type="password" /></li>
 				<li><input id="password2" name="password2" placeholder="请确认密码" type="password" /></li>
 			</ul>
