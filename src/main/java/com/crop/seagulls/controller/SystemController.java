@@ -52,7 +52,6 @@ public class SystemController {
         }
         if (ReturnCode.isSuccess(response.getReturnCode())) {
             response = systemService.send(phone);
-            System.out.println(response.getResult() + "+++++++++++++++++++==");
             if (ReturnCode.isSuccess(response.getReturnCode())) {
                 SessionUtils.setValue(session, Constant.SMSCODE, response.getResult());
             }
