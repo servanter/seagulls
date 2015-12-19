@@ -2,7 +2,9 @@ package com.crop.seagulls.entities;
 
 import java.sql.Timestamp;
 
-public class Banner {
+import com.crop.seagulls.bean.BaseAdmin;
+
+public class Banner extends BaseAdmin {
 
     private Long id;
 

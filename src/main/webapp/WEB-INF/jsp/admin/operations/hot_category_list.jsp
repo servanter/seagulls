@@ -47,7 +47,6 @@
 										<th class="text-center">分类名称</th>
 										<th class="text-center">创建时间</th>
 										<th class="text-center">更新时间</th>
-										<th class="text-center">排序</th>
 										<th class="text-center">操作人</th>
 										<th class="text-center">操作</th>
 									</tr>
@@ -60,9 +59,9 @@
 											<td>${model.categoryName }</td>
 											<td>${model.createTime }</td>
 											<td>${model.updateTime }</td>
-											<td>${model.seq }</td>
-											<td>${model.operatorId }</td>
+											<td>${model.userName }</td>
 											<td>
+												<button type="button" class="btn btn-info btn-top" param="${model.id }"><span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true"></span>置顶</button>
 												<button type="button" class="btn btn-primary btn-edit" data-toggle="modal" data-target=".edit-modal" param="${model.id }"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改</button>
 												<button type="button" class="btn btn-danger btn-remove" data-toggle="modal" data-target=".remove-modal" param="${model.id }"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除</button>
 											</td>
@@ -70,7 +69,6 @@
 									</c:forEach>
 								</tbody>
 							</table>
-							
 							
 						
 						<div class="modal fade remove-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">

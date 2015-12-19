@@ -33,8 +33,9 @@ public class OperationsController {
     @RequestMapping("/indexBanner_n{page:\\d+}")
     public String indexBanner(@PathVariable("page")
     Integer page, Model model) {
-        List<Banner> banners = bannerService.findAll();
-        model.addAttribute("list", new Paging<Banner>(banners.size(), 1, 20, banners));
+        Banner banner = new Banner();
+        banner.setPage(page);
+        model.addAttribute("list", bannerService.findList(banner));
         return "admin/operations/index_banner_list";
     }
 
@@ -54,6 +55,13 @@ public class OperationsController {
     }
 
     @ResponseBody
+    @RequestMapping("/indexBanner/top")
+    public Response indexBannerTop(@RequestParam("id")
+    Long id) {
+        return bannerService.top(id);
+    }
+
+    @ResponseBody
     @RequestMapping("/indexBanner/add")
     public Response add(Banner banner, HttpServletRequest request) {
         UploadUtils.upload("images/edit/banner/", "images/edit/banner/", banner, request);
@@ -70,8 +78,9 @@ public class OperationsController {
     @RequestMapping("/hotCategoies_n{page:\\d+}")
     public String hotCategoies(@PathVariable("page")
     Integer page, Model model) {
-        List<HotCategory> hotCategories = hotCategoryService.findAll();
-        model.addAttribute("list", new Paging<HotCategory>(hotCategories.size(), 1, 20, hotCategories));
+        HotCategory hotCategory = new HotCategory();
+        hotCategory.setPage(page);
+        model.addAttribute("list", hotCategoryService.findList(hotCategory));
         return "admin/operations/hot_category_list";
     }
 
@@ -87,6 +96,13 @@ public class OperationsController {
     @RequestMapping("/hotCategoies/modify")
     public Response hotCategoiesModify(HotCategory hotCategory, HttpServletRequest request) {
         return hotCategoryService.modify(hotCategory);
+    }
+
+    @ResponseBody
+    @RequestMapping("/hotCategoies/top")
+    public Response hotCategoiesTop(@RequestParam("id")
+    Long id) {
+        return hotCategoryService.top(id);
     }
 
     @ResponseBody

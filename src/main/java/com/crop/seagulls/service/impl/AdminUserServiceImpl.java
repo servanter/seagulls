@@ -142,4 +142,9 @@ public class AdminUserServiceImpl implements AdminUserService, UserDetailsServic
         return adminUserDAO.delete(id) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
     }
 
+    @Override
+    public List<User> findAll() {
+        return adminUserDAO.getAll();
+    }
+
 }

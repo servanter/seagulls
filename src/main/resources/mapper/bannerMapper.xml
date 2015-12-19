@@ -18,11 +18,24 @@
 		id, title, link, img_url, create_time, update_time, seq, is_valid, operator_id
 	</sql>
 
+	
+	<select id="getList" parameterType="banner" resultMap="bannerMap">
+		SELECT 
+		<include refid="base_columns"/>
+		FROM crop_banner
+		WHERE is_valid = 1 ORDER BY seq DESC LIMIT #{sinceCount}, #{pageSize}
+	</select>
+	
+	<select id="getListCount" resultType="int">
+		SELECT COUNT(*)FROM crop_banner
+		WHERE is_valid = 1
+	</select>
+	
 	<select id="getAll" resultMap="bannerMap">
 		SELECT 
 		<include refid="base_columns"/>
 		FROM crop_banner
-		WHERE is_valid = 1 ORDER BY seq ASC
+		WHERE is_valid = 1 ORDER BY seq DESC
 	</select>
 	
 	<select id="getById" resultMap="bannerMap">
@@ -61,4 +74,8 @@
 		VALUES
 		(#{title}, #{link}, #{imgUrl}, NOW(), #{operatorId}, #{seq}, #{isValid})
 	</insert>
+	
+	<select id="getMaxSeq" resultType="int">
+		SELECT MAX(seq) FROM crop_banner
+	</select>
 </mapper>

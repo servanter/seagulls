@@ -27,4 +27,6 @@ public interface AdminUserDAO {
 
     List<User> getUsersWithRoles();
 
+    List<User> getAll();
+
 }

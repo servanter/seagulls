@@ -17,4 +17,10 @@ public interface BannerDAO {
 
     Banner getById(Integer id);
 
+    int getMaxSeq();
+
+    List<Banner> getList(Banner banner);
+
+    int getListCount(Banner banner);
+
 }

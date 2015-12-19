@@ -17,4 +17,9 @@ public interface HotCategoryDAO {
 
     int update(HotCategory hotCategory);
 
+    int getMaxSeq();
+
+    List<HotCategory> getList(HotCategory hotCategory);
+
+    int getListCount(HotCategory hotCategory);
 }

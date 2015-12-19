@@ -76,4 +76,19 @@ $(function() {
 	$('.alert-link').click(function() {
 		$('.edit-modal input[name=pId]').val($(this).attr('param'));
 	});
+	
+	$('.btn-top').click(function() {
+		$.getJSON(BaseUtils.proPath + 'admin/operations//indexBanner/top/?id=' + $(this).attr('param'), function(data) {
+			if (data.code == 10000) {
+				BaseUtils.reload();
+			} else {
+				var msg = Alert.succ('操作失败:' + data.message,'text-center', function(msg) {
+					$('.pull-right').before(msg);
+				}, function(msg) {
+					Alert.leave();
+				});
+			}
+		});
+		
+	});
 })

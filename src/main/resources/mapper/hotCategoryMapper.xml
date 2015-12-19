@@ -16,10 +16,22 @@
 		id, category_id, seq, create_time , update_time, is_valid, operator_id
 	</sql>
 
+	<select id="getList" parameterType="hotCategory" resultMap="hotCategoryMap">
+		SELECT 
+		<include refid="base_columns"/>
+		FROM crop_hot_category
+		WHERE is_valid = 1 ORDER BY seq DESC LIMIT #{sinceCount}, #{pageSize}
+	</select>
+	
+	<select id="getListCount" parameterType="hotCategory" resultType="int">
+		SELECT COUNT(*)FROM crop_hot_category
+		WHERE is_valid = 1
+	</select>
+	
 	<select id="getAll" resultMap="hotCategoryMap">
 		SELECT *
 		FROM crop_hot_category
-		WHERE is_valid = 1 ORDER BY seq ASC
+		WHERE is_valid = 1 ORDER BY seq DESC
 	</select>
 	
 	<select id="getById" resultMap="hotCategoryMap">
@@ -52,6 +64,10 @@
 		VALUES
 		(#{categoryId}, NOW(), #{operatorId}, #{seq}, #{isValid})
 	</insert>
+	
+	<select id="getMaxSeq" resultType="int">
+		SELECT MAX(seq) FROM crop_hot_category
+	</select>
 	
 	
 </mapper>

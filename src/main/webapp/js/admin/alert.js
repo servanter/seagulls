@@ -24,4 +24,3 @@ Alert.leave = function (animateSettings) {
 		$('div.alert').fadeOut(2000);
 	}
 }
-

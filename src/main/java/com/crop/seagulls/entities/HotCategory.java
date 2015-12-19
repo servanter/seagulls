@@ -2,7 +2,9 @@ package com.crop.seagulls.entities;
 
 import java.sql.Timestamp;
 
-public class HotCategory {
+import com.crop.seagulls.bean.BaseAdmin;
+
+public class HotCategory extends BaseAdmin {
 
     private Long id;
 
