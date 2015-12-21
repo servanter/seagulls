@@ -17,6 +17,7 @@ $(function() {
 		} else {
 			$('#btn-update').text('新增');
 			$('#myModalLabel').text('新增');
+			$('input[name=seq]').val('0');
 		}
 	});
 	

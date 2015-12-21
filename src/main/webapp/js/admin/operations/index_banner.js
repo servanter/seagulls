@@ -4,6 +4,7 @@ $(function() {
 		var id = $(this).attr('param');
 		if(id.length) {
 			$('#btn-update').text('修改');
+			$('#myModalLabel').text('修改');
 			$.getJSON(BaseUtils.proPath + 'admin/operations/indexBanner/ajaxFindById/?id=' + id, function(data) {
 				if(data && data.code == 10000) {
 					$('#form-edit [name=id]').val(id);
@@ -16,6 +17,8 @@ $(function() {
 			});
 		} else {
 			$('#btn-update').text('新增');
+			$('#myModalLabel').text('新增');
+			$('input[name=seq]').val('0');
 		}
 	});
 	
