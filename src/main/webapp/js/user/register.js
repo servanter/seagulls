@@ -26,8 +26,6 @@ $(function() {
 			} else {
 				$.getJSON(BaseUtils.proPath + 'checkPhone/?phone=' + phone, function(data2) {
 					if (data2.code == 10000) {
-						Alert.info('手机号码未注册');
-					} else {
 						$.getJSON(BaseUtils.proPath + 'system/sendCode/?phone=' + phone, function(data3) {
 							if (data3.code != 10000) {
 								$('.tip-item').removeClass('dn');
@@ -39,6 +37,8 @@ $(function() {
 								$('.a-send').removeClass('a-send');
 							}
 						})
+					} else {
+						Alert.info(data2.message);
 					}
 				})
 			}
