@@ -21,9 +21,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>发布求购</title>
 <link rel="stylesheet" type="text/css" href="${ctx }/css/style.css">
 <link rel="stylesheet" type="text/css" href="${ctx }/css/extra.css">
+
 <script type="text/javascript" src="${ctx }/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="${ctx }/js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="${ctx }/js/area.js"></script>
 <script type="text/javascript" src="${ctx }/js/location.js"></script>
+<script type="text/javascript" src="${ctx }/js/category_area.js"></script>
+<script type="text/javascript" src="${ctx }/js/category.js"></script>
+
 <script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
 <script type="text/javascript" src="${ctx }/js/common.js"></script>
@@ -31,6 +36,70 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${ctx }/js/buy/buy_publish.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+	
+	//品类弹窗
+	$("#form_pinlei").click(function(){
+		$("#tanchu_pinlei").show();
+	});
+	$(".tanchuceng .icon_back").click(function(){
+		$(this).parents(".tanchuceng").hide();
+	});
+	
+	$('body').on('click', '#category_01 li', function() {
+		$(this).siblings().removeClass("selected");
+		$(this).addClass("selected");
+		$("#category_02").fadeIn(100);
+		$("#category_03,#category_02_text").fadeOut(100);
+	});
+	$('body').on('click', '#category_02 li', function() {
+		$("#category_02_text,#category_03").fadeIn(100);
+		$("#category_02_text span").text($(this).text());
+		$("#category_02_text span").attr('param', $(this).attr('param'));
+		$("#category_02").fadeOut(100);
+		$(this).addClass("selected");
+	});
+	$('body').on('click', '#category_02_text', function() {
+		$("#category_02").fadeIn(100);
+		$("#category_03").fadeOut(100);
+		$(this).hide();
+	});
+	$('body').on('click', '#category_03 li', function() {
+		$(this).parents(".tanchuceng").hide();
+		var msg = '';
+		if($(this).attr('param') == '-1') {
+			msg = $("#category_02_text span").text();
+		} else {
+			msg = $("#category_02_text span").text() + " " + $(this).text();
+		}
+		$("#form_pinlei input").val(msg);
+		$('input[name=searchCategoryId]').val($("#category_02_text span").attr('param'));
+		$('input[name=varietiesId]').val($(this).attr('param'));
+	});
+	$(function(){ //调用插件
+        $.fn.citySelect();
+    });
+    $(function(){
+        form1 = $('form[name=form1]'),
+         prev = $('input[name=cho_Province]' , form1),
+         city = $('input[name=cho_City]' , form1),
+         area = $('input[name=cho_Area]' , form1),
+         vale = ['请选择分类','请选择水果','请选择品种'];
+        form1.submit(function(){
+            if(prev.val() == vale[0]){
+                alert(vale[0]);
+                return false;
+            };
+            if(city.val() == vale[1]){
+                alert(vale[1]);
+                return false;
+            };
+            if(area.val() == vale[2]){
+                alert(vale[2]);
+                return false;
+            }
+        });
+    });
+	//品类弹窗结束
 	
 	//供货地
 	showLocation();
@@ -57,24 +126,7 @@ $(document).ready(function() {
 		$(this).parents(".tanchuceng").hide();
 	});
 	//供货地结束
-	//品类弹窗
-	$("#form_pinlei").click(function(){
-		$("#tanchu_pinlei").show();
-	});
-	$(".tanchuceng .icon_back").click(function(){
-		$(this).parents(".tanchuceng").hide();
-	});
-	$(".tanchu_pinlei li h4").click(function(){
-		$("#form_pinlei input").val($(this).text());
-		$("#tanchu_pinlei").hide();
-	});
-	$(".tanchu_pinlei li span").click(function(){
-		$("#form_pinlei input").val($(this).parent("div").siblings("h4").text() + " " + $(this).text());
-		$('input[name=varietiesId]').val($(this).attr('c'));
-		$('input[name=searchCategoryId]').val($(this).attr('p'));
-		$("#tanchu_pinlei").hide();
-	});
-	//品类弹窗结束
+	
 });
 </script>
 </head>
@@ -206,27 +258,28 @@ $(document).ready(function() {
 		</div>
 	</div>
 	<!--品类-->
+
 	<div class="tanchuceng" id="tanchu_pinlei" style="display:none;">
 		<div class="tanchu_topBar">
 			<div class="icon_back">
-				<img src="${ctx }/images/icon_close.png" />
+				<img src="images/icon_close.png" />
 			</div>
 			<h1>品类</h1>
 		</div>
-		<div class="tanchu_box">
-			<ul class="tanchu_pinlei">
-				<c:forEach var="cv" items="${cvData}">
-					<li>
-						<h4>${cv.zhName }</h4>
-						<div>
-							<c:forEach var="v" items="${cv.varieties}">
-								<span p="${cv.id }" c="${v.id }">${v.zhName }</span>
-							</c:forEach>
-						</div>
-					</li>
-				</c:forEach>
+		<div class="pinlei_tab" id="category_01">
+			<ul>
 			</ul>
 		</div>
+		<div class="tanchu_pinlei" id="category_02">
+			<ul>
+			</ul>
+		</div>
+		<div class="tanchu_pinlei tanchu_pinlei2" id="category_03" style="display:none;">
+			<ul>
+	
+			</ul>
+		</div>
+		<div class="tanchu_pinlei_selected" id="category_02_text" style="display:none;"><span>香蕉</span><img src="images/arrowDown.png" /></div>
 	</div>
 	
 	<input type="hidden" name="provinceId"/>

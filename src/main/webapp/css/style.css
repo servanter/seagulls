@@ -200,7 +200,7 @@ nav#nav ul li.selected a{
 .articleDetailed ul li{
 	line-height:30px; font-size:15px;}
 .articleDetailed p{
-	font-size:15px; color:#6d6d72; line-height:25px; padding-top:5px; text-indent:2em;}
+	font-size:15px; color:#6d6d72; line-height:25px; padding-top:5px; text-indent:2em; word-wrap:break-word;}
 .contentImgList{
 	padding:15px 0px 15px 15px;}
 .contentImgList li{
@@ -428,11 +428,18 @@ li.formAvatar b img{ width:100%;}
 
 
 
-.tanchu_pinlei{ margin-top:44px;}
+.tanchu_pinlei{ position:absolute; width:100%; left:0; top:88px; box-sizing:border-box; padding-left:15px;}
+.tanchu_pinlei2{ top:132px;}
 .tanchu_pinlei li{ padding-bottom:15px;}
-.tanchu_pinlei li h4{ height:40px; line-height:40px; background:#f2f2f2; padding-left:15px; font-size:16px; color:#00c9a1;}
-.tanchu_pinlei li div{ padding-left:15px;}
-.tanchu_pinlei li div span{ display:inline-block; border:1px solid #444a4d; height:35px; line-height:35px; padding:0 10px; border-radius:5px; margin-right:10px; margin-top:15px; font-size:14px; color:#444a4d;}
+.tanchu_pinlei li{ display:inline-block; border:1px solid #444a4d; height:35px; line-height:35px; padding:0 10px; border-radius:5px; margin-right:10px; margin-top:15px; font-size:14px; color:#444a4d;}
+.pinlei_tab{ height:45px; background:#fff; position:fixed; top:44px; left:0px; width:100%; z-index:150;}
+.pinlei_tab li{ width:25%; float:left; height:44px; border-bottom:1px solid #eee; overflow:hidden; line-height:44px; text-align:center; font-size:14px;}
+.pinlei_tab li.selected{ color:#ff8b02; height:43px; border-bottom:2px solid #ff8b02;}
+
+.tanchu_pinlei_selected{ height:44px; background:#fff; border-bottom:1px solid #eee; position:fixed; width:100%; left:0; top:88px; box-sizing:border-box; padding:0 15px;}
+.tanchu_pinlei_selected span{ float:left; line-height:44px; font-size:14px; color:#444a4d;}
+.tanchu_pinlei_selected img{ height:8px; margin-top:18px; float:right;}
+
 
 
 .erroTips{ position:fixed; width:100%; height:0px; left:0; top:44px; overflow:hidden; text-align:center; z-index:90;}

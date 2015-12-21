@@ -19,12 +19,21 @@ import com.crop.seagulls.service.DictCategoryService;
 @Component
 public class CategoryCache {
 
+    /**
+     * id & map
+     */
     private static Map<Long, Category> ALL_CATEGORY_MAP = new HashMap<Long, Category>();
 
+    /**
+     * pid & sub categories
+     */
     private static Map<Long, List<Category>> CATEGORY_RELATION_MAP = new HashMap<Long, List<Category>>();
 
     private static List<String> CATEGORIES_DB_METHODS = new ArrayList<String>();
 
+    /**
+     * all categories
+     */
     private static List<Category> ALL_CATEGORY_WITH_VARIERTIES = new ArrayList<Category>();
     
     @Autowired

@@ -76,7 +76,7 @@
 											<td>
 												<c:choose>
 													<c:when test="${model.isValid }">
-														<button type="button" class="btn btn-success btn-down" param="${model.id }"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>下架</button>
+														<button type="button" class="btn btn-danger btn-down" param="${model.id }"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>下架</button>
 													</c:when>
 													<c:otherwise>
 														<button type="button" class="btn btn-success btn-up" param="${model.id }"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>上架</button>

@@ -16,6 +16,9 @@ import com.crop.seagulls.service.VarietiesService;
 @Component
 public class VarietiesCache {
 
+    /**
+     * category & varieties
+     */
     private static Map<Long, List<Varieties>> VARIETIES_CATEGORY_MAP = new HashMap<Long, List<Varieties>>();
 
     private static Map<Long, Varieties> ALL_VARIETIES_MAP = new HashMap<Long, Varieties>();
