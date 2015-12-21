@@ -57,10 +57,40 @@
 	</update>
 	
 	<insert id="save" parameterType="varieties">
-		INSERT INTO crop_varieties(category_id, zh_name, en_name, first_letter, create_time, operator_id) 
+		INSERT INTO crop_varieties(id, category_id, zh_name, en_name, first_letter, create_time, operator_id) 
 		VALUES
-		(#{categoryId}, #{zhName}, #{enName}, #{firstLetter}, NOW(), #{operatorId})
+		(#{id}, #{categoryId}, #{zhName}, #{enName}, #{firstLetter}, NOW(), #{operatorId})
 	</insert>
+	
+	<select id="getList" parameterType="varieties" resultMap="varietiesMap">
+		SELECT 
+		<include refid="base_columns" />
+		FROM crop_varieties 
+		<where>
+			<if test="categoryId != null and categoryId >= 0">
+			category_id = #{categoryId}
+			</if>
+		</where>
+		LIMIT #{sinceCount}, #{pageSize}
+	</select>
+
+	<select id="getListCount" parameterType="varieties" resultType="int">
+		SELECT COUNT(*)
+		FROM crop_varieties 
+		<where>
+			<if test="categoryId != null and categoryId >= 0">
+			category_id = #{categoryId}
+			</if>
+		</where>
+	</select>
+	
+	<delete id="delete" parameterType="long">
+		DELETE FROM crop_varieties WHERE id = #{id}
+	</delete>
+	
+	<select id="getNextId" resultType="long">
+		SELECT MAX(id + 1) AS nextId FROM crop_varieties WHERE id &gt; #{start} AND id &lt; #{end}
+	</select>
 	
 	
 </mapper>
