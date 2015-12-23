@@ -44,13 +44,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li>
 					<a href="${ctx }/buy/buy_list_c${topCategory.id }/">
 						<img src="${ctx }/${topCategory.imgUrl }" />
-						<span>${topCategory.zhName }</span>
+						<span style="${topCategory.style}">${topCategory.zhName }</span>
 					</a>
 				</li>
 			</c:forEach>
 		</ul>
-		<div class="splitLine" style="left:33%;"></div>
-		<div class="splitLine" style="left:66%;"></div>
 	</div>
 	<!--列表-->
 	<c:choose>

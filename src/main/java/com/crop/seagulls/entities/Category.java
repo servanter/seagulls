@@ -38,6 +38,8 @@ public class Category extends Page {
     
     
     private List<Varieties> varieties;
+    
+    private String style;
 
     public Category() {
         super();
@@ -136,6 +138,14 @@ public class Category extends Page {
 
     public void setUpdateTime(Timestamp updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
     }
     
     

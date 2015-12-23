@@ -55,7 +55,18 @@ public class CategoryCache {
             Map<Long, List<Category>> mapRelation = new HashMap<Long, List<Category>>();
             for (Category category : categories) {
                 map.put(category.getId(), category);
-
+                if(category.getId() == 1) {
+                    category.setStyle("color:#00c9a1;");
+                } else if (category.getId() == 2) {
+                    category.setStyle("color:#4bc72f;");
+                } else if (category.getId() == 3) {
+                    category.setStyle("color:#df8620;");
+                } else if (category.getId() == 4) {
+                    category.setStyle("color:#1f9be9;");
+                } else if (category.getId() == 900) {
+                    category.setStyle("color:#ff8b02;");
+                }
+                
                 if (mapRelation.containsKey(category.getPId())) {
                     mapRelation.get(category.getPId()).add(category);
                 } else {
@@ -65,6 +76,7 @@ public class CategoryCache {
                 }
                 category.setVarieties(varietiesCache.getByCategoryId(category.getId()));
             }
+            
             ALL_CATEGORY_MAP = map;
             CATEGORY_RELATION_MAP = mapRelation;
             ALL_CATEGORY_WITH_VARIERTIES = categories;
