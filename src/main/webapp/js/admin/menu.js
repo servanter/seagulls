@@ -69,6 +69,10 @@ function loadMenu(_id, settings) {
 
 
 function buildTree(treeObj, url, queryString, initData, settings, closeFunction) {
+	var isOpen = true;
+	if(settings.treeNode != undefined && settings.treeNode.open != undefined) {
+		isOpen = settings.treeNode.open;
+	}
 	$.getJSON(BaseUtils.proPath + url + queryString, function(data) {
 		if(data) {
 			var arr = new Array();
@@ -81,7 +85,7 @@ function buildTree(treeObj, url, queryString, initData, settings, closeFunction)
 						}
 					});
 				}
-				var node ={id:item.id, pId:item.parentId, name:item.text, open:true};
+				var node ={id:item.id, pId:item.parentId, name:item.text, open:isOpen};
 				if(isContains) {
 					node.checked = true;
 				} else {
@@ -105,6 +109,22 @@ function buildTree(treeObj, url, queryString, initData, settings, closeFunction)
 function getTreeData (treeId, callback) {
 	var zTree = $.fn.zTree.getZTreeObj(treeId),
 	nodes = zTree.getCheckedNodes(true),
+	v = "";
+	ids = "";
+	console.log(zTree);
+	console.log(nodes);
+	for (var i=0, l=nodes.length; i<l; i++) {
+		v += nodes[i].name + ",";
+		ids += nodes[i].id + ",";
+	}
+	if (v.length > 0 ) v = v.substring(0, v.length-1);
+	if (ids.length > 0 ) ids = ids.substring(0, ids.length-1);
+	callback({val:v, ids:ids});
+}
+
+function getSelectedTreeData (treeId, callback) {
+	var zTree = $.fn.zTree.getZTreeObj(treeId),
+	nodes = zTree.getSelectedNodes(),
 	v = "";
 	ids = "";
 	for (var i=0, l=nodes.length; i<l; i++) {

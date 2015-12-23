@@ -33,7 +33,7 @@ public class VarietiesController {
         Paging<Varieties> varietiesList = varietiesService.findList(varieties);
         model.addAttribute("result", varietiesList);
         model.addAttribute("s", varieties);
-        return "admin/category/list";
+        return "admin/varieties/list";
     }
 
     @ResponseBody

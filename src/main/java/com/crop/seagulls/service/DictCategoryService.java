@@ -20,6 +20,13 @@ public interface DictCategoryService {
      * @return
      */
     public List<Category> findAll();
+    
+    /**
+     * Get category list
+     * 
+     * @return
+     */
+    public Response findCategory();
 
     /**
      * Find by pid

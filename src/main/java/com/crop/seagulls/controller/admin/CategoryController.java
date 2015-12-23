@@ -23,6 +23,12 @@ public class CategoryController {
     @Autowired
     private DictCategoryService categoryService;
 
+    @ResponseBody
+    @RequestMapping("/findCategory")
+    public Response findCategory() {
+        return categoryService.findCategory();
+    }
+    
     @RequestMapping("/list_n{page:\\d+}")
     public String list(@PathVariable("page")
     Integer page, @RequestParam(value = "pId", defaultValue = "0", required = false)

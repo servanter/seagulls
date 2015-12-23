@@ -14,7 +14,6 @@ public class Varieties extends Page {
 
     private Long categoryId;
 
-
     private String enName;
 
     private String zhName;
@@ -28,6 +27,17 @@ public class Varieties extends Page {
     private Long operatorId;
 
     private Boolean isValid;
+    
+    
+    private Category category;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public Long getId() {
         return id;

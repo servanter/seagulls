@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
+import com.crop.seagulls.cache.CategoryCache;
 import com.crop.seagulls.dao.VarietiesDAO;
 import com.crop.seagulls.entities.Varieties;
 import com.crop.seagulls.service.VarietiesService;
@@ -19,6 +20,9 @@ public class VarietiesServiceImpl implements VarietiesService {
     @Autowired
     private VarietiesDAO varietiesDAO;
 
+    @Autowired
+    private CategoryCache categoryCache;
+
     @Override
     public List<Varieties> findAll() {
         return varietiesDAO.getAll();
@@ -28,6 +32,11 @@ public class VarietiesServiceImpl implements VarietiesService {
     public Paging<Varieties> findList(Varieties varieties) {
         List<Varieties> list = varietiesDAO.getList(varieties);
         int total = varietiesDAO.getListCount(varieties);
+        for (Varieties v : list) {
+            if (v.getCategoryId() != null && categoryCache.getById(v.getCategoryId()) != null) {
+                v.setCategory(categoryCache.getById(v.getCategoryId()));
+            }
+        }
         return new Paging<Varieties>(total, varieties.getPage(), varieties.getPageSize(), list);
     }
 

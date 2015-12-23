@@ -1,7 +1,11 @@
 package com.crop.seagulls.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +14,7 @@ import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.dao.DictCategoryDAO;
 import com.crop.seagulls.entities.Category;
+import com.crop.seagulls.entities.admin.Menu;
 import com.crop.seagulls.service.DictCategoryService;
 import com.crop.seagulls.util.PinyinUtils;
 
@@ -75,5 +80,28 @@ public class DictCategoryServiceImpl implements DictCategoryService {
     @Override
     public Response publish(Category category) {
         return dictCategoryDAO.update(category) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+    }
+
+    @Override
+    public Response findCategory() {
+        Map<String, List<Map<String, Object>>> result = new HashMap<String, List<Map<String, Object>>>();
+        List<Category> list = findAll();
+        if (CollectionUtils.isNotEmpty(list)) {
+            List<Map<String, Object>> all = new ArrayList<Map<String, Object>>();
+            if (CollectionUtils.isNotEmpty(list)) {
+                for (Category m : list) {
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    map.put("id", m.getId());
+                    map.put("parentId", m.getParentId());
+                    map.put("text", m.getZhName());
+                    all.add(map);
+                }
+            }
+            result.put("all", all);
+        }
+        Response response = new Response();
+        response.setReturnCode(ReturnCode.SUCCESS);
+        response.setResult(result);
+        return response;
     }
 }

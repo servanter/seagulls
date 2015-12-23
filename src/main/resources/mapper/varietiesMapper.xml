@@ -67,7 +67,7 @@
 		<include refid="base_columns" />
 		FROM crop_varieties 
 		<where>
-			<if test="categoryId != null and categoryId >= 0">
+			<if test="categoryId != null and categoryId > 0">
 			category_id = #{categoryId}
 			</if>
 		</where>
@@ -78,7 +78,7 @@
 		SELECT COUNT(*)
 		FROM crop_varieties 
 		<where>
-			<if test="categoryId != null and categoryId >= 0">
+			<if test="categoryId != null and categoryId > 0">
 			category_id = #{categoryId}
 			</if>
 		</where>
