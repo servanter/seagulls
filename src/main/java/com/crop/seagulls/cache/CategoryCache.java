@@ -129,4 +129,8 @@ public class CategoryCache {
     public List<Category> getCategoryVarierties() {
         return ALL_CATEGORY_WITH_VARIERTIES;
     }
+    
+    public void refreshAll() {
+        init();
+    }
 }

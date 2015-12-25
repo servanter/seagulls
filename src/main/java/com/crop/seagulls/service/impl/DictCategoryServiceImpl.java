@@ -56,11 +56,16 @@ public class DictCategoryServiceImpl implements DictCategoryService {
     }
 
     @Override
-    public Response findById(Integer id) {
+    public Response ajaxFindById(Long id) {
         Response response = new Response(ReturnCode.SUCCESS);
         Category category = dictCategoryDAO.getById(id);
         response.setResult(category);
         return response;
+    }
+    
+    @Override
+    public Category findById(Long id) {
+        return dictCategoryDAO.getById(id);
     }
 
     @Override
@@ -104,4 +109,5 @@ public class DictCategoryServiceImpl implements DictCategoryService {
         response.setResult(result);
         return response;
     }
+
 }

@@ -46,8 +46,8 @@ public class CategoryController {
     @ResponseBody
     @RequestMapping("/ajaxFindById")
     public Response ajaxFindById(@RequestParam("id")
-    Integer id) {
-        Response response = categoryService.findById(id);
+    Long id) {
+        Response response = categoryService.ajaxFindById(id);
         return response;
     }
 

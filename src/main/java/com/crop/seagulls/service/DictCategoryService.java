@@ -56,7 +56,9 @@ public interface DictCategoryService {
 
     public Paging<Category> findByCategory(Category category);
 
-    public Response findById(Integer id);
+    public Response ajaxFindById(Long id);
+    
+    public Category findById(Long id);
 
     public Long generateId(Long start, Long end);
 

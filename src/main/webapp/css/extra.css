@@ -35,3 +35,7 @@
 .loading_box {
 	z-index: 700;
 }
+
+#category_01 li, #category_02 li, #category_03 li {
+	cursor: pointer;
+}

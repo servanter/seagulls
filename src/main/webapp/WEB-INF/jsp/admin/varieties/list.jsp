@@ -40,7 +40,10 @@
 				<div class="right-content">
 					<c:choose>
 				  		<c:when test="${result ne null && fn:length(result.result) > 0}">
-							<p class="pull-right"><button type="button" class="btn btn-success btn-edit" data-toggle="modal" data-target=".edit-modal" param="${model.id }"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新建</button></p>
+							<p class="pull-right">
+								<button type="button" class="btn btn-success btn-edit" data-toggle="modal" data-target=".edit-modal" param=""><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新建</button>
+								<button type="button" class="btn btn-warning" data-toggle="modal" data-target=".refresh-modal" ><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>刷新</button>
+							</p>
 				  			<table class="table table-bordered table-striped table-hover f14 text-center">
 								<thead>
 									<tr>
@@ -197,6 +200,24 @@
 							      <div class="modal-footer">
 							        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 							        <button type="button" id="sel-menu-btn" class="btn btn-primary" data-dismiss="modal">确定</button>
+							      </div>
+							    </div>
+							  </div>
+						</div>
+						
+						<div class="modal fade refresh-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+							  <div class="modal-dialog modal-sm">
+							    <div class="modal-content">
+							     <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							        <h4 class="modal-title">提示</h4>
+							      </div>
+							      <div class="modal-body">
+							      	  确认刷新吗？
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+							        <button type="button" id="btn-refresh" class="btn btn-primary">刷新</button>
 							      </div>
 							    </div>
 							  </div>

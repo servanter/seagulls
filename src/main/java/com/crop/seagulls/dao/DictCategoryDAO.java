@@ -45,7 +45,7 @@ public interface DictCategoryDAO {
 
     public int getByCategoryCount(Category category);
 
-    public Category getById(Integer id);
+    public Category getById(Long id);
 
     public int delete(Long id);
 

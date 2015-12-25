@@ -19,7 +19,7 @@ import com.crop.seagulls.service.TemplateService;
 import com.crop.seagulls.util.Logger;
 
 @Component
-public class CategoryTask {
+public class CategoryTask extends Thread{
 
     private Logger logger = new Logger(CategoryTask.class);
 
@@ -104,5 +104,10 @@ public class CategoryTask {
             e.printStackTrace();
         }
         logger.info("end ======================");
+    }
+    
+    @Override
+    public void run() {
+        start();
     }
 }

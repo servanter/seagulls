@@ -21,4 +21,6 @@ public interface VarietiesService {
     public Response publish(Varieties varieties);
 
     public Response add(Varieties varieties, Long start, Long end);
+    
+    public Response refresh();
 }

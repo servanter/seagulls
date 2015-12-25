@@ -76,5 +76,11 @@ public class VarietiesController {
         varieties.setIsValid(publish == 1);
         return varietiesService.publish(varieties);
     }
+    
+    @ResponseBody
+    @RequestMapping("/refresh")
+    public Response refresh() {
+        return varietiesService.refresh();
+    }
 
 }

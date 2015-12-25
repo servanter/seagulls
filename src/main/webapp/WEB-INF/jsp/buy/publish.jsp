@@ -86,15 +86,12 @@ $(document).ready(function() {
          vale = ['请选择分类','请选择水果','请选择品种'];
         form1.submit(function(){
             if(prev.val() == vale[0]){
-                alert(vale[0]);
                 return false;
             };
             if(city.val() == vale[1]){
-                alert(vale[1]);
                 return false;
             };
             if(area.val() == vale[2]){
-                alert(vale[2]);
                 return false;
             }
         });

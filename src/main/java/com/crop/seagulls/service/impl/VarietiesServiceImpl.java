@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
-import com.crop.seagulls.cache.CategoryCache;
 import com.crop.seagulls.dao.VarietiesDAO;
 import com.crop.seagulls.entities.Varieties;
+import com.crop.seagulls.service.DictCategoryService;
+import com.crop.seagulls.service.TaskService;
 import com.crop.seagulls.service.VarietiesService;
 import com.crop.seagulls.util.PinyinUtils;
+import com.crop.seagulls.util.SecurityUtils;
 
 @Service
 public class VarietiesServiceImpl implements VarietiesService {
@@ -21,8 +23,11 @@ public class VarietiesServiceImpl implements VarietiesService {
     private VarietiesDAO varietiesDAO;
 
     @Autowired
-    private CategoryCache categoryCache;
-
+    private DictCategoryService dictCategoryService;
+    
+    @Autowired
+    private TaskService taskService;
+    
     @Override
     public List<Varieties> findAll() {
         return varietiesDAO.getAll();
@@ -33,8 +38,8 @@ public class VarietiesServiceImpl implements VarietiesService {
         List<Varieties> list = varietiesDAO.getList(varieties);
         int total = varietiesDAO.getListCount(varieties);
         for (Varieties v : list) {
-            if (v.getCategoryId() != null && categoryCache.getById(v.getCategoryId()) != null) {
-                v.setCategory(categoryCache.getById(v.getCategoryId()));
+            if (v.getCategoryId() != null && dictCategoryService.findById(v.getCategoryId()) != null) {
+                v.setCategory(dictCategoryService.findById(v.getCategoryId()));
             }
         }
         return new Paging<Varieties>(total, varieties.getPage(), varieties.getPageSize(), list);
@@ -44,6 +49,7 @@ public class VarietiesServiceImpl implements VarietiesService {
     public Response findById(Integer id) {
         Response response = new Response(ReturnCode.SUCCESS);
         Varieties varieties = varietiesDAO.getById(id);
+        varieties.setCategory(dictCategoryService.findById(varieties.getCategoryId()));
         response.setResult(varieties);
         return response;
     }
@@ -52,6 +58,7 @@ public class VarietiesServiceImpl implements VarietiesService {
     public Response modify(Varieties varieties) {
         varieties.setEnName(PinyinUtils.getPinYin(varieties.getZhName()));
         varieties.setFirstLetter(String.valueOf(varieties.getEnName().charAt(0)).toUpperCase());
+        varieties.setOperatorId(SecurityUtils.getLoginedUserId());
         return varietiesDAO.update(varieties) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
     }
 
@@ -62,6 +69,7 @@ public class VarietiesServiceImpl implements VarietiesService {
 
     @Override
     public Response publish(Varieties varieties) {
+        varieties.setOperatorId(SecurityUtils.getLoginedUserId());
         return varietiesDAO.update(varieties) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
     }
 
@@ -73,9 +81,14 @@ public class VarietiesServiceImpl implements VarietiesService {
         if (generateId == null) {
             generateId = start + 1;
         }
-
+        varieties.setOperatorId(SecurityUtils.getLoginedUserId());
         varieties.setId(generateId);
         return varietiesDAO.save(varieties) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+    }
+
+    @Override
+    public Response refresh() {
+        return taskService.syncCategoryJS();
     }
 
 }

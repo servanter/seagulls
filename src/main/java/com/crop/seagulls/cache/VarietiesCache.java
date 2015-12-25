@@ -56,4 +56,8 @@ public class VarietiesCache {
     public Varieties getById(Long id) {
         return ALL_VARIETIES_MAP.get(id);
     }
+    
+    public void refreshAll() {
+        init();
+    }
 }

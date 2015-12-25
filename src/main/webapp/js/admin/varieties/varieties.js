@@ -7,8 +7,14 @@ $(function() {
 			$.getJSON(BaseUtils.proPath + 'admin/varieties/ajaxFindById/?id=' + id, function(data) {
 				if(data && data.code == 10000) {
 					$('#form-edit [name=id]').val(id);
-					$('#form-edit [name=pId]').val(data.result.parentId);
+					$('#form-edit [name=categoryText]').val(data.result.category.zhName);
 					$('#form-edit [name=zhName]').val(data.result.zhName);
+					if($('input[name=categoryId]').length > 0) {
+						$('input[name=categoryId]').val(data.result.categoryId);
+					} else {
+						$("input[name=categoryText]").after('<input type="hidden" name="categoryId" value="' + data.result.categoryId + '"/>');
+					}
+					
 				} else {
 					alert(data.message);
 				}
@@ -90,6 +96,21 @@ $(function() {
 	$('.btn-up').click(function() {
 		var id = $(this).attr('param');
 		$.getJSON(BaseUtils.proPath + 'admin/varieties/publish/?id=' + id + "&publish=" + 1, function(data) {
+			if (data.code == 10000) {
+				BaseUtils.reload();
+			} else {
+				var msg = Alert.succ('操作失败:' + data.message,'text-center', function(msg) {
+					$('.remove-modal .modal-body').append(msg);
+				}, function(msg) {
+					Alert.leave();
+				});
+				
+			}
+		});
+	});
+	
+	$('#btn-refresh').click(function() {
+		$.getJSON(BaseUtils.proPath + 'admin/varieties/refresh/', function(data) {
 			if (data.code == 10000) {
 				BaseUtils.reload();
 			} else {
