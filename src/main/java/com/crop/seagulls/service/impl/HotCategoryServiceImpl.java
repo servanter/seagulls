@@ -1,6 +1,5 @@
 package com.crop.seagulls.service.impl;
 
-import java.security.interfaces.RSAKey;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -14,8 +13,8 @@ import com.crop.seagulls.cache.AdminUserCache;
 import com.crop.seagulls.cache.CategoryCache;
 import com.crop.seagulls.dao.HotCategoryDAO;
 import com.crop.seagulls.entities.HotCategory;
-import com.crop.seagulls.service.AdminUserService;
 import com.crop.seagulls.service.HotCategoryService;
+import com.crop.seagulls.service.TaskService;
 import com.crop.seagulls.util.SecurityUtils;
 
 @Service
@@ -29,6 +28,9 @@ public class HotCategoryServiceImpl implements HotCategoryService {
     
     @Autowired
     private AdminUserCache adminUserCache;
+    
+    @Autowired
+    private TaskService taskService;
 
     @Override
     public List<HotCategory> findAll() {
@@ -54,6 +56,7 @@ public class HotCategoryServiceImpl implements HotCategoryService {
     public Response findById(Integer id) {
         Response response = new Response(ReturnCode.SUCCESS);
         HotCategory hotCategory = hotCategoryDAO.getById(id);
+        hotCategory.setCategoryName(categoryCache.getById(hotCategory.getCategoryId()).getZhName());
         response.setResult(hotCategory);
         return response;
     }
@@ -100,5 +103,10 @@ public class HotCategoryServiceImpl implements HotCategoryService {
         }
         int total = hotCategoryDAO.getListCount(hotCategory);
         return new Paging<HotCategory>(total, hotCategory.getPage(), hotCategory.getPageSize(), list);
+    }
+
+    @Override
+    public Response refresh() {
+        return taskService.syncFront();
     }
 }

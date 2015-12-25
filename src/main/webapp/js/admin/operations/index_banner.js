@@ -94,4 +94,19 @@ $(function() {
 		});
 		
 	});
+	
+	$('#btn-refresh').click(function() {
+		$.getJSON(BaseUtils.proPath + 'admin/operations/indexBanner/refresh/', function(data) {
+			if (data.code == 10000) {
+				BaseUtils.reload();
+			} else {
+				var msg = Alert.succ('操作失败:' + data.message,'text-center', function(msg) {
+					$('.remove-modal .modal-body').append(msg);
+				}, function(msg) {
+					Alert.leave();
+				});
+				
+			}
+		});
+	});
 })

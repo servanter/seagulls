@@ -8,8 +8,13 @@ $(function() {
 			$.getJSON(BaseUtils.proPath + 'admin/operations/hotCategoies/ajaxFindById/?id=' + id, function(data) {
 				if(data && data.code == 10000) {
 					$('#form-edit [name=id]').val(id);
-					$('#form-edit [name=categoryId]').val(data.result.categoryId);
+					$('#form-edit [name=categoryText]').val(data.result.categoryName);
 					$('#form-edit [name=seq]').val(data.result.seq);
+					if($('input[name=categoryId]').length > 0) {
+						$('input[name=categoryId]').val(data.result.categoryId);
+					} else {
+						$("input[name=categoryText]").after('<input type="hidden" name="categoryId" value="' + data.result.categoryId + '"/>');
+					}
 				} else {
 					alert(data.message);
 				}
@@ -89,4 +94,50 @@ $(function() {
 		});
 		
 	});
+	
+	$('input[name=categoryText]').click(function() {
+		var settings = {
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			treeNode: {
+				open : false
+			}
+		};
+		var initData = '';
+		if($('input[name=categoryId]').length > 0) {
+			initData = $('input[name=categoryId]').val();;
+		}
+		buildTree($('#menu-tree'), 'admin/category/findCategory', '', initData, settings);
+	});
+	
+	$('#sel-menu-btn').click(function() {
+		getSelectedTreeData('menu-tree', function(data) {
+			var cur = $("input[name=categoryText]");
+			$(cur).val(data.val);
+			if($('input[name=categoryId]').length == 1) {
+				$('input[name=categoryId]').val(data.ids);
+			} else {
+				$(cur).after('<input type="hidden" name="categoryId" value="' + data.ids + '"/>');
+			}
+		});
+	});
+	
+	$('#btn-refresh').click(function() {
+		$.getJSON(BaseUtils.proPath + 'admin/operations/hotCategoies/refresh/', function(data) {
+			if (data.code == 10000) {
+				BaseUtils.reload();
+			} else {
+				var msg = Alert.succ('操作失败:' + data.message,'text-center', function(msg) {
+					$('.remove-modal .modal-body').append(msg);
+				}, function(msg) {
+					Alert.leave();
+				});
+				
+			}
+		});
+	});
+	
 })

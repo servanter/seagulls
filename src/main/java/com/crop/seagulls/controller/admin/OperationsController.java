@@ -1,7 +1,5 @@
 package com.crop.seagulls.controller.admin;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.entities.Banner;
 import com.crop.seagulls.entities.HotCategory;
@@ -74,6 +71,12 @@ public class OperationsController {
     Long id) {
         return bannerService.remove(id);
     }
+    
+    @ResponseBody
+    @RequestMapping("/indexBanner/refresh")
+    public Response indexBannerRefresh() {
+        return bannerService.refresh();
+    }
 
     @RequestMapping("/hotCategoies_n{page:\\d+}")
     public String hotCategoies(@PathVariable("page")
@@ -116,6 +119,12 @@ public class OperationsController {
     public Response hotCategoiesRemove(@RequestParam("id")
     Long id) {
         return hotCategoryService.remove(id);
+    }
+    
+    @ResponseBody
+    @RequestMapping("/hotCategoies/refresh")
+    public Response hotCategoiesRefresh() {
+        return hotCategoryService.refresh();
     }
 
 }

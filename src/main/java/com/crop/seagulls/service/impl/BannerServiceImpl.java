@@ -1,6 +1,5 @@
 package com.crop.seagulls.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +10,9 @@ import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.cache.AdminUserCache;
 import com.crop.seagulls.dao.BannerDAO;
-import com.crop.seagulls.entities.Area;
 import com.crop.seagulls.entities.Banner;
-import com.crop.seagulls.entities.HotCategory;
 import com.crop.seagulls.service.BannerService;
+import com.crop.seagulls.service.TaskService;
 import com.crop.seagulls.util.SecurityUtils;
 
 @Service
@@ -25,6 +23,9 @@ public class BannerServiceImpl implements BannerService {
 
     @Autowired
     private AdminUserCache adminUserCache;
+    
+    @Autowired
+    private TaskService taskService;
     
     @Override
     public List<Banner> findAll() {
@@ -81,6 +82,11 @@ public class BannerServiceImpl implements BannerService {
             }
         }
         return new Paging<Banner>(total, banner.getPage(), banner.getPageSize(), result);
+    }
+
+    @Override
+    public Response refresh() {
+        return taskService.syncFront();
     }
 
 }

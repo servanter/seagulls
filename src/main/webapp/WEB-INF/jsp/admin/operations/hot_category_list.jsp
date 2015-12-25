@@ -19,6 +19,7 @@
 		<meta http-equiv="description" content="This is my page">
 		<link rel="stylesheet" href="${ctx }/css/bootstrap.min.css">
 		<link rel="stylesheet" href="${ctx }/css/admin/user/main.css">
+		<link rel="stylesheet" href="${ctx }/css/ztree/zTreeStyle.css">
 		<script src="${ctx }/js/jquery-1.11.0.min.js"></script>
 		<script src="${ctx }/js/jquery.form.js" type="text/javascript" ></script>
 		<script src="${ctx }/js/bootstrap.min.js"></script>
@@ -26,6 +27,7 @@
 		<script src="${ctx }/js/admin/alert.js" type="text/javascript"></script>
 		<script src="${ctx }/js/admin/menu.js" type="text/javascript"></script>
 		<script src="${ctx }/js/admin/operations/hot_category.js" type="text/javascript"></script>
+		<script src="${ctx }/js/ztree/jquery.ztree.all-3.5.min.js" type="text/javascript"></script>
 	</head>
 
 	<body>
@@ -38,7 +40,10 @@
 				<div class="right-content">
 					<c:choose>
 				  		<c:when test="${list ne null && fn:length(list.result) > 0}">
-							<p class="pull-right"><button type="button" class="btn btn-success btn-edit" data-toggle="modal" data-target=".edit-modal" param="${model.id }"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新建</button></p>
+							<p class="pull-right">
+								<button type="button" class="btn btn-success btn-edit" data-toggle="modal" data-target=".edit-modal" param="${model.id }"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新建</button>
+								<button type="button" class="btn btn-warning" data-toggle="modal" data-target=".refresh-modal" ><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>刷新</button>
+							</p>
 				  			<table class="table table-bordered table-striped table-hover f14 text-center">
 								<thead>
 									<tr>
@@ -129,32 +134,69 @@
 				  	</c:choose>
 					
 					<div class="modal fade edit-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+						  <div class="modal-dialog modal-sm">
+						    <div class="modal-content">
+						     <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						        <h4 class="modal-title" id="myModalLabel">新增</h4>
+						      </div>
+						      <div class="modal-body">
+						      		<form id="form-edit" class="form-horizontal">
+						      			<input type="hidden" name="id" value="">
+						      	      <div class="form-group">
+									    <label for="categoryText" class="col-sm-4 control-label">分类</label>
+									    <div class="col-sm-8">
+									      <input type="text" name="categoryText" class="form-control"  data-toggle="modal" data-target=".category-module-modal" placeholder="请选择分类">
+									    </div>
+									  </div>
+									  <div class="form-group">
+									    <label for="seq" class="col-sm-4 control-label">排序</label>
+									    <div class="col-sm-8">
+									      <input type="number" name="seq" class="form-control" value="0">
+									    </div>
+									  </div>
+									</form>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						        <button type="button" id="btn-update" class="btn btn-primary">修改</button>
+						      </div>
+						    </div>
+						  </div>
+					</div>
+					
+					<div class="modal fade category-module-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+						  <div class="modal-dialog modal-sm">
+						    <div class="modal-content">
+						     <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						        <h4 class="modal-title">分类</h4>
+						      </div>
+						      <div class="modal-body">
+						      	<ul id="menu-tree" class="ztree">
+						      		
+						      	</ul>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						        <button type="button" id="sel-menu-btn" class="btn btn-primary" data-dismiss="modal">确定</button>
+						      </div>
+						    </div>
+						  </div>
+					</div>
+					<div class="modal fade refresh-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 							  <div class="modal-dialog modal-sm">
 							    <div class="modal-content">
 							     <div class="modal-header">
 							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							        <h4 class="modal-title" id="myModalLabel">新增</h4>
+							        <h4 class="modal-title">提示</h4>
 							      </div>
 							      <div class="modal-body">
-							      		<form id="form-edit" class="form-horizontal">
-							      			<input type="hidden" name="id" value="">
-							      	      <div class="form-group">
-										    <label for="categoryId" class="col-sm-4 control-label">分类ID</label>
-										    <div class="col-sm-8">
-										      <input type="number" name="categoryId" class="form-control" placeholder="请输入分类ID">
-										    </div>
-										  </div>
-										  <div class="form-group">
-										    <label for="seq" class="col-sm-4 control-label">排序</label>
-										    <div class="col-sm-8">
-										      <input type="number" name="seq" class="form-control" value="0">
-										    </div>
-										  </div>
-										</form>
+							      	  确认刷新吗？
 							      </div>
 							      <div class="modal-footer">
 							        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-							        <button type="button" id="btn-update" class="btn btn-primary">修改</button>
+							        <button type="button" id="btn-refresh" class="btn btn-primary">刷新</button>
 							      </div>
 							    </div>
 							  </div>

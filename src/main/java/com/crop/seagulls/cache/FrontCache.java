@@ -17,7 +17,7 @@ import com.crop.seagulls.service.HotCategoryService;
 import com.crop.seagulls.util.Logger;
 
 @Component
-public class FrontCache {
+public class FrontCache extends Thread{
 
     public static Logger logger = Logger.getLogger(FrontCache.class);
 
@@ -33,6 +33,7 @@ public class FrontCache {
     @Autowired
     private BannerService bannerService;
 
+//  @Scheduled(cron = "0/3 * * * * ?")
     @PostConstruct
     public void init() {
         logger.info("frontcache start");
@@ -43,9 +44,6 @@ public class FrontCache {
             List<Category> list = new ArrayList<Category>();
             for (HotCategory hotCategory : hs) {
                 list.add(categoryCache.getById(hotCategory.getCategoryId()));
-            }
-            if(list.size() > 6) {
-                list = list.subList(0, 6);
             }
             hotCategories = list;
         }
@@ -61,6 +59,11 @@ public class FrontCache {
 
     public List<Banner> getIndexBanners() {
         return indexBanners;
+    }
+    
+    @Override
+    public void run() {
+        init();
     }
 
 }

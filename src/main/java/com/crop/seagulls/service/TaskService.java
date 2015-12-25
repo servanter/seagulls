@@ -5,4 +5,6 @@ import com.crop.seagulls.bean.Response;
 public interface TaskService {
 
     public Response syncCategoryJS();
+    
+    public Response syncFront();
 }

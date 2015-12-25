@@ -22,4 +22,6 @@ public interface BannerService {
 
     public Response top(Long id);
 
+    public Response refresh();
+
 }
