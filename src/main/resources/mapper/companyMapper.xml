@@ -34,7 +34,8 @@
 	</select>
 	<select id="getList" parameterType="company"
 		resultMap="companyMap">
-		SELECT * FROM crop_company WHERE user_id = #{userId}
+		SELECT * FROM crop_company WHERE 1 = 1
+		<if test="userId != null and userId > 0">user_id = #{userId}</if>
 		<if test="status != null">AND status = #{status}</if>
 		ORDER BY update_time DESC
 	</select>
