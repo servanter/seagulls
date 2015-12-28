@@ -24,7 +24,15 @@
 					</c:forEach>
 					<c:choose>
 						<c:when test="${isContains}">
-							<li><a href="${ctx }/${menu.url }" class="sub" param="${menu.parentId }" data="${menu.id }">${menu.menuName }</a></li>
+							<c:choose>
+								<c:when test="${menu.url eq '-1'}">									
+									<li><a href="javascript:void(0)" class="sub" param="${menu.parentId }" data="${menu.id }">${menu.menuName }</a></li>
+								</c:when>
+								<c:otherwise>
+									<li><a href="${ctx }/${menu.url }" class="sub" param="${menu.parentId }" data="${menu.id }">${menu.menuName }</a></li>
+								</c:otherwise>
+							</c:choose>
+							
 						</c:when>
 						<c:otherwise>
 							<li><a href="${ctx }/${menu.url }" param="${menu.parentId }" data="${menu.id }">${menu.menuName }</a></li>

@@ -186,7 +186,7 @@ $(function(){
 					<h4>机构名称</h4>
 					<span></span>
 					<c:choose>
-						<c:when test="${company ne null && fn:length(company.title) > 0 && company.status ne commonStatus['NO_AUDIT'].code}">
+						<c:when test="${company ne null && fn:length(company.title) > 0 && company.status ne commonStatus['REJECT'].code}">
 							<input class="formInput" type="text" name="companyName" value="${company.title }" disabled/>
 							<input type="hidden" name="companyId" value="${company.id }">
 						</c:when>

@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<a href="javascript:void(0)"><img src="${ctx }/images/icon_back.png" /></a>
 	</div>
 	<h1>机构认证</h1>
-	<c:if test="${ model eq null || model.status eq commonStatus['NO_AUDIT'].code || model.status eq commonStatus['UN_SUBMIT'].code}">
+	<c:if test="${ model eq null || model.status eq commonStatus['REJECT'].code || model.status eq commonStatus['UN_SUBMIT'].code}">
 		<div class="headerRight"><a id="a-save" href="javascript:void(0)">提交认证</a></div>
 	</c:if>
 </header>
@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li>
 					<h4>机构名称</h4>
 					<c:choose>
-						<c:when test="${model eq null || model.status eq commonStatus['NO_AUDIT'].code  || model.status eq commonStatus['UN_SUBMIT'].code}">
+						<c:when test="${model eq null || model.status eq commonStatus['REJECT'].code  || model.status eq commonStatus['UN_SUBMIT'].code}">
 							<input class="formInput" name="title" type="text" value="${model.title }"/>
 						</c:when>
 						<c:otherwise>
@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li>
 					<h4>法人姓名</h4>
 					<c:choose>
-						<c:when test="${model eq null || model.status eq commonStatus['NO_AUDIT'].code  || model.status eq commonStatus['UN_SUBMIT'].code}">
+						<c:when test="${model eq null || model.status eq commonStatus['REJECT'].code  || model.status eq commonStatus['UN_SUBMIT'].code}">
 							<input class="formInput" name="legalName" type="text" value="${model.legalName }"/>
 						</c:when>
 						<c:otherwise>
@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li>
 					<h4>营业执照编号</h4>
 					<c:choose>
-						<c:when test="${model eq null || model.status eq commonStatus['NO_AUDIT'].code  || model.status eq commonStatus['UN_SUBMIT'].code}">
+						<c:when test="${model eq null || model.status eq commonStatus['REJECT'].code  || model.status eq commonStatus['UN_SUBMIT'].code}">
 							<input class="formInput" name="organizationCode" type="text" value="${model.organizationCode }"/>
 						</c:when>
 						<c:otherwise>
@@ -88,7 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<c:choose>
 							<c:when test="${model.imgLicense ne null && model.imgLicense ne ''}">
 								<c:choose>
-									<c:when test="${model.status eq commonStatus['NO_AUDIT'].code || model.status eq commonStatus['UN_SUBMIT'].code}">
+									<c:when test="${model.status eq commonStatus['REJECT'].code || model.status eq commonStatus['UN_SUBMIT'].code}">
 										<img class="click_img" src="${ctx }/${model.imgLicense }" />
 									</c:when>
 									<c:otherwise>
@@ -106,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<c:choose>
 						<c:when test="${model.imgOrganization ne null && model.imgOrganization ne ''}">
 							<c:choose>
-								<c:when test="${model.status eq commonStatus['NO_AUDIT'].code || model.status eq commonStatus['UN_SUBMIT'].code}">
+								<c:when test="${model.status eq commonStatus['REJECT'].code || model.status eq commonStatus['UN_SUBMIT'].code}">
 									<img class="click_img" src="${ctx }/${model.imgOrganization }" />
 								</c:when>
 								<c:otherwise>
@@ -124,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<c:choose>
 						<c:when test="${model.imgTax ne null && model.imgTax ne ''}">
 							<c:choose>
-								<c:when test="${model.status eq commonStatus['NO_AUDIT'].code || model.status eq commonStatus['UN_SUBMIT'].code}">
+								<c:when test="${model.status eq commonStatus['REJECT'].code || model.status eq commonStatus['UN_SUBMIT'].code}">
 									<img class="click_img" src="${ctx }/${model.imgTax }" />
 								</c:when>
 								<c:otherwise>

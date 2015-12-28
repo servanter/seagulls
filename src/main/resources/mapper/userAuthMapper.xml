@@ -29,8 +29,8 @@
 			<if test="userId != null and userId > 0 ">
 				AND user_id = #{userId}
 			</if>
+			<if test="status != null">AND status = #{status}</if>
 		</where>
-		<if test="status != null">AND status = #{status}</if>
 		ORDER BY update_time DESC
 	</select>
 
@@ -41,8 +41,8 @@
 			<if test="userId != null and userId > 0 ">
 				AND user_id = #{userId}
 			</if>
+			<if test="status != null">AND status = #{status}</if>
 		</where>
-		<if test="status != null">AND status = #{status}</if>
 	</select>
 
 	<insert id="save" parameterType="userAuth">
@@ -112,5 +112,35 @@
 			</if>
 		</where>
 	</update>
-
+	
+	<update id="batchUpdate">
+		UPDATE crop_user_auth SET
+		update_time = NOW()
+		<if test="auth.realName != null and auth.realName.length() > 0">
+			,real_name = #{auth.realName}
+		</if>
+		<if test="auth.idCardNum != null and auth.idCardNum.length() > 0">
+			,id_card_num = #{auth.idCardNum}
+		</if>
+		<if test="auth.imgFront != null and auth.imgFront.length() > 0">
+			,img_front = #{auth.imgFront}
+		</if>
+		<if test="auth.imgBackground != null and auth.imgBackground.length() > 0">
+			,img_background = #{auth.imgBackground}
+		</if>
+		<if test="auth.imgPerson != null and auth.imgPerson.length() > 0">
+			,img_person = #{auth.imgPerson}
+		</if>
+		<if test="auth.status != null ">
+			,status = #{auth.status}
+		</if>
+		<if test="auth.auditId != null and auth.auditId > 0">
+			,audit_id = #{auth.auditId}
+			, audit_time = NOW()
+		</if>
+		WHERE id IN 
+		<foreach collection="ids" open="(" close=")" separator="," item="id">
+			#{id}
+		</foreach>
+	</update>
 </mapper>

@@ -6,18 +6,26 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crop.seagulls.bean.CommonStatus;
 import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.dao.UserAuthDAO;
+import com.crop.seagulls.entities.PersonRejection;
 import com.crop.seagulls.entities.UserAuth;
+import com.crop.seagulls.service.PersonRejectionService;
 import com.crop.seagulls.service.UserAuthService;
+import com.crop.seagulls.util.NumberUtils;
+import com.crop.seagulls.util.SecurityUtils;
 
 @Service
 public class UserAuthServiceImpl implements UserAuthService {
 
     @Autowired
     private UserAuthDAO userAuthDAO;
+
+    @Autowired
+    private PersonRejectionService personRejectionService;
 
     @Override
     public Response add(UserAuth userAuth) {
@@ -51,6 +59,52 @@ public class UserAuthServiceImpl implements UserAuthService {
     @Override
     public UserAuth findById(Long id) {
         return userAuthDAO.getById(id);
+    }
+
+    @Override
+    public Response pass(Long id) {
+        UserAuth userAuth = new UserAuth();
+        userAuth.setId(id);
+        userAuth.setStatus(CommonStatus.PASS.getCode());
+        userAuth.setAuditId(SecurityUtils.getLoginedUserId());
+        return userAuthDAO.update(userAuth) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+    }
+
+    @Override
+    public Response reject(Long id, Integer type, String opinion) {
+        Response response = new Response(ReturnCode.SUCCESS);
+        UserAuth userAuth = new UserAuth();
+        userAuth.setId(id);
+        userAuth.setStatus(CommonStatus.REJECT.getCode());
+        userAuth.setAuditId(SecurityUtils.getLoginedUserId());
+        response = userAuthDAO.update(userAuth) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+        if (ReturnCode.isSuccess(response.getReturnCode())) {
+            PersonRejection personRejection = new PersonRejection();
+            personRejection.setAuditId(SecurityUtils.getLoginedUserId());
+            personRejection.setAuthId(id);
+            personRejection.setOpinion(opinion);
+            personRejection.setType(type);
+            response = personRejectionService.add(personRejection);
+        }
+        return response;
+    }
+
+    @Override
+    public Response passAll(String ids) {
+        UserAuth userAuth = new UserAuth();
+        userAuth.setStatus(CommonStatus.PASS.getCode());
+        userAuth.setAuditId(SecurityUtils.getLoginedUserId());
+        List<Long> id = NumberUtils.strSplit2List(ids, ",", Long.class);
+        return userAuthDAO.batchUpdate(userAuth, id).length > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+    }
+
+    @Override
+    public Response rejectAll(String ids) {
+        UserAuth userAuth = new UserAuth();
+        userAuth.setStatus(CommonStatus.REJECT.getCode());
+        userAuth.setAuditId(SecurityUtils.getLoginedUserId());
+        List<Long> id = NumberUtils.strSplit2List(ids, ",", Long.class);
+        return userAuthDAO.batchUpdate(userAuth, id).length > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
     }
 
 }

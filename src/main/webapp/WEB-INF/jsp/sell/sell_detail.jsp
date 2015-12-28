@@ -68,9 +68,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<ul>
 				<li>供应编号：${model.id }</li>
 				<li>品　　类：${model.pageCategory.zhName }</li>
-				<li>品　　种：<c:if test="${model.pageVarieties ne null }">${model.pageVarieties.zhName}</c:if></li>
+				<c:if test="${model.pageVarieties ne null }">
+					<li>品　　种：${model.pageVarieties.zhName}</li>
+				</c:if>
 				<li>上市时间：${model.pagePeriod }</li>
-				<li>机构名称：${model.companyName }</li>
+				<c:if test="${fn:length(model.companyName) > 0 }">
+					<li>机构名称：${model.companyName }</li>
+				</c:if>
 				<li>联 系 人：${model.contactName }</li>
 				<li>供 货 地：${model.pageAddress }</li>
 				<li>商品详情：</li>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crop.seagulls.dao.PersonRejectionDAO">
+
+	<resultMap id="personRejectionMap" type="personRejection">
+		<result property="id" column="id" />
+		<result property="authId" column="auth_id" />
+		<result property="type" column="type" />
+		<result property="opinion" column="opinion" />
+		<result property="auditId" column="audit_id" />
+		<result property="auditTime" column="audit_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+	<sql id="base_columns">id, auth_id, type, opinion, audit_time, update_time, audit_id </sql>
+	
+	<insert id="save" parameterType="personRejection" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO crop_user_auth_reject(auth_id, type, opinion, audit_time, audit_id)
+		VALUES(#{authId}, #{type}, #{opinion}, NOW(), #{auditId})
+	</insert>
+</mapper>

@@ -19,20 +19,11 @@
 		<meta http-equiv="description" content="This is my page">
 		<link rel="stylesheet" href="${ctx }/css/bootstrap.min.css">
 		<link rel="stylesheet" href="${ctx }/css/admin/user/main.css">
-		<link rel="stylesheet" href="${ctx }/css/ztree/zTreeStyle.css">
 		<script src="${ctx }/js/jquery-1.11.0.min.js"></script>
 		<script src="${ctx }/js/jquery.form.js" type="text/javascript" ></script>
 		<script src="${ctx }/js/bootstrap.min.js"></script>
 		<script src="${ctx }/js/baseutils.js" type="text/javascript"></script>
 		<script src="${ctx }/js/admin/alert.js" type="text/javascript"></script>
-		<script src="${ctx }/js/admin/menu.js" type="text/javascript"></script>
-		<script src="${ctx }/js/admin/operations/hot_category.js" type="text/javascript"></script>
-		<script src="${ctx }/js/ztree/jquery.ztree.all-3.5.min.js" type="text/javascript"></script>
-		<style type="text/css">
-			body {
-			
-			}
-		</style>
 	</head>
 
 	<body>
@@ -63,7 +54,6 @@
 										<th class="text-center">提交时间</th>
 										<th class="text-center">审核人</th>
 										<th class="text-center">审核时间</th>
-										<th class="text-center">操作</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -98,34 +88,11 @@
 													</c:otherwise>
 												</c:choose>
 											</td>
-											<td>
-												<button type="button" class="btn btn-success btn-edit" data-toggle="modal" data-target=".edit-modal" param="${model.id }"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>通过</button>
-												<button type="button" class="btn btn-danger btn-remove" data-toggle="modal" data-target=".remove-modal" param="${model.id }"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>驳回</button>
-											</td>
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
 							
-						
-						<div class="modal fade remove-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-							  <div class="modal-dialog modal-sm">
-							    <div class="modal-content">
-							     <div class="modal-header">
-							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							        <h4 class="modal-title">提示</h4>
-							      </div>
-							      <div class="modal-body">
-							      	  确认删除吗？
-							      </div>
-							      <div class="modal-footer">
-							        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-							        <button type="button" id="btn-remove" class="btn btn-danger">删除</button>
-							      </div>
-							    </div>
-							  </div>
-						</div>
-									
 							<nav>
 							  <ul class="pagination pull-right">
 							  	<c:choose>
