@@ -54,8 +54,6 @@
 										<th class="text-center">证件号（手持）</th>
 										<th class="text-center">审核状态</th>
 										<th class="text-center">提交时间</th>
-										<th class="text-center">审核人</th>
-										<th class="text-center">审核时间</th>
 										<th class="text-center">操作</th>
 									</tr>
 								</thead>
@@ -66,9 +64,9 @@
 											<td>${model.userName }</td>
 											<td>${model.realName }</td>
 											<td>${model.idCardNum }</td>
-											<td><img src="${ctx }/${model.imgFront }"/></td>
-											<td><img src="${ctx }/${model.imgBackground }"/></td>
-											<td><img src="${ctx }/${model.imgPerson }"/></td>
+											<td><img class="img80" src="${ctx }/${model.imgFront }"/></td>
+											<td><img class="img80" src="${ctx }/${model.imgBackground }"/></td>
+											<td><img class="img80" src="${ctx }/${model.imgPerson }"/></td>
 											<td>
 												<c:choose>
 													<c:when test="${model.status == 0}">
@@ -86,17 +84,6 @@
 												</c:choose>
 											</td>
 											<td>${model.createTime }</td>
-											<td>${model.auditName }</td>
-											<td>
-												<c:choose>
-													<c:when test="${model.auditTime eq null}">
-															无
-													</c:when>
-													<c:otherwise>
-														${model.auditTime }
-													</c:otherwise>
-												</c:choose>
-											</td>
 											<td>
 												<button type="button" class="btn btn-success btn-edit" param="${model.id }"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>通过</button>
 												<button type="button" class="btn btn-danger btn-reject" data-toggle="modal" data-target=".reject-modal" param="${model.id }"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>驳回</button>

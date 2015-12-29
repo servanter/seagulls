@@ -60,9 +60,9 @@
 											<td>${model.userName }</td>
 											<td>${model.realName }</td>
 											<td>${model.idCardNum }</td>
-											<td><img src="${ctx }/${model.imgFront }"/></td>
-											<td><img src="${ctx }/${model.imgBackground }"/></td>
-											<td><img src="${ctx }/${model.imgPerson }"/></td>
+											<td><img class="img80" src="${ctx }/${model.imgFront }"/></td>
+											<td><img class="img80" src="${ctx }/${model.imgBackground }"/></td>
+											<td><img class="img80" src="${ctx }/${model.imgPerson }"/></td>
 											<td>
 												<c:choose>
 													<c:when test="${model.status == 0}">
