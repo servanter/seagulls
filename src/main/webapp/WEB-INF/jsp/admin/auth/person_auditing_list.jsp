@@ -25,6 +25,7 @@
 		<script src="${ctx }/js/baseutils.js" type="text/javascript"></script>
 		<script src="${ctx }/js/admin/alert.js" type="text/javascript"></script>
 		<script src="${ctx }/js/admin/auth/person.js" type="text/javascript"></script>
+		<script src="${ctx }/js/admin/menu.js" type="text/javascript"></script>
 	</head>
 
 	<body>
