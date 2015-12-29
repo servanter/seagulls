@@ -2,7 +2,6 @@ package com.crop.seagulls.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.crop.seagulls.bean.CommonStatus;
 import com.crop.seagulls.bean.Paging;
+import com.crop.seagulls.bean.PersonRejectEnum;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.entities.Company;
 import com.crop.seagulls.entities.UserAuth;
@@ -47,6 +47,7 @@ public class AuthController {
         auth.setPage(page);
         auth.setStatus(CommonStatus.AUDITING.getCode());
         Paging<UserAuth> auths = userAuthService.findList(auth);
+        model.addAttribute("rejects", PersonRejectEnum.values());
         model.addAttribute("list", auths);
         model.addAttribute("s", auth);
         return "admin/auth/person_auditing_list";
@@ -62,7 +63,7 @@ public class AuthController {
         Paging<UserAuth> auths = userAuthService.findList(auth);
         model.addAttribute("list", auths);
         model.addAttribute("s", auth);
-        return "admin/auth/person_unaudit_list";
+        return "admin/auth/person_reject_list";
     }
     
     @RequestMapping("/person/passList_n{page:\\d+}")
@@ -98,8 +99,8 @@ public class AuthController {
     
     @ResponseBody
     @RequestMapping("/person/rejectAll")
-    public Response personReject(@RequestParam("ids") String ids) {
-        return userAuthService.rejectAll(ids);
+    public Response personReject(@RequestParam("ids") String ids, @RequestParam("type") Integer type, @RequestParam("opinion") String opinion) {
+        return userAuthService.rejectAll(ids, type, opinion);
     }
 
 }

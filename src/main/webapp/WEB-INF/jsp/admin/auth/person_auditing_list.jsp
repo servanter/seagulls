@@ -24,6 +24,7 @@
 		<script src="${ctx }/js/bootstrap.min.js"></script>
 		<script src="${ctx }/js/baseutils.js" type="text/javascript"></script>
 		<script src="${ctx }/js/admin/alert.js" type="text/javascript"></script>
+		<script src="${ctx }/js/admin/auth/person.js" type="text/javascript"></script>
 	</head>
 
 	<body>
@@ -61,24 +62,30 @@
 									<c:forEach var="model" items="${list.result}">
 										<tr>
 											<td>${model.id }</td>
-											<td>${model.userId }</td>
+											<td>${model.userName }</td>
 											<td>${model.realName }</td>
 											<td>${model.idCardNum }</td>
 											<td><img src="${ctx }/${model.imgFront }"/></td>
 											<td><img src="${ctx }/${model.imgBackground }"/></td>
 											<td><img src="${ctx }/${model.imgPerson }"/></td>
-											<td>${model.status }</td>
-											<td>${model.createTime }</td>
 											<td>
 												<c:choose>
-													<c:when test="${model.auditId eq -1}">
-															无
+													<c:when test="${model.status == 0}">
+														未审核
+													</c:when>
+													<c:when test="${model.status == 1}">
+														通过
+													</c:when>
+													<c:when test="${model.status == -2}">
+														驳回
 													</c:when>
 													<c:otherwise>
-														${model.auditId }
+													
 													</c:otherwise>
 												</c:choose>
 											</td>
+											<td>${model.createTime }</td>
+											<td>${model.auditName }</td>
 											<td>
 												<c:choose>
 													<c:when test="${model.auditTime eq null}">
@@ -102,7 +109,7 @@
 							  <ul class="pagination pull-right">
 							  	<c:choose>
 							  		<c:when test="${list.page > 1}">
-							  			<li><a href="${ctx }/admin/operations/indexBanner_n${list.page - 1 }/?pId=${s.parentId }" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+							  			<li><a href="${ctx }/admin/auth/person/auditList_n${list.page - 1 }/?pId=${s.parentId }" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
 							  		</c:when>
 							  		<c:otherwise>
 							  			<li class="disabled"><a href="javascript:void(0)" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
@@ -115,13 +122,13 @@
 							  				<li class="active"><a href="javascript:void(0)">${i.index }<span class="sr-only">(current)</span></a></li>
 							  			</c:when>
 							  			<c:otherwise>
-							  				<li><a href="${ctx }/admin/operations/indexBanner_n${i.index }/?pId=${s.parentId }">${i.index }<span class="sr-only">(current)</span></a></li>
+							  				<li><a href="${ctx }/admin/auth/person/auditList_n${i.index }/?pId=${s.parentId }">${i.index }<span class="sr-only">(current)</span></a></li>
 							  			</c:otherwise>
 							  		</c:choose>
 							  	</c:forEach>
 							    <c:choose>
 							  		<c:when test="${list.totalPage > list.page}">
-							  			<li><a href="${ctx }/admin/operations/indexBanner_n${list.page + 1 }/?pId=${s.parentId }" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+							  			<li><a href="${ctx }/admin/auth/person/auditList_n${list.page + 1 }/?pId=${s.parentId }" aria-label="Next"><span aria-hidden="true">»</span></a></li>
 							  		</c:when>
 							  		<c:otherwise>
 							  			<li class="disabled"><a href="javascript:void(0)" aria-label="Next"><span aria-hidden="true">»</span></a></li>
@@ -151,9 +158,9 @@
 									    <label for="categoryText" class="col-sm-4 control-label">驳回类型</label>
 									    <div class="col-sm-8">
 									      <select name="type" id="type" class="form-control">
-									      		<option>asdasd</option>
-									      		<option>asdasd</option>
-									      		<option>asdasd</option>
+									      	<c:forEach var="reject" items="${rejects }">
+									      		<option value="${reject.code }">${reject.description }</option>
+									      	</c:forEach>
 									      </select>
 									    </div>
 									  </div>

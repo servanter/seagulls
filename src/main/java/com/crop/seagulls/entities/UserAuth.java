@@ -36,6 +36,25 @@ public class UserAuth extends Page {
 
     private Date auditTime;
 
+    
+    private String userName;
+    private String auditName;
+    public String getAuditName() {
+        return auditName;
+    }
+
+    public void setAuditName(String auditName) {
+        this.auditName = auditName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public Long getId() {
         return id;
     }

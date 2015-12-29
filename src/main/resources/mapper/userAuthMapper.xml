@@ -16,6 +16,10 @@
 		<result property="auditId" column="audit_id" />
 		<result property="auditTime" column="audit_time" />
 	</resultMap>
+	
+	<resultMap id="userAuthMapWithUserName" type="userAuth" extends="userAuthMap">
+		<result property="userName" column="user_name" />
+	</resultMap>
 
 	<select id="getById" parameterType="long"
 		resultMap="userAuthMap">
@@ -23,13 +27,14 @@
 	</select>
 	
 	<select id="getList" parameterType="userAuth"
-		resultMap="userAuthMap">
-		SELECT * FROM crop_user_auth
+		resultMap="userAuthMapWithUserName">
+		SELECT a.*, c.nick_name AS user_name FROM crop_user c INNER JOIN crop_user_auth a
+		ON c.id = a.user_id
 		<where>
 			<if test="userId != null and userId > 0 ">
-				AND user_id = #{userId}
+				AND a.user_id = #{userId}
 			</if>
-			<if test="status != null">AND status = #{status}</if>
+			<if test="status != null">AND a.status = #{status}</if>
 		</where>
 		ORDER BY update_time DESC
 	</select>

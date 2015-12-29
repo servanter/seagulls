@@ -1,16 +1,16 @@
 $(function() {
-	$('#btn-edit').click(function() {
-		$.getJSON(BaseUtils.proPath + 'admin/auth/person/pass/?id=' + $(this).val(), function(data) {
+	$('.btn-edit').click(function() {
+		$.getJSON(BaseUtils.proPath + 'admin/auth/person/pass/?id=' + $(this).attr('param'), function(data) {
 			if (data.code != 10000) {
 				$('.tip-item').removeClass('dn');
 				$('.tips').text(data.message);
 			} else {
-				BaseUtils.redirect(BaseUtils.proPath + data.message);
+				BaseUtils.reload();
 			}
 		});
 	});
 	
-	$('#btn-reject').click(function() {
+	$('.btn-reject').click(function() {
 		$('#form-edit input[name=id]').val($(this).attr('param'));
 		
 	});
@@ -29,7 +29,7 @@ $(function() {
 					$('.tip-item').removeClass('dn');
 					$('.tips').text(data.message);
 				} else {
-					BaseUtils.redirect(BaseUtils.proPath + data.message);
+					BaseUtils.reload();
 				}
 			}
 		}

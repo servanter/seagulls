@@ -18,4 +18,12 @@
 		INSERT INTO crop_user_auth_reject(auth_id, type, opinion, audit_time, audit_id)
 		VALUES(#{authId}, #{type}, #{opinion}, NOW(), #{auditId})
 	</insert>
+	
+	<insert id="batchSave">
+		INSERT INTO crop_user_auth_reject(auth_id, type, opinion, audit_time, audit_id)
+		VALUES
+		<foreach collection="list" item="reject" separator=",">
+			(#{reject.authId}, #{reject.type}, #{reject.opinion}, NOW(), #{reject.auditId})
+		</foreach>
+	</insert>
 </mapper>

@@ -36,10 +36,6 @@
 				<div class="right-content">
 					<c:choose>
 				  		<c:when test="${list ne null && fn:length(list.result) > 0}">
-							<p class="pull-left">
-								<button type="button" class="btn btn-success btn-edit" data-toggle="modal" data-target=".edit-modal" param="${model.id }"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>批量通过</button>
-								<button type="button" class="btn btn-danger" data-toggle="modal" data-target=".refresh-modal" ><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>批量驳回</button>
-							</p>
 				  			<table class="table table-bordered table-striped table-hover f10 text-center">
 								<thead>
 									<tr>
@@ -60,24 +56,30 @@
 									<c:forEach var="model" items="${list.result}">
 										<tr>
 											<td>${model.id }</td>
-											<td>${model.userId }</td>
+											<td>${model.userName }</td>
 											<td>${model.realName }</td>
 											<td>${model.idCardNum }</td>
 											<td><img src="${ctx }/${model.imgFront }"/></td>
 											<td><img src="${ctx }/${model.imgBackground }"/></td>
 											<td><img src="${ctx }/${model.imgPerson }"/></td>
-											<td>${model.status }</td>
-											<td>${model.createTime }</td>
 											<td>
 												<c:choose>
-													<c:when test="${model.auditId eq -1}">
-															无
+													<c:when test="${model.status == 0}">
+														未审核
+													</c:when>
+													<c:when test="${model.status == 1}">
+														通过
+													</c:when>
+													<c:when test="${model.status == -2}">
+														驳回
 													</c:when>
 													<c:otherwise>
-														${model.auditId }
+													
 													</c:otherwise>
 												</c:choose>
 											</td>
+											<td>${model.createTime }</td>
+											<td>${model.auditName }</td>
 											<td>
 												<c:choose>
 													<c:when test="${model.auditTime eq null}">
@@ -116,7 +118,7 @@
 							  <ul class="pagination pull-right">
 							  	<c:choose>
 							  		<c:when test="${list.page > 1}">
-							  			<li><a href="${ctx }/admin/operations/indexBanner_n${list.page - 1 }/?pId=${s.parentId }" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+							  			<li><a href="${ctx }/admin/auth/person/rejectList_n${list.page - 1 }/?pId=${s.parentId }" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
 							  		</c:when>
 							  		<c:otherwise>
 							  			<li class="disabled"><a href="javascript:void(0)" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
@@ -129,13 +131,13 @@
 							  				<li class="active"><a href="javascript:void(0)">${i.index }<span class="sr-only">(current)</span></a></li>
 							  			</c:when>
 							  			<c:otherwise>
-							  				<li><a href="${ctx }/admin/operations/indexBanner_n${i.index }/?pId=${s.parentId }">${i.index }<span class="sr-only">(current)</span></a></li>
+							  				<li><a href="${ctx }/admin/auth/person/rejectList_n${i.index }/?pId=${s.parentId }">${i.index }<span class="sr-only">(current)</span></a></li>
 							  			</c:otherwise>
 							  		</c:choose>
 							  	</c:forEach>
 							    <c:choose>
 							  		<c:when test="${list.totalPage > list.page}">
-							  			<li><a href="${ctx }/admin/operations/indexBanner_n${list.page + 1 }/?pId=${s.parentId }" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+							  			<li><a href="${ctx }/admin/auth/person/rejectList_n${list.page + 1 }/?pId=${s.parentId }" aria-label="Next"><span aria-hidden="true">»</span></a></li>
 							  		</c:when>
 							  		<c:otherwise>
 							  			<li class="disabled"><a href="javascript:void(0)" aria-label="Next"><span aria-hidden="true">»</span></a></li>

@@ -1,5 +1,7 @@
 package com.crop.seagulls.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,12 @@ public class PersonRejectionServiceImpl implements PersonRejectionService {
     @Override
     public Response add(PersonRejection rejection) {
         return personRejectionDAO.save(rejection) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+    }
+
+    @Override
+    public Response batchAdd(List<PersonRejection> rejections) {
+        personRejectionDAO.batchSave(rejections);
+        return new Response(ReturnCode.SUCCESS);
     }
 
 }
