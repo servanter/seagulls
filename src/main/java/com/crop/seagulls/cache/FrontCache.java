@@ -17,7 +17,7 @@ import com.crop.seagulls.service.HotCategoryService;
 import com.crop.seagulls.util.Logger;
 
 @Component
-public class FrontCache extends Thread{
+public class FrontCache extends Thread {
 
     public static Logger logger = Logger.getLogger(FrontCache.class);
 

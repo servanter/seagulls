@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -17,24 +18,25 @@ import com.crop.seagulls.entities.Category;
 import com.crop.seagulls.service.DictCategoryService;
 
 @Component
+@DependsOn
 public class CategoryCache {
 
     /**
      * id & map
      */
-    private static Map<Long, Category> ALL_CATEGORY_MAP = new HashMap<Long, Category>();
+    private Map<Long, Category> ALL_CATEGORY_MAP = new HashMap<Long, Category>();
 
     /**
      * pid & sub categories
      */
-    private static Map<Long, List<Category>> CATEGORY_RELATION_MAP = new HashMap<Long, List<Category>>();
+    private Map<Long, List<Category>> CATEGORY_RELATION_MAP = new HashMap<Long, List<Category>>();
 
-    private static List<String> CATEGORIES_DB_METHODS = new ArrayList<String>();
+    private List<String> CATEGORIES_DB_METHODS = new ArrayList<String>();
 
     /**
      * all categories
      */
-    private static List<Category> ALL_CATEGORY_WITH_VARIERTIES = new ArrayList<Category>();
+    private List<Category> ALL_CATEGORY_WITH_VARIERTIES = new ArrayList<Category>();
     
     @Autowired
     private DictCategoryService dictCategoryService;
