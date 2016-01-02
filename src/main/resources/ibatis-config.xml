@@ -22,6 +22,7 @@
 		<typeAlias alias="hotCategory" type="com.crop.seagulls.entities.HotCategory" />
 		<typeAlias alias="varieties" type="com.crop.seagulls.entities.Varieties" />
 		<typeAlias alias="personRejection" type="com.crop.seagulls.entities.PersonRejection" />
+		<typeAlias alias="companyRejection" type="com.crop.seagulls.entities.CompanyRejection" />
 		
 		
 		<typeAlias alias="adminUser" type="com.crop.seagulls.entities.admin.User" />

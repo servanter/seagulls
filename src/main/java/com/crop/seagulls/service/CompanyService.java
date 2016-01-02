@@ -19,4 +19,12 @@ public interface CompanyService {
 
     public List<Company> findAll();
 
+    public Response pass(Long id);
+
+    public Response reject(Long id, Integer type, String opinion);
+
+    public Response passAll(String ids);
+
+    public Response rejectAll(String ids, Integer type, String opinion);
+
 }

@@ -29,14 +29,24 @@
 		<result property="auditTime" column="audit_time" />
 	</resultMap>
 
+	<resultMap id="companyMapWithUserName" type="company" extends="companyMap">
+		<result property="userName" column="user_name" />
+	</resultMap>
+	
 	<select id="getAll" resultMap="companyMap">
 		SELECT * FROM crop_company ORDER BY update_time DESC
 	</select>
+	
 	<select id="getList" parameterType="company"
-		resultMap="companyMap">
-		SELECT * FROM crop_company WHERE 1 = 1
-		<if test="userId != null and userId > 0">user_id = #{userId}</if>
-		<if test="status != null">AND status = #{status}</if>
+		resultMap="companyMapWithUserName">
+		SELECT a.*, c.nick_name AS user_name FROM crop_user c INNER JOIN crop_company a
+		ON c.id = a.user_id
+		<where>
+			<if test="userId != null and userId > 0 ">
+				AND a.user_id = #{userId}
+			</if>
+			<if test="status != null">AND a.status = #{status}</if>
+		</where>
 		ORDER BY update_time DESC
 	</select>
 
@@ -124,6 +134,41 @@
 			,audit_id = #{auditId}
 			,audit_time = NOW()
 		</if>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="batchUpdate">
+		UPDATE crop_company SET
+		update_time = NOW() 
+		<if test="auth.title != null and auth.title.length() > 0">
+			,title = #{auth.title}
+		</if>
+		<if test="auth.legalName != null and auth.legalName.length() > 0">
+			,legal_name = #{auth.legalName}
+		</if>
+		<if test="auth.organizationCode != null and auth.organizationCode.length() > 0">
+			,organization_code = #{auth.organizationCode}
+		</if>
+		<if test="auth.imgLicense != null and auth.imgLicense.length() > 0">
+			,img_license = #{auth.imgLicense}
+		</if>
+		<if test="auth.imgOrganization != null and auth.imgOrganization.length() > 0">
+			,img_organization = #{auth.imgOrganization}
+		</if>
+		<if test="auth.imgTax != null and auth.imgTax.length() > 0">
+			,img_tax = #{auth.imgTax}
+		</if>
+		<if test="auth.status != null ">
+			,status = #{auth.status}
+		</if>
+		<if test="auth.auditId != null and auth.auditId > 0">
+			,audit_id = #{auth.auditId}
+			,audit_time = NOW()
+		</if>
+		WHERE id IN 
+		<foreach collection="ids" open="(" close=")" separator="," item="id">
+			#{id}
+		</foreach>
 	</update>
 	
 	<insert id="saveUserCompany" parameterType="userCompany">

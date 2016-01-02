@@ -19,15 +19,12 @@
 		<meta http-equiv="description" content="This is my page">
 		<link rel="stylesheet" href="${ctx }/css/bootstrap.min.css">
 		<link rel="stylesheet" href="${ctx }/css/admin/user/main.css">
-		<link rel="stylesheet" href="${ctx }/css/ztree/zTreeStyle.css">
 		<script src="${ctx }/js/jquery-1.11.0.min.js"></script>
 		<script src="${ctx }/js/jquery.form.js" type="text/javascript" ></script>
 		<script src="${ctx }/js/bootstrap.min.js"></script>
 		<script src="${ctx }/js/baseutils.js" type="text/javascript"></script>
 		<script src="${ctx }/js/admin/alert.js" type="text/javascript"></script>
 		<script src="${ctx }/js/admin/menu.js" type="text/javascript"></script>
-		<script src="${ctx }/js/admin/operations/hot_category.js" type="text/javascript"></script>
-		<script src="${ctx }/js/ztree/jquery.ztree.all-3.5.min.js" type="text/javascript"></script>
 	</head>
 
 	<body>
@@ -40,65 +37,63 @@
 				<div class="right-content">
 					<c:choose>
 				  		<c:when test="${list ne null && fn:length(list.result) > 0}">
-							<p class="pull-right">
-								<button type="button" class="btn btn-success btn-edit" data-toggle="modal" data-target=".edit-modal" param="${model.id }"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新建</button>
-								<button type="button" class="btn btn-warning" data-toggle="modal" data-target=".refresh-modal" ><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>刷新</button>
-							</p>
-				  			<table class="table table-bordered table-striped table-hover f14 text-center">
+				  			<table class="table table-bordered table-striped table-hover f10 text-center">
 								<thead>
 									<tr>
 										<th class="text-center">id</th>
-										<th class="text-center">分类ID</th>
-										<th class="text-center">分类名称</th>
-										<th class="text-center">创建时间</th>
-										<th class="text-center">更新时间</th>
-										<th class="text-center">操作人</th>
-										<th class="text-center">操作</th>
+										<th class="text-center">用户昵称</th>
+										<th class="text-center">机构名称</th>
+										<th class="text-center">法人姓名</th>
+										<th class="text-center">营业执照编号</th>
+										<th class="text-center">营业执照</th>
+										<th class="text-center">组织机构代码证</th>
+										<th class="text-center">税务登记证</th>
+										<th class="text-center">审核状态</th>
+										<th class="text-center">提交时间</th>
+										<th class="text-center">审核人</th>
+										<th class="text-center">审核时间</th>
 									</tr>
 								</thead>
 								<tbody>
 									<c:forEach var="model" items="${list.result}">
 										<tr>
 											<td>${model.id }</td>
-											<td>${model.categoryId }</td>
-											<td>${model.categoryName }</td>
-											<td>${model.createTime }</td>
-											<td>${model.updateTime }</td>
 											<td>${model.userName }</td>
+											<td>${model.title }</td>
+											<td>${model.legalName }</td>
+											<td>${model.organizationCode }</td>
+											<td><img class="img80" src="${ctx }/${model.imgLicense }"/></td>
+											<td><img class="img80" src="${ctx }/${model.imgOrganization }"/></td>
+											<td><img class="img80" src="${ctx }/${model.imgTax }"/></td>
 											<td>
-												<button type="button" class="btn btn-info btn-top" param="${model.id }"><span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true"></span>置顶</button>
-												<button type="button" class="btn btn-primary btn-edit" data-toggle="modal" data-target=".edit-modal" param="${model.id }"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改</button>
-												<button type="button" class="btn btn-danger btn-remove" data-toggle="modal" data-target=".remove-modal" param="${model.id }"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除</button>
+												<c:choose>
+													<c:when test="${model.status == 0}">
+														未审核
+													</c:when>
+													<c:when test="${model.status == 1}">
+														通过
+													</c:when>
+													<c:when test="${model.status == -2}">
+														驳回
+													</c:when>
+													<c:otherwise>
+													
+													</c:otherwise>
+												</c:choose>
 											</td>
+											<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${model.createTime }"></fmt:formatDate></td>
+											<td>${model.auditName }</td>
+											<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${model.auditTime }"></fmt:formatDate></td>
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
 							
-						
-						<div class="modal fade remove-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-							  <div class="modal-dialog modal-sm">
-							    <div class="modal-content">
-							     <div class="modal-header">
-							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							        <h4 class="modal-title">提示</h4>
-							      </div>
-							      <div class="modal-body">
-							      	  确认删除吗？
-							      </div>
-							      <div class="modal-footer">
-							        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-							        <button type="button" id="btn-remove" class="btn btn-danger">删除</button>
-							      </div>
-							    </div>
-							  </div>
-						</div>
-									
 							<nav>
 							  <ul class="pagination pull-right">
 							  	<c:choose>
 							  		<c:when test="${list.page > 1}">
-							  			<li><a href="${ctx }/admin/operations/indexBanner_n${list.page - 1 }/?pId=${s.parentId }" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+							  			<li><a href="${ctx }/admin/auth/company/passList_n${list.page - 1 }/?pId=${s.parentId }" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
 							  		</c:when>
 							  		<c:otherwise>
 							  			<li class="disabled"><a href="javascript:void(0)" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
@@ -111,13 +106,13 @@
 							  				<li class="active"><a href="javascript:void(0)">${i.index }<span class="sr-only">(current)</span></a></li>
 							  			</c:when>
 							  			<c:otherwise>
-							  				<li><a href="${ctx }/admin/operations/indexBanner_n${i.index }/?pId=${s.parentId }">${i.index }<span class="sr-only">(current)</span></a></li>
+							  				<li><a href="${ctx }/admin/auth/company/passList_n${i.index }/?pId=${s.parentId }">${i.index }<span class="sr-only">(current)</span></a></li>
 							  			</c:otherwise>
 							  		</c:choose>
 							  	</c:forEach>
 							    <c:choose>
 							  		<c:when test="${list.totalPage > list.page}">
-							  			<li><a href="${ctx }/admin/operations/indexBanner_n${list.page + 1 }/?pId=${s.parentId }" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+							  			<li><a href="${ctx }/admin/auth/company/passList_n${list.page + 1 }/?pId=${s.parentId }" aria-label="Next"><span aria-hidden="true">»</span></a></li>
 							  		</c:when>
 							  		<c:otherwise>
 							  			<li class="disabled"><a href="javascript:void(0)" aria-label="Next"><span aria-hidden="true">»</span></a></li>
@@ -128,7 +123,7 @@
 				  		</c:when>
 				  		<c:otherwise>
 				  			<div class="alert alert-warning" role="alert">
-							    还没有改数据,, <a href="#" class="alert-link" data-toggle="modal" data-target=".edit-modal">点击</a>创建
+							   亲还没有审核数据
 							</div>
 				  		</c:otherwise>
 				  	</c:choose>

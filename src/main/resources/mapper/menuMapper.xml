@@ -51,6 +51,7 @@
 		<if test="exceptId != null and exceptId > 0">
 			AND id &lt;&gt; #{exceptId}
 		</if>
+		LIMIT #{sinceCount}, #{pageSize}
 	</select>
 
 	<select id="getListCount" parameterType="menu" resultType="int">

@@ -1,6 +1,6 @@
 $(function() {
 	$('.btn-edit').click(function() {
-		$.getJSON(BaseUtils.proPath + 'admin/auth/person/pass/?id=' + $(this).attr('param'), function(data) {
+		$.getJSON(BaseUtils.proPath + 'admin/auth/company/pass/?id=' + $(this).attr('param'), function(data) {
 			if (data.code != 10000) {
 				$('.tip-item').removeClass('dn');
 				$('.tips').text(data.message);
@@ -20,9 +20,9 @@ $(function() {
 			return;
 		}
 
-		var url = 'admin/auth/person/reject/';
+		var url = 'admin/auth/company/reject/';
 		if($('#form-edit input[name=ids]').val().indexOf(',') > 0) {
-			url = 'admin/auth/person/rejectAll/';
+			url = 'admin/auth/company/rejectAll/';
 		}
 		var option = {
 			type: 'POST',
@@ -50,7 +50,7 @@ $(function() {
 			alert('请勾选记录');
 			return;
 		}
-		$.getJSON(BaseUtils.proPath + 'admin/auth/person/passAll/?ids=' + ids, function(data) {
+		$.getJSON(BaseUtils.proPath + 'admin/auth/company/passAll/?ids=' + ids, function(data) {
 			if (data.code != 10000) {
 				$('.tip-item').removeClass('dn');
 				$('.tips').text(data.message);

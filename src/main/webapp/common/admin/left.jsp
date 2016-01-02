@@ -17,6 +17,7 @@
 				<c:otherwise>
 					<c:set var="everyLast" value="${fn:split(lastIds, ',')}"></c:set>
 					<c:set var="isContains" value="false"></c:set>
+					<c:set var="subStyle" value="6"></c:set>
 					<c:forEach var="e" items="${everyLast}">
 						<c:if test="${e eq menu.parentId}">
 							<c:set var="isContains" value="true"></c:set>
@@ -26,10 +27,11 @@
 						<c:when test="${isContains}">
 							<c:choose>
 								<c:when test="${menu.url eq '-1' || menu.url eq ''}">									
-									<li><a href="javascript:void(0)" class="sub" param="${menu.parentId }" data="${menu.id }">${menu.menuName }</a></li>
+									<li><a href="javascript:void(0)" class="sub" param="${menu.parentId }" data="${menu.id }" style="padding-top: ${subStyle}px;padding-bottom: ${subStyle}px;">${menu.menuName }</a></li>
+									<c:set var="subStyle" value="${subStyle - 2 }"></c:set>
 								</c:when>
 								<c:otherwise>
-									<li><a href="${ctx }/${menu.url }" class="sub" param="${menu.parentId }" data="${menu.id }">${menu.menuName }</a></li>
+									<li><a href="${ctx }/${menu.url }" class="sub" param="${menu.parentId }" data="${menu.id }" style="padding-left: 50px;">${menu.menuName }</a></li>
 								</c:otherwise>
 							</c:choose>
 							

@@ -2,6 +2,7 @@ package com.crop.seagulls.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.crop.seagulls.entities.Company;
@@ -26,5 +27,7 @@ public interface CompanyDAO {
     Long saveUserCompany(UserCompany userCompany);
 
     List<Company> getAll();
+
+    int batchUpdate(@Param("auth" ) Company company, @Param("ids") List<Long> id);
 
 }
