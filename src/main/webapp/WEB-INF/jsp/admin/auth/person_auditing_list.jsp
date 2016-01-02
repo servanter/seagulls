@@ -39,12 +39,13 @@
 					<c:choose>
 				  		<c:when test="${list ne null && fn:length(list.result) > 0}">
 							<p class="pull-left">
-								<button type="button" class="btn btn-success btn-edit" data-toggle="modal" data-target=".edit-modal" param="${model.id }"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>批量通过</button>
-								<button type="button" class="btn btn-danger" data-toggle="modal" data-target=".refresh-modal" ><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>批量驳回</button>
+								<button type="button" class="btn btn-success btn-passall""><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>批量通过</button>
+								<button type="button" class="btn btn-danger btn-rejectall"  data-toggle="modal" data-target=".reject-modal" ><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>批量驳回</button>
 							</p>
 				  			<table class="table table-bordered table-striped table-hover f10 text-center">
 								<thead>
 									<tr>
+										<th class="text-center"><input id="selAll" type="checkbox"></th>
 										<th class="text-center">id</th>
 										<th class="text-center">用户昵称</th>
 										<th class="text-center">真实姓名</th>
@@ -60,6 +61,9 @@
 								<tbody>
 									<c:forEach var="model" items="${list.result}">
 										<tr>
+											<td>
+												<input class="primary-id" name="modelId" type="checkbox" value="${model.id }">
+											</td>
 											<td>${model.id }</td>
 											<td>${model.userName }</td>
 											<td>${model.realName }</td>
@@ -142,6 +146,7 @@
 						      <div class="modal-body">
 						      		<form id="form-edit" class="form-horizontal">
 						      			<input type="hidden" name="id" value="">
+						      			<input type="hidden" name="ids" value="">
 						      	      <div class="form-group">
 									    <label for="categoryText" class="col-sm-4 control-label">驳回类型</label>
 									    <div class="col-sm-8">

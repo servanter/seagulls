@@ -11,8 +11,7 @@ $(function() {
 	});
 	
 	$('.btn-reject').click(function() {
-		$('#form-edit input[name=id]').val($(this).attr('param'));
-		
+		$('#form-edit input[name=ids]').val($(this).attr('param'));
 	});
 	$('#btn-update').click(function() {
 		var type = $('#type').val();
@@ -21,9 +20,13 @@ $(function() {
 			return;
 		}
 
+		var url = 'admin/auth/person/reject/';
+		if($('#form-edit input[name=ids]').val().indexOf(',') > 0) {
+			url = 'admin/auth/person/rejectAll/';
+		}
 		var option = {
 			type: 'POST',
-			url: BaseUtils.proPath + 'admin/auth/person/reject/',
+			url: BaseUtils.proPath + url,
 			success: function(data) {
 				if (data.code != 10000) {
 					$('.tip-item').removeClass('dn');
@@ -36,7 +39,41 @@ $(function() {
 		$('#form-edit').ajaxSubmit(option);
 	});
 	
+	$('.btn-passall').click(function() {
+		var ids = '';
+		$.each($("input[name=modelId]:checked"), function(index, item) {
+			ids += $(item).val() + ',';
+		});
+		if(ids.length > 0) {
+			ids = ids.substring(0, ids.length - 1);
+		} else {
+			alert('请勾选记录');
+			return;
+		}
+		$.getJSON(BaseUtils.proPath + 'admin/auth/person/passAll/?ids=' + ids, function(data) {
+			if (data.code != 10000) {
+				$('.tip-item').removeClass('dn');
+				$('.tips').text(data.message);
+			} else {
+				BaseUtils.reload();
+			}
+		});
+		
+	});
 	
+	$('.btn-rejectall').click(function() {
+		var ids = '';
+		$.each($("input[name=modelId]:checked"), function(index, item) {
+			ids += $(item).val() + ',';
+		});
+		if(ids.length > 0) {
+			ids = ids.substring(0, ids.length - 1);
+		} else {
+			alert('请勾选记录');
+			return;
+		}
+		$('#form-edit input[name=ids]').val(ids);
+	});
 
 });
 

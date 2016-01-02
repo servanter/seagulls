@@ -43,5 +43,14 @@ $(function () {
 		var url = $(".generate_code").attr("src").substring(0, $(".generate_code").attr("src").lastIndexOf("/") + 1);
 		$(".generate_code").attr("src", url + "?rand=" + BaseUtils.random());
 	});
+	
+	$('#selAll').click(function() {
+		if (this.checked) {          
+			$("input[name=modelId]").prop("checked",true);
+		} else {   
+			$("input[name=modelId]").prop("checked",false);
+		}
+
+	});
 });
 

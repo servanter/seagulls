@@ -79,18 +79,9 @@
 													</c:otherwise>
 												</c:choose>
 											</td>
-											<td>${model.createTime }</td>
+											<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${model.createTime }"></fmt:formatDate></td>
 											<td>${model.auditName }</td>
-											<td>
-												<c:choose>
-													<c:when test="${model.auditTime eq null}">
-															无
-													</c:when>
-													<c:otherwise>
-														${model.auditTime }
-													</c:otherwise>
-												</c:choose>
-											</td>
+											<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${model.auditTime }"></fmt:formatDate></td>
 										</tr>
 									</c:forEach>
 								</tbody>

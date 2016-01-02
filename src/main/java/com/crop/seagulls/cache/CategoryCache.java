@@ -18,7 +18,7 @@ import com.crop.seagulls.entities.Category;
 import com.crop.seagulls.service.DictCategoryService;
 
 @Component
-@DependsOn
+@DependsOn("frontCache")
 public class CategoryCache {
 
     /**

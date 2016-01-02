@@ -11,7 +11,7 @@
 		<c:set var="lastIds"></c:set>
 		<c:forEach var="menu" items="${ACTML}">
 			<c:choose>
-				<c:when test="${menu.url eq '' && fn:length(userMenuMap[menu.id]) > 0}">
+				<c:when test="${menu.url eq '' && fn:length(userMenuMap[menu.id]) > 0 && menu.parentId < 100000}">
 					<li><a href="javascript:void(0)" param="${menu.parentId }" data="${menu.id }" c="0">${menu.menuName }</a></li>
 				</c:when>
 				<c:otherwise>
@@ -25,7 +25,7 @@
 					<c:choose>
 						<c:when test="${isContains}">
 							<c:choose>
-								<c:when test="${menu.url eq '-1'}">									
+								<c:when test="${menu.url eq '-1' || menu.url eq ''}">									
 									<li><a href="javascript:void(0)" class="sub" param="${menu.parentId }" data="${menu.id }">${menu.menuName }</a></li>
 								</c:when>
 								<c:otherwise>

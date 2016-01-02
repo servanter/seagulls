@@ -93,13 +93,13 @@ public class AuthController {
     
     @ResponseBody
     @RequestMapping("/person/passAll")
-    public Response personPass(@RequestParam("ids") String ids) {
+    public Response personPassAll(@RequestParam("ids") String ids) {
         return userAuthService.passAll(ids);
     }
     
     @ResponseBody
     @RequestMapping("/person/rejectAll")
-    public Response personReject(@RequestParam("ids") String ids, @RequestParam("type") Integer type, @RequestParam("opinion") String opinion) {
+    public Response personRejectAll(@RequestParam("ids") String ids, @RequestParam("type") Integer type, @RequestParam("opinion") String opinion) {
         return userAuthService.rejectAll(ids, type, opinion);
     }
 

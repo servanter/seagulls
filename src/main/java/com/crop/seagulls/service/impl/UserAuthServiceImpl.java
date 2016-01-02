@@ -108,7 +108,7 @@ public class UserAuthServiceImpl implements UserAuthService {
         userAuth.setStatus(CommonStatus.PASS.getCode());
         userAuth.setAuditId(SecurityUtils.getLoginedUserId());
         List<Long> id = NumberUtils.strSplit2List(ids, ",", Long.class);
-        return userAuthDAO.batchUpdate(userAuth, id).length > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+        return userAuthDAO.batchUpdate(userAuth, id)> 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
     }
 
     @Override
@@ -118,7 +118,7 @@ public class UserAuthServiceImpl implements UserAuthService {
         userAuth.setStatus(CommonStatus.REJECT.getCode());
         userAuth.setAuditId(SecurityUtils.getLoginedUserId());
         List<Long> id = NumberUtils.strSplit2List(ids, ",", Long.class);
-        response = userAuthDAO.batchUpdate(userAuth, id).length > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+        response = userAuthDAO.batchUpdate(userAuth, id) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
         if (ReturnCode.isSuccess(response.getReturnCode())) {
             List<PersonRejection> rejections = new ArrayList<PersonRejection>();
             for (Long everyId : id) {
@@ -127,6 +127,7 @@ public class UserAuthServiceImpl implements UserAuthService {
                 personRejection.setAuthId(everyId);
                 personRejection.setOpinion(opinion);
                 personRejection.setType(type);
+                rejections.add(personRejection);
             }
             response = personRejectionService.batchAdd(rejections);
         }

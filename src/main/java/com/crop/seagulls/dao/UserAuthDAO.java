@@ -18,7 +18,7 @@ public interface UserAuthDAO {
 
     int update(UserAuth userAuth);
     
-    int[] batchUpdate(@Param("auth") UserAuth userAuth, @Param("ids") List<Long> ids);
+    int batchUpdate(@Param("auth") UserAuth userAuth, @Param("ids") List<Long> ids);
 
     UserAuth getById(Long id);
 
