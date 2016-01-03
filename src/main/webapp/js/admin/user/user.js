@@ -38,13 +38,17 @@ $(function() {
 				$('input[name=password]').val(data.result.password);
 				if(data.result.roles && data.result.roles.length) {
 					var text = '';
+					var ids = '';
 					$.each(data.result.roles, function(index, item) {
 						text += item.roleName + ',';
+						ids += item.id + ',';
 					});
 					if(text.length > 0) {
 						text = text.substring(0, text.length - 1);
+						ids  = ids.substring(0, ids.length - 1);
 					}
 					$('input[name=user_role_names]').val(text);
+					$('input[name=roleIds]').val(ids);
 				}
 				
 			});

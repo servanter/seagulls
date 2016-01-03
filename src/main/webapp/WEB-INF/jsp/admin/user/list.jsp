@@ -160,6 +160,7 @@
 										    <label for="user_role_names" class="col-sm-4 control-label">所属角色</label>
 										    <div class="col-sm-8">
 										      <input type="text" name="user_role_names" id="user_role_names" class="form-control" placeholder="请选择所属范围" data-toggle="modal" data-target=".role-module-modal" >
+										      <input type="hidden" name="roleIds" value="">
 										    </div>
 										  </div>
 										</form>
