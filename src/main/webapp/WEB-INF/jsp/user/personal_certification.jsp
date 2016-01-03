@@ -41,7 +41,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</c:if>
 </header>
 <!--列表-->
-<section>
+<div style="padding:44px 0 60px 0;">
+	<!--审核状态-->
+	<c:choose>
+		<c:when test="${model.status == commonStatus['REJECT'].code }">
+			<!--未通过-->
+			<div class="renzhengshenhe">
+				<div class="weitongguo">
+					<h4 class="colorRed">审核未通过</h4>
+					<p>
+						<c:choose>
+							<c:when test="${fn:length(reject.opinion) > 0 }">
+								${reject.opinion }
+							</c:when>
+							<c:otherwise>
+								${rejectType.description }
+							</c:otherwise>
+						</c:choose>
+					</p>
+				</div>
+			</div>
+		</c:when>
+		<c:when test="${model.status == commonStatus['AUDITING'].code }">
+			<!--审核中-->
+			<div class="renzhengshenhe">
+				<div class="shenhezhong">
+					<h4 class="colorOrange">审核中</h4>
+					<p>我们会尽快进行审核，请耐心等待</p>
+				</div>
+			</div>
+		</c:when>
+		<c:when test="${model.status == commonStatus['PASS'].code }">
+			<!--通过-->
+			<div class="renzhengshenhe">
+				<div class="yitongguo">
+					<h4 class="colorGreen2">审核已通过</h4>
+					<p>认证通过后不可修改，如需修改请联系客服</p>
+				</div>
+			</div>
+		</c:when>
+	</c:choose>
+	
 	<form id="form-personal">
 		<input name="id" type="hidden" value="${model.id }">
 		<div class="contentBg2">
@@ -53,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<input class="formInput" name="realName" type="text" value="${model.realName }"/>
 						</c:when>
 						<c:otherwise>
-							<input class="formInput" name="realName" type="text" value="${model.realName }" disabled/>
+							<div class="formInput">${model.realName }</div>
 						</c:otherwise>
 					</c:choose>
 				</li>
@@ -64,13 +104,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<input class="formInput" name="idCardNum" type="text" value="${model.idCardNum }" />
 						</c:when>
 						<c:otherwise>
-							<input class="formInput" name="idCardNum" type="text" value="${model.idCardNum }" disabled/>
+							<div class="formInput">${model.idCardNum }</div>
 						</c:otherwise>
 					</c:choose>
 				</li>
 			</ul>
 		</div>
 		<div class="contentBg2">
+			<c:if test="${model.imgFront ne null || model.imgFront ne '' || model.imgBackground ne null || model.imgBackground ne '' || model.imgPerson ne null || model.imgPerson ne ''}">
+				<input type="hidden" id="isupdate" value="1">
+			</c:if>
 			<ul class="renzheng_tupian">
 				<li style="left:17%;">
 					<input type="file" name="imgFrontPic" class="dn-file dn">
@@ -137,7 +180,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<img src="${ctx }/images/renzheng_geren_05.jpg" />
 		<img src="${ctx }/images/renzheng_geren_06.jpg" /></p>
 	</div>
-</section>
+</div>
 
 
 </body>

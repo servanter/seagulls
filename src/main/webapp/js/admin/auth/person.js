@@ -21,7 +21,7 @@ $(function() {
 		}
 
 		var url = 'admin/auth/person/reject/';
-		if($('#form-edit input[name=ids]').val().indexOf(',') > 0) {
+		if($('#form-edit input[name=ids]').val().indexOf(',') > 0 || $('#form-edit input[name=ids]').val().length > 0) {
 			url = 'admin/auth/person/rejectAll/';
 		}
 		var option = {

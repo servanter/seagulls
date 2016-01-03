@@ -29,4 +29,14 @@ public enum PersonRejectEnum {
         this.description = description;
     }
 
+    public static PersonRejectEnum code2Rejection(int code) {
+        PersonRejectEnum[] values = PersonRejectEnum.values();
+        for (PersonRejectEnum every : values) {
+            if (every.getCode() == code) {
+                return every;
+            }
+        }
+        return null;
+    }
+
 }

@@ -13,4 +13,6 @@ public interface PersonRejectionDAO {
 
     void batchSave(List<PersonRejection> rejections);
 
+    PersonRejection getByAuthId(Long authId);
+
 }

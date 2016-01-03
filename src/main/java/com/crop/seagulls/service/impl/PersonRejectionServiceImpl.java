@@ -28,4 +28,9 @@ public class PersonRejectionServiceImpl implements PersonRejectionService {
         return new Response(ReturnCode.SUCCESS);
     }
 
+    @Override
+    public PersonRejection findByAuthId(Long anthId) {
+        return personRejectionDAO.getByAuthId(anthId);
+    }
+
 }

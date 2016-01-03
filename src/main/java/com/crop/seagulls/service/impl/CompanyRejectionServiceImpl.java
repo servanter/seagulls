@@ -28,4 +28,9 @@ public class CompanyRejectionServiceImpl implements CompanyRejectionService {
         return new Response(ReturnCode.SUCCESS);
     }
 
+    @Override
+    public CompanyRejection findByCompanyId(Long id) {
+        return companyRejectionDAO.getByCompanyId(id);
+    }
+
 }

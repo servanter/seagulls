@@ -14,6 +14,11 @@
 
 	<sql id="base_columns">id, auth_id, type, opinion, audit_time, update_time, audit_id </sql>
 	
+	<select id="getByAuthId" parameterType="long" resultMap="personRejectionMap">
+		SELECT 
+		<include refid="base_columns"/>
+		FROM crop_user_auth_reject WHERE auth_id = #{authId} ORDER BY update_time DESC LIMIT 1
+	</select>
 	<insert id="save" parameterType="personRejection" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO crop_user_auth_reject(auth_id, type, opinion, audit_time, audit_id)
 		VALUES(#{authId}, #{type}, #{opinion}, NOW(), #{auditId})

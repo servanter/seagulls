@@ -177,9 +177,9 @@ nav#nav ul li.selected a{
 	display:block; width:100%; height:100%; color:#fff;}
 .bottomBar ul li img{
 	width:20px; height:20px; vertical-align:middle; margin-right:5px;}
-.bottomBar ul li.follow,.bottomBar ul li.follow a{
+.bottomBar ul li.follow,.bottomBar ul li.follow a,.bottomBar ul li.edit a{
 	background:#fff; color:#00c9a1;}
-.bottomBar ul li.chat{
+.bottomBar ul li.chat,.bottomBar li.shuaxin a{
 	background:#ff8b02;}
 
 /*详情*/
@@ -198,7 +198,8 @@ nav#nav ul li.selected a{
 	position:absolute; right:0; top:0; height:40px; line-height:40px; background:#ff8b02; border-radius:20px 0 0 20px; z-index:100; padding:0 15px 0 20px; color:#fff;}
 .articleDetailed .price strong{font-size:30px; font-family:"DINCond-Bold",Constantia, "Lucida Bright", "DejaVu Serif", Georgia, serif; margin-right:2px; vertical-align:bottom;}
 .articleDetailed ul li{
-	line-height:30px; font-size:15px;}
+	line-height:30px; font-size:15px; display:flex; align-items:center;}
+.articleDetailed ul li img.icon_renzheng{ height:18px; margin-left:5px;}
 .articleDetailed p{
 	font-size:15px; color:#6d6d72; line-height:25px; padding-top:5px; text-indent:2em; word-wrap:break-word;}
 .contentImgList{
@@ -449,3 +450,51 @@ li.formAvatar b img{ width:100%;}
 
 .blankPage{ width:100%; height:100%; display:flex; align-items:center; text-align:center; color:#ccc; font-size:18px;}
 .blankPage p{ text-align:center; width:100%;}
+
+
+
+/**/
+.list_img span.icon_renzheng{ display:block; position:absolute; right:0; bottom:0; width:20px; height:20px; border-top-left-radius:5px; overflow:hidden; background:#fff; display:flex;}
+.list_img span.icon_renzheng img{ width:14px; height:14px; margin:3px;}
+.list_img .icon_shenhe{ position:absolute; left:0; top:0; width:40px; height:15px; border-bottom-right-radius:5px; font-size:11px; text-align:center; line-height:15px; color:#fff; overflow:hidden;}
+.list_img .shenhezhong{ background:#ffba02;}
+.list_img .weitongguo{ background:#ef3528;}
+.listTab{ height:44px; background:#fff; width:100%; position:fixed; left:0; top:44px; z-index:100; border-bottom:1px solid rgba(0,0,0,0.1);}
+.listTab li{ float:left; width:33%; height:44px; text-align:center; line-height:44px;}
+.listTab li a{ display:block; width:100%; height:100%;}
+.listTab li a span{ display:inline-block; width:50px; color:#444a4d; font-size:14px; height:42px; overflow:hidden;}
+.listTab li.selected a span{ color:#ff7600; border-bottom:2px solid #ff7600;}
+
+.listEdit{}
+.listEdit li .list_img{ left:50px;}
+.listEdit li dl{ margin:0 15px 0 125px;}
+.listEdit li dl .time{ display:none;}
+.listEdit li .price{ display:none;}
+.listEdit li .listSelect{ width:20px; height:20px; overflow:hidden; background:url(../images/icon_weixuanzhong.png) no-repeat 0 0; background-size:cover; position:absolute; left:15px; top:36px;}
+.listEdit li.selected .listSelect{ background-image:url(../images/icon_xuanzhong.png);}
+.bottomBar li.shuaxin,.bottomBar li.shangxiajia{ width:50%;}
+.bottomBar li.edit{ width:100%;}
+
+.shenhezhuangtai,.renzhengshenhe{ padding:15px; background:#fff; border-bottom:1px solid #eee; text-align:center;}
+.shenhezhuangtai h4{ font-size:15px; margin-bottom:5px; font-weight:normal;}
+.shenhezhuangtai p,.renzhengshenhe p{ font-size:14px; color:#8e8e93; line-height:20px;}
+
+.colorGreen2{ color:#4bc72f;}
+.colorYellow{ color:#ffba02;}
+.colorOrange{ color:#ff7600;}
+.colorRed{ color:#ef3528;}
+
+.renzhengshenhe{ display:flex; align-items:center; text-align:left;}
+.renzhengshenhe div{ background:url(../images/icon_renzheng.png) no-repeat 0 center; background-size:26px 26px; padding-left:36px;}
+.renzhengshenhe h4{ font-size:15px; font-weight:normal; margin-bottom:5px;}
+.renzhengshenhe div.weitongguo{ background-image:url(../images/icon_weirenzheng.png);}
+.renzhengshenhe div.shenhezhong{ background-image:url(../images/icon_renzhengzhong.png);}
+.renzhengshenhe div.yitongguo{ background-image:url(../images/icon_renzheng.png);}
+
+
+.menuList2 li .renzheng_shenhe{ position:absolute; right:0; top:0; width:40px; height:16px; font-size:10px; color:#fff; text-align:center; background:#4bc72f; z-index:50; border-bottom-left-radius:5px; line-height:16px; overflow:hidden;}
+.menuList2 li .yitongguo{ background:#4bc72f;}
+.menuList2 li .shenhezhong{ background:#ff7600;}
+.menuList2 li .weitongguo{ background:#ef3528;}
+
+

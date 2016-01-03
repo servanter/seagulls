@@ -41,47 +41,55 @@ $(function() {
 			return;
 		}
 		
-		var imgLicensePic = $('input[name=imgLicensePic]').val();
-		if (!imgLicensePic || imgLicensePic.length == 0) {
-			Alert.info('请上传营业执照');
-			return;
-		}
+		var isupdate = $('#isupdate').val();
 		
-		var imgOrganizationPic = $('input[name=imgOrganizationPic]').val();
-		if (!imgOrganizationPic || imgOrganizationPic.length == 0) {
-			Alert.info('请上传组织代码照片');
-			return;
-		}
-		
-		var imgTaxPic = $('input[name=imgTaxPic]').val();
-		if (!imgTaxPic || imgTaxPic.length == 0) {
-			Alert.info('请上传税务登记证');
-			return;
-		}
-		
-		if(imgLicensePic.indexOf('.')) {
-			var post = imgLicensePic.substring(imgLicensePic.lastIndexOf('.') + 1);
-			if(!BaseUtils.checkImgValidate(post)) {
-				Alert.info('请上传合法的照片');
+		// 修改
+		if(isupdate != 1) {
+			
+			var imgLicensePic = $('input[name=imgLicensePic]').val();
+			if (!imgLicensePic || imgLicensePic.length == 0) {
+				Alert.info('请上传营业执照');
 				return;
+			}
+			
+			var imgOrganizationPic = $('input[name=imgOrganizationPic]').val();
+			if (!imgOrganizationPic || imgOrganizationPic.length == 0) {
+				Alert.info('请上传组织代码照片');
+				return;
+			}
+			
+			var imgTaxPic = $('input[name=imgTaxPic]').val();
+			if (!imgTaxPic || imgTaxPic.length == 0) {
+				Alert.info('请上传税务登记证');
+				return;
+			}
+			
+			if(imgLicensePic.indexOf('.')) {
+				var post = imgLicensePic.substring(imgLicensePic.lastIndexOf('.') + 1);
+				if(!BaseUtils.checkImgValidate(post)) {
+					Alert.info('请上传合法的照片');
+					return;
+				}
+			}
+			
+			if(imgOrganizationPic.indexOf('.')) {
+				var post = imgOrganizationPic.substring(imgOrganizationPic.lastIndexOf('.') + 1);
+				if(!BaseUtils.checkImgValidate(post)) {
+					Alert.info('请上传合法的照片');
+					return;
+				}
+			}
+			
+			if(imgTaxPic.indexOf('.')) {
+				var post = imgTaxPic.substring(imgTaxPic.lastIndexOf('.') + 1);
+				if(!BaseUtils.checkImgValidate(post)) {
+					Alert.info('请上传合法的照片');
+					return;
+				}
 			}
 		}
 		
-		if(imgOrganizationPic.indexOf('.')) {
-			var post = imgOrganizationPic.substring(imgOrganizationPic.lastIndexOf('.') + 1);
-			if(!BaseUtils.checkImgValidate(post)) {
-				Alert.info('请上传合法的照片');
-				return;
-			}
-		}
 		
-		if(imgTaxPic.indexOf('.')) {
-			var post = imgTaxPic.substring(imgTaxPic.lastIndexOf('.') + 1);
-			if(!BaseUtils.checkImgValidate(post)) {
-				Alert.info('请上传合法的照片');
-				return;
-			}
-		}
 		
 		Alert.loading();
 	

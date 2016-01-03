@@ -41,7 +41,46 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</c:if>
 </header>
 <!--列表-->
-<section>
+<div style="padding:44px 0 60px 0;">
+	<!--审核状态-->
+	<c:choose>
+		<c:when test="${model.status == commonStatus['REJECT'].code }">
+			<!--未通过-->
+			<div class="renzhengshenhe">
+				<div class="weitongguo">
+					<h4 class="colorRed">审核未通过</h4>
+					<p>
+						<c:choose>
+							<c:when test="${fn:length(reject.opinion) > 0 }">
+								${reject.opinion }
+							</c:when>
+							<c:otherwise>
+								${rejectType.description }
+							</c:otherwise>
+						</c:choose>
+					</p>
+				</div>
+			</div>
+		</c:when>
+		<c:when test="${model.status == commonStatus['AUDITING'].code }">
+			<!--审核中-->
+			<div class="renzhengshenhe">
+				<div class="shenhezhong">
+					<h4 class="colorOrange">审核中</h4>
+					<p>我们会尽快进行审核，请耐心等待</p>
+				</div>
+			</div>
+		</c:when>
+		<c:when test="${model.status == commonStatus['PASS'].code }">
+			<!--通过-->
+			<div class="renzhengshenhe">
+				<div class="yitongguo">
+					<h4 class="colorGreen2">审核已通过</h4>
+					<p>认证通过后不可修改，如需修改请联系客服</p>
+				</div>
+			</div>
+		</c:when>
+	</c:choose>
 	<form id="form-organization">
 		<input name="id" type="hidden" value="${model.id }">
 		<div class="contentBg2">
@@ -53,7 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<input class="formInput" name="title" type="text" value="${model.title }"/>
 						</c:when>
 						<c:otherwise>
-							<input class="formInput" name="title" type="text" value="${model.title }" disabled/>
+							<div class="formInput">${model.title }</div>
 						</c:otherwise>
 					</c:choose>
 				</li>
@@ -64,7 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<input class="formInput" name="legalName" type="text" value="${model.legalName }"/>
 						</c:when>
 						<c:otherwise>
-							<input class="formInput" name="legalName" type="text" value="${model.legalName }" disabled/>
+							<div class="formInput">${model.legalName }</div>
 						</c:otherwise>
 					</c:choose>
 				</li>
@@ -75,13 +114,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<input class="formInput" name="organizationCode" type="text" value="${model.organizationCode }"/>
 						</c:when>
 						<c:otherwise>
-							<input class="formInput" name="organizationCode" type="text" value="${model.organizationCode }" disabled/>
+							<div class="formInput">${model.organizationCode }</div>
 						</c:otherwise>
 					</c:choose>
 				</li>
 			</ul>
 		</div>
 		<div class="contentBg2">
+			<c:if test="${model.imgOrganization ne null || model.imgOrganization ne '' || model.imgLicense ne null || model.imgLicense ne '' || model.imgTax ne null || model.imgTax ne ''}">
+				<input type="hidden" id="isupdate" value="1">
+			</c:if>
 			<ul class="renzheng_tupian">
 				<li style="left:17%;">
 					<input type="file" name="imgLicensePic" class="dn-file dn">
@@ -147,6 +189,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<img src="${ctx }/images/renzheng_jigou_06.jpg" /></p>
 		</div>
 	</form>
-</section>
+</div>
 </body>
 </html>

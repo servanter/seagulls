@@ -10,4 +10,6 @@ public interface PersonRejectionService {
     public Response add(PersonRejection rejection);
     
     public Response batchAdd(List<PersonRejection> rejections);
+
+    public PersonRejection findByAuthId(Long anthId);
 }

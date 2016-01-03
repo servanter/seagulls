@@ -14,6 +14,12 @@
 
 	<sql id="base_columns">id, auth_id, type, opinion, audit_time, update_time, audit_id </sql>
 	
+	<select id="getByCompanyId" parameterType="long" resultMap="companyRejectionMap">
+		SELECT 
+		<include refid="base_columns"/>
+		FROM crop_company_reject WHERE auth_id = #{authId} ORDER BY update_time DESC LIMIT 1
+	</select>
+	
 	<insert id="save" parameterType="companyRejection" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO crop_company_reject(auth_id, type, opinion, audit_time, audit_id)
 		VALUES(#{authId}, #{type}, #{opinion}, NOW(), #{auditId})

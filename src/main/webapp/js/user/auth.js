@@ -26,45 +26,51 @@ $(function() {
 			return;
 		}
 		
-		var imgFrontPic = $('input[name=imgFrontPic]').val();
-		if (!imgFrontPic || imgFrontPic.length == 0) {
-			Alert.info('请上传身份证正面照片');
-			return;
-		}
+		var isupdate = $('#isupdate').val();
 		
-		var imgBackgroundPic = $('input[name=imgBackgroundPic]').val();
-		if (!imgBackgroundPic || imgBackgroundPic.length == 0) {
-			Alert.info('请上传身份证背面照片');
-			return;
-		}
-		
-		var imgPersonPic = $('input[name=imgPersonPic]').val();
-		if (!imgPersonPic || imgPersonPic.length == 0) {
-			Alert.info('请上传手持身份证照片');
-			return;
-		}
-		
-		if(imgFrontPic.indexOf('.')) {
-			var post = imgFrontPic.substring(imgFrontPic.lastIndexOf('.') + 1);
-			if(!BaseUtils.checkImgValidate(post)) {
-				Alert.info('请上传合法的照片');
+		// 修改
+		if(isupdate != 1) {
+			
+			var imgFrontPic = $('input[name=imgFrontPic]').val();
+			if (!imgFrontPic || imgFrontPic.length == 0) {
+				Alert.info('请上传身份证正面照片');
 				return;
 			}
-		}
-		
-		if(imgBackgroundPic.indexOf('.')) {
-			var post = imgBackgroundPic.substring(imgBackgroundPic.lastIndexOf('.') + 1);
-			if(!BaseUtils.checkImgValidate(post)) {
-				Alert.info('请上传合法的照片');
+			
+			var imgBackgroundPic = $('input[name=imgBackgroundPic]').val();
+			if (!imgBackgroundPic || imgBackgroundPic.length == 0) {
+				Alert.info('请上传身份证背面照片');
 				return;
 			}
-		}
-		
-		if(imgPersonPic.indexOf('.')) {
-			var post = imgPersonPic.substring(imgPersonPic.lastIndexOf('.') + 1);
-			if(!BaseUtils.checkImgValidate(post)) {
-				Alert.info('请上传合法的照片');
+			
+			var imgPersonPic = $('input[name=imgPersonPic]').val();
+			if (!imgPersonPic || imgPersonPic.length == 0) {
+				Alert.info('请上传手持身份证照片');
 				return;
+			}
+			
+			if(imgFrontPic.indexOf('.')) {
+				var post = imgFrontPic.substring(imgFrontPic.lastIndexOf('.') + 1);
+				if(!BaseUtils.checkImgValidate(post)) {
+					Alert.info('请上传合法的照片');
+					return;
+				}
+			}
+			
+			if(imgBackgroundPic.indexOf('.')) {
+				var post = imgBackgroundPic.substring(imgBackgroundPic.lastIndexOf('.') + 1);
+				if(!BaseUtils.checkImgValidate(post)) {
+					Alert.info('请上传合法的照片');
+					return;
+				}
+			}
+			
+			if(imgPersonPic.indexOf('.')) {
+				var post = imgPersonPic.substring(imgPersonPic.lastIndexOf('.') + 1);
+				if(!BaseUtils.checkImgValidate(post)) {
+					Alert.info('请上传合法的照片');
+					return;
+				}
 			}
 		}
 		
@@ -80,8 +86,15 @@ $(function() {
 				}
 			}
 		}
-		if($('.dn-file').eq(0).val() != '') {
-			$('.dn-file').after('<input type="hidden" name="has_img" value="1">');
+		var hasImg = false;
+		$.each($('.dn-file'), function(index, item) {
+			if($(this).val() != '') {
+				hasImg = true;
+				return;
+			}
+		});
+		if(hasImg) {
+			$('.dn-file').eq(0).after('<input type="hidden" name="has_img" value="1">');
 		}
 		$('#form-personal').ajaxSubmit(option);
 	});

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,14 +18,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.crop.seagulls.bean.CommonStatus;
+import com.crop.seagulls.bean.CompanyRejectEnum;
 import com.crop.seagulls.bean.Paging;
+import com.crop.seagulls.bean.PersonRejectEnum;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.entities.Company;
+import com.crop.seagulls.entities.CompanyRejection;
+import com.crop.seagulls.entities.PersonRejection;
 import com.crop.seagulls.entities.User;
 import com.crop.seagulls.entities.UserAuth;
+import com.crop.seagulls.service.CompanyRejectionService;
 import com.crop.seagulls.service.CompanyService;
+import com.crop.seagulls.service.PersonRejectionService;
 import com.crop.seagulls.service.UserAuthService;
 import com.crop.seagulls.service.UserService;
 import com.crop.seagulls.util.SessionUtils;
@@ -48,6 +54,12 @@ public class UserController {
 
     @Autowired
     private CompanyService companyService;
+
+    @Autowired
+    private CompanyRejectionService companyRejectionService;
+
+    @Autowired
+    private PersonRejectionService personRejectionService;
 
     @ResponseBody
     @RequestMapping(value = "/loginError", method = RequestMethod.GET)
@@ -186,6 +198,14 @@ public class UserController {
     @RequestMapping(value = "/user/certificationPersonal", method = RequestMethod.GET)
     public String enterCertificationPersonal(Model model, HttpServletRequest request) {
         UserAuth userAuth = userAuthService.findByUserId(SessionUtils.getCurUser(request.getSession()).getId());
+        if (ObjectUtils.notEqual(userAuth, null) && userAuth.getId() > 0) {
+            PersonRejection reject = personRejectionService.findByAuthId(userAuth.getId());
+            if(ObjectUtils.notEqual(reject, null)) {
+                model.addAttribute("reject", reject);
+                model.addAttribute("rejectType", PersonRejectEnum.code2Rejection(reject.getType()));
+            }
+            
+        }
         model.addAttribute("model", userAuth);
         model.addAttribute("commonStatus", CommonStatus.getMap());
         return "user/personal_certification";
@@ -213,7 +233,13 @@ public class UserController {
         user.setId(SessionUtils.getCurUser(request.getSession()).getId());
         Paging<Company> companies = companyService.findByUserId(user);
         if (!ObjectUtils.equals(companies, null) && CollectionUtils.isNotEmpty(companies.getResult())) {
-            model.addAttribute("model", companies.getResult().get(0));
+            Company company = companies.getResult().get(0);
+            model.addAttribute("model", company);
+            CompanyRejection reject = companyRejectionService.findByCompanyId(company.getId());
+            if(ObjectUtils.notEqual(reject, null)) {
+                model.addAttribute("reject", reject);
+                model.addAttribute("rejectType", CompanyRejectEnum.code2Rejection(reject.getType()));
+            }
         }
         model.addAttribute("commonStatus", CommonStatus.getMap());
         return "user/organization_certification";

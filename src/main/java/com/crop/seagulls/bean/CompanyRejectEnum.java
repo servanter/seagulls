@@ -3,7 +3,7 @@ package com.crop.seagulls.bean;
 public enum CompanyRejectEnum {
 
     TITLE_ERROR(1, "机构名称不存在"),
-    
+
     ORGANIZATION_CODE_ERROR(2, "组织机构代码错误");
 
     private int code;
@@ -29,6 +29,16 @@ public enum CompanyRejectEnum {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public static CompanyRejectEnum code2Rejection(int code) {
+        CompanyRejectEnum[] values = CompanyRejectEnum.values();
+        for (CompanyRejectEnum every : values) {
+            if (every.getCode() == code) {
+                return every;
+            }
+        }
+        return null;
     }
 
 }

@@ -13,4 +13,6 @@ public interface CompanyRejectionDAO {
 
     void batchSave(List<CompanyRejection> rejections);
 
+    CompanyRejection getByCompanyId(Long id);
+
 }
