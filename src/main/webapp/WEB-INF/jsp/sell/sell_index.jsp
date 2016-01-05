@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${ctx }/js/iscroll.js"></script>
 <script type="text/javascript" src="${ctx }/js/pullToRefresh.js"></script>
 <script type="text/javascript" src="${ctx }/js/colorful.js"></script>
-<script type="text/javascript" src="${ctx }/js/sell/sell.js"></script>
+<script type="text/javascript" src="${ctx }/js/sell/sell.js?asd=21323"></script>
 </head>
 
 <body>

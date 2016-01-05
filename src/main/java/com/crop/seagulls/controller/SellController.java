@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.bean.SellBuy;
+import com.crop.seagulls.bean.SellBuyStatusEnum;
 import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.entities.Sell;
 import com.crop.seagulls.entities.SellPic;
@@ -38,7 +40,7 @@ public class SellController {
 
     @Autowired
     private SellService sellService;
-    
+
     @Autowired
     private SellPicService sellPicService;
 
@@ -60,9 +62,10 @@ public class SellController {
             return uploadResponse;
         }
     }
-    
+
     @RequestMapping(value = "/sell/publishSuccess", method = RequestMethod.GET)
-    public String publishSuccess(@RequestParam("id") Long id,Model model) {
+    public String publishSuccess(@RequestParam("id")
+    Long id, Model model) {
         model.addAttribute("sellBuy", SellBuy.SELL.getCode());
         model.addAttribute("id", id);
         return "publish/publish_success";
@@ -70,7 +73,11 @@ public class SellController {
 
     @RequestMapping(value = { "/sell/sell_index" }, method = RequestMethod.GET)
     public String sellIndex(Model model) {
-        Map<String, Object> map = sellService.findList(new Sell());
+        Sell sell = new Sell();
+        sell.setIsValid(true);
+        sell.setIsPublish(true);
+        sell.setStatus(1);
+        Map<String, Object> map = sellService.findList(sell);
         model.mergeAttributes(map);
         return "sell/sell_index";
     }
@@ -79,6 +86,9 @@ public class SellController {
     public String sellList(@PathVariable("cate")
     Long category, Model model) {
         Sell sell = new Sell();
+        sell.setIsValid(true);
+        sell.setIsPublish(true);
+        sell.setStatus(1);
         sell.setSearchCategoryId(category);
         Map<String, Object> map = sellService.findList(sell);
         model.mergeAttributes(map);
@@ -94,6 +104,9 @@ public class SellController {
         Sell sell = new Sell();
         sell.setSearchCategoryId(category);
         sell.setPage(page);
+        sell.setIsValid(true);
+        sell.setIsPublish(true);
+        sell.setStatus(1);
         return sellService.ajaxFindList(sell);
     }
 
@@ -107,17 +120,80 @@ public class SellController {
         return "sell/sell_detail";
     }
 
-    @RequestMapping(value = "/sell/my_sell_list_{page:\\d+}")
-    public String mySupplyList(@PathVariable("page")
+    @RequestMapping(value = "/user/sell/my_sell_list")
+    public String mySell(HttpSession session, Model model) {
+        Sell sell = new Sell();
+        sell.setIsValid(true);
+        sell.setIsPublish(true);
+        sell.setStatus(1);
+        sell.setPage(1);
+        sell.setCreateUserId(SessionUtils.getCurUser(session).getId());
+        Map<String, Object> map = sellService.findByUserId(sell);
+        model.mergeAttributes(map);
+        return "user/info/my_sell";
+    }
+
+    @RequestMapping(value = "/user/sell/my_down_list")
+    public String myDown(HttpSession session, Model model) {
+        Sell sell = new Sell();
+        sell.setIsPublish(false);
+        sell.setIsValid(true);
+        sell.setPage(1);
+        sell.setCreateUserId(SessionUtils.getCurUser(session).getId());
+        Map<String, Object> map = sellService.findByUserId(sell);
+        model.mergeAttributes(map);
+        return "user/info/my_sell_down_publish";
+    }
+
+    @RequestMapping(value = "/user/sell/my_audit_list")
+    public String myAudit(HttpSession session, Model model) {
+        Sell sell = new Sell();
+        sell.setIsValid(true);
+        sell.setSearchExceptStatus(SellBuyStatusEnum.PASS.getCode());
+        sell.setPage(1);
+        sell.setCreateUserId(SessionUtils.getCurUser(session).getId());
+        Map<String, Object> map = sellService.findByUserId(sell);
+        model.mergeAttributes(map);
+        return "user/info/my_sell_auditing";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/user/sell/ajaxMySell")
+    public Response ajaxMySell(@RequestParam("page")
     Integer page, HttpSession session, Model model) {
-        Sell supply = new Sell();
-        supply.setPage(page);
-        supply.setCreateUserId(SessionUtils.getCurUser(session).getId());
-        Map<String, Object> map = sellService.findByUserId(supply);
-        for (Entry<String, Object> entry : map.entrySet()) {
-            model.addAttribute(entry.getKey(), entry.getValue());
-        }
-        return "supply/my_supply_list";
+        Sell sell = new Sell();
+        sell.setPage(page);
+        sell.setIsPublish(true);
+        sell.setIsValid(true);
+        sell.setStatus(1);
+        sell.setCreateUserId(SessionUtils.getCurUser(session).getId());
+        return sellService.ajaxFindByUserId(sell);
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/user/sell/ajaxMyDown")
+    public Response ajaxMyDown(@RequestParam("page")
+    Integer page, HttpSession session, Model model) {
+        Sell sell = new Sell();
+        sell.setPage(page);
+        sell.setIsPublish(false);
+        sell.setIsValid(true);
+        sell.setCreateUserId(SessionUtils.getCurUser(session).getId());
+        return sellService.ajaxFindByUserId(sell);
+    }
+    
+    
+    @ResponseBody
+    @RequestMapping(value = "/user/sell/ajaxMyAuditing")
+    public Response ajaxMyAuditing(@RequestParam("page")
+    Integer page, HttpSession session, Model model) {
+        Sell sell = new Sell();
+        sell.setPageSize(3);
+        sell.setPage(page);
+        sell.setIsValid(true);
+        sell.setSearchExceptStatus(SellBuyStatusEnum.PASS.getCode());
+        sell.setCreateUserId(SessionUtils.getCurUser(session).getId());
+        return sellService.ajaxFindByUserId(sell);
     }
 
     @RequestMapping("/sell/my_sell_order_{id:\\d+}")
@@ -132,9 +208,10 @@ public class SellController {
         }
         return "supply/my_supply_detail";
     }
-    
+
     @RequestMapping(value = "/sell/sellPics", method = RequestMethod.GET)
-    public String picDetail(@RequestParam("picId") Long picId, Model model) {
+    public String picDetail(@RequestParam("picId")
+    Long picId, Model model) {
         List<SellPic> pics = sellPicService.findPicsById(picId);
         model.addAttribute("pics", pics);
         return "sell/sell_pic";

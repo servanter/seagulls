@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="contentBg2">
 	<ul class="menuList">
 		<li>
-			<a href="#" target="_top">
+			<a href="${ctx }/user/sell/my_sell_list/" target="_top">
 				<span><img src="${ctx }/images/wode_gonghuo.png" /></span>
 				<h4>我的供应</h4>
 				<b><img src="${ctx }/images/arrowRight.png" /></b>

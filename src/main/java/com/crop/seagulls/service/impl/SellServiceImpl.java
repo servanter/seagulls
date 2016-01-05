@@ -135,8 +135,6 @@ public class SellServiceImpl implements SellService {
     public Map<String, Object> findList(Sell sell) {
         Map<String, Object> map = new HashMap<String, Object>();
         packageCategory(sell, sell.getSearchCategoryId());
-        sell.setIsValid(true);
-        sell.setIsPublish(true);
         List<Sell> list = sellDAO.findSells(sell);
         Integer totalCount = sellDAO.findSellCount(sell);
         Paging<Sell> result = new Paging<Sell>(totalCount, sell.getPage(), sell.getPageSize(), list);
@@ -330,6 +328,24 @@ public class SellServiceImpl implements SellService {
         map.put("list", result);
         packageModel(list);
         return map;
+    }
+    
+
+    @Override
+    public Response ajaxFindByUserId(Sell sell) {
+        Response response = new Response(ReturnCode.SUCCESS);
+        if (ObjectUtils.equals(sell.getPage(), null)) {
+            sell.setPage(1);
+        }
+        Map<String, Object> data = findList(sell);
+        if (data.containsKey("list") && CollectionUtils.isEmpty(((Paging<Sell>) data.get("list")).getResult())) {
+            response.setReturnCode(ReturnCode.NO_MORE_PAGE);
+        } else {
+            int totalPage = ((Paging<Sell>) data.get("list")).getTotalPage();
+            data.put("nextPage", sell.getPage() + 1);
+        }
+        response.setResult(data);
+        return response;
     }
 
     @Override

@@ -56,7 +56,10 @@ public interface SellService {
 
     public Map<String, Object> findByUserId(Sell sell);
 
+    public Response ajaxFindByUserId(Sell sell);
+    
     public int findCount(Sell sell);
 
     public List<Category> findHotCategories();
+    
 }

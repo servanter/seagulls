@@ -72,6 +72,7 @@ public class Sell extends Base {
 
     private Long searchCategoryId;
     private Category searchCategory;
+    private Integer searchExceptStatus;
 
     private String pageTimeAlias;
     private Category pageCategory;
@@ -363,6 +364,204 @@ public class Sell extends Base {
 
     public void setPageVarieties(Varieties pageVarieties) {
         this.pageVarieties = pageVarieties;
+    }
+
+    public Integer getSearchExceptStatus() {
+        return searchExceptStatus;
+    }
+
+    public void setSearchExceptStatus(Integer searchExceptStatus) {
+        this.searchExceptStatus = searchExceptStatus;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((areaId == null) ? 0 : areaId.hashCode());
+        result = prime * result + ((auditId == null) ? 0 : auditId.hashCode());
+        result = prime * result + ((auditTime == null) ? 0 : auditTime.hashCode());
+        result = prime * result + ((categoryId1 == null) ? 0 : categoryId1.hashCode());
+        result = prime * result + ((categoryId2 == null) ? 0 : categoryId2.hashCode());
+        result = prime * result + ((categoryId3 == null) ? 0 : categoryId3.hashCode());
+        result = prime * result + ((cityId == null) ? 0 : cityId.hashCode());
+        result = prime * result + ((companyId == null) ? 0 : companyId.hashCode());
+        result = prime * result + ((companyName == null) ? 0 : companyName.hashCode());
+        result = prime * result + ((contactName == null) ? 0 : contactName.hashCode());
+        result = prime * result + ((contactPhone == null) ? 0 : contactPhone.hashCode());
+        result = prime * result + ((createTime == null) ? 0 : createTime.hashCode());
+        result = prime * result + ((createUserId == null) ? 0 : createUserId.hashCode());
+        result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((isPublish == null) ? 0 : isPublish.hashCode());
+        result = prime * result + ((isValid == null) ? 0 : isValid.hashCode());
+        result = prime * result + ((note == null) ? 0 : note.hashCode());
+        result = prime * result + ((pageAddress == null) ? 0 : pageAddress.hashCode());
+        result = prime * result + ((price == null) ? 0 : price.hashCode());
+        result = prime * result + ((provinceId == null) ? 0 : provinceId.hashCode());
+        result = prime * result + ((startTime == null) ? 0 : startTime.hashCode());
+        result = prime * result + ((status == null) ? 0 : status.hashCode());
+        result = prime * result + ((title == null) ? 0 : title.hashCode());
+        result = prime * result + ((unitId == null) ? 0 : unitId.hashCode());
+        result = prime * result + ((updateTime == null) ? 0 : updateTime.hashCode());
+        result = prime * result + ((varietiesId == null) ? 0 : varietiesId.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Sell other = (Sell) obj;
+        if (areaId == null) {
+            if (other.areaId != null)
+                return false;
+        } else if (!areaId.equals(other.areaId))
+            return false;
+        if (auditId == null) {
+            if (other.auditId != null)
+                return false;
+        } else if (!auditId.equals(other.auditId))
+            return false;
+        if (auditTime == null) {
+            if (other.auditTime != null)
+                return false;
+        } else if (!auditTime.equals(other.auditTime))
+            return false;
+        if (categoryId1 == null) {
+            if (other.categoryId1 != null)
+                return false;
+        } else if (!categoryId1.equals(other.categoryId1))
+            return false;
+        if (categoryId2 == null) {
+            if (other.categoryId2 != null)
+                return false;
+        } else if (!categoryId2.equals(other.categoryId2))
+            return false;
+        if (categoryId3 == null) {
+            if (other.categoryId3 != null)
+                return false;
+        } else if (!categoryId3.equals(other.categoryId3))
+            return false;
+        if (cityId == null) {
+            if (other.cityId != null)
+                return false;
+        } else if (!cityId.equals(other.cityId))
+            return false;
+        if (companyId == null) {
+            if (other.companyId != null)
+                return false;
+        } else if (!companyId.equals(other.companyId))
+            return false;
+        if (companyName == null) {
+            if (other.companyName != null)
+                return false;
+        } else if (!companyName.equals(other.companyName))
+            return false;
+        if (contactName == null) {
+            if (other.contactName != null)
+                return false;
+        } else if (!contactName.equals(other.contactName))
+            return false;
+        if (contactPhone == null) {
+            if (other.contactPhone != null)
+                return false;
+        } else if (!contactPhone.equals(other.contactPhone))
+            return false;
+        if (createTime == null) {
+            if (other.createTime != null)
+                return false;
+        } else if (!createTime.equals(other.createTime))
+            return false;
+        if (createUserId == null) {
+            if (other.createUserId != null)
+                return false;
+        } else if (!createUserId.equals(other.createUserId))
+            return false;
+        if (endTime == null) {
+            if (other.endTime != null)
+                return false;
+        } else if (!endTime.equals(other.endTime))
+            return false;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (isPublish == null) {
+            if (other.isPublish != null)
+                return false;
+        } else if (!isPublish.equals(other.isPublish))
+            return false;
+        if (isValid == null) {
+            if (other.isValid != null)
+                return false;
+        } else if (!isValid.equals(other.isValid))
+            return false;
+        if (note == null) {
+            if (other.note != null)
+                return false;
+        } else if (!note.equals(other.note))
+            return false;
+        if (pageAddress == null) {
+            if (other.pageAddress != null)
+                return false;
+        } else if (!pageAddress.equals(other.pageAddress))
+            return false;
+        if (price == null) {
+            if (other.price != null)
+                return false;
+        } else if (!price.equals(other.price))
+            return false;
+        if (provinceId == null) {
+            if (other.provinceId != null)
+                return false;
+        } else if (!provinceId.equals(other.provinceId))
+            return false;
+        if (startTime == null) {
+            if (other.startTime != null)
+                return false;
+        } else if (!startTime.equals(other.startTime))
+            return false;
+        if (status == null) {
+            if (other.status != null)
+                return false;
+        } else if (!status.equals(other.status))
+            return false;
+        if (title == null) {
+            if (other.title != null)
+                return false;
+        } else if (!title.equals(other.title))
+            return false;
+        if (unitId == null) {
+            if (other.unitId != null)
+                return false;
+        } else if (!unitId.equals(other.unitId))
+            return false;
+        if (updateTime == null) {
+            if (other.updateTime != null)
+                return false;
+        } else if (!updateTime.equals(other.updateTime))
+            return false;
+        if (varietiesId == null) {
+            if (other.varietiesId != null)
+                return false;
+        } else if (!varietiesId.equals(other.varietiesId))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Sell [id=" + id + ", categoryId1=" + categoryId1 + ", categoryId2=" + categoryId2 + ", categoryId3=" + categoryId3 + ", varietiesId=" + varietiesId + ", title=" + title
+                + ", provinceId=" + provinceId + ", cityId=" + cityId + ", areaId=" + areaId + ", startTime=" + startTime + ", endTime=" + endTime + ", price=" + price + ", unitId=" + unitId
+                + ", note=" + note + ", contactName=" + contactName + ", contactPhone=" + contactPhone + ", companyName=" + companyName + ", companyId=" + companyId + ", isValid=" + isValid
+                + ", isPublish=" + isPublish + ", createTime=" + createTime + ", createUserId=" + createUserId + ", updateTime=" + updateTime + ", auditTime=" + auditTime + ", auditId=" + auditId
+                + ", status=" + status + "]";
     }
 
 }

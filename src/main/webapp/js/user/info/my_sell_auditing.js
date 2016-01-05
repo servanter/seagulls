@@ -8,14 +8,13 @@ $(function() {
 	}
 });
 
-
 var curPage = 2;
 function reload() {
 	var cate = $('#searchCategoryId').val();
 	if(cate == undefined) {
 		cate = 0;
 	}
-	$.getJSON(BaseUtils.proPath + 'buy/ajaxFindList/?page=1&searchCategoryId=' + cate, function(data) {
+	$.getJSON(BaseUtils.proPath + 'user/sell/ajaxMyAuditing/?page=1', function(data) {
 		if (data.code != 10000) {
 			Alert.info(data.message);
 		} else {
@@ -25,12 +24,17 @@ function reload() {
 				$.each(data.result.list.result, function(index, s) {
 					var every = '';
 					every += '<li>';
-					every += '<a href="'+BaseUtils.proPath+'/buy/buy_detail_'+s.id+'.html">';
+					every += '<a href="'+BaseUtils.proPath+'/sell/sell_detail_'+s.id+'.html">';
 					every += '<div class="list_img">';
 					if(s.firstPic) {
 						every += '<img src="'+BaseUtils.proPath+'/' + s.firstPic.imgUrl + '">';
 					} else {
 						every += '<img src="'+BaseUtils.proPath+'/' + 'images/sheguo.jpg">';						
+					}
+					if(s.status == -1) {
+						every += '<span class="icon_shenhe weitongguo">未通过</span>';
+					} else if (s.status == 0) {
+						every += '<span class="icon_shenhe shenhezhong">审核中</span>';
 					}
 					every += '</div>';
 					every += '<dl style="position:relative;">';
@@ -64,6 +68,7 @@ function reload() {
 		}
 		wrapper.refresh();
 	});
+	
 }
 
 function nextPage() {
@@ -71,7 +76,7 @@ function nextPage() {
 	if(cate == undefined) {
 		cate = 0;
 	}
-	$.getJSON(BaseUtils.proPath + 'buy/ajaxFindList/?page=' + curPage + '&searchCategoryId=' + cate, function(data) {
+	$.getJSON(BaseUtils.proPath + 'user/sell/ajaxMyAuditing/?page=' + curPage, function(data) {
 		if (data.code != 10000) {
 			Alert.info(data.message);
 		} else {
@@ -80,12 +85,17 @@ function nextPage() {
 				$.each(data.result.list.result, function(index, s) {
 					var every = '';
 					every += '<li>';
-					every += '<a href="'+BaseUtils.proPath+'/buy/buy_detail_'+s.id+'.html">';
+					every += '<a href="'+BaseUtils.proPath+'/sell/sell_detail_'+s.id+'.html">';
 					every += '<div class="list_img">';
 					if(s.firstPic) {
 						every += '<img src="'+BaseUtils.proPath+'/' + s.firstPic.imgUrl + '">';
 					} else {
 						every += '<img src="'+BaseUtils.proPath+'/' + 'images/sheguo.jpg">';						
+					}
+					if(s.status == -1) {
+						every += '<span class="icon_shenhe weitongguo">未通过</span>';
+					} else if (s.status == 0) {
+						every += '<span class="icon_shenhe shenhezhong">审核中</span>';
 					}
 					every += '</div>';
 					every += '<dl style="position:relative;">';
@@ -120,4 +130,3 @@ function nextPage() {
 		wrapper.refresh();
 	});
 }
-
