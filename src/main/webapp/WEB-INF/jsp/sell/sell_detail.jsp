@@ -73,9 +73,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</c:if>
 				<li>上市时间：${model.pagePeriod }</li>
 				<c:if test="${fn:length(model.companyName) > 0 }">
-					<li>机构名称：${model.companyName }</li>
+					<li>
+						机构名称：${model.companyName }
+						<c:if test="${authCompany ne null && authCompany.status eq 1}">
+							<img class="icon_renzheng" src="images/icon_renzheng.png">
+						</c:if>
+					</li>
 				</c:if>
-				<li>联 系 人：${model.contactName }</li>
+				<li>
+					联 系 人：${model.contactName }
+					<c:if test="${authUser ne null && authUser.status eq 1}">
+						<img class="icon_renzheng" src="images/icon_renzheng.png">
+					</c:if>
+				</li>
 				<li>供 货 地：${model.pageAddress }</li>
 				<li>商品详情：</li>
 			</ul>

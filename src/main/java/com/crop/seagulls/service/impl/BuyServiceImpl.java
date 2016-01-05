@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -319,10 +319,20 @@ public class BuyServiceImpl implements BuyService {
             buy.setPageAddress(addr);
             buy.setPageVarieties(varietiesCache.getById(buy.getVarietiesId()));
             
+            // company
             if (buy.getCompanyId() != null && buy.getCompanyId() > 0) {
                 Company company = companyCache.getById(buy.getCompanyId());
                 if (company != null) {
                     buy.setCompanyName(company.getTitle());
+                }
+                result.put("authCompany", company);
+            }
+
+            // user auth
+            if (ObjectUtils.notEqual(buy.getCreateUserId(), null) && buy.getId() > 0) {
+                UserAuth userAuth = userAuthService.findByUserId(buy.getCreateUserId());
+                if (ObjectUtils.notEqual(userAuth, null)) {
+                    result.put("authUser", userAuth);
                 }
             }
 

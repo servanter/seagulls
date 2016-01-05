@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -221,7 +221,7 @@ public class SellServiceImpl implements SellService {
                 }
 
                 sell.setPageAddress(addr);
-                
+
                 if (sell.getCompanyId() != null && sell.getCompanyId() > 0) {
                     Company company = companyCache.getById(sell.getCompanyId());
                     if (company != null) {
@@ -290,10 +290,20 @@ public class SellServiceImpl implements SellService {
 
             sell.setPageVarieties(varietiesCache.getById(sell.getVarietiesId()));
 
+            // company
             if (sell.getCompanyId() != null && sell.getCompanyId() > 0) {
                 Company company = companyCache.getById(sell.getCompanyId());
                 if (company != null) {
                     sell.setCompanyName(company.getTitle());
+                }
+                result.put("authCompany", company);
+            }
+
+            // user auth
+            if (ObjectUtils.notEqual(sell.getCreateUserId(), null) && sell.getId() > 0) {
+                UserAuth userAuth = userAuthService.findByUserId(sell.getCreateUserId());
+                if (ObjectUtils.notEqual(userAuth, null)) {
+                    result.put("authUser", userAuth);
                 }
             }
         }

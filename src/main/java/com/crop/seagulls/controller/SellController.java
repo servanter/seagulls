@@ -28,7 +28,7 @@ import com.crop.seagulls.util.SessionUtils;
 import com.crop.seagulls.util.UploadUtils;
 
 /**
- * Supply controller
+ * Sell controller
  * 
  * @author zhanghongyan@outlook.com
  * 
