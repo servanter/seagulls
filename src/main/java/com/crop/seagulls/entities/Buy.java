@@ -2,6 +2,7 @@ package com.crop.seagulls.entities;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import com.crop.seagulls.bean.Base;
 
@@ -62,6 +63,8 @@ public class Buy extends Base {
 
     private Date createTime;
 
+    private Date refreshTime;
+
     private Long createUserId;
 
     private Timestamp updateTime;
@@ -75,6 +78,7 @@ public class Buy extends Base {
     private Long searchCategoryId;
     private Category searchCategory;
     private Integer searchExceptStatus;
+    private List<Long> searchIds;
 
     private String pageTimeAlias;
     private Category pageCategory;
@@ -234,6 +238,14 @@ public class Buy extends Base {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Date getRefreshTime() {
+        return refreshTime;
+    }
+
+    public void setRefreshTime(Date refreshTime) {
+        this.refreshTime = refreshTime;
     }
 
     public Long getCreateUserId() {
@@ -404,6 +416,14 @@ public class Buy extends Base {
         this.searchExceptStatus = searchExceptStatus;
     }
 
+    public List<Long> getSearchIds() {
+        return searchIds;
+    }
+
+    public void setSearchIds(List<Long> searchIds) {
+        this.searchIds = searchIds;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -422,13 +442,27 @@ public class Buy extends Base {
         result = prime * result + ((createTime == null) ? 0 : createTime.hashCode());
         result = prime * result + ((createUserId == null) ? 0 : createUserId.hashCode());
         result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
+        result = prime * result + ((firstPic == null) ? 0 : firstPic.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((isPublish == null) ? 0 : isPublish.hashCode());
         result = prime * result + ((isValid == null) ? 0 : isValid.hashCode());
         result = prime * result + ((note == null) ? 0 : note.hashCode());
+        result = prime * result + ((pageAddress == null) ? 0 : pageAddress.hashCode());
+        result = prime * result + ((pageCategory == null) ? 0 : pageCategory.hashCode());
+        result = prime * result + ((pageOriginAddr == null) ? 0 : pageOriginAddr.hashCode());
+        result = prime * result + ((pagePeriod == null) ? 0 : pagePeriod.hashCode());
+        result = prime * result + ((pageQuantity == null) ? 0 : pageQuantity.hashCode());
+        result = prime * result + ((pageTimeAlias == null) ? 0 : pageTimeAlias.hashCode());
+        result = prime * result + ((pageUnit == null) ? 0 : pageUnit.hashCode());
+        result = prime * result + ((pageVarieties == null) ? 0 : pageVarieties.hashCode());
         result = prime * result + ((price == null) ? 0 : price.hashCode());
         result = prime * result + ((provinceId == null) ? 0 : provinceId.hashCode());
         result = prime * result + ((quantity == null) ? 0 : quantity.hashCode());
+        result = prime * result + ((refreshTime == null) ? 0 : refreshTime.hashCode());
+        result = prime * result + ((searchCategory == null) ? 0 : searchCategory.hashCode());
+        result = prime * result + ((searchCategoryId == null) ? 0 : searchCategoryId.hashCode());
+        result = prime * result + ((searchExceptStatus == null) ? 0 : searchExceptStatus.hashCode());
+        result = prime * result + ((searchIds == null) ? 0 : searchIds.hashCode());
         result = prime * result + ((startTime == null) ? 0 : startTime.hashCode());
         result = prime * result + ((status == null) ? 0 : status.hashCode());
         result = prime * result + ((title == null) ? 0 : title.hashCode());
@@ -517,6 +551,11 @@ public class Buy extends Base {
                 return false;
         } else if (!endTime.equals(other.endTime))
             return false;
+        if (firstPic == null) {
+            if (other.firstPic != null)
+                return false;
+        } else if (!firstPic.equals(other.firstPic))
+            return false;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -537,6 +576,46 @@ public class Buy extends Base {
                 return false;
         } else if (!note.equals(other.note))
             return false;
+        if (pageAddress == null) {
+            if (other.pageAddress != null)
+                return false;
+        } else if (!pageAddress.equals(other.pageAddress))
+            return false;
+        if (pageCategory == null) {
+            if (other.pageCategory != null)
+                return false;
+        } else if (!pageCategory.equals(other.pageCategory))
+            return false;
+        if (pageOriginAddr == null) {
+            if (other.pageOriginAddr != null)
+                return false;
+        } else if (!pageOriginAddr.equals(other.pageOriginAddr))
+            return false;
+        if (pagePeriod == null) {
+            if (other.pagePeriod != null)
+                return false;
+        } else if (!pagePeriod.equals(other.pagePeriod))
+            return false;
+        if (pageQuantity == null) {
+            if (other.pageQuantity != null)
+                return false;
+        } else if (!pageQuantity.equals(other.pageQuantity))
+            return false;
+        if (pageTimeAlias == null) {
+            if (other.pageTimeAlias != null)
+                return false;
+        } else if (!pageTimeAlias.equals(other.pageTimeAlias))
+            return false;
+        if (pageUnit == null) {
+            if (other.pageUnit != null)
+                return false;
+        } else if (!pageUnit.equals(other.pageUnit))
+            return false;
+        if (pageVarieties == null) {
+            if (other.pageVarieties != null)
+                return false;
+        } else if (!pageVarieties.equals(other.pageVarieties))
+            return false;
         if (price == null) {
             if (other.price != null)
                 return false;
@@ -551,6 +630,31 @@ public class Buy extends Base {
             if (other.quantity != null)
                 return false;
         } else if (!quantity.equals(other.quantity))
+            return false;
+        if (refreshTime == null) {
+            if (other.refreshTime != null)
+                return false;
+        } else if (!refreshTime.equals(other.refreshTime))
+            return false;
+        if (searchCategory == null) {
+            if (other.searchCategory != null)
+                return false;
+        } else if (!searchCategory.equals(other.searchCategory))
+            return false;
+        if (searchCategoryId == null) {
+            if (other.searchCategoryId != null)
+                return false;
+        } else if (!searchCategoryId.equals(other.searchCategoryId))
+            return false;
+        if (searchExceptStatus == null) {
+            if (other.searchExceptStatus != null)
+                return false;
+        } else if (!searchExceptStatus.equals(other.searchExceptStatus))
+            return false;
+        if (searchIds == null) {
+            if (other.searchIds != null)
+                return false;
+        } else if (!searchIds.equals(other.searchIds))
             return false;
         if (startTime == null) {
             if (other.startTime != null)
@@ -590,8 +694,11 @@ public class Buy extends Base {
         return "Buy [id=" + id + ", categoryId1=" + categoryId1 + ", categoryId2=" + categoryId2 + ", categoryId3=" + categoryId3 + ", varietiesId=" + varietiesId + ", title=" + title
                 + ", provinceId=" + provinceId + ", cityId=" + cityId + ", areaId=" + areaId + ", startTime=" + startTime + ", endTime=" + endTime + ", quantity=" + quantity + ", price=" + price
                 + ", unitId=" + unitId + ", note=" + note + ", contactName=" + contactName + ", contactPhone=" + contactPhone + ", companyName=" + companyName + ", companyId=" + companyId
-                + ", isPublish=" + isPublish + ", isValid=" + isValid + ", createTime=" + createTime + ", createUserId=" + createUserId + ", updateTime=" + updateTime + ", auditTime=" + auditTime
-                + ", auditId=" + auditId + ", status=" + status + "]";
+                + ", isPublish=" + isPublish + ", isValid=" + isValid + ", createTime=" + createTime + ", refreshTime=" + refreshTime + ", createUserId=" + createUserId + ", updateTime=" + updateTime
+                + ", auditTime=" + auditTime + ", auditId=" + auditId + ", status=" + status + ", searchCategoryId=" + searchCategoryId + ", searchCategory=" + searchCategory
+                + ", searchExceptStatus=" + searchExceptStatus + ", searchIds=" + searchIds + ", pageTimeAlias=" + pageTimeAlias + ", pageCategory=" + pageCategory + ", pageUnit=" + pageUnit
+                + ", pageOriginAddr=" + pageOriginAddr + ", pageVarieties=" + pageVarieties + ", pageAddress=" + pageAddress + ", pageQuantity=" + pageQuantity + ", pagePeriod=" + pagePeriod
+                + ", firstPic=" + firstPic + "]";
     }
 
 }

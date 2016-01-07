@@ -16,6 +16,16 @@ public class DateUtils {
     public static final String DEFAULT_FORMATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_FORMATE_PATTERN = "yyyy-MM-dd";
 
+    public static String getCurDate() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DEFAULT_FORMATE_PATTERN);
+        return simpleDateFormat.format(new Date());
+    }
+
+    public static String getCurDate(String pattern) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return simpleDateFormat.format(new Date());
+    }
+
     public static Date str2Date(String pattern, String time) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         return simpleDateFormat.parse(time);

@@ -60,7 +60,7 @@ public class BuyServiceImpl implements BuyService {
 
     @Autowired
     private AreaCache areaCache;
-    
+
     @Autowired
     private CompanyCache companyCache;
 
@@ -69,28 +69,28 @@ public class BuyServiceImpl implements BuyService {
 
     @Autowired
     private TemplateService templateService;
-    
+
     @Autowired
     private FavouriteService favouriteService;
-    
+
     @Autowired
     private DetailPicCache detailPicCache;
-    
+
     @Autowired
     private UserService userService;
-    
+
     @Autowired
     private CompanyService companyService;
 
     @Autowired
     private UserAuthService userAuthService;
-    
+
     @Autowired
     private BuyPicService buyPicService;
-    
+
     @Autowired
     private VarietiesCache varietiesCache;
-    
+
     @Override
     public Map<String, Object> addPre(Long userId) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -114,9 +114,9 @@ public class BuyServiceImpl implements BuyService {
         map.put("cvData", categoryCache.getCategoryVarierties());
         return map;
     }
-    
+
     @Override
-    public Response add(Buy buy,List<String> webImagesPath) {
+    public Response add(Buy buy, List<String> webImagesPath) {
         Response response = new Response();
         response.setReturnCode(ReturnCode.SUCCESS);
         buy.setCreateTime(new Date());
@@ -176,7 +176,7 @@ public class BuyServiceImpl implements BuyService {
         map.put("topCategories", categoryCache.getByPid(Constant.CATEGORY_TOP_PID));
         return map;
     }
-    
+
     @Override
     public Response ajaxFindList(Buy buy) {
         Response response = new Response(ReturnCode.SUCCESS);
@@ -221,7 +221,7 @@ public class BuyServiceImpl implements BuyService {
                 buy.setPagePeriod(pagePeriod);
 
                 // time alias
-                DateType dateType = DateUtils.getTimeDesc(buy.getUpdateTime());
+                DateType dateType = DateUtils.getTimeDesc(buy.getRefreshTime());
                 buy.setPageTimeAlias(templateService.getMessage("page.time.alias." + dateType.getType(), String.valueOf(dateType.getMoreThan())));
 
                 String addr = "";
@@ -241,14 +241,14 @@ public class BuyServiceImpl implements BuyService {
                 }
 
                 buy.setPageAddress(addr);
-                
+
                 if (buy.getCompanyId() != null && buy.getCompanyId() > 0) {
                     Company company = companyCache.getById(buy.getCompanyId());
                     if (company != null) {
                         buy.setCompanyName(company.getTitle());
                     }
                 }
-                
+
             }
         }
     }
@@ -276,7 +276,7 @@ public class BuyServiceImpl implements BuyService {
 
     @Override
     public Map<String, Object> findById(Buy b) {
-        
+
         Map<String, Object> result = new HashMap<String, Object>();
         Buy buy = buyDAO.getById(b.getId());
         if (buy != null) {
@@ -316,7 +316,7 @@ public class BuyServiceImpl implements BuyService {
 
             buy.setPageAddress(addr);
             buy.setPageVarieties(varietiesCache.getById(buy.getVarietiesId()));
-            
+
             // company
             if (buy.getCompanyId() != null && buy.getCompanyId() > 0) {
                 Company company = companyCache.getById(buy.getCompanyId());
@@ -397,6 +397,49 @@ public class BuyServiceImpl implements BuyService {
             data.put("nextPage", buy.getPage() + 1);
         }
         response.setResult(data);
+        return response;
+    }
+
+    @Override
+    public Response refresh(String detailIds, Long id) {
+        Response response = new Response(ReturnCode.SUCCESS);
+        List<Long> detailList = NumberUtils.strSplit2List(detailIds, ",", Long.class);
+        if (CollectionUtils.isNotEmpty(detailList)) {
+            Buy buy = new Buy();
+            buy.setSearchIds(detailList);
+            buy.setCreateUserId(id);
+            buy.setRefreshTime(new Date());
+            response = (buyDAO.batchUpdate(buy) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.SUCCESS));
+        }
+        return response;
+    }
+
+    @Override
+    public Response down(String detailIds, Long id) {
+        Response response = new Response(ReturnCode.SUCCESS);
+        List<Long> detailList = NumberUtils.strSplit2List(detailIds, ",", Long.class);
+        if (CollectionUtils.isNotEmpty(detailList)) {
+            Buy buy = new Buy();
+            buy.setSearchIds(detailList);
+            buy.setCreateUserId(id);
+            buy.setIsPublish(false);
+            response = (buyDAO.batchUpdate(buy) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.SUCCESS));
+        }
+        return response;
+    }
+
+    @Override
+    public Response on(String detailIds, Long id) {
+        Response response = new Response(ReturnCode.SUCCESS);
+        List<Long> detailList = NumberUtils.strSplit2List(detailIds, ",", Long.class);
+        if (CollectionUtils.isNotEmpty(detailList)) {
+            Buy buy = new Buy();
+            buy.setSearchIds(detailList);
+            buy.setCreateUserId(id);
+            buy.setIsPublish(true);
+            buy.setRefreshTime(new Date());
+            response = (buyDAO.batchUpdate(buy) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.SUCCESS));
+        }
         return response;
     }
 

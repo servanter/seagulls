@@ -23,4 +23,6 @@ public interface SellDAO {
     public Sell getById(Long id);
 
     public List<Long> getTopCategories(@Param("categoryAlias") String string);
+
+    public int batchUpdate(Sell sell);
 }

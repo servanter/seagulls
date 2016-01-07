@@ -1,7 +1,10 @@
 $(function() {
-	$('#wrapper li').click(function() {
+	$('#wrapper ul').on('click', 'li', function() {
 		$(this).toggleClass("selected");
 	});
+	$('body').on('click', '.listEdit ul li a', function(event) {
+		event.preventDefault();  
+	});	
 	$('#a-edit').click(function() {
 		var text = $(this).text();
 		var change = '';
@@ -18,6 +21,36 @@ $(function() {
 			$(item).before('<div class="listSelect"></div>');
 		});
 		$(this).text(change);
+	});
+	
+	$('#a-refresh').click(function() {
+		var ids = getSelected();
+		if(ids.length == 0) {
+			Alert.info("请选择要刷新的信息");
+			return;
+		}
+		$.getJSON(BaseUtils.proPath + 'user/sell/refresh/?detail_ids=' + ids, function(data) {
+			if (data.code != 10000) {
+				Alert.info(data.message);
+			} else {
+				BaseUtils.reload();
+			}
+		});
+	});
+	
+	$('#a-down').click(function() {
+		var ids = getSelected();
+		if(ids.length == 0) {
+			Alert.info("请选择要下架的信息");
+			return;
+		}
+		$.getJSON(BaseUtils.proPath + 'user/sell/down/?detail_ids=' + ids, function(data) {
+			if (data.code != 10000) {
+				Alert.info(data.message);
+			} else {
+				BaseUtils.reload();
+			}
+		});
 	});
 	
 	if($('#wrapper') && $('#wrapper').length) {
@@ -44,7 +77,7 @@ function reload() {
 				curPage = data.result.nextPage;
 				$.each(data.result.list.result, function(index, s) {
 					var every = '';
-					every += '<li>';
+					every += '<li param="'+s.id+'">';
 					every += '<a href="'+BaseUtils.proPath+'/sell/sell_detail_'+s.id+'.html">';
 					every += '<div class="list_img">';
 					if(s.firstPic) {
@@ -105,7 +138,7 @@ function nextPage() {
 			if(data.result.list.result && data.result.list.result.length) {
 				$.each(data.result.list.result, function(index, s) {
 					var every = '';
-					every += '<li>';
+					every += '<li param="'+s.id+'">';
 					every += '<a href="'+BaseUtils.proPath+'/sell/sell_detail_'+s.id+'.html">';
 					every += '<div class="list_img">';
 					if(s.firstPic) {
@@ -148,4 +181,16 @@ function nextPage() {
 	if($('#a-edit').text() == '取消') {
 		$('#a-edit').click();
 	}
+}
+
+
+function getSelected() {
+	var ids = '';
+	$.each($('.listEdit ul li.selected'), function(index, item) {
+		ids += $(item).attr('param') + ',';
+	});
+	if(ids.length > 0) {
+		ids = ids.substring(0, ids.length - 1);
+	}
+	return ids;
 }

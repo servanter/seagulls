@@ -26,6 +26,7 @@
 		<result property="isValid" column="is_valid" />
 		<result property="createTime" column="create_time" />
 		<result property="createUserId" column="create_user_id" />
+		<result property="refreshTime" column="refresh_time" />
 		<result property="updateTime" column="update_time" />
 		<result property="auditTime" column="audit_time" />
 		<result property="auditId" column="audit_id" />
@@ -36,7 +37,7 @@
 		id, category_id_1, category_id_2, category_id_3, varieties_id,
 		title, province_id, city_id, area_id, start_time, end_time,
 		quantity, price, unit_id, note, contact_name, contact_phone, company_id, company_name, is_publish, is_valid,
-		create_time, create_user_id, update_time, audit_time, audit_id, status
+		create_time, create_user_id, refresh_time, update_time, audit_time, audit_id, status
 	</sql>
 
 	<insert id="save" parameterType="buy">
@@ -60,6 +61,7 @@
 		<if test="companyId != null and companyId > 0 ">,company_id</if>
 		<if test="companyName != null and companyName !='' ">,company_name</if>
 		,create_time
+		,refresh_time
 		<if test="createUserId != null and createUserId > 0">,create_user_id</if>
 		<if test="status != null and status > 0">,status</if>
 		)
@@ -83,6 +85,7 @@
 		<if test="companyId != null and companyId > 0 ">,#{companyId}</if>
 		<if test="companyName != null and companyName !='' ">,#{companyName}</if>
 		,#{createTime}
+		,#{refreshTime}
 		<if test="createUserId != null and createUserId > 0">,#{createUserId}</if>
 		<if test="status != null and status > 0">,#{status}</if>
 		)
@@ -131,7 +134,7 @@
 				AND status = #{status}
 			</if>
 		</where>
-		ORDER BY update_time DESC LIMIT #{sinceCount}, #{pageSize} 
+		ORDER BY refresh_time DESC LIMIT #{sinceCount}, #{pageSize} 
 	</select>
 	
 	<select id="getListCount" parameterType="buy" resultType="int">
@@ -198,4 +201,28 @@
 	<select id="getById" parameterType="long" resultMap="buyMap">
 		SELECT <include refid="base_columns"/> FROM crop_buy WHERE id = #{id}
 	</select>
+	
+	
+	<update id="batchUpdate" parameterType="buy">
+		UPDATE crop_buy
+		<set>
+			<if test="refreshTime != null">
+				refresh_time = #{refreshTime}, 
+			</if>
+			<if test="isPublish != null">
+				is_publish = #{isPublish},
+			</if>
+		</set>
+		<where>
+			<if test="searchIds != null">
+				AND id IN
+				<foreach item="id" collection="searchIds" open="(" close=")" separator=",">
+					#{id}
+				</foreach>
+			</if>
+			<if test="createUserId != null">
+				AND create_user_id = #{createUserId}
+			</if>
+		</where>
+	</update>
 </mapper>

@@ -49,4 +49,10 @@ public interface BuyService {
     public Map<String, ?> addPre(Long id);
 
     public Response ajaxFindByUserId(Buy buy);
+
+    public Response refresh(String detailIds, Long id);
+
+    public Response down(String detailIds, Long id);
+
+    public Response on(String detailIds, Long id);
 }

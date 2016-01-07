@@ -61,5 +61,8 @@ public interface SellService {
     public int findCount(Sell sell);
 
     public List<Category> findHotCategories();
+    public Response refresh(String detailIds, Long id);
+    public Response down(String detailIds, Long id);
+    public Response on(String detailIds, Long id);
     
 }

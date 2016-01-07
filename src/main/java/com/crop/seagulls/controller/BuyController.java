@@ -117,7 +117,7 @@ public class BuyController {
         model.mergeAttributes(buyService.findById(buy));
         return "buy/buy_detail";
     }
-    
+
     @RequestMapping(value = "/user/buy/my_buy_list")
     public String mySell(HttpSession session, Model model) {
         Buy buy = new Buy();
@@ -156,8 +156,8 @@ public class BuyController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/user/buy/ajaxMySell")
-    public Response ajaxMySell(@RequestParam("page")
+    @RequestMapping(value = "/user/buy/ajaxMyBuy")
+    public Response ajaxMyBuy(@RequestParam("page")
     Integer page, HttpSession session, Model model) {
         Buy buy = new Buy();
         buy.setPage(page);
@@ -167,7 +167,7 @@ public class BuyController {
         buy.setCreateUserId(SessionUtils.getCurUser(session).getId());
         return buyService.ajaxFindByUserId(buy);
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/user/buy/ajaxMyDown")
     public Response ajaxMyDown(@RequestParam("page")
@@ -179,8 +179,7 @@ public class BuyController {
         buy.setCreateUserId(SessionUtils.getCurUser(session).getId());
         return buyService.ajaxFindByUserId(buy);
     }
-    
-    
+
     @ResponseBody
     @RequestMapping(value = "/user/buy/ajaxMyAuditing")
     public Response ajaxMyAuditing(@RequestParam("page")
@@ -200,4 +199,26 @@ public class BuyController {
         model.addAttribute("pics", pics);
         return "buy/buy_pic";
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/user/buy/refresh")
+    public Response refresh(@RequestParam("detail_ids")
+    String detailIds, HttpSession session, Model model) {
+        return buyService.refresh(detailIds, SessionUtils.getCurUser(session).getId());
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/user/buy/down")
+    public Response down(@RequestParam("detail_ids")
+    String detailIds, HttpSession session, Model model) {
+        return buyService.down(detailIds, SessionUtils.getCurUser(session).getId());
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/user/buy/on")
+    public Response on(@RequestParam("detail_ids")
+    String detailIds, HttpSession session, Model model) {
+        return buyService.on(detailIds, SessionUtils.getCurUser(session).getId());
+    }
+
 }

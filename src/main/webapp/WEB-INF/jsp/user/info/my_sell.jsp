@@ -50,8 +50,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--底部工具栏-->
 <div class="bottomBar dn">
 	<ul>
-		<li class="shuaxin"><a href="#">刷新</a></li>
-		<li class="shangxiajia"><a href="#">下架</a></li>
+		<li class="shuaxin"><a id="a-refresh" href="javascript:void(0)">刷新</a></li>
+		<li class="shangxiajia"><a id="a-down" href="javascript:void(0)">下架</a></li>
 	</ul>
 </div>
 
@@ -62,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<c:when test="${fn:length(list.result) > 0}">
 				<ul>
 					<c:forEach var="model" items="${list.result}">
-						<li>
+						<li param="${model.id }">
 						<a href="${ctx }/sell/sell_detail_${model.id }.html">
 							<div class="list_img">
 								<c:choose>

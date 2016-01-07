@@ -28,6 +28,7 @@ import com.crop.seagulls.cache.ProductRelationCache;
 import com.crop.seagulls.cache.VarietiesCache;
 import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.dao.SellDAO;
+import com.crop.seagulls.entities.Buy;
 import com.crop.seagulls.entities.Category;
 import com.crop.seagulls.entities.Company;
 import com.crop.seagulls.entities.Favourite;
@@ -192,7 +193,7 @@ public class SellServiceImpl implements SellService {
                 sell.setPagePeriod(pagePeriod);
 
                 // time alias
-                DateType dateType = DateUtils.getTimeDesc(sell.getUpdateTime());
+                DateType dateType = DateUtils.getTimeDesc(sell.getRefreshTime());
                 sell.setPageTimeAlias(templateService.getMessage("page.time.alias." + dateType.getType(), String.valueOf(dateType.getMoreThan())));
 
                 String addr = "";
@@ -385,6 +386,49 @@ public class SellServiceImpl implements SellService {
         map.put("commonStatus", CommonStatus.getMap());
         map.put("cvData", categoryCache.getCategoryVarierties());
         return map;
+    }
+
+    @Override
+    public Response refresh(String detailIds, Long id) {
+        Response response = new Response(ReturnCode.SUCCESS);
+        List<Long> detailList = NumberUtils.strSplit2List(detailIds, ",", Long.class);
+        if (CollectionUtils.isNotEmpty(detailList)) {
+            Sell sell = new Sell();
+            sell.setSearchIds(detailList);
+            sell.setCreateUserId(id);
+            sell.setRefreshTime(new Date());
+            response = (sellDAO.batchUpdate(sell) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.SUCCESS));
+        }
+        return response;
+    }
+
+    @Override
+    public Response down(String detailIds, Long id) {
+        Response response = new Response(ReturnCode.SUCCESS);
+        List<Long> detailList = NumberUtils.strSplit2List(detailIds, ",", Long.class);
+        if (CollectionUtils.isNotEmpty(detailList)) {
+            Sell sell = new Sell();
+            sell.setSearchIds(detailList);
+            sell.setCreateUserId(id);
+            sell.setIsPublish(false);
+            response = (sellDAO.batchUpdate(sell) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.SUCCESS));
+        }
+        return response;
+    }
+
+    @Override
+    public Response on(String detailIds, Long id) {
+        Response response = new Response(ReturnCode.SUCCESS);
+        List<Long> detailList = NumberUtils.strSplit2List(detailIds, ",", Long.class);
+        if (CollectionUtils.isNotEmpty(detailList)) {
+            Sell sell = new Sell();
+            sell.setSearchIds(detailList);
+            sell.setCreateUserId(id);
+            sell.setIsPublish(true);
+            sell.setRefreshTime(new Date());
+            response = (sellDAO.batchUpdate(sell) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.SUCCESS));
+        }
+        return response;
     }
 
 }

@@ -20,4 +20,6 @@ public interface BuyDAO {
     public List<Long> getAllProvinces(Buy buy);
 
     public Buy getById(Long id);
+
+    public int batchUpdate(Buy buy);
 }

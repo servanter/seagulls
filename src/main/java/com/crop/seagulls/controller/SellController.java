@@ -2,7 +2,6 @@ package com.crop.seagulls.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -201,5 +200,27 @@ public class SellController {
         List<SellPic> pics = sellPicService.findPicsById(picId);
         model.addAttribute("pics", pics);
         return "sell/sell_pic";
+    }
+    
+    
+    @ResponseBody
+    @RequestMapping(value = "/user/sell/refresh")
+    public Response refresh(@RequestParam("detail_ids")
+    String detailIds, HttpSession session, Model model) {
+        return sellService.refresh(detailIds, SessionUtils.getCurUser(session).getId());
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/user/sell/down")
+    public Response down(@RequestParam("detail_ids")
+    String detailIds, HttpSession session, Model model) {
+        return sellService.down(detailIds, SessionUtils.getCurUser(session).getId());
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/user/sell/on")
+    public Response on(@RequestParam("detail_ids")
+    String detailIds, HttpSession session, Model model) {
+        return sellService.on(detailIds, SessionUtils.getCurUser(session).getId());
     }
 }
