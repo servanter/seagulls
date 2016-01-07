@@ -487,9 +487,12 @@ li.formAvatar b img{ width:100%;}
 .renzhengshenhe{ display:flex; align-items:center; text-align:left;}
 .renzhengshenhe div{ background:url(../images/icon_renzheng.png) no-repeat 0 center; background-size:26px 26px; padding-left:36px;}
 .renzhengshenhe h4{ font-size:15px; font-weight:normal; margin-bottom:5px;}
-.renzhengshenhe div.weitongguo{ background-image:url(../images/icon_weirenzheng.png);}
-.renzhengshenhe div.shenhezhong{ background-image:url(../images/icon_renzhengzhong.png);}
+.renzhengshenhe div.weitongguo{ background-image:url(../images/icon_weitongguo_jigou.png);}
+.renzhengshenhe div.shenhezhong{ background-image:url(../images/icon_weitongguo_jigou.png);}
 .renzhengshenhe div.yitongguo{ background-image:url(../images/icon_renzheng.png);}
+.gerenrenzheng div.weitongguo{background-image:url(../images/icon_weitongguo_geren.png);}
+.gerenrenzheng div.shenhezhong{ background-image:url(../images/icon_weitongguo_geren.png);}
+.gerenrenzheng div.yitongguo{ background-image:url(../images/icon_renzheng_geren.png);}
 
 
 .menuList2 li .renzheng_shenhe{ position:absolute; right:0; top:0; width:40px; height:16px; font-size:10px; color:#fff; text-align:center; background:#4bc72f; z-index:50; border-bottom-left-radius:5px; line-height:16px; overflow:hidden;}

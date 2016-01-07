@@ -124,7 +124,12 @@
 			<if test="createUserId != null and createUserId > 0">
 				AND create_user_id = #{createUserId}
 			</if>
-			AND status = 1
+			<if test="searchExceptStatus != null">
+				AND status &lt;&gt; #{searchExceptStatus}
+			</if>
+			<if test="status != null">
+				AND status = #{status}
+			</if>
 		</where>
 		ORDER BY update_time DESC LIMIT #{sinceCount}, #{pageSize} 
 	</select>
@@ -162,7 +167,12 @@
 			<if test="createUserId != null and createUserId > 0">
 				AND create_user_id = #{createUserId}
 			</if>
-			AND status = 1
+			<if test="searchExceptStatus != null">
+				AND status &lt;&gt; #{searchExceptStatus}
+			</if>
+			<if test="status != null">
+				AND status = #{status}
+			</if>
 		</where>
 	</select>
 	
@@ -186,6 +196,6 @@
 	</select>
 	
 	<select id="getById" parameterType="long" resultMap="buyMap">
-		SELECT <include refid="base_columns"/> FROM crop_buy WHERE id = #{id} AND status = 1
+		SELECT <include refid="base_columns"/> FROM crop_buy WHERE id = #{id}
 	</select>
 </mapper>

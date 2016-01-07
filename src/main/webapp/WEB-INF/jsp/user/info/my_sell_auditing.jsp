@@ -17,7 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="Cache" content="no-cache">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<title>供应列表</title>
+<title>我的供应</title>
 <link rel="stylesheet" type="text/css" href="${ctx }/css/pullToRefresh.css">
 <link rel="stylesheet" type="text/css" href="${ctx }/css/reset.css">
 <link rel="stylesheet" type="text/css" href="${ctx }/css/extra.css">

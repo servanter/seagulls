@@ -135,8 +135,8 @@ public class SellServiceImpl implements SellService {
     public Map<String, Object> findList(Sell sell) {
         Map<String, Object> map = new HashMap<String, Object>();
         packageCategory(sell, sell.getSearchCategoryId());
-        List<Sell> list = sellDAO.findSells(sell);
-        Integer totalCount = sellDAO.findSellCount(sell);
+        List<Sell> list = sellDAO.getList(sell);
+        Integer totalCount = sellDAO.getListCount(sell);
         Paging<Sell> result = new Paging<Sell>(totalCount, sell.getPage(), sell.getPageSize(), list);
         packageModel(list);
 
@@ -322,8 +322,8 @@ public class SellServiceImpl implements SellService {
     public Map<String, Object> findByUserId(Sell sell) {
         Map<String, Object> map = new HashMap<String, Object>();
         packageCategory(sell, sell.getSearchCategoryId());
-        List<Sell> list = sellDAO.findSells(sell);
-        Integer totalCount = sellDAO.findSellCount(sell);
+        List<Sell> list = sellDAO.getList(sell);
+        Integer totalCount = sellDAO.getListCount(sell);
         Paging<Sell> result = new Paging<Sell>(totalCount, sell.getPage(), sell.getPageSize(), list);
         map.put("list", result);
         packageModel(list);
@@ -350,7 +350,7 @@ public class SellServiceImpl implements SellService {
 
     @Override
     public int findCount(Sell sell) {
-        return sellDAO.findSellCount(sell);
+        return sellDAO.getListCount(sell);
     }
 
     @Override

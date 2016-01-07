@@ -14,9 +14,9 @@ public interface SellDAO {
 
     public int update(Sell sell);
 
-    public List<Sell> findSells(Sell sell);
+    public List<Sell> getList(Sell sell);
 
-    public Integer findSellCount(Sell sell);
+    public Integer getListCount(Sell sell);
 
     public List<Long> findAllProvincesBySell(Sell sell);
 

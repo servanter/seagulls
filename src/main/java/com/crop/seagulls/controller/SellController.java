@@ -7,7 +7,6 @@ import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -194,19 +193,6 @@ public class SellController {
         sell.setSearchExceptStatus(SellBuyStatusEnum.PASS.getCode());
         sell.setCreateUserId(SessionUtils.getCurUser(session).getId());
         return sellService.ajaxFindByUserId(sell);
-    }
-
-    @RequestMapping("/sell/my_sell_order_{id:\\d+}")
-    public String myDetail(@PathVariable("id")
-    Long id, HttpSession session, Model model) {
-        Sell sell = new Sell();
-        sell.setId(id);
-        sell.setLoginUser(SessionUtils.getCurUser(session));
-        Map<String, Object> map = sellService.findById(sell);
-        for (Entry<String, Object> entry : map.entrySet()) {
-            model.addAttribute(entry.getKey(), entry.getValue());
-        }
-        return "supply/my_supply_detail";
     }
 
     @RequestMapping(value = "/sell/sellPics", method = RequestMethod.GET)

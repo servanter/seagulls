@@ -17,7 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="Cache" content="no-cache">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<title>我的供应</title>
+<title>我的采购</title>
 <link rel="stylesheet" type="text/css" href="${ctx }/css/pullToRefresh.css">
 <link rel="stylesheet" type="text/css" href="${ctx }/css/reset.css">
 <link rel="stylesheet" type="text/css" href="${ctx }/css/extra.css">
@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${ctx }/js/iscroll.js"></script>
 <script type="text/javascript" src="${ctx }/js/pullToRefresh.js"></script>
 <script type="text/javascript" src="${ctx }/js/colorful.js"></script>
-<script type="text/javascript" src="${ctx }/js/user/info/my_sell.js"></script>
+<script type="text/javascript" src="${ctx }/js/user/info/my_buy_auditing.js"></script>
 </head>
 
 <body>
@@ -38,13 +38,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="icon_back">
 		<a href="javascript:void(0)"><img src="${ctx }/images/icon_back.png" /></a>
 	</div>
-	<h1>我的供应</h1>
-	<div class="headerRight"><a id="a-edit" href="javascript:void(0)">编辑</a></div>
+	<h1>我的采购</h1>
 </header>
 <ul class="listTab">
-	<li class="selected"><a href="${ctx }/user/sell/my_sell_list/"><span>供货中</span></a></li>
-	<li><a href="${ctx }/user/sell/my_down_list/"><span>已下架</span></a></li>
-	<li><a href="${ctx }/user/sell/my_audit_list/"><span>审核中</span></a></li>
+	<li><a href="${ctx }/user/buy/my_buy_list/"><span>供货中</span></a></li>
+	<li><a href="${ctx }/user/buy/my_down_list/"><span>已下架</span></a></li>
+	<li class="selected"><a href="${ctx }/user/buy/my_audit_list/"><span>审核中</span></a></li>
 </ul>
 
 <!--底部工具栏-->
@@ -63,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<ul>
 					<c:forEach var="model" items="${list.result}">
 						<li>
-						<a href="${ctx }/sell/sell_detail_${model.id }.html">
+						<a href="${ctx }/buy/buy_detail_${model.id }.html">
 							<div class="list_img">
 								<c:choose>
 									<c:when test="${model.firstPic ne null}">
@@ -72,6 +71,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<c:otherwise>
 										<img src="${ctx }/images/sheguo.jpg" />
 									</c:otherwise>
+								</c:choose>
+								<c:choose>
+									<c:when test="${model.status == -1 }">
+										<span class="icon_shenhe weitongguo">未通过</span>
+									</c:when>
+									<c:when test="${model.status == 0 }">
+										<span class="icon_shenhe shenhezhong">审核中</span>
+									</c:when>
 								</c:choose>
 							</div>
 							<dl style="position:relative;">

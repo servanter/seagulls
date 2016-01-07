@@ -163,8 +163,6 @@ public class BuyServiceImpl implements BuyService {
     public Map<String, Object> findList(Buy buy) {
         Map<String, Object> map = new HashMap<String, Object>();
         packageCategory(buy, buy.getSearchCategoryId());
-        buy.setIsValid(true);
-        buy.setIsPublish(true);
         List<Buy> list = buyDAO.getList(buy);
         Integer totalCount = buyDAO.getListCount(buy);
         Paging<Buy> result = new Paging<Buy>(totalCount, buy.getPage(), buy.getPageSize(), list);
@@ -336,8 +334,8 @@ public class BuyServiceImpl implements BuyService {
                 }
             }
 
+            result.put("pics", detailPicCache.getById(SellBuy.BUY, buy.getId()));
         }
-        result.put("pics", detailPicCache.getById(SellBuy.BUY, buy.getId()));
         result.put("model", buy);
 
         if (!ObjectUtils.equals(b.getLoginUser().getId(), null) && b.getLoginUser().getId() > 0) {
@@ -383,6 +381,23 @@ public class BuyServiceImpl implements BuyService {
     @Override
     public int findCount(Buy buy) {
         return buyDAO.getListCount(buy);
+    }
+
+    @Override
+    public Response ajaxFindByUserId(Buy buy) {
+        Response response = new Response(ReturnCode.SUCCESS);
+        if (ObjectUtils.equals(buy.getPage(), null)) {
+            buy.setPage(1);
+        }
+        Map<String, Object> data = findList(buy);
+        if (data.containsKey("list") && CollectionUtils.isEmpty(((Paging<Buy>) data.get("list")).getResult())) {
+            response.setReturnCode(ReturnCode.NO_MORE_PAGE);
+        } else {
+            int totalPage = ((Paging<Buy>) data.get("list")).getTotalPage();
+            data.put("nextPage", buy.getPage() + 1);
+        }
+        response.setResult(data);
+        return response;
     }
 
 }

@@ -88,7 +88,7 @@
 		</selectKey>
 	</insert>
 
-	<select id="findSells" parameterType="sell" resultMap="sellMap">
+	<select id="getList" parameterType="sell" resultMap="sellMap">
 		SELECT <include refid="base_columns"/> FROM crop_sell
 		<where>
 			<if test="categoryId1 != null and categoryId1 > 0">
@@ -131,7 +131,7 @@
 		ORDER BY update_time DESC LIMIT #{sinceCount}, #{pageSize}
 	</select>
 	
-	<select id="findSellCount" parameterType="sell" resultType="int">
+	<select id="getListCount" parameterType="sell" resultType="int">
 		SELECT COUNT(*) FROM crop_sell
 		<where>
 			<if test="categoryId1 != null and categoryId1 > 0">
@@ -188,7 +188,7 @@
 	</select>
 	
 	<select id="getById" parameterType="long" resultMap="sellMap">
-		SELECT <include refid="base_columns"/> FROM crop_sell WHERE id = #{id} AND status = 1
+		SELECT <include refid="base_columns"/> FROM crop_sell WHERE id = #{id}
 	</select>
 	
 	<select id="getTopCategories" parameterType="string" resultType="long">

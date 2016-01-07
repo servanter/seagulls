@@ -46,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<c:choose>
 		<c:when test="${model.status == commonStatus['REJECT'].code }">
 			<!--未通过-->
-			<div class="renzhengshenhe">
+			<div class="renzhengshenhe gerenrenzheng">
 				<div class="weitongguo">
 					<h4 class="colorRed">审核未通过</h4>
 					<p>
@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</c:when>
 		<c:when test="${model.status == commonStatus['AUDITING'].code }">
 			<!--审核中-->
-			<div class="renzhengshenhe">
+			<div class="renzhengshenhe gerenrenzheng">
 				<div class="shenhezhong">
 					<h4 class="colorOrange">审核中</h4>
 					<p>我们会尽快进行审核，请耐心等待</p>
@@ -73,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</c:when>
 		<c:when test="${model.status == commonStatus['PASS'].code }">
 			<!--通过-->
-			<div class="renzhengshenhe">
+			<div class="renzhengshenhe gerenrenzheng">
 				<div class="yitongguo">
 					<h4 class="colorGreen2">审核已通过</h4>
 					<p>认证通过后不可修改，如需修改请联系客服</p>

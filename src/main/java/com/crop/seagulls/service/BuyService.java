@@ -47,4 +47,6 @@ public interface BuyService {
     public Response ajaxFindList(Buy buy);
 
     public Map<String, ?> addPre(Long id);
+
+    public Response ajaxFindByUserId(Buy buy);
 }
