@@ -116,16 +116,17 @@ $(function(){
 	});
 	//供货地结束
 });
+
 </script>
 </head>
 
 <body>
 <!--顶部-->
-<jsp:include page="/common/header.jsp?displayText=发布供货"></jsp:include>
+<jsp:include page="/common/header.jsp?displayText=修改供货"></jsp:include>
 <!--底部按钮-->
 
 <div class="bottom_button">
-	<a id="a-publish" href="javascript:void(0)" target="_top" class="bgGreen">确认发布</a>
+	<a id="a-publish" href="javascript:void(0)" target="_top" class="bgGreen">修改</a>
 </div>
 	<!--详情-->
 <div style="padding:44px 0 60px 0;">
@@ -141,12 +142,12 @@ $(function(){
 				<li>
 					<h4>标题</h4>
 					<span></span>
-					<input class="formInput" type="text" name="title"/>
+					<input class="formInput" type="text" name="title" value="${model.title }"/>
 				</li>
 				<li id="form_pinlei">
 					<h4>品类</h4>
 					<span></span>
-					<input class="formInput" type="text" />
+					<input class="formInput" type="text" value="${model.pageCategory.zhName} ${model.pageVarieties.zhName }"/>
 				</li>
 				<li>
 					<h4>价格</h4>
@@ -187,7 +188,7 @@ $(function(){
 					<span></span>
 					<c:choose>
 						<c:when test="${company ne null && fn:length(company.title) > 0 && company.status ne commonStatus['REJECT'].code}">
-							<div class="formInput">${company.title }</div>
+							<input class="formInput" type="text" name="companyName" value="${company.title }" disabled/>
 							<input type="hidden" name="companyId" value="${company.id }">
 						</c:when>
 						<c:otherwise>
@@ -259,17 +260,23 @@ $(function(){
 		</div>
 		<div class="tanchu_pinlei tanchu_pinlei2" id="category_03" style="display:none;">
 			<ul>
-	
+				<li param="-1">全部</li>
+				<li param="-2">全部sss</li>
+				<c:if test="${fn:length(varieties) > 0}">
+					<c:forEach var="varietie" items="${varieties }">
+						<li param="${varietie.id }">${varietie.zhName }</li>
+					</c:forEach>
+				</c:if>
 			</ul>
 		</div>
-		<div class="tanchu_pinlei_selected" id="category_02_text" style="display:none;"><span>香蕉</span><img src="images/arrowDown.png" /></div>
+		<div class="tanchu_pinlei_selected" id="category_02_text" ><span>sssssssssssssssssss</span><img src="images/arrowDown.png" /></div>
 	</div>
 	
-	<input type="hidden" name="provinceId"/>
-	<input type="hidden" name="cityId"/>
-	<input type="hidden" name="areaId"/>
-	<input type="hidden" name="varietiesId"/>
-	<input type="hidden" name="searchCategoryId"/>
+	<input type="hidden" name="provinceId" value="${model.provinceId }"/>
+	<input type="hidden" name="cityId" value="${model.cityId }"/>
+	<input type="hidden" name="areaId" value="${model.areaId }"/>
+	<input type="hidden" name="varietiesId" value="${model.varietiesId }"/>
+	<input type="hidden" name="searchCategoryId" value="${model.pageCategory.id }"/>
 </form>
 </body>
 </html>

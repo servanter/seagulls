@@ -122,6 +122,12 @@ public class BuyServiceImpl implements BuyService {
         buy.setCreateTime(new Date());
         buy.setUnitId(productRelationCache.getDefaultUnit());
         packageCategory(buy, buy.getSearchCategoryId());
+        if(ObjectUtils.notEqual(buy.getCompanyId(), null) && buy.getCompanyId() > 0) {
+            Company company = companyService.findById(buy.getCompanyId());
+            if(ObjectUtils.notEqual(company, null)) {
+                buy.setCompanyName(company.getTitle());
+            }
+        }
         buyDAO.save(buy);
         if (buy.getId() == null || buy.getId() <= 0L) {
             response.setReturnCode(ReturnCode.ERROR);

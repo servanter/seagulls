@@ -43,4 +43,5 @@ $(function () {
 	$('.icon_back a').click(function() {
 		BaseUtils.prev();
 	});
+	
 });

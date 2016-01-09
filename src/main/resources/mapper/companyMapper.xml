@@ -56,6 +56,10 @@
 		<if test="status != null">AND status = #{status}</if>
 	</select>
 	
+	<select id="getById" parameterType="long" resultMap="companyMap">
+		SELECT * FROM crop_company WHERE id = #{id}
+	</select>
+	
 	<select id="getByUserId" parameterType="user"
 		resultMap="companyMap">
 		SELECT c.* FROM crop_user u INNER JOIN

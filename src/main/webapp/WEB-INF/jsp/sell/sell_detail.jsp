@@ -33,18 +33,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--底部工具栏-->
 <div class="bottomBar">
 	<ul>
-		<li class="follow">
-			<c:choose>
-				<c:when test="${hasFollow}">
-					<a class="btn-unfavo" href="javascript:void(0)"><img src="${ctx }/images/icon_follow.png" />已关注</a>					
-				</c:when>
-				<c:otherwise>
-					<a class="btn-favo" href="javascript:void(0)"><img src="${ctx }/images/icon_follow.png" />关注</a>
-				</c:otherwise>
-			</c:choose>
-		</li>
-		<li class="chat"><a id="a-chat" href="javascript:void(0)"><img src="${ctx }/images/icon_chat.png" />聊一聊</a></li>
-		<li class="tel"><a href="tel:${model.contactPhone }"><img src="${ctx }/images/icon_tel.png" />电话联系</a></li>
+		<c:choose>
+			<c:when test="${loginUser ne null && loginUser.id eq model.createUserId }">
+				<li class="edit"><a href="${ctx }/sell/edit/?id=${model.id}">编辑</a></li>
+			</c:when>
+			<c:otherwise>
+				<li class="follow">
+					<c:choose>
+						<c:when test="${hasFollow}">
+							<a class="btn-unfavo" href="javascript:void(0)"><img src="${ctx }/images/icon_follow.png" />已关注</a>					
+						</c:when>
+						<c:otherwise>
+							<a class="btn-favo" href="javascript:void(0)"><img src="${ctx }/images/icon_follow.png" />关注</a>
+						</c:otherwise>
+					</c:choose>
+				</li>
+				<li class="chat"><a id="a-chat" href="javascript:void(0)"><img src="${ctx }/images/icon_chat.png" />聊一聊</a></li>
+				<li class="tel"><a href="tel:${model.contactPhone }"><img src="${ctx }/images/icon_tel.png" />电话联系</a></li>
+			</c:otherwise>
+		</c:choose>
 	</ul>
 </div>
 <div style="padding:44px 0 60px 0;">
@@ -83,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li>
 					联 系 人：${model.contactName }
 					<c:if test="${authUser ne null && authUser.status eq 1}">
-						<img class="icon_renzheng" src="images/icon_renzheng.png">
+						<img class="icon_renzheng" src="images/icon_renzheng_geren.png">
 					</c:if>
 				</li>
 				<li>供 货 地：${model.pageAddress }</li>

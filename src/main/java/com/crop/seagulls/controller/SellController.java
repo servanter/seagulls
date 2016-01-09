@@ -60,6 +60,13 @@ public class SellController {
             return uploadResponse;
         }
     }
+    
+    @RequestMapping(value = "/sell/edit", method = RequestMethod.GET)
+    public String enterPublish(@RequestParam("id") Long id, HttpSession session, Model model) {
+        Map<String, Object> map = sellService.editPre(id, SessionUtils.getCurUser(session).getId());
+        model.mergeAttributes(map);
+        return "sell/edit";
+    }
 
     @RequestMapping(value = "/sell/publishSuccess", method = RequestMethod.GET)
     public String publishSuccess(@RequestParam("id")

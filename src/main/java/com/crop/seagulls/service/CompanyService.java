@@ -18,7 +18,9 @@ public interface CompanyService {
     public Response modify(Company company);
 
     public List<Company> findAll();
-
+    
+    public Company findById(Long id);
+    
     public Response pass(Long id);
 
     public Response reject(Long id, Integer type, String opinion);

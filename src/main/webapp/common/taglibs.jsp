@@ -6,3 +6,4 @@
 <%@ taglib prefix='security' uri='http://www.springframework.org/security/tags'%>
 
 <c:set var="ctx" value="${pageContext.request.contextPath}" scope="application"/>
+<c:set var="loginUser" value="${sessionScope.CUSER}" scope="application"/>

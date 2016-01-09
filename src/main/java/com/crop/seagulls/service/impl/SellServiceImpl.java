@@ -28,7 +28,6 @@ import com.crop.seagulls.cache.ProductRelationCache;
 import com.crop.seagulls.cache.VarietiesCache;
 import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.dao.SellDAO;
-import com.crop.seagulls.entities.Buy;
 import com.crop.seagulls.entities.Category;
 import com.crop.seagulls.entities.Company;
 import com.crop.seagulls.entities.Favourite;
@@ -100,6 +99,12 @@ public class SellServiceImpl implements SellService {
         sell.setCreateTime(new Date());
         sell.setUnitId(productRelationCache.getDefaultUnit());
         packageCategory(sell, sell.getSearchCategoryId());
+        if(ObjectUtils.notEqual(sell.getCompanyId(), null) && sell.getCompanyId() > 0) {
+            Company company = companyService.findById(sell.getCompanyId());
+            if(ObjectUtils.notEqual(company, null)) {
+                sell.setCompanyName(company.getTitle());
+            }
+        }
         sellDAO.save(sell);
         if (sell.getId() == null || sell.getId() <= 0L) {
             response.setReturnCode(ReturnCode.ERROR);
@@ -384,7 +389,6 @@ public class SellServiceImpl implements SellService {
         userAuth.setUserId(user.getId());
         map.put("userAuth", userAuthService.findByUserId(user.getId()));
         map.put("commonStatus", CommonStatus.getMap());
-        map.put("cvData", categoryCache.getCategoryVarierties());
         return map;
     }
 
@@ -429,6 +433,88 @@ public class SellServiceImpl implements SellService {
             response = (sellDAO.batchUpdate(sell) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.SUCCESS));
         }
         return response;
+    }
+
+    @Override
+    public Map<String, Object> editPre(Long id, Long createUserId) {
+//        Sell sell = new Sell();
+//        sell.setIsValid(true);
+//        sell.setIsPublish(true);
+//        sell.setStatus(1);
+//        sell.setId(id);
+//        sell.setCreateUserId(createUserId);
+        
+        
+        Map<String, Object> result = new HashMap<String, Object>();
+        Sell sell = sellDAO.getById(id);
+        if (sell != null) {
+            ProductUnit unit = productRelationCache.getUnitById(sell.getUnitId());
+            sell.setPageUnit(unit);
+
+            String pagePeriod = StringUtils.EMPTY;
+            if (productRelationCache.isDefaultPeriod(sell.getStartTime()) && productRelationCache.isDefaultPeriod(sell.getEndTime())) {
+                pagePeriod = productRelationCache.getPeriodById(sell.getStartTime()).getTitle();
+            } else {
+                pagePeriod = templateService.getMessage("page.sell.list.period.separator", productRelationCache.getPeriodById(sell.getStartTime()).getTitle(), productRelationCache.getPeriodById(sell.getEndTime()).getTitle());
+            }
+            sell.setPagePeriod(pagePeriod);
+
+            // find category
+            if (NumberUtils.isValidateNumber(sell.getCategoryId3()) && categoryCache.getById(sell.getCategoryId3()) != null) {
+                sell.setPageCategory(categoryCache.getById(sell.getCategoryId3()));
+            } else if (NumberUtils.isValidateNumber(sell.getCategoryId2()) && categoryCache.getById(sell.getCategoryId2()) != null) {
+                sell.setPageCategory(categoryCache.getById(sell.getCategoryId2()));
+            } else if (NumberUtils.isValidateNumber(sell.getCategoryId1()) && categoryCache.getById(sell.getCategoryId1()) != null) {
+                sell.setPageCategory(categoryCache.getById(sell.getCategoryId1()));
+            }
+
+            if(sell.getPageCategory() != null) {
+                result.put("varieties", varietiesCache.getByCategoryId(sell.getPageCategory().getId()));
+            }
+            Long cityId = sell.getCityId();
+            Long provinceId = sell.getProvinceId();
+            Long areaId = sell.getAreaId();
+            String addr = "";
+
+            if (areaId != null && areaId > 0L && cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(areaId) != null && areaCache.getById(provinceId) != null) {
+                addr = areaCache.getById(provinceId).getZhName() + (areaCache.isSpecial(provinceId) ? "市" : "省") + areaCache.getById(cityId).getZhName() + (areaCache.isSpecial(provinceId) ? "" : "市")
+                        + areaCache.getById(areaId).getZhName();
+            } else if (cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(provinceId) != null) {
+                addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(cityId).getZhName();
+            } else if (areaCache.getById(provinceId) != null) {
+                addr = areaCache.getById(provinceId).getZhName();
+            }
+
+            sell.setPageAddress(addr);
+
+            sell.setPageVarieties(varietiesCache.getById(sell.getVarietiesId()));
+
+        }
+        result.put("pics", detailPicCache.getById(SellBuy.SELL, sell.getId()));
+        result.put("model", sell);
+
+        
+        
+        result.put("units", productRelationCache.getUNITS());
+        result.put("periods", productRelationCache.getPERIODS());
+
+        User user = userService.findUserById(createUserId);
+
+        result.put("user", user);
+        // company infos
+        Paging<Company> companies = companyService.findByUserId(user);
+        if (companies != null && CollectionUtils.isNotEmpty(companies.getResult())) {
+            result.put("company", companies.getResult().get(0));
+        }
+
+        // user auth infos
+        UserAuth userAuth = new UserAuth();
+        userAuth.setUserId(user.getId());
+        result.put("userAuth", userAuthService.findByUserId(user.getId()));
+        result.put("commonStatus", CommonStatus.getMap());
+        
+        
+        return result;
     }
 
 }

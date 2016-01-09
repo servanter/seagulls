@@ -30,4 +30,6 @@ public interface CompanyDAO {
 
     int batchUpdate(@Param("auth" ) Company company, @Param("ids") List<Long> id);
 
+    Company getById(Long id);
+
 }

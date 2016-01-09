@@ -82,7 +82,7 @@
 		<if test="companyId != null and companyId > 0 ">,#{companyId}</if>
 		<if test="companyName != null and companyName !='' ">,#{companyName}</if>
 		,#{createTime}
-		,#{refreshTime}
+		,#{createTime}
 		<if test="createUserId != null and createUserId > 0">,#{createUserId}</if>
 		<if test="status != null and status > 0">,#{status}</if>
 		)

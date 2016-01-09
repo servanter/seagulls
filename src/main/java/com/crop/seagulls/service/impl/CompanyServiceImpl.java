@@ -142,4 +142,9 @@ public class CompanyServiceImpl implements CompanyService {
         return response;
     }
 
+    @Override
+    public Company findById(Long id) {
+        return companyDAO.getById(id);
+    }
+
 }
