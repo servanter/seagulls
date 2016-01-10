@@ -31,13 +31,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
 <script type="text/javascript" src="${ctx }/js/common.js"></script>
-<script type="text/javascript" src="${ctx }/js/sell/sell_publish.js?1231=123"></script>
+<script type="text/javascript" src="${ctx }/js/sell/edit.js"></script>
 <script type="text/javascript" src="${ctx }/js/alert.js"></script>
 <script type="text/javascript">
 $(function(){
 	//品类弹窗
 	$("#form_pinlei").click(function(){
 		$("#tanchu_pinlei").show();
+		$("#category_02").show();
+		$("#category_02 ul").empty();
+		$("#category_01").show();
+		$("#category_03").show();
+		$('#category_02_text').show();
 	});
 	$(".tanchuceng .icon_back").click(function(){
 		$(this).parents(".tanchuceng").hide();
@@ -68,7 +73,7 @@ $(function(){
 		$('input[name=varietiesId]').val($(this).attr('param'));
 	});
 	$(function(){ //调用插件
-        $.fn.citySelect();
+        $.fn.citySelect({"isModify":true});
     });
     $(function(){
         form1 = $('form[name=form1]'),
@@ -91,7 +96,7 @@ $(function(){
 	//品类弹窗结束
 	
 	//供货地
-	showLocation();
+	showLocation(${model.provinceId}, ${model.cityId}, ${model.areaId});
 	$("#formLocation").click(function(){
 		$("#tanchu_location").show();
 	});
@@ -134,7 +139,19 @@ $(function(){
 		<div class="contentBg2">
 			<div class="formAddImg">
 				<ul>
-					<li><input type="file" name="img1" class="img-file dn"><img class="img-click" src="${ctx }/images/addImage.jpg" /></li>
+					<c:choose>
+						<c:when test="${fn:length(pics) > 0 }">
+							<c:forEach var="pic" items="${pics }" varStatus="i">
+								<li><input type="file" name="img${i.count }" class="img-file dn"><img class="img-click" src="${ctx }/${pic.imgUrl}" /></li>
+							</c:forEach>
+							<c:if test="${fn:length(pics) < 9 }">
+								<li><input type="file" name="img${fn:length(pics) + 1 }" class="img-file dn"><img class="img-click" src="${ctx }/images/addImage.jpg" /></li>	
+							</c:if>
+						</c:when>
+						<c:otherwise>
+							<li><input type="file" name="img1" class="img-file dn"><img class="img-click" src="${ctx }/images/addImage.jpg" /></li>
+						</c:otherwise>
+					</c:choose>
 				</ul>
 				<div class="clear"></div>
 			</div>
@@ -152,7 +169,7 @@ $(function(){
 				<li>
 					<h4>价格</h4>
 					<span>元/千克</span>
-					<input class="formInput" type="text" name="price" />
+					<input class="formInput" type="text" name="price" value="${model.price }" />
 				</li>
 				<li>
 					<h4>供货时段</h4>
@@ -161,7 +178,14 @@ $(function(){
 						<option value="999">常年有效</option>
 						<c:forEach var="period" items="${periods}">
 							<c:if test="${period.id ne 999}">
-								<option value="${period.id }">${period.title }</option>
+								<c:choose>
+									<c:when test="${period.id eq model.endTime }">
+										<option value="${period.id }" selected="selected">${period.title }</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${period.id }">${period.title }</option>
+									</c:otherwise>
+								</c:choose>
 							</c:if>
 						</c:forEach>
 					</select>
@@ -169,15 +193,20 @@ $(function(){
 					<select name="startTime">
 						<option value="999">常年有效</option>
 						<c:forEach var="period" items="${periods}">
-							<c:if test="${period.id ne 999}">
-								<option value="${period.id }">${period.title }</option>
-							</c:if>
+							<c:choose>
+									<c:when test="${period.id eq model.startTime }">
+										<option value="${period.id }" selected="selected">${period.title }</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${period.id }">${period.title }</option>
+									</c:otherwise>
+								</c:choose>
 						</c:forEach>
 					</select>
 					</div>
 				</li>
 				<li style="height:auto;">
-					<textarea class="formTextarea" placeholder="供货简介" name="note"></textarea>
+					<textarea class="formTextarea" placeholder="供货简介" name="note">${model.note }</textarea>
 				</li>
 			</ul>
 		</div>
@@ -209,7 +238,7 @@ $(function(){
 				<li id="formLocation">
 					<h4>供货地</h4>
 					<span></span>
-					<input class="formInput" type="text" />
+					<input class="formInput" type="text" value="${model.pageAddress }"/>
 				</li>
 			</ul>
 		</div>
@@ -261,7 +290,6 @@ $(function(){
 		<div class="tanchu_pinlei tanchu_pinlei2" id="category_03" style="display:none;">
 			<ul>
 				<li param="-1">全部</li>
-				<li param="-2">全部sss</li>
 				<c:if test="${fn:length(varieties) > 0}">
 					<c:forEach var="varietie" items="${varieties }">
 						<li param="${varietie.id }">${varietie.zhName }</li>
@@ -269,7 +297,7 @@ $(function(){
 				</c:if>
 			</ul>
 		</div>
-		<div class="tanchu_pinlei_selected" id="category_02_text" ><span>sssssssssssssssssss</span><img src="images/arrowDown.png" /></div>
+		<div class="tanchu_pinlei_selected" id="category_02_text" ><span>${model.pageCategory.zhName }</span><img src="images/arrowDown.png" /></div>
 	</div>
 	
 	<input type="hidden" name="provinceId" value="${model.provinceId }"/>

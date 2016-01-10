@@ -477,7 +477,7 @@ public class SellServiceImpl implements SellService {
             String addr = "";
 
             if (areaId != null && areaId > 0L && cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(areaId) != null && areaCache.getById(provinceId) != null) {
-                addr = areaCache.getById(provinceId).getZhName() + (areaCache.isSpecial(provinceId) ? "市" : "省") + areaCache.getById(cityId).getZhName() + (areaCache.isSpecial(provinceId) ? "" : "市")
+                addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(cityId).getZhName()
                         + areaCache.getById(areaId).getZhName();
             } else if (cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(provinceId) != null) {
                 addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(cityId).getZhName();
