@@ -11,7 +11,6 @@ import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.dao.BuyPicDAO;
 import com.crop.seagulls.entities.BuyPic;
-import com.crop.seagulls.entities.SellPic;
 import com.crop.seagulls.service.BuyPicService;
 
 @Service
@@ -51,6 +50,11 @@ public class BuyPicServiceImpl implements BuyPicService {
             result = findByBuyId(pics.get(0).getBuyId());
         }
         return result;
+    }
+
+    @Override
+    public Response modify(BuyPic buyPic) {
+        return buyPicDAO.update(buyPic) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
     }
 
 }

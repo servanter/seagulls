@@ -55,4 +55,8 @@ public interface BuyService {
     public Response down(String detailIds, Long id);
 
     public Response on(String detailIds, Long id);
+
+    public Map<String, Object> editPre(Long id, Long id2);
+
+    public Response modify(Buy buy, List<String> result);
 }

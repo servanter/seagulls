@@ -88,8 +88,17 @@ public class Buy extends Base {
     private String pageAddress;
     private String pageQuantity;
     private String pagePeriod;
-
     private BuyPic firstPic;
+
+    private String updatePicIds;
+    
+    public String getUpdatePicIds() {
+        return updatePicIds;
+    }
+
+    public void setUpdatePicIds(String updatePicIds) {
+        this.updatePicIds = updatePicIds;
+    }
 
     public Buy() {
         super();

@@ -40,7 +40,7 @@ $(function(){
 	<ul>
 		<c:choose>
 			<c:when test="${loginUser.id == model.createUserId }">
-				<li class="edit"><a href="javascript:void(0)">编辑</a></li>
+				<li class="edit"><a href="${ctx }/buy/edit/?id=${model.id}">编辑</a></li>
 			</c:when>
 			<c:otherwise>
 				<li class="follow">

@@ -60,6 +60,27 @@ public class BuyController {
             return uploadResponse;
         }
     }
+    
+    @RequestMapping(value = "/buy/edit", method = RequestMethod.GET)
+    public String enterEdit(@RequestParam("id") Long id, HttpSession session, Model model) {
+        Map<String, Object> map = buyService.editPre(id, SessionUtils.getCurUser(session).getId());
+        model.mergeAttributes(map);
+        return "buy/edit";
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/buy/edit", method = RequestMethod.POST)
+    public Response edit(Buy Buy, @RequestParam("updatePicIds") String ids, HttpServletRequest request, HttpSession session) {
+        Response uploadResponse = UploadUtils.upload("images/publish/", "images/publish/", Constant.BUY, request);
+        if (ReturnCode.isSuccess(uploadResponse.getReturnCode())) {
+            Buy.setCreateUserId(SessionUtils.getCurUser(session).getId());
+            Buy.setUpdatePicIds(ids);
+            Response response = buyService.modify(Buy, (List<String>) uploadResponse.getResult());
+            return response;
+        } else {
+            return uploadResponse;
+        }
+    }
 
     @RequestMapping(value = "/buy/publishSuccess", method = RequestMethod.GET)
     public String publishSuccess(@RequestParam("id")

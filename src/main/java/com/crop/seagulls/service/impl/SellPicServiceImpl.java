@@ -52,4 +52,9 @@ public class SellPicServiceImpl implements SellPicService {
         return result;
     }
 
+    @Override
+    public Response modify(SellPic sellPic) {
+        return sellPicDAO.update(sellPic) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+    }
+
 }

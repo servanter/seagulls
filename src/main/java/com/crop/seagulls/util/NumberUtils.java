@@ -14,6 +14,9 @@ public class NumberUtils {
 
     public static <T> List<T> strSplit2List(String str, String split, Class<T> clazz) {
         List result = new ArrayList();
+        if (str == null || str.length() == 0) {
+            return result;
+        }
         String[] arr = str.split(split);
         for (String a : arr) {
             if (clazz.equals(Integer.class)) {

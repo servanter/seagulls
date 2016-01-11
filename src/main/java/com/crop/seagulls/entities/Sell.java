@@ -85,6 +85,16 @@ public class Sell extends Base {
     private String pageAddress;
     private String pagePeriod;
     private SellPic firstPic;
+    
+    private String updatePicIds;
+
+    public String getUpdatePicIds() {
+        return updatePicIds;
+    }
+
+    public void setUpdatePicIds(String updatePicIds) {
+        this.updatePicIds = updatePicIds;
+    }
 
     public Sell() {
         super();

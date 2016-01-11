@@ -67,6 +67,20 @@ public class SellController {
         model.mergeAttributes(map);
         return "sell/edit";
     }
+    
+    @ResponseBody
+    @RequestMapping(value = "/sell/edit", method = RequestMethod.POST)
+    public Response edit(Sell sell, @RequestParam("updatePicIds") String ids, HttpServletRequest request, HttpSession session) {
+        Response uploadResponse = UploadUtils.upload("images/publish/", "images/publish/", Constant.SELL, request);
+        if (ReturnCode.isSuccess(uploadResponse.getReturnCode())) {
+            sell.setCreateUserId(SessionUtils.getCurUser(session).getId());
+            sell.setUpdatePicIds(ids);
+            Response response = sellService.modify(sell, (List<String>) uploadResponse.getResult());
+            return response;
+        } else {
+            return uploadResponse;
+        }
+    }
 
     @RequestMapping(value = "/sell/publishSuccess", method = RequestMethod.GET)
     public String publishSuccess(@RequestParam("id")

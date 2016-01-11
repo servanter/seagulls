@@ -18,7 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="Cache" content="no-cache">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<title>发布供货</title>
+<title>发布求购</title>
 <link rel="stylesheet" type="text/css" href="${ctx }/css/style.css">
 <link rel="stylesheet" type="text/css" href="${ctx }/css/extra.css">
 <script type="text/javascript" src="${ctx }/js/jquery-1.11.0.min.js"></script>
@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
 <script type="text/javascript" src="${ctx }/js/common.js"></script>
-<script type="text/javascript" src="${ctx }/js/sell/edit.js"></script>
+<script type="text/javascript" src="${ctx }/js/buy/edit.js"></script>
 <script type="text/javascript" src="${ctx }/js/alert.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -127,7 +127,7 @@ $(function(){
 
 <body>
 <!--顶部-->
-<jsp:include page="/common/header.jsp?displayText=修改供货"></jsp:include>
+<jsp:include page="/common/header.jsp?displayText=修改求购"></jsp:include>
 <!--底部按钮-->
 
 <div class="bottom_button">
@@ -167,12 +167,22 @@ $(function(){
 					<input class="formInput" type="text" value="${model.pageCategory.zhName} ${model.pageVarieties.zhName }"/>
 				</li>
 				<li>
-					<h4>价格</h4>
+					<h4>采购价格</h4>
 					<span>元/千克</span>
 					<input class="formInput" type="text" name="price" value="${model.price }" />
 				</li>
 				<li>
-					<h4>供货时段</h4>
+					<h4>采购量</h4>
+					<span>千克</span>
+					<input class="formInput" type="text" name="quantity" value="${model.quantity }"/>
+				</li>
+				<li id="formLocation">
+					<h4>供货地</h4>
+					<span></span>
+					<input class="formInput" type="text" value="${model.pageAddress }"/>
+				</li>
+				<li>
+					<h4>采购时段</h4>
 					<div class="formTimeSlot">
 					<select name="endTime">
 						<option value="999">常年有效</option>
@@ -206,7 +216,7 @@ $(function(){
 					</div>
 				</li>
 				<li style="height:auto;">
-					<textarea class="formTextarea" placeholder="供货简介" name="note">${model.note }</textarea>
+					<textarea class="formTextarea" placeholder="采购要求" name="note">${model.note }</textarea>
 				</li>
 			</ul>
 		</div>
@@ -234,11 +244,6 @@ $(function(){
 					<h4>联系电话</h4>
 					<span></span>
 					<input class="formInput" type="text" name="contactPhone" value="${model.contactPhone }"/>
-				</li>
-				<li id="formLocation">
-					<h4>供货地</h4>
-					<span></span>
-					<input class="formInput" type="text" value="${model.pageAddress }"/>
 				</li>
 			</ul>
 		</div>

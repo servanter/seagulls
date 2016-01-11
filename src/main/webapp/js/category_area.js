@@ -2,13 +2,15 @@
 $.fn.citySelect = function(options) {  
  	var defaults = {  
  		setId : ['#category_01' , '#category_02' , '#category_03'],//默认id
+ 		isModify : false,
  	},
  		opts = $.extend(defaults, options),
  			_setId = opts.setId,
  			_stval = opts.stval,
  			_czemt = opts.czemt,
  			_inpnt = opts.inpvt,
- 			len = _setId.length;
+ 			len = _setId.length,
+ 			isModify = opts.isModify;
  	$.fn.removelist = function(options){  //清空
  			var removdefa = {  
  			    removeAll : false,
@@ -21,10 +23,16 @@ $.fn.citySelect = function(options) {
  		$_listsib = $('ul li:gt(0)' , $_removebox),
  		$_vala = $(_czemt , $_removebox),
  		$_valb = $(_inpnt , $_removebox);
- 		if(optremove.removeAll){
- 			$_listall.remove();
- 		}else{
- 			$_listsib.remove();
+ 	
+ 		if(isModify) {
+// 			isModify = false;
+ 		} else {
+ 			if(optremove.removeAll){
+ 				$_listall.remove();
+ 			}else{
+ 				$_listsib.remove();
+ 			}
+ 			
  		}
  		return this;
  	};

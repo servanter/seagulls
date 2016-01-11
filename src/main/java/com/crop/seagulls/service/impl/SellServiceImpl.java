@@ -99,9 +99,9 @@ public class SellServiceImpl implements SellService {
         sell.setCreateTime(new Date());
         sell.setUnitId(productRelationCache.getDefaultUnit());
         packageCategory(sell, sell.getSearchCategoryId());
-        if(ObjectUtils.notEqual(sell.getCompanyId(), null) && sell.getCompanyId() > 0) {
+        if (ObjectUtils.notEqual(sell.getCompanyId(), null) && sell.getCompanyId() > 0) {
             Company company = companyService.findById(sell.getCompanyId());
-            if(ObjectUtils.notEqual(company, null)) {
+            if (ObjectUtils.notEqual(company, null)) {
                 sell.setCompanyName(company.getTitle());
             }
         }
@@ -335,7 +335,6 @@ public class SellServiceImpl implements SellService {
         packageModel(list);
         return map;
     }
-    
 
     @Override
     public Response ajaxFindByUserId(Sell sell) {
@@ -437,14 +436,6 @@ public class SellServiceImpl implements SellService {
 
     @Override
     public Map<String, Object> editPre(Long id, Long createUserId) {
-//        Sell sell = new Sell();
-//        sell.setIsValid(true);
-//        sell.setIsPublish(true);
-//        sell.setStatus(1);
-//        sell.setId(id);
-//        sell.setCreateUserId(createUserId);
-        
-        
         Map<String, Object> result = new HashMap<String, Object>();
         Sell sell = sellDAO.getById(id);
         if (sell != null) {
@@ -468,7 +459,7 @@ public class SellServiceImpl implements SellService {
                 sell.setPageCategory(categoryCache.getById(sell.getCategoryId1()));
             }
 
-            if(sell.getPageCategory() != null) {
+            if (sell.getPageCategory() != null) {
                 result.put("varieties", varietiesCache.getByCategoryId(sell.getPageCategory().getId()));
             }
             Long cityId = sell.getCityId();
@@ -477,8 +468,7 @@ public class SellServiceImpl implements SellService {
             String addr = "";
 
             if (areaId != null && areaId > 0L && cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(areaId) != null && areaCache.getById(provinceId) != null) {
-                addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(cityId).getZhName()
-                        + areaCache.getById(areaId).getZhName();
+                addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(cityId).getZhName() + areaCache.getById(areaId).getZhName();
             } else if (cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(provinceId) != null) {
                 addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(cityId).getZhName();
             } else if (areaCache.getById(provinceId) != null) {
@@ -493,8 +483,6 @@ public class SellServiceImpl implements SellService {
         result.put("pics", detailPicCache.getById(SellBuy.SELL, sell.getId()));
         result.put("model", sell);
 
-        
-        
         result.put("units", productRelationCache.getUNITS());
         result.put("periods", productRelationCache.getPERIODS());
 
@@ -507,14 +495,67 @@ public class SellServiceImpl implements SellService {
             result.put("company", companies.getResult().get(0));
         }
 
-        // user auth infos
-        UserAuth userAuth = new UserAuth();
-        userAuth.setUserId(user.getId());
-        result.put("userAuth", userAuthService.findByUserId(user.getId()));
         result.put("commonStatus", CommonStatus.getMap());
-        
-        
+
         return result;
+    }
+
+    @Override
+    public Response modify(Sell sell, List<String> webImagesPath) {
+        Response response = new Response();
+        response.setReturnCode(ReturnCode.SUCCESS);
+        sell.setCreateTime(new Date());
+        sell.setUnitId(productRelationCache.getDefaultUnit());
+        packageCategory(sell, sell.getSearchCategoryId());
+        if (ObjectUtils.notEqual(sell.getCompanyId(), null) && sell.getCompanyId() > 0) {
+            Company company = companyService.findById(sell.getCompanyId());
+            if (ObjectUtils.notEqual(company, null)) {
+                sell.setCompanyName(company.getTitle());
+            }
+        }
+        int affect = sellDAO.update(sell);
+        if (affect > 0) {
+            List<Long> ids = NumberUtils.strSplit2List(sell.getUpdatePicIds(), ",", Long.class);
+
+            if (CollectionUtils.isNotEmpty(webImagesPath) && webImagesPath.size() >= ids.size()) {
+
+                int startIndex = 0;
+                // according ids update url
+                for (int i = 0; i < ids.size(); i++) {
+                    Long picId = ids.get(i);
+                    String url = webImagesPath.get(i);
+
+                    SellPic sellPic = new SellPic();
+                    sellPic.setId(picId);
+                    sellPic.setImgUrl(url);
+                    sellPic.setOperatorId(sell.getCreateUserId());
+                    sellPicService.modify(sellPic);
+                    startIndex = i + 1;
+                }
+
+                // need insert new pic
+                if (webImagesPath.size() > startIndex) {
+                    List<String> insertImagesPath = webImagesPath.subList(startIndex, webImagesPath.size());
+                    if (CollectionUtils.isNotEmpty(insertImagesPath)) {
+                        for (String picUrl : insertImagesPath) {
+                            SellPic pic = new SellPic();
+                            pic.setSellId(sell.getId());
+                            pic.setCreateUserId(sell.getCreateUserId());
+                            pic.setCreateTime(new Date());
+                            pic.setImgUrl(picUrl);
+                            pic.setOperatorId(sell.getCreateUserId());
+                            sellPicService.add(pic);
+                        }
+                    }
+                }
+            }
+
+            detailPicCache.refresh(SellBuy.SELL, sell.getId());
+            response.setResult(sell.getId());
+        } else {
+            response.setReturnCode(ReturnCode.ERROR);
+        }
+        return response;
     }
 
 }

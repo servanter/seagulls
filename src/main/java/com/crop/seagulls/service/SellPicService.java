@@ -23,7 +23,7 @@ public interface SellPicService {
      * @return
      */
     public List<SellPic> findBySellId(Long id);
-    
+
     /**
      * 
      * Query by supply id
@@ -40,4 +40,6 @@ public interface SellPicService {
      * @return
      */
     public Response add(SellPic supplyPic);
+
+    public Response modify(SellPic sellPic);
 }

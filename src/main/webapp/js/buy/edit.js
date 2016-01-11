@@ -43,21 +43,42 @@ $(function() {
 		
 		var price = $('input[name=price]').val();
 		if (!price || price.length == 0) {
-			Alert.info('请输入价格');
+			Alert.info('请输入采购价格');
 			return;
 		}
 		
 		var pInt = parseFloat(price);
 		if(isNaN(pInt)) {
-			Alert.info('请输入价格只支持数字');
+			Alert.info('请输入采购价格只支持数字');
 			return;
 		}
+		
+		var quantity = $('input[name=quantity]').val();
+		if (!quantity || quantity.length == 0) {
+			Alert.info('请输入采购量');
+			return;
+		}
+		
+		if(quantity.indexOf('.') > 0) {
+			Alert.info('采购量只支持数字');
+			return;
+		}
+		var qInt = parseInt(quantity);
+		if(isNaN(qInt)) {
+			Alert.info('采购量只支持数字');
+			return;
+		}
+		if(qInt <= 0) {
+			Alert.info('采购量只支持大于0的数字');
+			return;
+		}
+		
 		
 		var provinceId = $('input[name=provinceId]').val();
 		var cityId = $('input[name=cityId]').val();
 		var areaId = $('input[name=areaId]').val();
 		if (!provinceId || provinceId.length == 0 || !cityId || cityId.length == 0 || !areaId || areaId.length == 0 ) {
-			Alert.info('请选择供货地');
+			Alert.info('请选择采购地');
 			return;
 		}
 		
@@ -72,7 +93,6 @@ $(function() {
 			Alert.info('请输入联系电话');
 			return;
 		}
-		
 		var note = $('textarea[name=note]').val();
 		if (note.length > 500) {
 			Alert.info('简介只能输入500字以内');
@@ -101,20 +121,18 @@ $(function() {
 			return;
 		}
 		Alert.loading();
-	
 		
 		var option = {
 			type: 'POST',
-			url: BaseUtils.proPath + 'sell/edit/',
+			url: BaseUtils.proPath + 'buy/edit/',
 			success: function(data) {
 				if (data.code != 10000) {
-					Alert.info(data.message);
+					Alert.error(data.message);
 				} else {
-					BaseUtils.redirect(BaseUtils.proPath + 'sell/publishSuccess/?id=' + data.result);
+					BaseUtils.redirect(BaseUtils.proPath + 'buy/publishSuccess/?id=' + data.result);
 				}
 			}
 		}
-		
 		$.each($('.img-file'), function(index, item) {
 			if($(item).val() != '') {
 				$(item).after('<input type="hidden" name="has_img" value="1">');

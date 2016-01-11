@@ -33,6 +33,8 @@ import com.crop.seagulls.entities.Category;
 import com.crop.seagulls.entities.Company;
 import com.crop.seagulls.entities.Favourite;
 import com.crop.seagulls.entities.ProductUnit;
+import com.crop.seagulls.entities.Sell;
+import com.crop.seagulls.entities.SellPic;
 import com.crop.seagulls.entities.User;
 import com.crop.seagulls.entities.UserAuth;
 import com.crop.seagulls.service.BuyPicService;
@@ -445,6 +447,130 @@ public class BuyServiceImpl implements BuyService {
             buy.setIsPublish(true);
             buy.setRefreshTime(new Date());
             response = (buyDAO.batchUpdate(buy) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.SUCCESS));
+        }
+        return response;
+    }
+
+    @Override
+    public Map<String, Object> editPre(Long id, Long createUserId) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        Buy buy = buyDAO.getById(id);
+        if (buy != null) {
+            ProductUnit unit = productRelationCache.getUnitById(buy.getUnitId());
+            buy.setPageUnit(unit);
+
+            String pagePeriod = StringUtils.EMPTY;
+            if (productRelationCache.isDefaultPeriod(buy.getStartTime()) && productRelationCache.isDefaultPeriod(buy.getEndTime())) {
+                pagePeriod = productRelationCache.getPeriodById(buy.getStartTime()).getTitle();
+            } else {
+                pagePeriod = templateService.getMessage("page.sell.list.period.separator", productRelationCache.getPeriodById(buy.getStartTime()).getTitle(), productRelationCache.getPeriodById(buy.getEndTime()).getTitle());
+            }
+            buy.setPagePeriod(pagePeriod);
+
+            // find category
+            if (NumberUtils.isValidateNumber(buy.getCategoryId3()) && categoryCache.getById(buy.getCategoryId3()) != null) {
+                buy.setPageCategory(categoryCache.getById(buy.getCategoryId3()));
+            } else if (NumberUtils.isValidateNumber(buy.getCategoryId2()) && categoryCache.getById(buy.getCategoryId2()) != null) {
+                buy.setPageCategory(categoryCache.getById(buy.getCategoryId2()));
+            } else if (NumberUtils.isValidateNumber(buy.getCategoryId1()) && categoryCache.getById(buy.getCategoryId1()) != null) {
+                buy.setPageCategory(categoryCache.getById(buy.getCategoryId1()));
+            }
+
+            if (buy.getPageCategory() != null) {
+                result.put("varieties", varietiesCache.getByCategoryId(buy.getPageCategory().getId()));
+            }
+            Long cityId = buy.getCityId();
+            Long provinceId = buy.getProvinceId();
+            Long areaId = buy.getAreaId();
+            String addr = "";
+
+            if (areaId != null && areaId > 0L && cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(areaId) != null && areaCache.getById(provinceId) != null) {
+                addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(cityId).getZhName() + areaCache.getById(areaId).getZhName();
+            } else if (cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(provinceId) != null) {
+                addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(cityId).getZhName();
+            } else if (areaCache.getById(provinceId) != null) {
+                addr = areaCache.getById(provinceId).getZhName();
+            }
+
+            buy.setPageAddress(addr);
+
+            buy.setPageVarieties(varietiesCache.getById(buy.getVarietiesId()));
+
+        }
+        result.put("pics", detailPicCache.getById(SellBuy.BUY, buy.getId()));
+        result.put("model", buy);
+
+        result.put("units", productRelationCache.getUNITS());
+        result.put("periods", productRelationCache.getPERIODS());
+
+        User user = userService.findUserById(createUserId);
+
+        result.put("user", user);
+        // company infos
+        Paging<Company> companies = companyService.findByUserId(user);
+        if (companies != null && CollectionUtils.isNotEmpty(companies.getResult())) {
+            result.put("company", companies.getResult().get(0));
+        }
+
+        result.put("commonStatus", CommonStatus.getMap());
+
+        return result;
+    }
+
+    @Override
+    public Response modify(Buy buy, List<String> webImagesPath) {
+        Response response = new Response();
+        response.setReturnCode(ReturnCode.SUCCESS);
+        buy.setCreateTime(new Date());
+        buy.setUnitId(productRelationCache.getDefaultUnit());
+        packageCategory(buy, buy.getSearchCategoryId());
+        if (ObjectUtils.notEqual(buy.getCompanyId(), null) && buy.getCompanyId() > 0) {
+            Company company = companyService.findById(buy.getCompanyId());
+            if (ObjectUtils.notEqual(company, null)) {
+                buy.setCompanyName(company.getTitle());
+            }
+        }
+        int affect = buyDAO.update(buy);
+        if (affect > 0) {
+            List<Long> ids = NumberUtils.strSplit2List(buy.getUpdatePicIds(), ",", Long.class);
+
+            if (CollectionUtils.isNotEmpty(webImagesPath) && webImagesPath.size() >= ids.size()) {
+
+                int startIndex = 0;
+                // according ids update url
+                for (int i = 0; i < ids.size(); i++) {
+                    Long picId = ids.get(i);
+                    String url = webImagesPath.get(i);
+
+                    BuyPic buyPic = new BuyPic();
+                    buyPic.setId(picId);
+                    buyPic.setImgUrl(url);
+                    buyPic.setOperatorId(buy.getCreateUserId());
+                    buyPicService.modify(buyPic);
+                    startIndex = i + 1;
+                }
+
+                // need insert new pic
+                if (webImagesPath.size() > startIndex) {
+                    List<String> insertImagesPath = webImagesPath.subList(startIndex, webImagesPath.size());
+                    if (CollectionUtils.isNotEmpty(insertImagesPath)) {
+                        for (String picUrl : insertImagesPath) {
+                            BuyPic pic = new BuyPic();
+                            pic.setBuyId(buy.getId());
+                            pic.setCreateUserId(buy.getCreateUserId());
+                            pic.setCreateTime(new Date());
+                            pic.setImgUrl(picUrl);
+                            pic.setOperatorId(buy.getCreateUserId());
+                            buyPicService.add(pic);
+                        }
+                    }
+                }
+            }
+
+            detailPicCache.refresh(SellBuy.BUY, buy.getId());
+            response.setResult(buy.getId());
+        } else {
+            response.setReturnCode(ReturnCode.ERROR);
         }
         return response;
     }

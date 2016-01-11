@@ -16,4 +16,6 @@ public interface SellPicDAO {
     public List<SellPic> getAll();
 
     public List<SellPic> getList(SellPic sellPic);
+
+    public int update(SellPic sellPic);
 }

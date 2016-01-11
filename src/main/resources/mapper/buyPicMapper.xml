@@ -46,5 +46,14 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
+	
+	<update id="update" parameterType="buyPic">
+		UPDATE crop_buy_pic 
+		<set>
+			operator_id = #{operatorId},
+			img_url = #{imgUrl},
+		</set>
+		WHERE id = #{id}
+	</update>
 
 </mapper>

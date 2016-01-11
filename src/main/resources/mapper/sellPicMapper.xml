@@ -46,4 +46,12 @@
 		</selectKey>
 	</insert>
 
+	<update id="update" parameterType="sellPic">
+		UPDATE crop_sell_pic 
+		<set>
+			operator_id = #{operatorId},
+			img_url = #{imgUrl},
+		</set>
+		WHERE id = #{id}
+	</update>
 </mapper>

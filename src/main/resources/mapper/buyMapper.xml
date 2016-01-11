@@ -225,4 +225,74 @@
 			</if>
 		</where>
 	</update>
+	
+	<update id="update" parameterType="buy">
+		UPDATE crop_buy
+		<set>
+			<if test="refreshTime != null">
+				refresh_time = #{refreshTime}, 
+			</if>
+			<if test="isPublish != null">
+				is_publish = #{isPublish},
+			</if>
+			<if test="categoryId1 != null and categoryId1 > 0">
+				category_id_1 = #{categoryId1},
+			</if>
+			<if test="categoryId2 != null and categoryId2 > 0">
+				category_id_2 = #{categoryId2},
+			</if>
+			<if test="categoryId3 != null and categoryId3 > 0">
+				category_id_3 = #{categoryId3},
+			</if>
+			<if test="varietiesId != null and varietiesId > 0">
+				varieties_id = #{varietiesId},
+			</if>
+			<if test="title != null and title != ''">
+				title = #{title},
+			</if>
+			<if test="provinceId != null and provinceId > 0">
+				province_id = #{provinceId},
+			</if>
+			<if test="cityId != null and cityId > 0">
+				city_id = #{cityId},
+			</if>
+			<if test="areaId != null and areaId > 0">
+				area_id = #{areaId},
+			</if>
+			<if test="startTime != null and startTime !='' ">
+				start_time = #{startTime},
+			</if>
+			<if test="endTime != null and endTime !=''">
+				end_time = #{endTime},
+			</if>
+			<if test="price != null and price > 0">
+				price = #{price},
+			</if>
+			<if test="quantity != null and quantity > 0">
+				quantity = #{quantity},
+			</if>
+			<if test="unitId != null and unitId > 0">
+				unit_id = #{unitId},
+			</if>
+			<if test="note != null and note !='' ">
+				note = #{note},
+			</if>
+			<if test="contactName != null and contactName !=''">
+				contact_name = #{contactName},
+			</if>
+			<if test="contactPhone != null and contactPhone !='' ">
+				contact_phone = #{contactPhone},
+			</if>
+			<if test="companyId != null and companyId > 0 ">
+				company_id = #{companyId},
+			</if>
+			<if test="companyName != null and companyName !='' ">
+				company_name = #{companyName},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
 </mapper>

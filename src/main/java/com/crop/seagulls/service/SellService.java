@@ -65,5 +65,6 @@ public interface SellService {
     public Response down(String detailIds, Long id);
     public Response on(String detailIds, Long id);
     public Map<String, Object> editPre(Long id, Long createUserId);
+    public Response modify(Sell sell, List<String> result);
     
 }
