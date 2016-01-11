@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 60003
 File Encoding         : 65001
 
-Date: 2015-12-11 00:37:41
+Date: 2016-01-12 01:14:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,7 +27,7 @@ CREATE TABLE `crop_admin_menu` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `is_valid` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=300020002016 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=300020002026 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_admin_menu
@@ -47,6 +47,16 @@ INSERT INTO crop_admin_menu VALUES ('100010001001', '10001000', '首页Banner', 
 INSERT INTO crop_admin_menu VALUES ('300020001000', '30002000', '分类管理', 'admin/category/list_n1/', '1990-01-01 00:00:00', '2015-09-27 22:06:20', '1');
 INSERT INTO crop_admin_menu VALUES ('300020002000', '30002000', '地区管理', 'admin/area/list_n1/', '1990-01-01 00:00:00', '2015-09-27 22:26:14', '1');
 INSERT INTO crop_admin_menu VALUES ('300020002015', '30001000', '用户列表', 'asdsadasd', '2015-09-28 16:16:07', '2015-09-28 16:16:14', '0');
+INSERT INTO crop_admin_menu VALUES ('300020002016', '30002000', '种类管理', 'admin/varieties/list_n1/', '2015-12-24 00:28:47', '2015-12-24 00:28:47', '1');
+INSERT INTO crop_admin_menu VALUES ('300020002017', '2000', '认证审核', '', '2015-12-26 01:34:47', '2015-12-26 01:34:47', '1');
+INSERT INTO crop_admin_menu VALUES ('300020002018', '300020002017', '公司认证', '', '2015-12-26 01:35:28', '2016-01-02 13:07:01', '1');
+INSERT INTO crop_admin_menu VALUES ('300020002019', '300020002017', '个人认证', '', '2015-12-26 01:35:44', '2016-01-02 13:04:41', '1');
+INSERT INTO crop_admin_menu VALUES ('300020002020', '300020002019', '待审核信息', 'admin/auth/person/auditList_n1/', '2015-12-26 14:38:10', '2015-12-28 22:48:09', '1');
+INSERT INTO crop_admin_menu VALUES ('300020002021', '300020002019', '通过列表', 'admin/auth/person/passList_n1/', '2015-12-28 22:47:26', '2015-12-28 22:47:26', '1');
+INSERT INTO crop_admin_menu VALUES ('300020002022', '300020002019', '驳回列表', 'admin/auth/person/rejectList_n1/', '2015-12-28 22:48:02', '2015-12-28 23:17:15', '1');
+INSERT INTO crop_admin_menu VALUES ('300020002023', '300020002018', '待审核列表', 'admin/auth/company/auditList_n1/', '2016-01-02 13:07:01', '2016-01-02 13:07:01', '1');
+INSERT INTO crop_admin_menu VALUES ('300020002024', '300020002018', '通过列表', 'admin/auth/company/passList_n1/', '2016-01-02 13:07:19', '2016-01-02 13:07:19', '1');
+INSERT INTO crop_admin_menu VALUES ('300020002025', '300020002018', '驳回列表', 'admin/auth/company/rejectList_n1/', '2016-01-02 13:07:40', '2016-01-02 13:07:40', '1');
 
 -- ----------------------------
 -- Table structure for `crop_admin_role`
@@ -82,7 +92,7 @@ CREATE TABLE `crop_admin_role_menu` (
   `menu_id` bigint(20) NOT NULL DEFAULT '-1',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=135 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=232 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_admin_role_menu
@@ -98,20 +108,30 @@ INSERT INTO crop_admin_role_menu VALUES ('77', '2', '1000', '2015-10-09 22:11:16
 INSERT INTO crop_admin_role_menu VALUES ('78', '2', '2000', '2015-10-09 22:11:16');
 INSERT INTO crop_admin_role_menu VALUES ('79', '2', '20001000', '2015-10-09 22:11:16');
 INSERT INTO crop_admin_role_menu VALUES ('80', '2', '20002000', '2015-10-09 22:11:16');
-INSERT INTO crop_admin_role_menu VALUES ('121', '1', '1000', '2015-12-02 00:15:54');
-INSERT INTO crop_admin_role_menu VALUES ('122', '1', '10001000', '2015-12-02 00:15:54');
-INSERT INTO crop_admin_role_menu VALUES ('123', '1', '100010001000', '2015-12-02 00:15:54');
-INSERT INTO crop_admin_role_menu VALUES ('124', '1', '100010001001', '2015-12-02 00:15:54');
-INSERT INTO crop_admin_role_menu VALUES ('125', '1', '2000', '2015-12-02 00:15:54');
-INSERT INTO crop_admin_role_menu VALUES ('126', '1', '20001000', '2015-12-02 00:15:54');
-INSERT INTO crop_admin_role_menu VALUES ('127', '1', '20002000', '2015-12-02 00:15:54');
-INSERT INTO crop_admin_role_menu VALUES ('128', '1', '3000', '2015-12-02 00:15:54');
-INSERT INTO crop_admin_role_menu VALUES ('129', '1', '30001000', '2015-12-02 00:15:54');
-INSERT INTO crop_admin_role_menu VALUES ('130', '1', '30002000', '2015-12-02 00:15:54');
-INSERT INTO crop_admin_role_menu VALUES ('131', '1', '300020001000', '2015-12-02 00:15:54');
-INSERT INTO crop_admin_role_menu VALUES ('132', '1', '300020002000', '2015-12-02 00:15:54');
-INSERT INTO crop_admin_role_menu VALUES ('133', '1', '30003000', '2015-12-02 00:15:54');
-INSERT INTO crop_admin_role_menu VALUES ('134', '1', '30004000', '2015-12-02 00:15:54');
+INSERT INTO crop_admin_role_menu VALUES ('208', '1', '1000', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('209', '1', '10001000', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('210', '1', '100010001000', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('211', '1', '100010001001', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('212', '1', '2000', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('213', '1', '20001000', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('214', '1', '20002000', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('215', '1', '300020002017', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('216', '1', '300020002018', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('217', '1', '300020002023', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('218', '1', '300020002024', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('219', '1', '300020002025', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('220', '1', '300020002019', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('221', '1', '300020002020', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('222', '1', '300020002021', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('223', '1', '300020002022', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('224', '1', '3000', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('225', '1', '30001000', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('226', '1', '30002000', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('227', '1', '300020001000', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('228', '1', '300020002000', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('229', '1', '300020002016', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('230', '1', '30003000', '2016-01-02 13:07:49');
+INSERT INTO crop_admin_role_menu VALUES ('231', '1', '30004000', '2016-01-02 13:07:49');
 
 -- ----------------------------
 -- Table structure for `crop_admin_user`
@@ -130,13 +150,13 @@ CREATE TABLE `crop_admin_user` (
 -- ----------------------------
 -- Records of crop_admin_user
 -- ----------------------------
-INSERT INTO crop_admin_user VALUES ('1', 'admin', '21232f297a57a5a743894a0e4a801fc3', '1', '1990-01-01 00:00:00', '2015-09-30 08:19:49');
+INSERT INTO crop_admin_user VALUES ('1', 'admin', '21232f297a57a5a743894a0e4a801fc3', '1', '1990-01-01 00:00:00', '2016-01-03 16:18:13');
 INSERT INTO crop_admin_user VALUES ('2', 'aaa', 'aaa', '0', '2015-09-30 08:16:03', '2015-09-30 08:20:16');
 INSERT INTO crop_admin_user VALUES ('3', 'bbb', '08f8e0260c64418510cefb2b06eee5cd', '1', '2015-09-30 08:17:51', '2015-09-30 08:19:51');
 INSERT INTO crop_admin_user VALUES ('4', 'ccc', 'c4efd5020cb49b9d3257ffa0fbccc0ae', '1', '2015-09-30 08:18:47', '2015-09-30 08:38:32');
 INSERT INTO crop_admin_user VALUES ('5', 'mmm', 'c4efd5020cb49b9d3257ffa0fbccc0ae', '1', '2015-09-30 23:39:47', '2015-09-30 23:39:47');
 INSERT INTO crop_admin_user VALUES ('6', 'lll', '202cb962ac59075b964b07152d234b70', '1', '2015-10-09 22:07:44', '2015-10-09 22:07:44');
-INSERT INTO crop_admin_user VALUES ('7', 'aaa', '202cb962ac59075b964b07152d234b70', '1', '2015-10-09 22:10:42', '2015-10-09 22:10:42');
+INSERT INTO crop_admin_user VALUES ('7', 'aaa', '47bce5c74f589f4867dbd57e9ca9f808', '1', '2015-10-09 22:10:42', '2016-01-03 16:33:37');
 
 -- ----------------------------
 -- Table structure for `crop_admin_user_role`
@@ -148,18 +168,17 @@ CREATE TABLE `crop_admin_user_role` (
   `user_id` bigint(20) NOT NULL DEFAULT '-1',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_admin_user_role
 -- ----------------------------
-INSERT INTO crop_admin_user_role VALUES ('1', '1', '1', '2015-09-05 11:30:59');
-INSERT INTO crop_admin_user_role VALUES ('2', '2', '1', '2015-09-05 22:05:46');
 INSERT INTO crop_admin_user_role VALUES ('3', '2', '5', '2015-09-30 23:40:02');
 INSERT INTO crop_admin_user_role VALUES ('4', '3', '5', '2015-09-30 23:40:02');
 INSERT INTO crop_admin_user_role VALUES ('5', '1', '6', '2015-10-09 22:07:45');
-INSERT INTO crop_admin_user_role VALUES ('7', '1', '7', '2015-10-09 22:39:46');
-INSERT INTO crop_admin_user_role VALUES ('8', '2', '7', '2015-10-09 22:39:46');
+INSERT INTO crop_admin_user_role VALUES ('9', '1', '1', '2016-01-03 16:25:47');
+INSERT INTO crop_admin_user_role VALUES ('10', '1', '7', '2016-01-03 16:33:37');
+INSERT INTO crop_admin_user_role VALUES ('11', '2', '7', '2016-01-03 16:33:37');
 
 -- ----------------------------
 -- Table structure for `crop_banner`
@@ -182,10 +201,10 @@ CREATE TABLE `crop_banner` (
 -- Records of crop_banner
 -- ----------------------------
 INSERT INTO crop_banner VALUES ('1', '这是一个标题1', 'sell/sell_list_c1007/', 'images/slide.jpg', '1990-01-01 00:00:00', '2015-12-02 00:37:20', '1', '1', '0');
-INSERT INTO crop_banner VALUES ('2', '修改的', 'www.sina.com.cn', 'images/edit/banner/14492515672856063454148.jpg', '1990-01-01 00:00:00', '2015-12-05 01:52:47', '1', '1', '1');
-INSERT INTO crop_banner VALUES ('3', '修改了啊', 'sell/sell_list_c1001/', 'images/edit/banner/14492515610964172930983.jpg', '1990-01-01 00:00:00', '2015-12-05 01:52:41', '0', '1', '1');
+INSERT INTO crop_banner VALUES ('2', '修改的', 'sell/sell_list_c1011/', 'images/edit/banner/14492515672856063454148.jpg', '1990-01-01 00:00:00', '2015-12-26 01:29:29', '7', '1', '1');
+INSERT INTO crop_banner VALUES ('3', '修改了啊', 'sell/sell_list_c1001/', 'images/edit/banner/14492515610964172930983.jpg', '1990-01-01 00:00:00', '2016-01-11 22:50:29', '8', '1', '1');
 INSERT INTO crop_banner VALUES ('4', 'as的撒', 'www.baidu.com', 'images/edit/banner/14489882860541877018088.jpg', '2015-12-02 00:44:46', '2015-12-02 00:44:46', '5', '1', '0');
-INSERT INTO crop_banner VALUES ('5', '新建的一个', 'www.tom.com', 'images/edit/banner/14492515722421239563748.jpg', '2015-12-02 00:49:00', '2015-12-05 01:52:52', '2', '1', '1');
+INSERT INTO crop_banner VALUES ('5', '新建的一个', 'sell/sell_list_c1012/', 'images/edit/banner/14525237503700841303825.jpg', '2015-12-02 00:49:00', '2016-01-11 22:50:10', '18', '1', '1');
 
 -- ----------------------------
 -- Table structure for `crop_buy`
@@ -203,56 +222,61 @@ CREATE TABLE `crop_buy` (
   `area_id` bigint(20) NOT NULL DEFAULT '-1' COMMENT '地区',
   `start_time` bigint(20) NOT NULL DEFAULT '-1' COMMENT '上市时间(起)',
   `end_time` bigint(20) NOT NULL DEFAULT '-1' COMMENT '上市时间(止)',
-  `quantity` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '求购数量',
+  `quantity` int(10) NOT NULL DEFAULT '0' COMMENT '求购数量',
   `price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '价格',
   `unit_id` bigint(20) NOT NULL DEFAULT '-1' COMMENT '单位',
-  `note` varchar(100) DEFAULT NULL COMMENT '备注',
+  `note` varchar(500) DEFAULT NULL COMMENT '备注',
   `contact_name` varchar(20) NOT NULL DEFAULT '' COMMENT '联系人',
   `contact_phone` varchar(25) NOT NULL DEFAULT '' COMMENT '联系电话',
   `company_id` bigint(20) NOT NULL DEFAULT '-1' COMMENT '组织机构（公司）ID',
   `company_name` varchar(50) NOT NULL DEFAULT '' COMMENT '组织机构（公司）名称',
   `is_publish` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0未上架；1已上架',
   `is_valid` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0删除；1有效',
-  `create_time` datetime NOT NULL,
+  `create_time` datetime NOT NULL DEFAULT '1990-01-01 00:00:00',
   `create_user_id` bigint(20) NOT NULL DEFAULT '-1',
+  `refresh_time` datetime NOT NULL DEFAULT '1990-01-01 00:00:00',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `audit_time` datetime DEFAULT NULL,
   `audit_id` bigint(20) NOT NULL DEFAULT '-1',
   `status` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_buy
 -- ----------------------------
-INSERT INTO crop_buy VALUES ('1', '1', '1004', '-1', '-1', '阿斯达的撒按时大大大的订单订单订单的的的的 ewer我', '1', '1009', '1009008', '42', '113', '123.12', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2015-12-05 02:56:06', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('2', '1', '1004', '-1', '-1', '', '1', '1009', '1009008', '42', '113', '0.00', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2015-12-05 02:56:06', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('3', '1', '1004', '-1', '-1', '', '1', '1009', '1009008', '42', '113', '0.00', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2015-12-05 02:56:06', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('5', '1', '1004', '-1', '-1', '', '1', '1009', '1009008', '42', '113', '0.00', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '5', '2015-12-05 02:56:06', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('6', '1', '1004', '-1', '-1', '', '1', '1009', '1009008', '42', '113', '0.00', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-5', '2015-12-05 02:56:06', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('7', '1', '1004', '-1', '-1', '', '1', '1009', '1009008', '42', '113', '0.00', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2015-12-05 02:56:06', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('8', '1', '1004', '-1', '-1', '', '1', '1009', '1009008', '42', '113', '0.00', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '5', '2015-11-24 00:19:11', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('9', '1', '1004', '-1', '-1', '', '1', '1009', '1009008', '42', '113', '0.00', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2015-12-05 02:56:06', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('10', '1', '1004', '-1', '-1', '', '1', '1009', '1009008', '42', '113', '0.00', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2015-12-05 02:56:06', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('11', '1', '1004', '-1', '-1', '', '1', '1009', '1009008', '42', '113', '0.00', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2015-12-05 02:56:06', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('12', '1', '1004', '-1', '-1', '', '1', '1009', '1009008', '42', '113', '0.00', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2015-12-05 02:56:06', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('13', '1', '1004', '-1', '-1', '', '1', '1009', '1009008', '42', '113', '0.00', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '5', '2015-12-05 02:56:06', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('14', '1', '1004', '-1', '-1', '', '10', '10006', '10006003', '42', '113', '0.00', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2015-12-05 02:56:06', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('15', '1', '1001', '-1', '-1', '', '1', '1009', '1009008', '42', '113', '2333.00', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '5', '2015-12-05 02:56:06', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('16', '1', '1004', '-1', '-1', '', '10', '10006', '10006003', '42', '113', '0.00', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2015-12-05 02:56:06', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('17', '1', '1004', '-1', '-1', '', '10', '10006', '10006003', '42', '113', '0.00', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2015-12-05 02:56:06', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('18', '1', '1004', '-1', '-1', '', '10', '10006', '10006003', '42', '113', '0.00', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2015-12-05 02:56:06', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('19', '1', '1004', '-1', '-1', '', '10', '10006', '10006003', '42', '113', '0.00', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2015-12-05 02:56:06', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('20', '1', '1004', '-1', '-1', '', '1', '1005', '-1', '12', '23', '10.00', '10000.00', '1', '阿斯达ad啊', '在', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:46:56', '-1', '2015-12-05 02:56:06', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('21', '1', '1004', '-1', '-1', '', '1', '1010', '-1', '33', '41', '22.00', '2.00', '1', '阿斯达ad', '阿达撒d', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 01:01:01', '-1', '2015-11-24 00:19:11', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('22', '1', '1006', '-1', '-1', '', '1', '1002', '1002003', '11', '31', '50.00', '1.60', '1', '给你你你', '你的', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-23 11:38:37', '5', '2015-11-24 00:19:11', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('23', '1', '1019', '-1', '9', '我试标题啊啊啊', '5', '5005', '5005005', '999', '999', '0.00', '1.12', '1', '要求啊啊啊要求啊啊啊要求啊啊啊', '李四', '15901074186', '-1', '', '1', '1', '2015-12-05 02:25:34', '5', '2015-12-05 02:26:03', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('24', '1', '1011', '-1', '3', '我啊阿斯达ad', '5', '5005', '5005005', '21', '43', '22.35', '2.00', '1', 'asd adasd sadsa asd ', '李四', '15901074186', '-1', '', '1', '1', '2015-12-05 02:27:58', '5', '2015-12-05 02:27:58', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('25', '1', '1019', '-1', '7', '阿斯顿撒旦萨达', '7', '7007', '7007007', '999', '999', '1111.00', '23.00', '1', 'as的撒萨倒萨大 asdsad', '李四', '15901074186', '7', '', '1', '1', '2015-12-05 02:45:01', '5', '2015-12-05 03:03:21', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('26', '1', '1011', '-1', '3', '阿斯达阿达撒', '5', '5004', '5004003', '999', '999', '111.12', '333.33', '1', 'as倒萨大萨达是', '李四', '15901074186', '7', '', '1', '1', '2015-12-05 03:05:32', '5', '2015-12-05 03:05:32', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('27', '1', '1011', '-1', '4', '买芒果了啊啊啊啊', '7', '7007', '7007005', '31', '43', '2000.00', '3.45', '1', 'as啊实打实大撒旦', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-11 00:30:44', '5', '2015-12-11 00:30:44', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('28', '1', '1011', '-1', '3', '阿斯顿撒', '5', '5005', '5005004', '999', '999', '2.00', '2.00', '1', '阿斯顿撒大声道', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-11 00:31:14', '5', '2015-12-11 00:31:14', null, '-1', '1');
-INSERT INTO crop_buy VALUES ('29', '1', '1011', '-1', '4', '买芒果了', '8', '8008', '8008006', '999', '999', '60000.00', '2.50', '1', '阿斯达阿斯达啊', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-11 00:33:30', '5', '2015-12-11 00:33:30', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('1', '1', '1004', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '1', '1009', '1009008', '42', '113', '123', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2016-01-07 22:49:14', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('2', '1', '1004', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '1', '1009', '1009008', '42', '113', '0', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2016-01-07 22:49:14', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('3', '1', '1004', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '1', '1009', '1009008', '42', '113', '0', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2016-01-07 22:49:14', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('5', '1', '1004', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '1', '1009', '1009008', '42', '113', '0', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '5', '2016-01-08 00:31:02', '2016-01-08 00:31:02', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('6', '1', '1004', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '1', '1009', '1009008', '42', '113', '0', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-5', '2016-01-07 22:49:14', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('7', '1', '1004', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '1', '1009', '1009008', '42', '113', '0', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2016-01-07 22:49:14', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('8', '1', '1004', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '1', '1009', '1009008', '42', '113', '0', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '5', '2016-01-08 00:31:02', '2016-01-08 00:31:02', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('9', '1', '1004', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '1', '1009', '1009008', '42', '113', '0', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2016-01-07 22:49:14', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('10', '1', '1004', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '1', '1009', '1009008', '42', '113', '0', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2016-01-07 22:49:14', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('11', '1', '1004', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '1', '1009', '1009008', '42', '113', '0', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2016-01-07 22:49:14', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('12', '1', '1004', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '1', '1009', '1009008', '42', '113', '0', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2016-01-07 22:49:14', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('13', '2', '2002', '-1', '2002001', 'as萨的撒大飒飒阿达撒大赛', '1', '1009', '1009008', '42', '113', '4', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '8', '北京大搜车', '1', '1', '2015-08-19 00:21:57', '5', '2016-01-08 00:47:28', '2016-01-12 01:12:27', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('14', '1', '1004', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '10', '10006', '10006003', '42', '113', '0', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2016-01-07 22:49:14', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('15', '1', '1001', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '1', '1009', '1009008', '42', '113', '2333', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '5', '2016-01-07 22:49:14', '2016-01-08 00:36:23', null, '-1', '-1');
+INSERT INTO crop_buy VALUES ('16', '1', '1004', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '10', '10006', '10006003', '42', '113', '0', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2016-01-07 22:49:14', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('17', '1', '1004', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '10', '10006', '10006003', '42', '113', '0', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2016-01-07 22:49:14', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('18', '1', '1004', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '10', '10006', '10006003', '42', '113', '0', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2016-01-07 22:49:14', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('19', '1', '1004', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '10', '10006', '10006003', '42', '113', '0', '1.00', '1', 'as大赛阿斯达', '知识点', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:21:57', '-1', '2016-01-07 22:49:14', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('20', '1', '1004', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '1', '1005', '-1', '12', '23', '10', '10000.00', '1', '阿斯达ad啊', '在', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 00:46:56', '-1', '2016-01-07 22:49:14', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('21', '1', '1004', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '1', '1010', '-1', '33', '41', '22', '2.00', '1', '阿斯达ad', '阿达撒d', '15901074186', '-1', '一个机构名称', '1', '1', '2015-08-19 01:01:01', '-1', '2016-01-07 22:49:14', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('22', '1', '1006', '-1', '-1', 'as萨的撒大飒飒阿达撒大赛', '1', '1002', '1002003', '11', '31', '50', '1.60', '1', '给你你你', '你的', '15901074186', '-1', '一个机构名称', '0', '1', '2015-08-23 11:38:37', '5', '2016-01-07 23:01:28', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('23', '1', '1019', '-1', '9', 'as萨的撒大飒飒阿达撒大赛', '5', '5005', '5005005', '999', '999', '0', '1.12', '1', '要求啊啊啊要求啊啊啊要求啊啊啊', '李四', '15901074186', '-1', '', '0', '1', '2015-12-05 02:25:34', '5', '2016-01-07 23:01:30', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('24', '1', '1011', '-1', '3', 'as萨的撒大飒飒阿达撒大赛', '5', '5005', '5005005', '21', '43', '22', '2.00', '1', 'asd adasd sadsa asd ', '李四', '15901074186', '-1', '', '1', '1', '2015-12-05 02:27:58', '5', '2016-01-08 00:31:02', '2016-01-08 00:31:02', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('25', '1', '1019', '-1', '7', 'as萨的撒大飒飒阿达撒大赛', '7', '7007', '7007007', '999', '999', '1111', '23.00', '1', 'as的撒萨倒萨大 asdsad', '李四', '15901074186', '7', '', '1', '1', '2015-12-05 02:45:01', '5', '2016-01-07 23:05:43', '2016-01-07 23:58:46', null, '-1', '0');
+INSERT INTO crop_buy VALUES ('26', '1', '1011', '-1', '3', 'as萨的撒大飒飒阿达撒大赛', '5', '5004', '5004003', '999', '999', '111', '333.33', '1', 'as倒萨大萨达是', '李四', '15901074186', '7', '', '1', '1', '2015-12-05 03:05:32', '5', '2016-01-07 23:05:44', '2016-01-07 23:58:46', null, '-1', '0');
+INSERT INTO crop_buy VALUES ('27', '1', '1011', '-1', '4', 'as萨的撒大飒飒阿达撒大赛', '7', '7007', '7007005', '31', '43', '2000', '3.45', '1', 'as啊实打实大撒旦', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-11 00:30:44', '5', '2016-01-07 23:05:45', '2016-01-07 23:58:46', null, '-1', '0');
+INSERT INTO crop_buy VALUES ('28', '1', '1011', '-1', '3', 'as萨的撒大飒飒阿达撒大赛', '5', '5005', '5005004', '999', '999', '2', '2.00', '1', '阿斯顿撒大声道', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-11 00:31:14', '5', '2016-01-08 00:33:01', '2016-01-08 00:33:01', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('29', '1', '1011', '-1', '4', 'as萨的撒大飒飒阿达撒大赛', '8', '8008', '8008006', '999', '999', '60000', '2.50', '1', '阿斯达阿斯达啊', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-11 00:33:30', '5', '2016-01-08 00:33:13', '2016-01-08 00:43:09', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('30', '1', '1019', '-1', '8', 'as萨的撒大飒飒阿达撒大赛', '7', '7006', '7006006', '33', '113', '123', '123.00', '1', '阿斯达撒旦', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-13 23:30:47', '5', '2016-01-08 00:47:28', '2016-01-08 00:47:28', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('31', '1', '1010', '-1', '15', 'as萨的撒大飒飒阿达撒大赛', '7', '7006', '7006004', '41', '43', '12', '123.00', '1', '阿斯顿撒的', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-21 23:10:23', '5', '2016-01-07 22:49:14', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('32', '1', '1020', '-1', '16', 'as萨的撒大飒飒阿达撒大赛', '5', '5004', '5004003', '32', '51', '31', '12.00', '1', 'adasd', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-21 23:15:22', '5', '2016-01-07 22:49:14', '2016-01-07 23:58:46', null, '-1', '1');
+INSERT INTO crop_buy VALUES ('33', '3', '3002', '-1', '3002001', '萨是萨啊啊啊是', '8', '8008', '8008002', '11', '123', '3333', '66.67', '1', '是是是是as啊啊啊啊啊啊', '张宏是是是岩', '15901075555', '8', '北京大搜车', '1', '1', '2016-01-12 01:02:15', '5', '2016-01-12 01:02:15', '2016-01-12 01:05:13', null, '-1', '1');
 
 -- ----------------------------
 -- Table structure for `crop_buy_pic`
@@ -269,7 +293,7 @@ CREATE TABLE `crop_buy_pic` (
   `operator_id` bigint(20) NOT NULL DEFAULT '-1',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_buy_pic
@@ -288,6 +312,38 @@ INSERT INTO crop_buy_pic VALUES ('27', '27', 'images/publish/buy_144976504434496
 INSERT INTO crop_buy_pic VALUES ('28', '28', 'images/publish/buy_14497650748541371661514.csv', '0', '1', '5', '2015-12-11 00:31:14', '5', '2015-12-11 00:31:14');
 INSERT INTO crop_buy_pic VALUES ('29', '29', 'images/publish/buy_14497652105987564236590.jpg', '0', '1', '5', '2015-12-11 00:33:30', '5', '2015-12-11 00:33:30');
 INSERT INTO crop_buy_pic VALUES ('30', '29', 'images/publish/buy_14497652106062453301895.jpg', '0', '1', '5', '2015-12-11 00:33:30', '5', '2015-12-11 00:33:30');
+INSERT INTO crop_buy_pic VALUES ('31', '30', 'images/publish/buy_14500206477355859349154.jpg', '0', '1', '5', '2015-12-13 23:30:47', '5', '2015-12-13 23:30:47');
+INSERT INTO crop_buy_pic VALUES ('32', '30', 'images/publish/buy_14500206477665975160396.jpg', '0', '1', '5', '2015-12-13 23:30:47', '5', '2015-12-13 23:30:47');
+INSERT INTO crop_buy_pic VALUES ('33', '30', 'images/publish/buy_14500206477699313463415.jpg', '0', '1', '5', '2015-12-13 23:30:47', '5', '2015-12-13 23:30:47');
+INSERT INTO crop_buy_pic VALUES ('34', '30', 'images/publish/buy_14500206477725508033038.jpg', '0', '1', '5', '2015-12-13 23:30:47', '5', '2015-12-13 23:30:47');
+INSERT INTO crop_buy_pic VALUES ('35', '30', 'images/publish/buy_14500206477746780905672.jpg', '0', '1', '5', '2015-12-13 23:30:47', '5', '2015-12-13 23:30:47');
+INSERT INTO crop_buy_pic VALUES ('36', '30', 'images/publish/buy_14500206477778334353721.jpg', '0', '1', '5', '2015-12-13 23:30:47', '5', '2015-12-13 23:30:47');
+INSERT INTO crop_buy_pic VALUES ('37', '30', 'images/publish/buy_14500206477804743858175.jpg', '0', '1', '5', '2015-12-13 23:30:47', '5', '2015-12-13 23:30:47');
+INSERT INTO crop_buy_pic VALUES ('38', '30', 'images/publish/buy_14500206477842666682254.jpg', '0', '1', '5', '2015-12-13 23:30:47', '5', '2015-12-13 23:30:47');
+INSERT INTO crop_buy_pic VALUES ('39', '30', 'images/publish/buy_14500206477869670880060.jpg', '0', '1', '5', '2015-12-13 23:30:48', '5', '2015-12-13 23:30:48');
+INSERT INTO crop_buy_pic VALUES ('40', '31', 'images/publish/buy_14507106237188367515345.jpg', '0', '1', '5', '2015-12-21 23:10:23', '5', '2015-12-21 23:10:23');
+INSERT INTO crop_buy_pic VALUES ('41', '32', 'images/publish/buy_14507109227157364851527.jpg', '0', '1', '5', '2015-12-21 23:15:22', '5', '2015-12-21 23:15:22');
+INSERT INTO crop_buy_pic VALUES ('42', '33', 'images/publish/buy_14525317357847682753077.jpg', '0', '1', '5', '2016-01-12 01:02:15', '5', '2016-01-12 01:02:15');
+INSERT INTO crop_buy_pic VALUES ('43', '33', 'images/publish/buy_14525322926398230883147.jpg', '0', '1', '5', '2016-01-12 01:11:32', '5', '2016-01-12 01:02:15');
+INSERT INTO crop_buy_pic VALUES ('44', '33', 'images/publish/buy_14525321722746572226807.jpg', '0', '1', '5', '2016-01-12 01:09:37', '5', '2016-01-12 01:09:37');
+INSERT INTO crop_buy_pic VALUES ('45', '33', 'images/publish/buy_14525321722906006094335.jpg', '0', '1', '5', '2016-01-12 01:09:37', '5', '2016-01-12 01:09:37');
+INSERT INTO crop_buy_pic VALUES ('46', '33', 'images/publish/buy_14525321722907791504313.jpg', '0', '1', '5', '2016-01-12 01:09:37', '5', '2016-01-12 01:09:37');
+INSERT INTO crop_buy_pic VALUES ('47', '33', 'images/publish/buy_14525321722909267089907.jpg', '0', '1', '5', '2016-01-12 01:09:37', '5', '2016-01-12 01:09:37');
+INSERT INTO crop_buy_pic VALUES ('48', '33', 'images/publish/buy_14525322167708940242410.jpg', '0', '1', '5', '2016-01-12 01:10:59', '5', '2016-01-12 01:10:56');
+INSERT INTO crop_buy_pic VALUES ('49', '33', 'images/publish/buy_14525322167864126002395.jpg', '0', '1', '5', '2016-01-12 01:10:59', '5', '2016-01-12 01:10:59');
+INSERT INTO crop_buy_pic VALUES ('50', '33', 'images/publish/buy_14525322167903779283416.jpg', '0', '1', '5', '2016-01-12 01:10:59', '5', '2016-01-12 01:10:59');
+INSERT INTO crop_buy_pic VALUES ('51', '33', 'images/publish/buy_14525322167937040904081.jpg', '0', '1', '5', '2016-01-12 01:10:59', '5', '2016-01-12 01:10:59');
+INSERT INTO crop_buy_pic VALUES ('52', '33', 'images/publish/buy_14525322926462845760562.jpg', '0', '1', '5', '2016-01-12 01:11:32', '5', '2016-01-12 01:11:32');
+INSERT INTO crop_buy_pic VALUES ('53', '33', 'images/publish/buy_14525322926492449499967.jpg', '0', '1', '5', '2016-01-12 01:11:32', '5', '2016-01-12 01:11:32');
+INSERT INTO crop_buy_pic VALUES ('54', '33', 'images/publish/buy_14525322926811219827844.jpg', '0', '1', '5', '2016-01-12 01:11:32', '5', '2016-01-12 01:11:32');
+INSERT INTO crop_buy_pic VALUES ('55', '33', 'images/publish/buy_14525322926963650158789.jpg', '0', '1', '5', '2016-01-12 01:11:32', '5', '2016-01-12 01:11:32');
+INSERT INTO crop_buy_pic VALUES ('56', '13', 'images/publish/buy_14525323475406333790464.jpg', '0', '1', '5', '2016-01-12 01:12:28', '5', '2016-01-12 01:12:28');
+INSERT INTO crop_buy_pic VALUES ('57', '13', 'images/publish/buy_14525323475561780972687.jpg', '0', '1', '5', '2016-01-12 01:12:28', '5', '2016-01-12 01:12:28');
+INSERT INTO crop_buy_pic VALUES ('58', '13', 'images/publish/buy_14525323749816756828003.jpg', '0', '1', '5', '2016-01-12 01:12:55', '5', '2016-01-12 01:12:28');
+INSERT INTO crop_buy_pic VALUES ('59', '13', 'images/publish/buy_14525323749971027932811.jpg', '0', '1', '5', '2016-01-12 01:12:55', '5', '2016-01-12 01:12:55');
+INSERT INTO crop_buy_pic VALUES ('60', '13', 'images/publish/buy_14525323749976847056268.jpg', '0', '1', '5', '2016-01-12 01:12:55', '5', '2016-01-12 01:12:55');
+INSERT INTO crop_buy_pic VALUES ('61', '13', 'images/publish/buy_14525323750128980111945.jpg', '0', '1', '5', '2016-01-12 01:12:55', '5', '2016-01-12 01:12:55');
+INSERT INTO crop_buy_pic VALUES ('62', '13', 'images/publish/buy_14525323750120669097886.jpg', '0', '1', '5', '2016-01-12 01:12:55', '5', '2016-01-12 01:12:55');
 
 -- ----------------------------
 -- Table structure for `crop_category`
@@ -301,61 +357,119 @@ CREATE TABLE `crop_category` (
   `first_letter` varchar(2) NOT NULL DEFAULT '' COMMENT '汉语拼音首字母',
   `img_url` varchar(200) NOT NULL DEFAULT '',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `is_valid` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1可用；0不可用',
+  `update_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1047 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=900002 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_category
 -- ----------------------------
-INSERT INTO crop_category VALUES ('1', '0', '水果', 'shuiguo', 'S', 'images/edit/category/category_1.png', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('2', '0', '蔬菜', 'shucai', 'S', 'images/edit/category/category_2.png', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('900', '0', '其他', 'qita', 'Q', 'images/edit/category/category_900.png', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1001', '1', '苹果', 'pingguo', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1002', '1', '梨', 'li', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1003', '1', '脐橙', 'qicheng', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1004', '1', '草莓', 'caomei', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1005', '1', '柑桔', 'ganju', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1006', '1', '金橘', 'jinju', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1007', '1', '柚子', 'youzi', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1008', '1', '蜜橘', 'miju', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1009', '1', '沙糖桔', 'shatangju', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1010', '1', '西瓜', 'xigua', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1011', '1', '芒果', 'mangguo', '', 'images/edit/category/category_1011.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1012', '1', '大枣', 'dazao', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1013', '1', '甜橙', 'tiancheng', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1014', '1', '猕猴桃', 'nihoutao', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1015', '1', '圣女果', 'shengnvguo', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1016', '1', '甘蔗', 'ganzhe', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1017', '1', '甜瓜', 'tiangua', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1018', '1', '枣', 'zao', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1019', '1', '香蕉', 'xiangjiao', '', 'images/edit/category/category_1019.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1020', '1', '葡萄', 'putao', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1021', '1', '石榴', 'shiliu', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1022', '1', '油桃', 'youtao', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1023', '1', '枇杷', 'pipa', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1024', '1', '哈密瓜', 'hamigua', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1025', '1', '柠檬', 'ningmeng', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1026', '1', '山楂', 'shanzha', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1027', '1', '火龙果', 'huolongguo', '', 'images/edit/category/category_1027.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1028', '1', '菠萝', 'boluo', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1029', '1', '雪莲果', 'xuelianguo', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1030', '1', '樱桃', 'yingtao', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1031', '1', '香瓜', 'tiangua', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1032', '1', '车厘子', 'chelizi', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1033', '1', '菠萝蜜', 'boluomi', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1034', '1', '桃', 'tao', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1035', '1', '人参果', 'renshenguo', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1036', '1', '木瓜', 'mugua', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1037', '1', '蓝莓', 'lanmei', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1038', '1', '刺角瓜', 'cijiaogua', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1039', '1', '八月瓜', 'bayuegua', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1040', '1', '桔柚', 'jiyou', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1041', '1', '罗汉果', 'luohanguo', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1042', '1', '桑葚', 'sangshen', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1043', '1', '杨桃', 'yangtao', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1044', '1', '蛇果', 'sheguo', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1045', '1', '榴莲', 'liulian', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
-INSERT INTO crop_category VALUES ('1046', '1', '李子', 'lizi', '', 'images/edit/category/category_1006.jpg', '2015-12-03 01:12:57');
+INSERT INTO crop_category VALUES ('1', '0', '水果', 'shuiguo', 'S', 'images/edit/category/category_1.png', '2016-01-02 14:25:16', '1', '2016-01-02 14:25:16');
+INSERT INTO crop_category VALUES ('2', '0', '蔬菜', 'shucai', 'S', 'images/edit/category/category_2.png', '2016-01-02 14:25:29', '1', '2016-01-02 14:25:29');
+INSERT INTO crop_category VALUES ('3', '0', '禽畜牧蛋肉', 'qinchumudanrou', 'Q', 'images/edit/category/category_3.png', '2016-01-02 14:25:36', '1', '2016-01-02 14:25:36');
+INSERT INTO crop_category VALUES ('4', '0', '水产', 'shuichan', 'S', 'images/edit/category/category_4.png', '2016-01-02 14:25:41', '1', '2016-01-02 14:25:41');
+INSERT INTO crop_category VALUES ('900', '0', '其他', 'qita', 'Q', 'images/edit/category/category_900.png', '2016-01-02 14:25:45', '1', '2016-01-02 14:25:45');
+INSERT INTO crop_category VALUES ('1001', '1', '苹果', 'pingguo', 'P', 'images/edit/category/category_1001.jpg', '2015-12-12 12:43:17', '1', '2015-12-12 12:43:17');
+INSERT INTO crop_category VALUES ('1002', '1', '梨', 'li', 'L', 'images/edit/category/category_1002.jpg', '2015-12-12 12:43:33', '1', '2015-12-12 12:43:33');
+INSERT INTO crop_category VALUES ('1003', '1', '脐橙', 'qicheng', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:23:56', '0', '2015-12-12 12:23:56');
+INSERT INTO crop_category VALUES ('1004', '1', '草莓', 'caomei', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:28:28', '0', '2015-12-12 12:28:28');
+INSERT INTO crop_category VALUES ('1005', '1', '柑桔', 'ganju', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:28:31', '0', '2015-12-12 12:28:31');
+INSERT INTO crop_category VALUES ('1006', '1', '金橘', 'jinju', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:28:35', '0', '2015-12-12 12:28:35');
+INSERT INTO crop_category VALUES ('1007', '1', '柚子', 'youzi', 'Y', 'images/edit/category/category_1007.jpg', '2015-12-12 12:43:44', '1', '2015-12-12 12:43:44');
+INSERT INTO crop_category VALUES ('1008', '1', '蜜橘', 'miju', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:28:43', '0', '2015-12-12 12:28:43');
+INSERT INTO crop_category VALUES ('1009', '1', '沙糖桔', 'shatangju', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:29:26', '0', '2015-12-12 12:29:26');
+INSERT INTO crop_category VALUES ('1010', '1', '西瓜', 'xigua', 'X', 'images/edit/category/category_1010.jpg', '2015-12-12 12:43:54', '1', '2015-12-12 12:43:54');
+INSERT INTO crop_category VALUES ('1011', '1', '芒果', 'mangguo', 'M', 'images/edit/category/category_1011.jpg', '2015-12-12 12:44:02', '1', '2015-12-12 12:44:02');
+INSERT INTO crop_category VALUES ('1012', '1', '大枣', 'dazao', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:29:46', '0', '2015-12-12 12:29:46');
+INSERT INTO crop_category VALUES ('1013', '1', '甜橙', 'tiancheng', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:29:49', '0', '2015-12-12 12:29:49');
+INSERT INTO crop_category VALUES ('1014', '1', '猕猴桃', 'nihoutao', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:29:55', '0', '2015-12-12 12:29:55');
+INSERT INTO crop_category VALUES ('1015', '1', '圣女果', 'shengnvguo', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:29:59', '0', '2015-12-12 12:29:59');
+INSERT INTO crop_category VALUES ('1016', '1', '甘蔗', 'ganzhe', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:30:06', '0', '2015-12-12 12:30:06');
+INSERT INTO crop_category VALUES ('1017', '1', '甜瓜', 'tiangua', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:30:12', '0', '2015-12-12 12:30:12');
+INSERT INTO crop_category VALUES ('1018', '1', '枣', 'zao', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:30:19', '0', '2015-12-12 12:30:19');
+INSERT INTO crop_category VALUES ('1019', '1', '香蕉', 'xiangjiao', '', 'images/edit/category/category_1019.jpg', '2015-12-03 01:12:57', '1', '1990-01-01 00:00:00');
+INSERT INTO crop_category VALUES ('1020', '1', '葡萄&提子', 'putao&tizi', 'P', 'images/edit/category/category_1020.jpg', '2015-12-12 12:44:16', '1', '2015-12-12 12:44:16');
+INSERT INTO crop_category VALUES ('1021', '1', '石榴', 'shiliu', 'S', 'images/edit/category/category_1021.jpg', '2015-12-12 12:44:25', '1', '2015-12-12 12:44:25');
+INSERT INTO crop_category VALUES ('1022', '1', '油桃', 'youtao', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:30:54', '0', '2015-12-12 12:30:54');
+INSERT INTO crop_category VALUES ('1023', '1', '枇杷', 'pipa', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:30:57', '0', '2015-12-12 12:30:57');
+INSERT INTO crop_category VALUES ('1024', '1', '哈密瓜', 'hamigua', 'H', 'images/edit/category/category_1024.jpg', '2015-12-12 12:44:34', '1', '2015-12-12 12:44:34');
+INSERT INTO crop_category VALUES ('1025', '1', '柠檬', 'ningmeng', 'N', 'images/edit/category/category_1025.jpg', '2015-12-12 12:44:40', '1', '2015-12-12 12:44:40');
+INSERT INTO crop_category VALUES ('1026', '1', '山楂', 'shanzha', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:31:24', '0', '2015-12-12 12:31:24');
+INSERT INTO crop_category VALUES ('1027', '1', '火龙果', 'huolongguo', '', 'images/edit/category/category_1027.jpg', '2015-12-03 01:12:57', '1', '1990-01-01 00:00:00');
+INSERT INTO crop_category VALUES ('1028', '1', '菠萝', 'boluo', 'B', 'images/edit/category/category_1028.jpg', '2015-12-12 12:44:53', '1', '2015-12-12 12:44:53');
+INSERT INTO crop_category VALUES ('1029', '1', '雪莲果', 'xuelianguo', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:31:41', '0', '2015-12-12 12:31:41');
+INSERT INTO crop_category VALUES ('1030', '1', '樱桃&车厘子', 'yingtao&chelizi', 'Y', 'images/edit/category/category_1030.jpg', '2015-12-12 12:45:01', '1', '2015-12-12 12:45:01');
+INSERT INTO crop_category VALUES ('1031', '1', '香瓜', 'tiangua', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:31:57', '0', '2015-12-12 12:31:57');
+INSERT INTO crop_category VALUES ('1032', '1', '车厘子', 'chelizi', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:32:03', '0', '2015-12-12 12:32:03');
+INSERT INTO crop_category VALUES ('1033', '1', '菠萝蜜', 'boluomi', 'B', 'images/edit/category/category_1033.jpg', '2015-12-12 12:45:11', '1', '2015-12-12 12:45:11');
+INSERT INTO crop_category VALUES ('1034', '1', '杨桃', 'yangtao', 'Y', 'images/edit/category/category_1034.jpg', '2015-12-12 12:45:17', '1', '2015-12-12 12:45:17');
+INSERT INTO crop_category VALUES ('1035', '1', '人参果', 'renshenguo', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:33:10', '0', '2015-12-12 12:33:10');
+INSERT INTO crop_category VALUES ('1036', '1', '木瓜', 'mugua', 'M', 'images/edit/category/category_1036.jpg', '2015-12-12 12:45:24', '1', '2015-12-12 12:45:24');
+INSERT INTO crop_category VALUES ('1037', '1', '蓝莓', 'lanmei', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:33:20', '0', '2015-12-12 12:33:20');
+INSERT INTO crop_category VALUES ('1038', '1', '刺角瓜', 'cijiaogua', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:33:24', '0', '2015-12-12 12:33:24');
+INSERT INTO crop_category VALUES ('1039', '1', '八月瓜', 'bayuegua', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:33:27', '0', '2015-12-12 12:33:27');
+INSERT INTO crop_category VALUES ('1040', '1', '桔柚', 'jiyou', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:33:30', '0', '2015-12-12 12:33:30');
+INSERT INTO crop_category VALUES ('1041', '1', '罗汉果', 'luohanguo', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:33:36', '0', '2015-12-12 12:33:36');
+INSERT INTO crop_category VALUES ('1042', '1', '桑葚', 'sangshen', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:33:37', '0', '2015-12-12 12:33:37');
+INSERT INTO crop_category VALUES ('1044', '1', '蛇果', 'sheguo', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:33:49', '0', '2015-12-12 12:33:49');
+INSERT INTO crop_category VALUES ('1045', '1', '榴莲', 'liulian', 'L', 'images/edit/category/category_1045.jpg', '2015-12-12 12:45:36', '1', '2015-12-12 12:45:36');
+INSERT INTO crop_category VALUES ('1046', '1', '李子', 'lizi', '', 'images/edit/category/category_1006.jpg', '2015-12-12 12:34:01', '0', '2015-12-12 12:34:01');
+INSERT INTO crop_category VALUES ('1047', '1', '龙眼', 'longyan', 'L', 'images/edit/category/category_1047.jpg', '2015-12-12 12:47:31', '1', '2015-12-12 12:47:31');
+INSERT INTO crop_category VALUES ('1048', '1', '荔枝', 'lizhi', 'L', 'images/edit/category/category_1048.jpg', '2015-12-12 12:36:19', '1', '2015-12-12 12:36:19');
+INSERT INTO crop_category VALUES ('1049', '1', '莲雾', 'lianwu', 'L', 'images/edit/category/category_1049.jpg', '2015-12-12 12:36:43', '1', '2015-12-12 12:36:43');
+INSERT INTO crop_category VALUES ('1050', '1', '牛油果', 'niuyouguo', 'N', 'images/edit/category/category_1050.jpg', '2015-12-12 12:36:55', '1', '2015-12-12 12:36:55');
+INSERT INTO crop_category VALUES ('1051', '1', '山竹', 'shanzhu', 'S', 'images/edit/category/category_1051.jpg', '2015-12-12 12:37:09', '1', '2015-12-12 12:37:09');
+INSERT INTO crop_category VALUES ('1052', '1', '椰子', 'yezi', 'Y', 'images/edit/category/category_1052.jpg', '2015-12-12 12:37:23', '1', '2015-12-12 12:37:23');
+INSERT INTO crop_category VALUES ('1053', '1', '橙子', 'chengzi', 'C', 'images/edit/category/category_1053.jpg', '2015-12-12 12:37:33', '1', '2015-12-12 12:37:33');
+INSERT INTO crop_category VALUES ('1054', '1', '桔子', 'jiezi', 'J', 'images/edit/category/category_1054.jpg', '2015-12-12 12:37:44', '1', '2015-12-12 12:37:44');
+INSERT INTO crop_category VALUES ('2001', '2', '南瓜', 'nangua', 'N', 'images/edit/category/category_2001.jpg', '2015-12-12 12:48:35', '1', '2015-12-12 12:48:35');
+INSERT INTO crop_category VALUES ('2002', '2', '冬瓜', 'donggua', 'D', 'images/edit/category/category_2002.jpg', '2015-12-12 12:48:57', '1', '2015-12-12 12:48:57');
+INSERT INTO crop_category VALUES ('2003', '2', '丝瓜', 'sigua', 'S', 'images/edit/category/category_2003.jpg', '2015-12-12 12:49:05', '1', '2015-12-12 12:49:05');
+INSERT INTO crop_category VALUES ('2004', '2', '苦瓜', 'kugua', 'K', 'images/edit/category/category_2004.jpg', '2015-12-12 12:49:12', '1', '2015-12-12 12:49:12');
+INSERT INTO crop_category VALUES ('2005', '2', '黄瓜', 'huanggua', 'H', 'images/edit/category/category_2005.jpg', '2015-12-12 12:49:22', '1', '2015-12-12 12:49:22');
+INSERT INTO crop_category VALUES ('2006', '2', '葫芦', 'hulu', 'H', 'images/edit/category/category_2006.jpg', '2015-12-12 12:49:31', '1', '2015-12-12 12:49:31');
+INSERT INTO crop_category VALUES ('2007', '2', '辣椒', 'lajiao', 'L', 'images/edit/category/category_2007.jpg', '2015-12-12 12:49:37', '1', '2015-12-12 12:49:37');
+INSERT INTO crop_category VALUES ('2008', '2', '青椒', 'qingjiao', 'Q', 'images/edit/category/category_2008.jpg', '2015-12-12 12:49:45', '1', '2015-12-12 12:49:45');
+INSERT INTO crop_category VALUES ('2009', '2', '茄子', 'qiezi', 'Q', 'images/edit/category/category_2009.jpg', '2015-12-12 12:49:54', '1', '2015-12-12 12:49:54');
+INSERT INTO crop_category VALUES ('2010', '2', '西红柿', 'xihongshi', 'X', 'images/edit/category/category_2010.jpg', '2015-12-12 12:50:03', '1', '2015-12-12 12:50:03');
+INSERT INTO crop_category VALUES ('2011', '2', '玉米', 'yumi', 'Y', 'images/edit/category/category_2011.jpg', '2015-12-12 12:50:09', '1', '2015-12-12 12:50:09');
+INSERT INTO crop_category VALUES ('2012', '2', '豆芽', 'douya', 'D', 'images/edit/category/category_2012.jpg', '2015-12-12 12:50:23', '1', '2015-12-12 12:50:23');
+INSERT INTO crop_category VALUES ('2013', '2', '生姜', 'shengjiang', 'S', 'images/edit/category/category_2013.jpg', '2015-12-12 12:50:42', '1', '2015-12-12 12:50:42');
+INSERT INTO crop_category VALUES ('2014', '2', '大蒜', 'dasuan', 'D', 'images/edit/category/category_2014.jpg', '2015-12-12 12:50:48', '1', '2015-12-12 12:50:48');
+INSERT INTO crop_category VALUES ('2015', '2', '洋葱', 'yangcong', 'Y', 'images/edit/category/category_2015.jpg', '2015-12-12 12:50:55', '1', '2015-12-12 12:50:55');
+INSERT INTO crop_category VALUES ('2016', '2', '小葱', 'xiaocong', 'X', 'images/edit/category/category_2016.jpg', '2015-12-12 12:51:01', '1', '2015-12-12 12:51:01');
+INSERT INTO crop_category VALUES ('2017', '2', '大葱', 'dacong', 'D', 'images/edit/category/category_2017.jpg', '2015-12-12 12:51:12', '1', '2015-12-12 12:51:12');
+INSERT INTO crop_category VALUES ('2018', '2', '花生', 'huasheng', 'H', 'images/edit/category/category_2018.jpg', '2015-12-12 12:51:18', '1', '2015-12-12 12:51:18');
+INSERT INTO crop_category VALUES ('2019', '2', '竹笋', 'zhusun', 'Z', 'images/edit/category/category_2019.jpg', '2015-12-12 12:51:25', '1', '2015-12-12 12:51:25');
+INSERT INTO crop_category VALUES ('2020', '2', '莴笋', 'wosun', 'W', 'images/edit/category/category_2020.jpg', '2015-12-12 12:51:31', '1', '2015-12-12 12:51:31');
+INSERT INTO crop_category VALUES ('2021', '2', '西兰花', 'xilanhua', 'X', 'images/edit/category/category_2021.jpg', '2015-12-12 12:51:39', '1', '2015-12-12 12:51:39');
+INSERT INTO crop_category VALUES ('2022', '2', '芥兰', 'jielan', 'J', 'images/edit/category/category_2022.jpg', '2015-12-12 12:51:46', '1', '2015-12-12 12:51:46');
+INSERT INTO crop_category VALUES ('2023', '2', '油菜', 'youcai', 'Y', 'images/edit/category/category_2023.jpg', '2015-12-12 12:51:57', '1', '2015-12-12 12:51:57');
+INSERT INTO crop_category VALUES ('2024', '2', '油麦菜', 'youmaicai', 'Y', 'images/edit/category/category_2024.jpg', '2015-12-12 12:52:05', '1', '2015-12-12 12:52:05');
+INSERT INTO crop_category VALUES ('2025', '2', '芹菜', 'qincai', 'Q', 'images/edit/category/category_2025.jpg', '2015-12-12 12:52:39', '1', '2015-12-12 12:52:39');
+INSERT INTO crop_category VALUES ('2026', '2', '香菜', 'xiangcai', 'X', 'images/edit/category/category_2026.jpg', '2015-12-12 12:52:46', '1', '2015-12-12 12:52:46');
+INSERT INTO crop_category VALUES ('2027', '2', '白菜', 'baicai', 'B', 'images/edit/category/category_2027.jpg', '2015-12-12 12:52:52', '1', '2015-12-12 12:52:52');
+INSERT INTO crop_category VALUES ('2028', '2', '菠菜', 'bocai', 'B', 'images/edit/category/category_2028.jpg', '2015-12-12 22:58:56', '1', '2015-12-12 22:58:56');
+INSERT INTO crop_category VALUES ('2029', '2', '空心菜', 'kongxincai', 'K', 'images/edit/category/category_2029.jpg', '2015-12-12 22:59:11', '1', '2015-12-12 22:59:11');
+INSERT INTO crop_category VALUES ('2030', '2', '生菜', 'shengcai', 'S', 'images/edit/category/category_2030.jpg', '2015-12-12 22:59:20', '1', '2015-12-12 22:59:20');
+INSERT INTO crop_category VALUES ('2031', '2', '茼蒿', 'tonghao', 'T', 'images/edit/category/category_2031.jpg', '2015-12-12 22:59:28', '1', '2015-12-12 22:59:28');
+INSERT INTO crop_category VALUES ('2032', '2', '地瓜叶', 'diguaye', 'D', 'images/edit/category/category_2032.jpg', '2015-12-12 22:59:36', '1', '2015-12-12 22:59:36');
+INSERT INTO crop_category VALUES ('3001', '3', '肉猪', 'rouzhu', 'R', 'images/edit/category/category_3001.jpg', '2015-12-12 12:55:40', '1', '2015-12-12 12:55:40');
+INSERT INTO crop_category VALUES ('3002', '3', '肉牛', 'rouniu', 'R', 'images/edit/category/category_3002.jpg', '2015-12-12 12:55:54', '1', '2015-12-12 12:55:54');
+INSERT INTO crop_category VALUES ('3003', '3', '肉羊', 'rouyang', 'R', 'images/edit/category/category_3003.jpg', '2015-12-12 12:56:01', '1', '2015-12-12 12:56:01');
+INSERT INTO crop_category VALUES ('3004', '3', '肉兔', 'routu', 'R', 'images/edit/category/category_3004.jpg', '2015-12-12 12:56:09', '1', '2015-12-12 12:56:09');
+INSERT INTO crop_category VALUES ('3005', '3', '肉鸡', 'rouji', 'R', 'images/edit/category/category_3005.jpg', '2015-12-12 12:56:17', '1', '2015-12-12 12:56:17');
+INSERT INTO crop_category VALUES ('3006', '3', '肉鸭', 'rouya', 'R', 'images/edit/category/category_3006.jpg', '2015-12-12 12:56:26', '1', '2015-12-12 12:56:26');
+INSERT INTO crop_category VALUES ('3007', '3', '肉鹅', 'roue', 'R', 'images/edit/category/category_3007.jpg', '2015-12-12 12:56:33', '1', '2015-12-12 12:56:33');
+INSERT INTO crop_category VALUES ('3008', '3', '肉鸽', 'rouge', 'R', 'images/edit/category/category_3008.jpg', '2015-12-12 12:56:47', '1', '2015-12-12 12:56:47');
+INSERT INTO crop_category VALUES ('3009', '3', '鸡蛋', 'jidan', 'J', 'images/edit/category/category_3009.jpg', '2015-12-12 12:56:54', '1', '2015-12-12 12:56:54');
+INSERT INTO crop_category VALUES ('3010', '3', '鸭蛋', 'yadan', 'Y', 'images/edit/category/category_3010.jpg', '2015-12-12 12:57:00', '1', '2015-12-12 12:57:00');
+INSERT INTO crop_category VALUES ('3011', '3', '鹅蛋', 'edan', 'E', 'images/edit/category/category_3011.jpg', '2015-12-12 12:57:08', '1', '2015-12-12 12:57:08');
+INSERT INTO crop_category VALUES ('3012', '3', '鹌鹑蛋', 'anchundan', 'A', 'images/edit/category/category_3012.jpg', '2015-12-12 12:57:29', '1', '2015-12-12 12:57:29');
+INSERT INTO crop_category VALUES ('4001', '4', '海水鱼', 'haishuiyu', 'H', 'images/edit/category/category_4001.jpg', '2015-12-12 12:58:26', '1', '2015-12-12 12:58:26');
+INSERT INTO crop_category VALUES ('4002', '4', '淡水鱼', 'danshuiyu', 'D', 'images/edit/category/category_4002.jpg', '2015-12-12 12:58:33', '1', '2015-12-12 12:58:33');
+INSERT INTO crop_category VALUES ('900001', '900', '其他', 'qita', 'Q', '', '2015-12-26 10:30:05', '1', '2015-12-26 10:30:05');
 
 -- ----------------------------
 -- Table structure for `crop_company`
@@ -376,12 +490,38 @@ CREATE TABLE `crop_company` (
   `audit_id` bigint(20) NOT NULL DEFAULT '-1',
   `audit_time` datetime DEFAULT NULL COMMENT '审核时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_company
 -- ----------------------------
-INSERT INTO crop_company VALUES ('8', '北京大搜车', '大搜车', '123131232131', 'images/company/14497628844867020189947.jpg', 'images/company/14497628844987912792680.jpg', 'images/company/14497628845051586443288.jpg', '5', '0', '2015-12-10 23:54:44', '2015-12-10 23:54:44', '-1', null);
+INSERT INTO crop_company VALUES ('8', '北京大搜车', '大搜车', '123131232131', 'images/company/14518151135340303791611.jpg', 'images/company/14518157127647935728318.jpg', 'images/company/14518151135958554377999.jpg', '5', '1', '2015-12-10 23:54:44', '2016-01-09 22:57:04', '1', '2016-01-09 22:57:04');
+INSERT INTO crop_company VALUES ('9', '北京搜狐新媒体信息科技有限公司', '张朝阳', '2313123213213', 'images/company/14517138422982173141687.jpg', 'images/company/14517138423017550715544.jpg', 'images/company/14517138423030562404863.jpg', '4', '-2', '2016-01-02 13:50:42', '2016-01-02 14:22:10', '1', '2016-01-02 14:22:10');
+
+-- ----------------------------
+-- Table structure for `crop_company_reject`
+-- ----------------------------
+DROP TABLE IF EXISTS `crop_company_reject`;
+CREATE TABLE `crop_company_reject` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `auth_id` bigint(20) NOT NULL DEFAULT '-1',
+  `type` int(5) NOT NULL DEFAULT '0',
+  `opinion` varchar(200) DEFAULT NULL,
+  `audit_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `audit_id` bigint(20) NOT NULL DEFAULT '-1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of crop_company_reject
+-- ----------------------------
+INSERT INTO crop_company_reject VALUES ('9', '9', '1', '后哈哈哈哈', '2016-01-02 13:58:21', '2016-01-02 13:58:21', '1');
+INSERT INTO crop_company_reject VALUES ('11', '9', '1', 'asasdasdas大赛', '2016-01-02 14:16:48', '2016-01-02 14:16:48', '1');
+INSERT INTO crop_company_reject VALUES ('13', '9', '1', '', '2016-01-02 14:22:10', '2016-01-02 14:22:10', '1');
+INSERT INTO crop_company_reject VALUES ('15', '8', '2', ' 房顶上的发送发送到发送发', '2016-01-03 17:59:01', '2016-01-03 17:59:01', '1');
+INSERT INTO crop_company_reject VALUES ('16', '8', '1', '水水水水水水水水', '2016-01-03 18:08:26', '2016-01-03 18:08:26', '1');
+INSERT INTO crop_company_reject VALUES ('17', '8', '1', '阿斯达', '2016-01-07 22:09:33', '2016-01-07 22:09:33', '1');
 
 -- ----------------------------
 -- Table structure for `crop_dict_area`
@@ -6136,7 +6276,7 @@ CREATE TABLE `crop_friend` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_valid` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_friend
@@ -6144,6 +6284,7 @@ CREATE TABLE `crop_friend` (
 INSERT INTO crop_friend VALUES ('1', '4', '5', '2015-11-29 16:32:38', '1');
 INSERT INTO crop_friend VALUES ('3', '5', '20', '2015-11-29 16:39:42', '1');
 INSERT INTO crop_friend VALUES ('4', '4', '20', '2015-11-29 16:44:56', '1');
+INSERT INTO crop_friend VALUES ('5', '5', '5', '2015-12-13 08:31:45', '1');
 
 -- ----------------------------
 -- Table structure for `crop_hot_category`
@@ -6158,21 +6299,30 @@ CREATE TABLE `crop_hot_category` (
   `operator_id` bigint(20) NOT NULL DEFAULT '-1',
   `is_valid` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_hot_category
 -- ----------------------------
-INSERT INTO crop_hot_category VALUES ('1', '1007', '1990-01-01 00:00:00', '2015-11-29 23:39:59', '1', '-1', '1');
-INSERT INTO crop_hot_category VALUES ('2', '1003', '1990-01-01 00:00:00', '2015-11-29 23:40:00', '2', '-1', '1');
-INSERT INTO crop_hot_category VALUES ('3', '1009', '1990-01-01 00:00:00', '2015-11-29 23:40:00', '3', '-1', '1');
-INSERT INTO crop_hot_category VALUES ('4', '1001', '1990-01-01 00:00:00', '2015-11-29 23:40:01', '4', '-1', '1');
-INSERT INTO crop_hot_category VALUES ('5', '1008', '1990-01-01 00:00:00', '2015-11-29 23:40:02', '5', '-1', '1');
+INSERT INTO crop_hot_category VALUES ('1', '1007', '1990-01-01 00:00:00', '2015-12-17 23:17:27', '31', '1', '1');
+INSERT INTO crop_hot_category VALUES ('2', '1003', '1990-01-01 00:00:00', '2015-12-12 14:12:41', '2', '1', '0');
+INSERT INTO crop_hot_category VALUES ('3', '1009', '1990-01-01 00:00:00', '2015-12-12 14:12:37', '3', '1', '0');
+INSERT INTO crop_hot_category VALUES ('4', '1001', '1990-01-01 00:00:00', '2015-12-12 14:12:36', '4', '1', '0');
+INSERT INTO crop_hot_category VALUES ('5', '1008', '1990-01-01 00:00:00', '2015-12-17 23:27:11', '42', '1', '0');
 INSERT INTO crop_hot_category VALUES ('6', '1004', '1990-01-01 00:00:00', '2015-12-03 01:00:07', '6', '1', '0');
-INSERT INTO crop_hot_category VALUES ('7', '1011', '2015-12-03 01:03:14', '2015-12-03 01:06:43', '29', '1', '1');
-INSERT INTO crop_hot_category VALUES ('8', '1010', '2015-12-03 01:04:43', '2015-12-03 01:04:43', '0', '1', '1');
-INSERT INTO crop_hot_category VALUES ('9', '1011', '2015-12-03 01:04:53', '2015-12-03 01:04:53', '2', '1', '1');
-INSERT INTO crop_hot_category VALUES ('10', '1011', '2015-12-03 01:05:17', '2015-12-03 01:05:17', '4', '1', '1');
+INSERT INTO crop_hot_category VALUES ('7', '1011', '2015-12-03 01:03:14', '2015-12-12 14:12:30', '29', '1', '0');
+INSERT INTO crop_hot_category VALUES ('8', '1010', '2015-12-03 01:04:43', '2015-12-12 14:14:53', '1', '1', '1');
+INSERT INTO crop_hot_category VALUES ('9', '1011', '2015-12-03 01:04:53', '2015-12-12 14:12:39', '2', '1', '0');
+INSERT INTO crop_hot_category VALUES ('10', '1011', '2015-12-03 01:05:17', '2015-12-12 14:12:34', '4', '1', '0');
+INSERT INTO crop_hot_category VALUES ('11', '1019', '2015-12-12 14:14:03', '2015-12-17 23:19:18', '36', '1', '1');
+INSERT INTO crop_hot_category VALUES ('12', '1020', '2015-12-12 14:14:14', '2015-12-21 23:56:21', '43', '1', '1');
+INSERT INTO crop_hot_category VALUES ('13', '1021', '2015-12-12 14:14:27', '2015-12-17 23:21:17', '37', '1', '1');
+INSERT INTO crop_hot_category VALUES ('14', '1024', '2015-12-12 14:14:38', '2015-12-17 23:18:15', '34', '1', '1');
+INSERT INTO crop_hot_category VALUES ('15', '2001', '2015-12-26 01:09:07', '2015-12-26 01:09:07', '0', '1', '1');
+INSERT INTO crop_hot_category VALUES ('16', '3001', '2015-12-26 01:09:17', '2015-12-26 01:09:17', '0', '1', '1');
+INSERT INTO crop_hot_category VALUES ('17', '2006', '2015-12-26 01:15:17', '2015-12-26 01:16:47', '0', '1', '0');
+INSERT INTO crop_hot_category VALUES ('18', '3009', '2015-12-26 01:15:43', '2015-12-26 01:25:25', '0', '1', '1');
+INSERT INTO crop_hot_category VALUES ('19', '2010', '2015-12-26 01:26:43', '2015-12-26 01:28:33', '0', '1', '1');
 
 -- ----------------------------
 -- Table structure for `crop_message`
@@ -6187,7 +6337,7 @@ CREATE TABLE `crop_message` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `is_read` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_message
@@ -6200,6 +6350,7 @@ INSERT INTO crop_message VALUES ('8', '4', '5', '有啊要多少', '2015-11-29 1
 INSERT INTO crop_message VALUES ('9', '4', '5', '在吗？还要不要了？', '2015-11-29 16:55:59', '2015-11-29 16:55:59', '0');
 INSERT INTO crop_message VALUES ('10', '5', '4', '不要了！！！', '2015-12-05 00:16:55', '2015-12-05 00:16:55', '0');
 INSERT INTO crop_message VALUES ('11', '5', '4', 'werewr', '2015-12-10 22:41:38', '2015-12-10 22:41:38', '0');
+INSERT INTO crop_message VALUES ('12', '5', '5', 'asd', '2015-12-13 08:31:47', '2015-12-13 08:31:47', '0');
 
 -- ----------------------------
 -- Table structure for `crop_sell`
@@ -6219,61 +6370,80 @@ CREATE TABLE `crop_sell` (
   `end_time` bigint(20) NOT NULL DEFAULT '-1' COMMENT '上市时间(止)',
   `price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '价格',
   `unit_id` bigint(20) NOT NULL DEFAULT '-1' COMMENT '单位',
-  `note` varchar(100) DEFAULT NULL COMMENT '备注',
+  `note` varchar(500) DEFAULT NULL COMMENT '备注',
   `contact_name` varchar(20) NOT NULL DEFAULT '' COMMENT '联系人',
   `contact_phone` varchar(25) NOT NULL DEFAULT '' COMMENT '联系电话',
   `company_id` bigint(20) NOT NULL DEFAULT '-1' COMMENT '组织机构（公司）ID',
   `company_name` varchar(50) NOT NULL DEFAULT '' COMMENT '组织机构（公司）名称',
   `is_publish` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0未上架；1已上架',
   `is_valid` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0删除；1有效',
-  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `create_time` datetime NOT NULL DEFAULT '1990-01-01 00:00:00' COMMENT '创建时间',
   `create_user_id` bigint(20) NOT NULL DEFAULT '-1' COMMENT '创建人',
+  `refresh_time` datetime NOT NULL DEFAULT '1990-01-01 00:00:00',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `audit_time` datetime DEFAULT NULL,
   `audit_id` bigint(20) NOT NULL DEFAULT '-1' COMMENT '审核人',
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '审核状态 -1审核未通过；0正在审核；1审核通过',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_sell
 -- ----------------------------
-INSERT INTO crop_sell VALUES ('1', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-12 00:50:51', '-1', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('2', '1', '1008', '-1', '-1', '我是标题', '8', '8010', '-1', '12', '22', '4.00', '1', '啊实打实的撒旦', '速度', '15901074186', '-1', '机构名称', '1', '1', '2015-08-13 01:10:33', '-1', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('3', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:10', '-1', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('4', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:16', '-1', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('5', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:18', '-1', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('6', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:19', '-1', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('7', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:21', '-1', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('8', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:22', '-1', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('9', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:24', '-1', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('10', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:25', '-1', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('11', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:26', '-1', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('12', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:28', '-1', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('13', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:30', '-1', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('14', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:33', '-1', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('15', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:32', '-1', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('16', '1', '1004', '-1', '-1', '我是标题', '4', '4003', '4003004', '999', '999', '1.00', '1', '阿斯达撒旦', 'sa萨', '15901074186', '-1', '机构名称', '1', '1', '2015-08-19 00:20:30', '5', '2015-12-05 02:56:12', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('17', '1', '1004', '-1', '-1', '我是标题', '11', '11013', '-1', '13', '22', '2.00', '1', '阿斯达', '啊大大', '15901074186', '-1', '机构名称', '1', '1', '2015-08-19 01:05:24', '-1', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('18', '1', '1007', '-1', '-1', '我是标题', '4', '4010', '4010009', '21', '21', '1.00', '1', '阿斯达撒旦萨', 'as大赛倒萨大', '15901074186', '-1', '', '1', '1', '2015-08-22 01:50:56', '-1', '2015-11-10 20:52:30', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('19', '1', '1007', '-1', '-1', '我是标题', '-1', '-1', '-1', '21', '21', '1.00', '1', '阿斯达撒旦萨', 'as大赛倒萨大', '15901074186', '-1', '机构名称', '1', '1', '2015-08-22 01:52:40', '-1', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('20', '1', '1007', '-1', '-1', '我是标题', '4', '4012', '4012012', '42', '112', '12.00', '1', 'as倒萨大萨达撒', '', '15901074186', '-1', '机构名称', '1', '1', '2015-08-22 01:55:24', '5', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('21', '1', '1007', '-1', '-1', '我是标题', '9', '9007', '9007003', '13', '92', '1.00', '1', 'as撒打算的撒的', '联系人名称1', '15901074186', '-1', '', '1', '1', '2015-08-22 02:06:07', '20', '2015-11-29 16:38:48', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('22', '1', '1007', '-1', '-1', '我是标题', '9', '9007', '9007003', '13', '92', '1.00', '1', 'as撒打算的撒的', '阿斯顿撒的', '15901074186', '-1', '机构名称', '1', '1', '2015-08-22 02:07:42', '5', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('23', '1', '1007', '-1', '-1', '我是标题', '5', '5007', '5007007', '22', '41', '112.00', '1', '你弟尼妙宏宏', '模糊', '15901074186', '-1', '机构名称', '1', '1', '2015-08-23 09:30:42', '5', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('24', '1', '1009', '-1', '-1', '我是标题', '2', '2002', '2002003', '13', '21', '12.00', '1', 'as倒萨大萨', '阿斯达萨大赛', '15901074186', '-1', '机构名称', '1', '1', '2015-08-23 11:23:53', '5', '2015-11-10 20:49:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('25', '1', '1003', '-1', '-1', '我是标题', '5', '5007', '5007011', '41', '41', '12.00', '1', 'as大赛的as的', '阿斯达萨 ', '15901074186', '-1', '机构名称', '1', '1', '2015-08-23 11:33:01', '5', '2015-11-10 21:50:09', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('26', '1', '1006', '-1', '-1', '我是标题', '3', '3005', '3005007', '12', '62', '31.00', '1', '红米你打的', '张先生', '15901074186', '-1', '机构名称', '1', '1', '2015-08-23 11:46:38', '5', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('27', '1', '1006', '-1', '-1', '我是标题', '1', '1002', '1002004', '33', '42', '21.00', '1', 'as萨大赛撒旦', '阿斯达撒旦', '15901074186', '-1', '机构名称', '1', '1', '2015-08-23 12:00:30', '5', '2015-11-10 20:45:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('28', '1', '1009', '-1', '-1', '我是标题', '8', '8010', '8010002', '42', '52', '12.00', '1', 'asd as d啊大赛啊', '阿斯达阿斯达7', '15901074186', '-1', '机构名称', '1', '1', '2015-08-23 12:02:03', '5', '2015-12-05 01:22:44', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('29', '1', '1011', '-1', '3', '标题啊啊啊', '4', '4004', '4004004', '23', '41', '23.30', '1', '啊萨达简介啊萨达简介啊萨达简介啊萨达简介啊萨达简介啊萨达简介', '李四', '15901074186', '7', '', '1', '1', '2015-12-05 00:54:02', '5', '2015-12-05 02:56:12', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('30', '1', '1011', '-1', '2', '标题啊标题啊标题啊', '8', '8009', '8009007', '22', '33', '21.90', '1', '阿斯顿撒阿斯达阿斯达as', '李四', '15901074186', '-1', '', '1', '1', '2015-12-05 01:26:02', '5', '2015-12-05 02:56:12', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('31', '1', '1011', '-1', '2', '标题啊啊啊啊', '8', '8006', '8006005', '13', '32', '22.50', '1', '简介啊啊啊', '李四', '15901074186', '-1', '', '1', '1', '2015-12-05 01:30:58', '5', '2015-12-05 01:31:00', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('32', '1', '1011', '-1', '3', 'ad阿斯达是', '3', '3003', '3003003', '13', '23', '212.12', '1', '邵登峰地方的撒', '李四', '15901074186', '7', '', '1', '1', '2015-12-05 01:35:46', '5', '2015-12-05 01:35:47', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('33', '1', '1019', '-1', '8', '标题啊', '3', '3004', '3004004', '12', '41', '22.53', '1', '撒打算ad', '李四', '15901074186', '7', '', '1', '1', '2015-12-05 01:49:47', '5', '2015-12-05 01:49:47', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('34', '1', '1011', '-1', '3', 'asdasd', '4', '4005', '4005004', '32', '32', '11.00', '1', 'adsad阿斯顿撒', '李四', '15901074186', '7', '', '1', '1', '2015-12-07 23:00:09', '5', '2015-12-07 23:00:09', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('35', '1', '1011', '-1', '2', 'asdasdds', '6', '6005', '6005004', '32', '41', '112.00', '1', 'asdadadadsad', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-11 00:08:49', '5', '2015-12-11 00:08:49', null, '-1', '1');
-INSERT INTO crop_sell VALUES ('36', '1', '1011', '-1', '2', '邵登峰是', '8', '8008', '8008006', '999', '999', '2.33', '1', 'as大声道萨的', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-11 00:36:32', '5', '2015-12-11 00:36:32', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('1', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-12 00:50:51', '-1', '2016-01-06 00:16:22', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('2', '1', '1008', '-1', '-1', '我是标题', '8', '8010', '-1', '12', '22', '4.00', '1', '啊实打实的撒旦', '速度', '15901074186', '-1', '机构名称', '1', '1', '2015-08-13 01:10:33', '-1', '2016-01-06 00:16:21', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('3', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:10', '-1', '2016-01-06 00:16:21', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('4', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:16', '-1', '2016-01-06 00:16:23', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('5', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:18', '-1', '2015-11-10 20:45:44', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('6', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:19', '-1', '2015-11-10 20:45:44', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('7', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:21', '-1', '2015-11-10 20:45:44', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('8', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:22', '-1', '2015-11-10 20:45:44', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('9', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:24', '-1', '2015-11-10 20:45:44', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('10', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:25', '-1', '2015-11-10 20:45:44', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('11', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:26', '-1', '2015-11-10 20:45:44', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('12', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:28', '-1', '2015-11-10 20:45:44', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('13', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:30', '-1', '2015-11-10 20:45:44', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('14', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:33', '-1', '2015-11-10 20:45:44', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('15', '1', '1001', '-1', '-1', '我是标题', '10', '10011', '10011006', '71', '112', '1.40', '1', '阿斯达撒旦速度阿斯达阿斯达', '是是是是是', '15901074186', '-1', '机构名称', '1', '1', '2015-08-16 23:17:32', '-1', '2015-11-10 20:45:44', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('16', '1', '1004', '-1', '-1', '我是标题', '4', '4003', '4003004', '999', '999', '1.00', '1', '阿斯达撒旦', 'sa萨', '15901074186', '-1', '机构名称', '1', '1', '2015-08-19 00:20:30', '5', '2015-12-05 02:56:12', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('17', '1', '1004', '-1', '-1', '我是标题', '11', '11013', '-1', '13', '22', '2.00', '1', '阿斯达', '啊大大', '15901074186', '-1', '机构名称', '1', '1', '2015-08-19 01:05:24', '-1', '2015-11-10 20:45:44', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('18', '1', '1007', '-1', '-1', '我是标题', '4', '4010', '4010009', '21', '21', '1.00', '1', '阿斯达撒旦萨', 'as大赛倒萨大', '15901074186', '-1', '', '1', '1', '2015-08-22 01:50:56', '-1', '2015-11-10 20:52:30', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('19', '1', '1007', '-1', '-1', '我是标题', '-1', '-1', '-1', '21', '21', '1.00', '1', '阿斯达撒旦萨', 'as大赛倒萨大', '15901074186', '-1', '机构名称', '1', '1', '2015-08-22 01:52:40', '-1', '2015-11-10 20:45:44', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('20', '1', '1007', '-1', '-1', '我是标题', '4', '4012', '4012012', '42', '112', '12.00', '1', 'as倒萨大萨达撒', '', '15901074186', '-1', '机构名称', '1', '1', '2015-08-22 01:55:24', '5', '2015-11-10 20:45:44', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('21', '1', '1007', '-1', '-1', '我是标题', '9', '9007', '9007003', '13', '92', '1.00', '1', 'as撒打算的撒的', '联系人名称1', '15901074186', '-1', '', '1', '1', '2015-08-22 02:06:07', '20', '2015-11-29 16:38:48', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('22', '1', '1007', '-1', '-1', '我是标题', '9', '9007', '9007003', '13', '92', '1.00', '1', 'as撒打算的撒的', '阿斯顿撒的', '15901074186', '-1', '机构名称', '0', '1', '2015-08-22 02:07:42', '5', '2016-01-06 00:16:37', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('23', '1', '1007', '-1', '-1', '我是标题', '5', '5007', '5007007', '22', '41', '112.00', '1', '你弟尼妙宏宏', '模糊', '15901074186', '-1', '机构名称', '0', '1', '2015-08-23 09:30:42', '5', '2016-01-06 00:16:38', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('24', '1', '1009', '-1', '-1', '我是标题', '2', '2002', '2002003', '13', '21', '12.00', '1', 'as倒萨大萨', '阿斯达萨大赛', '15901074186', '-1', '机构名称', '0', '1', '2015-08-23 11:23:53', '5', '2016-01-06 00:16:40', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('25', '1', '1003', '-1', '-1', '我是标题', '5', '5007', '5007011', '41', '41', '12.00', '1', 'as大赛的as的', '阿斯达萨 ', '15901074186', '-1', '机构名称', '0', '1', '2015-08-23 11:33:01', '5', '2016-01-06 00:16:41', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('26', '1', '1006', '-1', '-1', '我是标题', '3', '3005', '3005007', '12', '62', '31.00', '1', '红米你打的', '张先生', '15901074186', '-1', '机构名称', '1', '1', '2015-08-23 11:46:38', '5', '2015-11-10 20:45:44', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('27', '1', '1006', '-1', '-1', '我是标题', '1', '1002', '1002004', '33', '42', '21.00', '1', 'as萨大赛撒旦', '阿斯达撒旦', '15901074186', '-1', '机构名称', '1', '1', '2015-08-23 12:00:30', '5', '2015-11-10 20:45:44', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('28', '1', '1009', '-1', '-1', '我是标题', '8', '8010', '8010002', '42', '52', '12.00', '1', 'asd as d啊大赛啊', '阿斯达阿斯达7', '15901074186', '-1', '机构名称', '1', '1', '2015-08-23 12:02:03', '5', '2015-12-05 01:22:44', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('29', '1', '1011', '-1', '3', '标题啊啊啊', '4', '4004', '4004004', '23', '41', '23.30', '1', '啊萨达简介啊萨达简介啊萨达简介啊萨达简介啊萨达简介啊萨达简介', '李四', '15901074186', '7', '', '1', '1', '2015-12-05 00:54:02', '5', '2015-12-05 02:56:12', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('30', '1', '1011', '-1', '2', '标题啊标题啊标题啊', '8', '8009', '8009007', '22', '33', '21.90', '1', '阿斯顿撒阿斯达阿斯达as', '李四', '15901074186', '-1', '', '1', '1', '2015-12-05 01:26:02', '5', '2016-01-06 00:26:06', '2016-01-07 23:58:42', null, '-1', '-1');
+INSERT INTO crop_sell VALUES ('31', '1', '1011', '-1', '2', '标题啊啊啊啊', '8', '8006', '8006005', '13', '32', '22.50', '1', '简介啊啊啊', '李四', '15901074186', '-1', '', '1', '1', '2015-12-05 01:30:58', '5', '2016-01-06 00:26:08', '2016-01-07 23:58:42', null, '-1', '-1');
+INSERT INTO crop_sell VALUES ('32', '1', '1011', '-1', '3', 'ad阿斯达是', '3', '3003', '3003003', '13', '23', '212.12', '1', '邵登峰地方的撒', '李四', '15901074186', '7', '', '1', '1', '2015-12-05 01:35:46', '5', '2015-12-05 01:35:47', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('33', '1', '1019', '-1', '8', '标题啊', '3', '3004', '3004004', '12', '41', '22.53', '1', '撒打算ad', '李四', '15901074186', '7', '', '1', '1', '2015-12-05 01:49:47', '5', '2016-01-06 00:26:11', '2016-01-07 23:58:42', null, '-1', '0');
+INSERT INTO crop_sell VALUES ('34', '1', '1011', '-1', '3', 'asdasd', '4', '4005', '4005004', '32', '32', '11.00', '1', 'adsad阿斯顿撒', '李四', '15901074186', '7', '', '1', '1', '2015-12-07 23:00:09', '5', '2016-01-06 00:26:12', '2016-01-07 23:58:42', null, '-1', '0');
+INSERT INTO crop_sell VALUES ('35', '1', '1011', '-1', '2', 'asdasdds', '6', '6005', '6005004', '32', '41', '112.00', '1', 'asdadadadsad', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-11 00:08:49', '5', '2016-01-06 00:26:13', '2016-01-07 23:58:42', null, '-1', '0');
+INSERT INTO crop_sell VALUES ('36', '1', '1011', '-1', '2', '邵登峰是', '8', '8008', '8008006', '999', '999', '2.33', '1', 'as大声道萨的', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-11 00:36:32', '5', '2015-12-11 00:36:32', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('37', '1', '1019', '-1', '7', '哈哈哈', '8', '8008', '8008006', '12', '21', '1999.00', '1', 'asdsad ', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-13 23:28:17', '5', '2015-12-13 23:28:17', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('38', '1', '1019', '-1', '11', 'sa阿斯顿撒', '6', '6005', '6005003', '32', '41', '1.00', '1', 'asdda', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-16 22:04:13', '5', '2015-12-16 22:04:14', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('39', '1', '1011', '-1', '5', '撒旦萨d', '4', '4004', '4004003', '31', '121', '11.00', '1', '阿斯顿撒as', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-16 22:30:36', '5', '2015-12-16 22:30:36', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('40', '1', '1019', '-1', '7', '撒旦as', '4', '4004', '4004003', '31', '41', '1.00', '1', '阿斯达萨的', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-16 22:32:33', '5', '2015-12-16 22:32:33', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('41', '1', '1019', '-1', '7', 'as的', '6', '6004', '6004003', '62', '41', '1.00', '1', '撒旦阿斯达', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-16 22:35:49', '5', '2015-12-16 22:35:49', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('42', '1', '1019', '-1', '10', 'asadsad', '7', '7005', '7005004', '999', '999', '1.00', '1', 'asd', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-16 22:36:50', '5', '2015-12-16 22:36:51', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('43', '1', '1011', '-1', '3', 'sd', '7', '7005', '7005003', '999', '999', '1.00', '1', 'dsf', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-16 22:37:11', '5', '2015-12-16 22:37:11', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('44', '1', '1019', '-1', '10', '123', '7', '7005', '7005003', '999', '999', '1.00', '1', 'asdsad', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-16 22:39:13', '5', '2015-12-16 22:39:13', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('45', '1', '1019', '-1', '10', '4324', '7', '7006', '7006004', '999', '999', '2.00', '1', '243', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-16 22:40:41', '5', '2015-12-16 22:40:41', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('46', '1', '1019', '-1', '7', '123', '7', '7004', '7004003', '999', '999', '1.00', '1', 'asdsad', '啊的撒', '15901074186', '8', '北京大搜车', '1', '1', '2015-12-16 22:41:02', '5', '2016-01-09 22:59:04', '2016-01-12 00:36:13', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('47', '1', '1019', '-1', '10', '撒旦发送', '5', '5004', '5004002', '31', '33', '112.30', '1', '阿斯顿撒', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-17 21:55:10', '5', '2015-12-17 21:55:10', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('48', '1', '1019', '-1', '10', '撒打算', '8', '8008', '8008006', '32', '41', '112.00', '1', '阿斯达', '啊的撒', '15901074186', '8', '', '0', '1', '2015-12-17 21:57:52', '5', '2016-01-08 01:03:12', '2016-01-08 01:03:21', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('49', '1', '1010', '-1', '15', 'asdsd ', '8', '8006', '8006004', '12', '22', '323.00', '1', 'asdsad', '啊的撒', '15901074186', '8', '', '0', '1', '2015-12-21 23:06:11', '5', '2016-01-08 01:03:12', '2016-01-08 01:03:21', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('50', '1', '1021', '-1', '17', '地方', '5', '5004', '5004003', '21', '41', '33.44', '1', '撒旦大赛发', '啊的撒', '15901074186', '8', '', '1', '1', '2015-12-21 23:23:32', '5', '2015-12-21 23:23:32', '2016-01-07 23:58:42', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('51', '3', '3003', '-1', '3003001', 'sdfsdf', '7', '7006', '7006005', '31', '41', '3.40', '1', 'sadsdf', '啊的撒', '15901074186', '8', '北京大搜车', '1', '1', '2015-12-26 10:20:57', '5', '2016-01-09 22:58:53', '2016-01-12 00:37:20', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('52', '1', '1021', '-1', '17', 'ddfd', '8', '8007', '8007004', '23', '41', '33.00', '1', 'saadsa', '张宏岩', '15901074186', '8', '北京大搜车', '1', '1', '2016-01-10 00:16:13', '5', '2016-01-10 00:16:13', '2016-01-12 00:33:34', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('53', '1', '1028', '-1', '21', 'asda', '3', '3002', '3002002', '21', '41', '22.00', '1', 'asd啊as的撒', '张宏岩', '15901074186', '8', '北京大搜车', '1', '1', '2016-01-10 00:26:24', '5', '2016-01-10 00:26:24', '2016-01-10 00:26:24', null, '-1', '1');
+INSERT INTO crop_sell VALUES ('54', '2', '2001', '-1', '2001001', '第三方 啊啊 鹅鹅', '8', '8006', '8006006', '42', '121', '22.33', '1', '啊啊啊啊', '张宏的岩', '15901074444', '8', '北京大搜车', '1', '1', '2016-01-11 22:58:16', '5', '2016-01-11 22:58:16', '2016-01-12 00:20:55', null, '-1', '1');
 
 -- ----------------------------
 -- Table structure for `crop_sell_pic`
@@ -6290,7 +6460,7 @@ CREATE TABLE `crop_sell_pic` (
   `operator_id` bigint(20) NOT NULL DEFAULT '-1',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_sell_pic
@@ -6325,6 +6495,80 @@ INSERT INTO crop_sell_pic VALUES ('27', '35', 'images/publish/sell_1449763729051
 INSERT INTO crop_sell_pic VALUES ('28', '35', 'images/publish/sell_14497637290617127244762.jpg', '0', '1', '5', '2015-12-11 00:08:49', '5', '2015-12-11 00:08:49');
 INSERT INTO crop_sell_pic VALUES ('29', '36', 'images/publish/sell_14497653924710173668289.jpg', '0', '1', '5', '2015-12-11 00:36:32', '5', '2015-12-11 00:36:32');
 INSERT INTO crop_sell_pic VALUES ('30', '36', 'images/publish/sell_14497653924836132063359.jpg', '0', '1', '5', '2015-12-11 00:36:32', '5', '2015-12-11 00:36:32');
+INSERT INTO crop_sell_pic VALUES ('31', '37', 'images/publish/sell_14500204972765102185783.jpg', '0', '1', '5', '2015-12-13 23:28:17', '5', '2015-12-13 23:28:17');
+INSERT INTO crop_sell_pic VALUES ('32', '37', 'images/publish/sell_14500204972925047623943.jpg', '0', '1', '5', '2015-12-13 23:28:17', '5', '2015-12-13 23:28:17');
+INSERT INTO crop_sell_pic VALUES ('33', '37', 'images/publish/sell_14500204972967058800586.jpg', '0', '1', '5', '2015-12-13 23:28:17', '5', '2015-12-13 23:28:17');
+INSERT INTO crop_sell_pic VALUES ('34', '37', 'images/publish/sell_14500204972996100035929.jpg', '0', '1', '5', '2015-12-13 23:28:17', '5', '2015-12-13 23:28:17');
+INSERT INTO crop_sell_pic VALUES ('35', '37', 'images/publish/sell_14500204973032235109061.jpg', '0', '1', '5', '2015-12-13 23:28:17', '5', '2015-12-13 23:28:17');
+INSERT INTO crop_sell_pic VALUES ('36', '37', 'images/publish/sell_14500204973051325292122.jpg', '0', '1', '5', '2015-12-13 23:28:17', '5', '2015-12-13 23:28:17');
+INSERT INTO crop_sell_pic VALUES ('37', '37', 'images/publish/sell_14500204973080394740387.jpg', '0', '1', '5', '2015-12-13 23:28:17', '5', '2015-12-13 23:28:17');
+INSERT INTO crop_sell_pic VALUES ('38', '37', 'images/publish/sell_14500204973104375958339.jpg', '0', '1', '5', '2015-12-13 23:28:17', '5', '2015-12-13 23:28:17');
+INSERT INTO crop_sell_pic VALUES ('39', '37', 'images/publish/sell_14500204973136741490290.jpg', '0', '1', '5', '2015-12-13 23:28:17', '5', '2015-12-13 23:28:17');
+INSERT INTO crop_sell_pic VALUES ('40', '38', 'images/publish/sell_14502746539736891577588.jpg', '0', '1', '5', '2015-12-16 22:04:14', '5', '2015-12-16 22:04:14');
+INSERT INTO crop_sell_pic VALUES ('41', '39', 'images/publish/sell_14502762366625351306627.jpg', '0', '1', '5', '2015-12-16 22:30:36', '5', '2015-12-16 22:30:36');
+INSERT INTO crop_sell_pic VALUES ('42', '39', 'images/publish/sell_14502762366751243646812.jpg', '0', '1', '5', '2015-12-16 22:30:36', '5', '2015-12-16 22:30:36');
+INSERT INTO crop_sell_pic VALUES ('43', '40', 'images/publish/sell_14502763539349714386110.jpg', '0', '1', '5', '2015-12-16 22:32:33', '5', '2015-12-16 22:32:33');
+INSERT INTO crop_sell_pic VALUES ('44', '40', 'images/publish/sell_14502763539397218947763.jpg', '0', '1', '5', '2015-12-16 22:32:34', '5', '2015-12-16 22:32:34');
+INSERT INTO crop_sell_pic VALUES ('45', '41', 'images/publish/sell_14502765499221259167955.jpg', '0', '1', '5', '2015-12-16 22:35:49', '5', '2015-12-16 22:35:49');
+INSERT INTO crop_sell_pic VALUES ('46', '41', 'images/publish/sell_14502765499266242289771.jpg', '0', '1', '5', '2015-12-16 22:35:49', '5', '2015-12-16 22:35:49');
+INSERT INTO crop_sell_pic VALUES ('47', '42', 'images/publish/sell_14502766109292815573061.jpg', '0', '1', '5', '2015-12-16 22:36:51', '5', '2015-12-16 22:36:51');
+INSERT INTO crop_sell_pic VALUES ('48', '42', 'images/publish/sell_14502766109671140779140.jpg', '0', '1', '5', '2015-12-16 22:36:51', '5', '2015-12-16 22:36:51');
+INSERT INTO crop_sell_pic VALUES ('49', '43', 'images/publish/sell_14502766315002350984178.jpg', '0', '1', '5', '2015-12-16 22:37:11', '5', '2015-12-16 22:37:11');
+INSERT INTO crop_sell_pic VALUES ('50', '43', 'images/publish/sell_14502766315045483457851.jpg', '0', '1', '5', '2015-12-16 22:37:11', '5', '2015-12-16 22:37:11');
+INSERT INTO crop_sell_pic VALUES ('51', '44', 'images/publish/sell_14502767539808274922801.jpg', '0', '1', '5', '2015-12-16 22:39:14', '5', '2015-12-16 22:39:14');
+INSERT INTO crop_sell_pic VALUES ('52', '44', 'images/publish/sell_14502767539831690560327.jpg', '0', '1', '5', '2015-12-16 22:39:14', '5', '2015-12-16 22:39:14');
+INSERT INTO crop_sell_pic VALUES ('53', '45', 'images/publish/sell_14502768415913183083250.jpg', '0', '1', '5', '2015-12-16 22:40:41', '5', '2015-12-16 22:40:41');
+INSERT INTO crop_sell_pic VALUES ('54', '45', 'images/publish/sell_14502768415943490487363.jpg', '0', '1', '5', '2015-12-16 22:40:41', '5', '2015-12-16 22:40:41');
+INSERT INTO crop_sell_pic VALUES ('55', '46', 'images/publish/sell_14525301706285329188063.jpg', '0', '1', '5', '2016-01-12 00:36:13', '5', '2015-12-16 22:41:03');
+INSERT INTO crop_sell_pic VALUES ('56', '46', 'images/publish/sell_14525301706613836339647.jpg', '0', '1', '5', '2016-01-12 00:36:13', '5', '2015-12-16 22:41:03');
+INSERT INTO crop_sell_pic VALUES ('57', '47', 'images/publish/sell_14503605104309668376475.jpg', '0', '1', '5', '2015-12-17 21:55:10', '5', '2015-12-17 21:55:10');
+INSERT INTO crop_sell_pic VALUES ('58', '47', 'images/publish/sell_14503605104924698253455.jpg', '0', '1', '5', '2015-12-17 21:55:10', '5', '2015-12-17 21:55:10');
+INSERT INTO crop_sell_pic VALUES ('59', '47', 'images/publish/sell_14503605104954495577299.jpg', '0', '1', '5', '2015-12-17 21:55:10', '5', '2015-12-17 21:55:10');
+INSERT INTO crop_sell_pic VALUES ('60', '47', 'images/publish/sell_14503605104982721009137.jpg', '0', '1', '5', '2015-12-17 21:55:10', '5', '2015-12-17 21:55:10');
+INSERT INTO crop_sell_pic VALUES ('61', '47', 'images/publish/sell_14503605105020192526814.jpg', '0', '1', '5', '2015-12-17 21:55:10', '5', '2015-12-17 21:55:10');
+INSERT INTO crop_sell_pic VALUES ('62', '47', 'images/publish/sell_14503605105062044507538.jpg', '0', '1', '5', '2015-12-17 21:55:10', '5', '2015-12-17 21:55:10');
+INSERT INTO crop_sell_pic VALUES ('63', '47', 'images/publish/sell_14503605105101622314689.jpg', '0', '1', '5', '2015-12-17 21:55:10', '5', '2015-12-17 21:55:10');
+INSERT INTO crop_sell_pic VALUES ('64', '47', 'images/publish/sell_14503605105376678597859.jpg', '0', '1', '5', '2015-12-17 21:55:10', '5', '2015-12-17 21:55:10');
+INSERT INTO crop_sell_pic VALUES ('65', '47', 'images/publish/sell_14503605105415991771092.jpg', '0', '1', '5', '2015-12-17 21:55:10', '5', '2015-12-17 21:55:10');
+INSERT INTO crop_sell_pic VALUES ('66', '48', 'images/publish/sell_14503606725352867927929.jpg', '0', '1', '5', '2015-12-17 21:57:52', '5', '2015-12-17 21:57:52');
+INSERT INTO crop_sell_pic VALUES ('67', '49', 'images/publish/sell_14507103709828775495521.jpg', '0', '1', '5', '2015-12-21 23:06:11', '5', '2015-12-21 23:06:11');
+INSERT INTO crop_sell_pic VALUES ('68', '50', 'images/publish/sell_14507114122302584524130.jpg', '0', '1', '5', '2015-12-21 23:23:32', '5', '2015-12-21 23:23:32');
+INSERT INTO crop_sell_pic VALUES ('69', '51', 'images/publish/sell_14525302363084428027432.jpg', '0', '1', '5', '2016-01-12 00:37:29', '5', '2015-12-26 10:20:57');
+INSERT INTO crop_sell_pic VALUES ('70', '52', 'images/publish/sell_14525300119854233220572.jpg', '0', '1', '5', '2016-01-12 00:33:34', '5', '2016-01-10 00:16:13');
+INSERT INTO crop_sell_pic VALUES ('71', '53', 'images/publish/sell_14525297140091361545708.jpg', '0', '1', '5', '2016-01-12 00:28:34', '5', '2016-01-10 00:26:24');
+INSERT INTO crop_sell_pic VALUES ('72', '54', 'images/publish/sell_14525242969642943482781.jpg', '0', '1', '5', '2016-01-11 22:58:17', '5', '2016-01-11 22:58:17');
+INSERT INTO crop_sell_pic VALUES ('73', '54', 'images/publish/sell_14525286069948591863883.jpg', '0', '1', '5', '2016-01-12 00:10:44', '5', '2016-01-11 22:58:17');
+INSERT INTO crop_sell_pic VALUES ('74', '54', 'images/publish/sell_14525242969741647073536.jpg', '0', '1', '5', '2016-01-11 22:58:17', '5', '2016-01-11 22:58:17');
+INSERT INTO crop_sell_pic VALUES ('75', '54', 'images/publish/sell_14525289617837062618641.jpg', '0', '1', '5', '2016-01-12 00:16:36', '5', '2016-01-12 00:16:36');
+INSERT INTO crop_sell_pic VALUES ('76', '54', 'images/publish/sell_14525289618319300735371.jpg', '0', '1', '5', '2016-01-12 00:16:36', '5', '2016-01-12 00:16:36');
+INSERT INTO crop_sell_pic VALUES ('77', '54', 'images/publish/sell_14525293957234298251802.jpg', '0', '1', '5', '2016-01-12 00:23:49', '5', '2016-01-12 00:21:27');
+INSERT INTO crop_sell_pic VALUES ('78', '54', 'images/publish/sell_14525292520357471146502.jpg', '0', '1', '5', '2016-01-12 00:21:27', '5', '2016-01-12 00:21:27');
+INSERT INTO crop_sell_pic VALUES ('79', '54', 'images/publish/sell_14525293957234298251802.jpg', '0', '1', '5', '2016-01-12 00:24:09', '5', '2016-01-12 00:24:09');
+INSERT INTO crop_sell_pic VALUES ('80', '54', 'images/publish/sell_14525293957626214876380.jpg', '0', '1', '5', '2016-01-12 00:24:09', '5', '2016-01-12 00:24:09');
+INSERT INTO crop_sell_pic VALUES ('81', '54', 'images/publish/sell_14525293957660097106393.jpg', '0', '1', '5', '2016-01-12 00:24:10', '5', '2016-01-12 00:24:10');
+INSERT INTO crop_sell_pic VALUES ('82', '53', 'images/publish/sell_14525298760088075553637.jpg', '0', '1', '5', '2016-01-12 00:31:16', '5', '2016-01-12 00:28:46');
+INSERT INTO crop_sell_pic VALUES ('83', '53', 'images/publish/sell_14525298760161355090132.jpg', '0', '1', '5', '2016-01-12 00:31:16', '5', '2016-01-12 00:29:22');
+INSERT INTO crop_sell_pic VALUES ('84', '53', 'images/publish/sell_14525298997293865351930.jpg', '0', '1', '5', '2016-01-12 00:31:48', '5', '2016-01-12 00:29:22');
+INSERT INTO crop_sell_pic VALUES ('85', '53', 'images/publish/sell_14525298997441465255092.jpg', '0', '1', '5', '2016-01-12 00:31:48', '5', '2016-01-12 00:29:22');
+INSERT INTO crop_sell_pic VALUES ('86', '53', 'images/publish/sell_14525298997293865351930.jpg', '0', '1', '5', '2016-01-12 00:33:03', '5', '2016-01-12 00:33:03');
+INSERT INTO crop_sell_pic VALUES ('87', '53', 'images/publish/sell_14525298997441465255092.jpg', '0', '1', '5', '2016-01-12 00:33:04', '5', '2016-01-12 00:33:04');
+INSERT INTO crop_sell_pic VALUES ('88', '53', 'images/publish/sell_14525298997638401423864.jpg', '0', '1', '5', '2016-01-12 00:33:04', '5', '2016-01-12 00:33:04');
+INSERT INTO crop_sell_pic VALUES ('89', '52', 'images/publish/sell_14525300475663929149571.jpg', '0', '1', '5', '2016-01-12 00:34:07', '5', '2016-01-12 00:33:49');
+INSERT INTO crop_sell_pic VALUES ('90', '52', 'images/publish/sell_14525300475812581600615.jpg', '0', '1', '5', '2016-01-12 00:34:07', '5', '2016-01-12 00:33:50');
+INSERT INTO crop_sell_pic VALUES ('91', '52', 'images/publish/sell_14525300475663929149571.jpg', '0', '1', '5', '2016-01-12 00:34:08', '5', '2016-01-12 00:34:08');
+INSERT INTO crop_sell_pic VALUES ('92', '52', 'images/publish/sell_14525300843402874737678.jpg', '0', '1', '5', '2016-01-12 00:34:45', '5', '2016-01-12 00:34:08');
+INSERT INTO crop_sell_pic VALUES ('93', '52', 'images/publish/sell_14525301246278371576173.jpg', '0', '1', '5', '2016-01-12 00:35:25', '5', '2016-01-12 00:34:08');
+INSERT INTO crop_sell_pic VALUES ('94', '52', 'images/publish/sell_14525301246278940675358.jpg', '0', '1', '5', '2016-01-12 00:35:25', '5', '2016-01-12 00:35:06');
+INSERT INTO crop_sell_pic VALUES ('95', '52', 'images/publish/sell_14525301246762512507520.jpg', '0', '1', '5', '2016-01-12 00:35:25', '5', '2016-01-12 00:35:25');
+INSERT INTO crop_sell_pic VALUES ('96', '46', 'images/publish/sell_14525301706774137626123.jpg', '0', '1', '5', '2016-01-12 00:36:26', '5', '2016-01-12 00:36:26');
+INSERT INTO crop_sell_pic VALUES ('97', '46', 'images/publish/sell_14525301706775526322998.jpg', '0', '1', '5', '2016-01-12 00:36:26', '5', '2016-01-12 00:36:26');
+INSERT INTO crop_sell_pic VALUES ('98', '51', 'images/publish/sell_14525302363419175900982.jpg', '0', '1', '5', '2016-01-12 00:37:59', '5', '2016-01-12 00:37:59');
+INSERT INTO crop_sell_pic VALUES ('99', '51', 'images/publish/sell_14525302363578676780070.jpg', '0', '1', '5', '2016-01-12 00:37:59', '5', '2016-01-12 00:37:59');
+INSERT INTO crop_sell_pic VALUES ('100', '51', 'images/publish/sell_14525304794954988438631.jpg', '0', '1', '5', '2016-01-12 00:41:22', '5', '2016-01-12 00:37:59');
+INSERT INTO crop_sell_pic VALUES ('101', '51', 'images/publish/sell_14525304794950497780820.jpg', '0', '1', '5', '2016-01-12 00:41:50', '5', '2016-01-12 00:41:50');
+INSERT INTO crop_sell_pic VALUES ('102', '51', 'images/publish/sell_14525304795408323552323.jpg', '0', '1', '5', '2016-01-12 00:41:50', '5', '2016-01-12 00:41:50');
+INSERT INTO crop_sell_pic VALUES ('103', '51', 'images/publish/sell_14525304795443018001822.jpg', '0', '1', '5', '2016-01-12 00:41:50', '5', '2016-01-12 00:41:50');
+INSERT INTO crop_sell_pic VALUES ('104', '51', 'images/publish/sell_14525304795446055005791.jpg', '0', '1', '5', '2016-01-12 00:41:50', '5', '2016-01-12 00:41:50');
 
 -- ----------------------------
 -- Table structure for `crop_user`
@@ -6344,14 +6588,16 @@ CREATE TABLE `crop_user` (
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00' COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_user
 -- ----------------------------
 INSERT INTO crop_user VALUES ('4', '我试水', '1', '15900000000', '444444', '8', '8012', '8012004', 'images/profile/14486457223613185843892.jpg', '1', '2015-08-02 14:53:22', '2015-11-28 01:35:22');
-INSERT INTO crop_user VALUES ('5', '哈哈哈啊', '2', '15901074186', '123456', '10', '10010', '10010010', 'images/profile/14497597706714579864265.jpg', '1', '2015-08-23 12:46:50', '2015-12-10 23:02:50');
-INSERT INTO crop_user VALUES ('20', '哈哈AAS的', '0', '', '', '-1', '-1', '-1', '', '1', '1990-01-01 00:00:00', '2015-11-29 15:47:24');
+INSERT INTO crop_user VALUES ('5', '哈哈哈啊', '2', '15901074186', '123456', '10', '10010', '10010010', 'images/profile/14499006922980826268589.jpg', '1', '2015-08-23 12:46:50', '2015-12-16 22:00:57');
+INSERT INTO crop_user VALUES ('6', '哈哈AAS的', '0', '', '', '-1', '-1', '-1', '', '1', '1990-01-01 00:00:00', '2015-12-29 23:14:19');
+INSERT INTO crop_user VALUES ('21', 'DFS_21', '0', '15911111111', '000000', '-1', '-1', '-1', '', '1', '2015-12-13 19:29:57', '2015-12-13 19:29:57');
+INSERT INTO crop_user VALUES ('22', 'DFS_22', '0', '15888888888', '111111', '-1', '-1', '-1', '', '1', '2015-12-13 19:50:54', '2015-12-13 19:50:54');
 
 -- ----------------------------
 -- Table structure for `crop_user_auth`
@@ -6376,8 +6622,44 @@ CREATE TABLE `crop_user_auth` (
 -- ----------------------------
 -- Records of crop_user_auth
 -- ----------------------------
-INSERT INTO crop_user_auth VALUES ('2', '6', '123123', '313123213123213', 'images/auth/14477731791937987019407.jpg', 'images/auth/14477731792035137983756.jpg', 'images/auth/14477731792030719356806.jpg', '0', '2015-11-17 23:12:59', '2015-11-17 23:12:59', '-1', null);
-INSERT INTO crop_user_auth VALUES ('5', '5', '啊的撒', '12321313123', 'images/auth/14497622802575736599719.jpg', 'images/auth/14497622802662151845766.jpg', 'images/auth/14497622802737211418102.jpg', '0', '2015-12-10 23:44:40', '2015-12-10 23:44:40', '-1', null);
+INSERT INTO crop_user_auth VALUES ('2', '6', '123123', '313123213123213', 'images/auth/14477731791937987019407.jpg', 'images/auth/14477731792035137983756.jpg', 'images/auth/14477731792030719356806.jpg', '-2', '2015-11-17 23:12:59', '2016-01-03 18:27:55', '1', '2016-01-03 18:27:55');
+INSERT INTO crop_user_auth VALUES ('5', '5', '张宏岩', '23080311223333223332', 'images/auth/14518171273303889163933.jpg', 'images/auth/14518171273399745755445.jpg', 'images/auth/14518172825498646121801.jpg', '1', '2015-12-10 23:44:40', '2016-01-07 22:17:01', '1', '2016-01-07 22:17:01');
+
+-- ----------------------------
+-- Table structure for `crop_user_auth_reject`
+-- ----------------------------
+DROP TABLE IF EXISTS `crop_user_auth_reject`;
+CREATE TABLE `crop_user_auth_reject` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `auth_id` bigint(20) NOT NULL DEFAULT '-1',
+  `type` int(5) NOT NULL DEFAULT '0',
+  `opinion` varchar(200) DEFAULT NULL,
+  `audit_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `audit_id` bigint(20) NOT NULL DEFAULT '-1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of crop_user_auth_reject
+-- ----------------------------
+INSERT INTO crop_user_auth_reject VALUES ('1', '5', '2', '照片有问题', '2015-12-29 23:08:47', '2015-12-29 23:08:47', '1');
+INSERT INTO crop_user_auth_reject VALUES ('2', '2', '1', '', '2015-12-29 23:11:58', '2015-12-29 23:11:58', '1');
+INSERT INTO crop_user_auth_reject VALUES ('3', '5', '2', '', '2016-01-02 12:38:37', '2016-01-02 12:38:37', '1');
+INSERT INTO crop_user_auth_reject VALUES ('4', '2', '1', 'asd', '2016-01-02 12:42:42', '2016-01-02 12:42:42', '1');
+INSERT INTO crop_user_auth_reject VALUES ('5', '5', '1', 'sad', '2016-01-02 12:42:45', '2016-01-02 12:42:45', '1');
+INSERT INTO crop_user_auth_reject VALUES ('6', '5', '1', 'ddsfdsf', '2016-01-02 12:49:55', '2016-01-02 12:49:55', '1');
+INSERT INTO crop_user_auth_reject VALUES ('7', '2', '1', 'ddsfdsf', '2016-01-02 12:49:55', '2016-01-02 12:49:55', '1');
+INSERT INTO crop_user_auth_reject VALUES ('8', '2', '1', 'gfffffff', '2016-01-02 13:49:24', '2016-01-02 13:49:24', '1');
+INSERT INTO crop_user_auth_reject VALUES ('9', '5', '2', 'sdsadsdsad', '2016-01-02 14:16:08', '2016-01-02 14:16:08', '1');
+INSERT INTO crop_user_auth_reject VALUES ('10', '2', '2', 'sdsadsdsad', '2016-01-02 14:16:08', '2016-01-02 14:16:08', '1');
+INSERT INTO crop_user_auth_reject VALUES ('11', '5', '2', '没照片啊啊啊', '2016-01-03 18:30:06', '2016-01-03 18:30:06', '1');
+INSERT INTO crop_user_auth_reject VALUES ('12', '5', '1', '错误啊啊啊', '2016-01-03 18:30:32', '2016-01-03 18:30:32', '1');
+INSERT INTO crop_user_auth_reject VALUES ('13', '5', '1', '', '2016-01-03 18:30:59', '2016-01-03 18:30:59', '1');
+INSERT INTO crop_user_auth_reject VALUES ('14', '5', '1', '', '2016-01-03 18:31:47', '2016-01-03 18:31:47', '1');
+INSERT INTO crop_user_auth_reject VALUES ('15', '5', '1', '', '2016-01-03 18:32:21', '2016-01-03 18:32:21', '1');
+INSERT INTO crop_user_auth_reject VALUES ('16', '5', '1', '', '2016-01-03 18:33:20', '2016-01-03 18:33:20', '1');
+INSERT INTO crop_user_auth_reject VALUES ('17', '5', '1', 'asdsd', '2016-01-07 22:16:41', '2016-01-07 22:16:41', '1');
 
 -- ----------------------------
 -- Table structure for `crop_user_company`
@@ -6393,12 +6675,13 @@ CREATE TABLE `crop_user_company` (
   `audit_id` bigint(20) NOT NULL DEFAULT '-1',
   `audit_time` datetime DEFAULT NULL COMMENT '审核时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_user_company
 -- ----------------------------
 INSERT INTO crop_user_company VALUES ('8', '8', '5', '1', '2015-12-10 23:54:44', '2015-12-10 23:54:44', '-1', null);
+INSERT INTO crop_user_company VALUES ('9', '9', '4', '1', '2016-01-02 13:50:42', '2016-01-02 13:50:42', '-1', null);
 
 -- ----------------------------
 -- Table structure for `crop_user_favourite`
@@ -6413,7 +6696,7 @@ CREATE TABLE `crop_user_favourite` (
   `create_time` timestamp NOT NULL DEFAULT '1990-01-01 00:00:00',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_user_favourite
@@ -6430,6 +6713,11 @@ INSERT INTO crop_user_favourite VALUES ('9', '5', '1', '2', '0', '2015-11-24 00:
 INSERT INTO crop_user_favourite VALUES ('10', '5', '1', '2', '0', '2015-11-24 00:26:25', '2015-11-24 00:26:27');
 INSERT INTO crop_user_favourite VALUES ('11', '5', '25', '1', '0', '2015-11-28 16:20:47', '2015-11-28 16:21:00');
 INSERT INTO crop_user_favourite VALUES ('12', '5', '25', '1', '1', '2015-11-28 16:21:11', '2015-11-28 16:21:11');
+INSERT INTO crop_user_favourite VALUES ('13', '5', '36', '1', '0', '2015-12-13 08:27:26', '2015-12-13 08:31:35');
+INSERT INTO crop_user_favourite VALUES ('14', '5', '36', '1', '0', '2015-12-13 08:30:01', '2015-12-13 08:31:35');
+INSERT INTO crop_user_favourite VALUES ('15', '5', '36', '1', '0', '2015-12-13 08:31:30', '2015-12-13 08:31:35');
+INSERT INTO crop_user_favourite VALUES ('16', '5', '36', '1', '0', '2015-12-13 08:31:34', '2015-12-13 08:31:35');
+INSERT INTO crop_user_favourite VALUES ('17', '5', '48', '1', '0', '2015-12-17 21:58:08', '2015-12-17 21:58:13');
 
 -- ----------------------------
 -- Table structure for `crop_user_identity`
@@ -6465,7 +6753,7 @@ CREATE TABLE `crop_varieties` (
   `operator_id` bigint(20) NOT NULL DEFAULT '-1',
   `is_valid` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=900001002 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of crop_varieties
@@ -6481,3 +6769,73 @@ INSERT INTO crop_varieties VALUES ('8', '1019', '大种高把', '', '', '1990-01
 INSERT INTO crop_varieties VALUES ('9', '1019', '香牙蕉', '', '', '1990-01-01 00:00:00', '2015-12-04 01:15:53', '-1', '1');
 INSERT INTO crop_varieties VALUES ('10', '1019', '大蕉', '', '', '1990-01-01 00:00:00', '2015-12-04 01:15:53', '-1', '1');
 INSERT INTO crop_varieties VALUES ('11', '1019', '粉蕉', '', '', '1990-01-01 00:00:00', '2015-12-04 01:15:53', '-1', '1');
+INSERT INTO crop_varieties VALUES ('12', '1001', '黄元帅', '', '', '1990-01-01 00:00:00', '2015-12-21 22:45:26', '-1', '1');
+INSERT INTO crop_varieties VALUES ('13', '1002', '品种梨', '', '', '1990-01-01 00:00:00', '2015-12-21 22:47:26', '-1', '1');
+INSERT INTO crop_varieties VALUES ('14', '1007', '品种柚子', '', '', '1990-01-01 00:00:00', '2015-12-21 22:48:03', '-1', '1');
+INSERT INTO crop_varieties VALUES ('15', '1010', '品种西瓜', '', '', '1990-01-01 00:00:00', '2015-12-21 22:48:18', '-1', '1');
+INSERT INTO crop_varieties VALUES ('16', '1020', '品种葡萄&提子', '', '', '1990-01-01 00:00:00', '2015-12-21 22:48:34', '-1', '1');
+INSERT INTO crop_varieties VALUES ('17', '1021', '品种石榴', '', '', '1990-01-01 00:00:00', '2015-12-21 22:48:40', '-1', '1');
+INSERT INTO crop_varieties VALUES ('18', '1024', '品种哈密瓜', '', '', '1990-01-01 00:00:00', '2015-12-21 22:48:54', '-1', '1');
+INSERT INTO crop_varieties VALUES ('19', '1025', '品种柠檬', '', '', '1990-01-01 00:00:00', '2015-12-21 22:49:04', '-1', '1');
+INSERT INTO crop_varieties VALUES ('20', '1027', '品种火龙果', '', '', '1990-01-01 00:00:00', '2015-12-21 22:49:11', '-1', '1');
+INSERT INTO crop_varieties VALUES ('21', '1028', '品种菠萝', '', '', '1990-01-01 00:00:00', '2015-12-21 22:49:26', '-1', '1');
+INSERT INTO crop_varieties VALUES ('22', '1030', '品种樱桃&车厘子', '', '', '1990-01-01 00:00:00', '2015-12-21 22:49:35', '-1', '1');
+INSERT INTO crop_varieties VALUES ('23', '1033', '品种菠萝蜜', '', '', '1990-01-01 00:00:00', '2015-12-21 22:49:43', '-1', '1');
+INSERT INTO crop_varieties VALUES ('24', '1034', '品种杨桃', '', '', '1990-01-01 00:00:00', '2015-12-21 22:50:04', '-1', '1');
+INSERT INTO crop_varieties VALUES ('25', '1036', '品种木瓜', '', '', '1990-01-01 00:00:00', '2015-12-21 22:50:18', '-1', '1');
+INSERT INTO crop_varieties VALUES ('26', '1045', '品种榴莲', '', '', '1990-01-01 00:00:00', '2015-12-21 22:50:33', '-1', '1');
+INSERT INTO crop_varieties VALUES ('27', '1047', '品种龙眼', '', '', '1990-01-01 00:00:00', '2015-12-21 22:50:45', '-1', '1');
+INSERT INTO crop_varieties VALUES ('28', '1048', '品种荔枝', '', '', '1990-01-01 00:00:00', '2015-12-21 22:50:55', '-1', '1');
+INSERT INTO crop_varieties VALUES ('29', '1049', '品种莲雾', '', '', '1990-01-01 00:00:00', '2015-12-21 22:51:04', '-1', '1');
+INSERT INTO crop_varieties VALUES ('30', '1050', '品种牛油果', '', '', '1990-01-01 00:00:00', '2015-12-21 22:51:16', '-1', '1');
+INSERT INTO crop_varieties VALUES ('31', '1051', '品种山竹', '', '', '1990-01-01 00:00:00', '2015-12-21 22:51:24', '-1', '1');
+INSERT INTO crop_varieties VALUES ('32', '1052', '品种椰子', '', '', '1990-01-01 00:00:00', '2015-12-21 22:51:35', '-1', '1');
+INSERT INTO crop_varieties VALUES ('33', '1053', '品种橙子', '', '', '1990-01-01 00:00:00', '2015-12-21 22:51:43', '-1', '1');
+INSERT INTO crop_varieties VALUES ('34', '1054', '品种桔子', '', '', '1990-01-01 00:00:00', '2015-12-21 22:51:48', '-1', '1');
+INSERT INTO crop_varieties VALUES ('2001001', '2001', '品种南瓜', 'pinzhongnangua', 'P', '2015-12-26 00:53:54', '2015-12-26 00:53:54', '1', '1');
+INSERT INTO crop_varieties VALUES ('2002001', '2002', '品种冬瓜', 'pinzhongdonggua', 'P', '2015-12-26 00:55:28', '2015-12-26 00:55:28', '1', '1');
+INSERT INTO crop_varieties VALUES ('2003001', '2003', '品种丝瓜', 'pinzhongsigua', 'P', '2015-12-26 10:05:52', '2015-12-26 10:05:52', '1', '1');
+INSERT INTO crop_varieties VALUES ('2004001', '2004', '品种苦瓜', 'pinzhongkugua', 'P', '2015-12-26 10:06:06', '2015-12-26 10:06:06', '1', '1');
+INSERT INTO crop_varieties VALUES ('2005001', '2005', '品种黄瓜', 'pinzhonghuanggua', 'P', '2015-12-26 10:06:27', '2015-12-26 10:06:27', '1', '1');
+INSERT INTO crop_varieties VALUES ('2006001', '2006', '品种葫芦', 'pinzhonghulu', 'P', '2015-12-26 10:06:37', '2015-12-26 10:06:37', '1', '1');
+INSERT INTO crop_varieties VALUES ('2007001', '2007', '品种辣椒', 'pinzhonglajiao', 'P', '2015-12-26 10:06:47', '2015-12-26 10:06:47', '1', '1');
+INSERT INTO crop_varieties VALUES ('2008001', '2008', '品种青椒', 'pinzhongqingjiao', 'P', '2015-12-26 10:06:58', '2015-12-26 10:06:58', '1', '1');
+INSERT INTO crop_varieties VALUES ('2009001', '2009', '品种茄子', 'pinzhongqiezi', 'P', '2015-12-26 10:07:15', '2015-12-26 10:07:15', '1', '1');
+INSERT INTO crop_varieties VALUES ('2010001', '2010', '品种西红柿', 'pinzhongxihongshi', 'P', '2015-12-26 10:07:26', '2015-12-26 10:07:26', '1', '1');
+INSERT INTO crop_varieties VALUES ('2011001', '2011', '品种玉米', 'pinzhongyumi', 'P', '2015-12-26 10:07:39', '2015-12-26 10:07:39', '1', '1');
+INSERT INTO crop_varieties VALUES ('2012001', '2012', '品种豆芽', 'pinzhongdouya', 'P', '2015-12-26 10:07:49', '2015-12-26 10:07:49', '1', '1');
+INSERT INTO crop_varieties VALUES ('2013001', '2013', '品种生姜', 'pinzhongshengjiang', 'P', '2015-12-26 10:09:04', '2015-12-26 10:09:04', '1', '1');
+INSERT INTO crop_varieties VALUES ('2014001', '2014', '品种大蒜', 'pinzhongdasuan', 'P', '2015-12-26 10:09:14', '2015-12-26 10:09:49', '1', '1');
+INSERT INTO crop_varieties VALUES ('2015001', '2015', '品种洋葱', 'pinzhongyangcong', 'P', '2015-12-26 10:09:23', '2015-12-26 10:09:23', '1', '1');
+INSERT INTO crop_varieties VALUES ('2016001', '2016', '品种小葱', 'pinzhongxiaocong', 'P', '2015-12-26 10:09:42', '2015-12-26 10:09:42', '1', '1');
+INSERT INTO crop_varieties VALUES ('2017001', '2017', '品种大葱', 'pinzhongdacong', 'P', '2015-12-26 10:10:00', '2015-12-26 10:10:00', '1', '1');
+INSERT INTO crop_varieties VALUES ('2018001', '2018', '品种花生', 'pinzhonghuasheng', 'P', '2015-12-26 10:10:10', '2015-12-26 10:10:10', '1', '1');
+INSERT INTO crop_varieties VALUES ('2019001', '2019', '品种竹笋', 'pinzhongzhusun', 'P', '2015-12-26 10:10:19', '2015-12-26 10:10:19', '1', '1');
+INSERT INTO crop_varieties VALUES ('2020001', '2020', '品种莴笋', 'pinzhongwosun', 'P', '2015-12-26 10:10:30', '2015-12-26 10:10:30', '1', '1');
+INSERT INTO crop_varieties VALUES ('2021001', '2021', '品种西兰花', 'pinzhongxilanhua', 'P', '2015-12-26 10:10:45', '2015-12-26 10:10:45', '1', '1');
+INSERT INTO crop_varieties VALUES ('2022001', '2022', '品种芥兰', 'pinzhongjielan', 'P', '2015-12-26 10:11:01', '2015-12-26 10:11:01', '1', '1');
+INSERT INTO crop_varieties VALUES ('2023001', '2023', '品种油菜', 'pinzhongyoucai', 'P', '2015-12-26 10:11:11', '2015-12-26 10:11:11', '1', '1');
+INSERT INTO crop_varieties VALUES ('2024001', '2024', '品种油麦菜', 'pinzhongyoumaicai', 'P', '2015-12-26 10:11:21', '2015-12-26 10:11:21', '1', '1');
+INSERT INTO crop_varieties VALUES ('2025001', '2025', '品种芹菜', 'pinzhongqincai', 'P', '2015-12-26 10:11:44', '2015-12-26 10:11:44', '1', '1');
+INSERT INTO crop_varieties VALUES ('2026001', '2026', '品种香菜', 'pinzhongxiangcai', 'P', '2015-12-26 10:11:57', '2015-12-26 10:11:57', '1', '1');
+INSERT INTO crop_varieties VALUES ('2027001', '2027', '品种白菜', 'pinzhongbaicai', 'P', '2015-12-26 10:12:06', '2015-12-26 10:12:06', '1', '1');
+INSERT INTO crop_varieties VALUES ('2028001', '2028', '品种菠菜', 'pinzhongbocai', 'P', '2015-12-26 10:12:18', '2015-12-26 10:12:18', '1', '1');
+INSERT INTO crop_varieties VALUES ('2029001', '2029', '品种空心菜', 'pinzhongkongxincai', 'P', '2015-12-26 10:12:27', '2015-12-26 10:12:27', '1', '1');
+INSERT INTO crop_varieties VALUES ('2030001', '2030', '品种生菜', 'pinzhongshengcai', 'P', '2015-12-26 10:12:44', '2015-12-26 10:12:44', '1', '1');
+INSERT INTO crop_varieties VALUES ('2031001', '2031', '品种茼蒿', 'pinzhongtonghao', 'P', '2015-12-26 10:12:53', '2015-12-26 10:12:53', '1', '1');
+INSERT INTO crop_varieties VALUES ('2032001', '2032', '品种地瓜叶', 'pinzhongdiguaye', 'P', '2015-12-26 10:13:01', '2015-12-26 10:13:01', '1', '1');
+INSERT INTO crop_varieties VALUES ('3001001', '3001', '品种肉猪', 'pinzhongrouzhu', 'P', '2015-12-26 10:13:19', '2015-12-26 10:13:19', '1', '1');
+INSERT INTO crop_varieties VALUES ('3002001', '3002', '品种肉牛', 'pinzhongrouniu', 'P', '2015-12-26 10:13:28', '2015-12-26 10:13:28', '1', '1');
+INSERT INTO crop_varieties VALUES ('3003001', '3003', '品种肉羊', 'pinzhongrouyang', 'P', '2015-12-26 10:13:43', '2015-12-26 10:13:43', '1', '1');
+INSERT INTO crop_varieties VALUES ('3004001', '3004', '品种肉兔', 'pinzhongroutu', 'P', '2015-12-26 10:13:51', '2015-12-26 10:13:51', '1', '1');
+INSERT INTO crop_varieties VALUES ('3005001', '3005', '品种肉鸡', 'pinzhongrouji', 'P', '2015-12-26 10:14:10', '2015-12-26 10:14:10', '1', '1');
+INSERT INTO crop_varieties VALUES ('3006001', '3006', '品种肉鸭', 'pinzhongrouya', 'P', '2015-12-26 10:14:20', '2015-12-26 10:14:20', '1', '1');
+INSERT INTO crop_varieties VALUES ('3007001', '3007', '品种肉鹅', 'pinzhongroue', 'P', '2015-12-26 10:14:30', '2015-12-26 10:14:30', '1', '1');
+INSERT INTO crop_varieties VALUES ('3008001', '3008', '品种肉鸽', 'pinzhongrouge', 'P', '2015-12-26 10:14:41', '2015-12-26 10:14:41', '1', '1');
+INSERT INTO crop_varieties VALUES ('3009001', '3009', '品种鸡蛋', 'pinzhongjidan', 'P', '2015-12-26 10:14:50', '2015-12-26 10:14:50', '1', '1');
+INSERT INTO crop_varieties VALUES ('3010001', '3010', '品种鸭蛋', 'pinzhongyadan', 'P', '2015-12-26 10:15:00', '2015-12-26 10:15:00', '1', '1');
+INSERT INTO crop_varieties VALUES ('3011001', '3011', '品种鹅蛋', 'pinzhongedan', 'P', '2015-12-26 10:15:12', '2015-12-26 10:15:12', '1', '1');
+INSERT INTO crop_varieties VALUES ('3012001', '3012', '品种鹌鹑蛋', 'pinzhonganchundan', 'P', '2015-12-26 10:15:25', '2015-12-26 10:15:25', '1', '1');
+INSERT INTO crop_varieties VALUES ('4001001', '4001', '品种海水鱼', 'pinzhonghaishuiyu', 'P', '2015-12-26 10:15:36', '2015-12-26 10:15:36', '1', '1');
+INSERT INTO crop_varieties VALUES ('4002001', '4002', '品种淡水鱼', 'pinzhongdanshuiyu', 'P', '2015-12-26 10:15:44', '2015-12-26 10:15:44', '1', '1');
+INSERT INTO crop_varieties VALUES ('900001001', '900001', '其他品种', 'qitapinzhong', 'Q', '2015-12-26 10:30:22', '2015-12-26 10:30:22', '1', '1');
