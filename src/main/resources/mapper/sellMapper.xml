@@ -207,6 +207,13 @@
 			<if test="isPublish != null">
 				is_publish = #{isPublish},
 			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="auditId != null">
+				audit_id = #{auditId},
+				audit_time = NOW(),
+			</if>
 		</set>
 		<where>
 			<if test="searchIds != null">
@@ -283,6 +290,10 @@
 			</if>
 			<if test="status != null">
 				status = #{status},
+			</if>
+			<if test="auditId != null">
+				audit_id = #{auditId},
+				audit_time = NOW(),
 			</if>
 		</set>
 		WHERE id = #{id}

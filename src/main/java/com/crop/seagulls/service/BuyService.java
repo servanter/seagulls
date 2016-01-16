@@ -59,4 +59,14 @@ public interface BuyService {
     public Map<String, Object> editPre(Long id, Long id2);
 
     public Response modify(Buy buy, List<String> result);
+
+    public Map<String, Object> findAdminList(Buy buy);
+
+    public Response pass(Long id);
+
+    public Response reject(Long id, Integer type, String opinion);
+
+    public Response passAll(String ids);
+
+    public Response rejectAll(String ids, Integer type, String opinion);
 }

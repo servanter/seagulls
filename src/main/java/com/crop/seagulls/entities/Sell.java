@@ -85,7 +85,9 @@ public class Sell extends Base {
     private String pageAddress;
     private String pagePeriod;
     private SellPic firstPic;
-    
+    private User user;
+    private com.crop.seagulls.entities.admin.User auditUser;
+
     private String updatePicIds;
 
     public String getUpdatePicIds() {
@@ -402,6 +404,22 @@ public class Sell extends Base {
 
     public void setSearchIds(List<Long> searchIds) {
         this.searchIds = searchIds;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public com.crop.seagulls.entities.admin.User getAuditUser() {
+        return auditUser;
+    }
+
+    public void setAuditUser(com.crop.seagulls.entities.admin.User auditUser) {
+        this.auditUser = auditUser;
     }
 
     @Override

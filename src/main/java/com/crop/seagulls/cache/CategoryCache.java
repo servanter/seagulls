@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -98,30 +99,32 @@ public class CategoryCache {
 
     public Map<String, Category> getSequenceCategoies(Long id) {
         Map<String, Category> result = new HashMap<String, Category>();
-        List<Long> categoies = new ArrayList<Long>();
-        if (ALL_CATEGORY_MAP.containsKey(id)) {
-            Category cur = ALL_CATEGORY_MAP.get(id);
-            categoies.add(id);
-
-            Category parent = null;
-            for (parent = ALL_CATEGORY_MAP.get(cur.getPId()); parent != null;) {
-                if (parent != null) {
-                    categoies.add(parent.getId());
-                    parent = ALL_CATEGORY_MAP.get(parent.getPId());
+        if(ObjectUtils.notEqual(id, null)) {
+            List<Long> categoies = new ArrayList<Long>();
+            if (ALL_CATEGORY_MAP.containsKey(id)) {
+                Category cur = ALL_CATEGORY_MAP.get(id);
+                categoies.add(id);
+                
+                Category parent = null;
+                for (parent = ALL_CATEGORY_MAP.get(cur.getPId()); parent != null;) {
+                    if (parent != null) {
+                        categoies.add(parent.getId());
+                        parent = ALL_CATEGORY_MAP.get(parent.getPId());
+                    }
                 }
             }
-        }
-
-        if (CollectionUtils.isNotEmpty(categoies)) {
-
-            // before : cur parent parentparent after : parentparent parent cur
-            List<String> methods = CATEGORIES_DB_METHODS;
-            Collections.reverse(categoies);
-            for (int i = 0; i < categoies.size(); i++) {
-                if (methods.size() > i) {
-                    String column = methods.get(i);
-                    Long categoryId = categoies.get(i);
-                    result.put(column, ALL_CATEGORY_MAP.get(categoryId));
+            
+            if (CollectionUtils.isNotEmpty(categoies)) {
+                
+                // before : cur parent parentparent after : parentparent parent cur
+                List<String> methods = CATEGORIES_DB_METHODS;
+                Collections.reverse(categoies);
+                for (int i = 0; i < categoies.size(); i++) {
+                    if (methods.size() > i) {
+                        String column = methods.get(i);
+                        Long categoryId = categoies.get(i);
+                        result.put(column, ALL_CATEGORY_MAP.get(categoryId));
+                    }
                 }
             }
         }

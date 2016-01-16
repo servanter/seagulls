@@ -1,5 +1,6 @@
 package com.crop.seagulls.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -7,18 +8,22 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crop.seagulls.bean.BuyRejectEnum;
 import com.crop.seagulls.bean.CommonStatus;
 import com.crop.seagulls.bean.FavouriteType;
+import com.crop.seagulls.bean.InfoStatus;
 import com.crop.seagulls.bean.Paging;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.bean.SellBuy;
+import com.crop.seagulls.bean.SellRejectEnum;
 import com.crop.seagulls.cache.AreaCache;
 import com.crop.seagulls.cache.CategoryCache;
 import com.crop.seagulls.cache.CompanyCache;
@@ -29,15 +34,17 @@ import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.dao.BuyDAO;
 import com.crop.seagulls.entities.Buy;
 import com.crop.seagulls.entities.BuyPic;
+import com.crop.seagulls.entities.BuyRejection;
 import com.crop.seagulls.entities.Category;
 import com.crop.seagulls.entities.Company;
 import com.crop.seagulls.entities.Favourite;
 import com.crop.seagulls.entities.ProductUnit;
-import com.crop.seagulls.entities.Sell;
-import com.crop.seagulls.entities.SellPic;
+import com.crop.seagulls.entities.SellRejection;
 import com.crop.seagulls.entities.User;
 import com.crop.seagulls.entities.UserAuth;
+import com.crop.seagulls.service.AdminUserService;
 import com.crop.seagulls.service.BuyPicService;
+import com.crop.seagulls.service.BuyRejectionService;
 import com.crop.seagulls.service.BuyService;
 import com.crop.seagulls.service.CompanyService;
 import com.crop.seagulls.service.FavouriteService;
@@ -48,6 +55,7 @@ import com.crop.seagulls.util.DateType;
 import com.crop.seagulls.util.DateUtils;
 import com.crop.seagulls.util.Logger;
 import com.crop.seagulls.util.NumberUtils;
+import com.crop.seagulls.util.SecurityUtils;
 
 @Service
 public class BuyServiceImpl implements BuyService {
@@ -93,6 +101,12 @@ public class BuyServiceImpl implements BuyService {
     @Autowired
     private VarietiesCache varietiesCache;
 
+    @Autowired
+    private BuyRejectionService buyRejectionService;
+
+    @Autowired
+    private AdminUserService adminUserService;
+
     @Override
     public Map<String, Object> addPre(Long userId) {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -124,9 +138,9 @@ public class BuyServiceImpl implements BuyService {
         buy.setCreateTime(new Date());
         buy.setUnitId(productRelationCache.getDefaultUnit());
         packageCategory(buy, buy.getSearchCategoryId());
-        if(ObjectUtils.notEqual(buy.getCompanyId(), null) && buy.getCompanyId() > 0) {
+        if (ObjectUtils.notEqual(buy.getCompanyId(), null) && buy.getCompanyId() > 0) {
             Company company = companyService.findById(buy.getCompanyId());
-            if(ObjectUtils.notEqual(company, null)) {
+            if (ObjectUtils.notEqual(company, null)) {
                 buy.setCompanyName(company.getTitle());
             }
         }
@@ -202,31 +216,12 @@ public class BuyServiceImpl implements BuyService {
         return response;
     }
 
-    private void packageSearchModel(Buy buy) {
-        buy.setSearchCategory(categoryCache.getById(buy.getSearchCategoryId()));
-    }
-
     private void packageModel(List<Buy> buies) {
         if (CollectionUtils.isNotEmpty(buies)) {
             for (Buy buy : buies) {
-                ProductUnit unit = productRelationCache.getUnitById(buy.getUnitId());
-                buy.setPageUnit(unit);
+                addUnit(buy);
 
-                // find category
-                // if (NumberUtils.isValidateNumber(buy.getCategoryId3()) && categoryCache.getById(buy.getCategoryId3()) != null) {
-                // buy.setPageCategory(categoryCache.getById(buy.getCategoryId3()));
-                // } else if (NumberUtils.isValidateNumber(buy.getCategoryId2()) && categoryCache.getById(buy.getCategoryId2()) != null) {
-                // buy.setPageCategory(categoryCache.getById(buy.getCategoryId2()));
-                // } else if (NumberUtils.isValidateNumber(buy.getCategoryId1()) && categoryCache.getById(buy.getCategoryId1()) != null) {
-                // buy.setPageCategory(categoryCache.getById(buy.getCategoryId1()));
-                // }
-                String pagePeriod = StringUtils.EMPTY;
-                if (productRelationCache.isDefaultPeriod(buy.getStartTime()) && productRelationCache.isDefaultPeriod(buy.getEndTime())) {
-                    pagePeriod = productRelationCache.getPeriodById(buy.getStartTime()).getTitle();
-                } else {
-                    pagePeriod = templateService.getMessage("page.sell.list.period.separator", productRelationCache.getPeriodById(buy.getStartTime()).getTitle(), productRelationCache.getPeriodById(buy.getEndTime()).getTitle());
-                }
-                buy.setPagePeriod(pagePeriod);
+                addPeriod(buy);
 
                 // time alias
                 DateType dateType = DateUtils.getTimeDesc(buy.getRefreshTime());
@@ -234,11 +229,6 @@ public class BuyServiceImpl implements BuyService {
 
                 String addr = "";
                 Long cityId = buy.getCityId();
-                // Long provinceId = sell.getProvinceId();
-                // Long areaId = sell.getAreaId();
-
-                // if has area, then display province and area.
-                // else display province and city
                 if (cityId != null && cityId > 0L && areaCache.getById(cityId) != null) {
                     addr = areaCache.getById(cityId).getZhName();
                 }
@@ -250,7 +240,7 @@ public class BuyServiceImpl implements BuyService {
 
                 buy.setPageAddress(addr);
 
-                if (buy.getCompanyId() != null && buy.getCompanyId() > 0) {
+                if (ObjectUtils.notEqual(buy.getCompanyId(), null) && buy.getCompanyId() > 0) {
                     Company company = companyCache.getById(buy.getCompanyId());
                     if (company != null) {
                         buy.setCompanyName(company.getTitle());
@@ -288,42 +278,16 @@ public class BuyServiceImpl implements BuyService {
         Map<String, Object> result = new HashMap<String, Object>();
         Buy buy = buyDAO.getById(b.getId());
         if (buy != null) {
-            ProductUnit unit = productRelationCache.getUnitById(buy.getUnitId());
-            buy.setPageUnit(unit);
 
-            String pagePeriod = StringUtils.EMPTY;
-            if (productRelationCache.isDefaultPeriod(buy.getStartTime()) && productRelationCache.isDefaultPeriod(buy.getEndTime())) {
-                pagePeriod = productRelationCache.getPeriodById(buy.getStartTime()).getTitle();
-            } else {
-                pagePeriod = templateService.getMessage("page.sell.list.period.separator", productRelationCache.getPeriodById(buy.getStartTime()).getTitle(), productRelationCache.getPeriodById(buy.getEndTime()).getTitle());
-            }
-            buy.setPagePeriod(pagePeriod);
+            addUnit(buy);
 
-            // find category
-            if (NumberUtils.isValidateNumber(buy.getCategoryId3()) && categoryCache.getById(buy.getCategoryId3()) != null) {
-                buy.setPageCategory(categoryCache.getById(buy.getCategoryId3()));
-            } else if (NumberUtils.isValidateNumber(buy.getCategoryId2()) && categoryCache.getById(buy.getCategoryId2()) != null) {
-                buy.setPageCategory(categoryCache.getById(buy.getCategoryId2()));
-            } else if (NumberUtils.isValidateNumber(buy.getCategoryId1()) && categoryCache.getById(buy.getCategoryId1()) != null) {
-                buy.setPageCategory(categoryCache.getById(buy.getCategoryId1()));
-            }
+            addPeriod(buy);
 
-            Long cityId = buy.getCityId();
-            Long provinceId = buy.getProvinceId();
-            Long areaId = buy.getAreaId();
-            String addr = "";
+            addCategory(buy);
 
-            if (areaId != null && areaId > 0L && cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(areaId) != null && areaCache.getById(provinceId) != null) {
-                addr = areaCache.getById(provinceId).getZhName() + (areaCache.isSpecial(provinceId) ? "市" : "省") + areaCache.getById(cityId).getZhName() + (areaCache.isSpecial(provinceId) ? "" : "市")
-                        + areaCache.getById(areaId).getZhName();
-            } else if (cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(provinceId) != null) {
-                addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(cityId).getZhName();
-            } else if (areaCache.getById(provinceId) != null) {
-                addr = areaCache.getById(provinceId).getZhName();
-            }
+            addAddr(buy, true);
 
-            buy.setPageAddress(addr);
-            buy.setPageVarieties(varietiesCache.getById(buy.getVarietiesId()));
+            addVarieties(buy);
 
             // company
             if (buy.getCompanyId() != null && buy.getCompanyId() > 0) {
@@ -341,7 +305,15 @@ public class BuyServiceImpl implements BuyService {
                     result.put("authUser", userAuth);
                 }
             }
-
+            
+            if (InfoStatus.code2Rejection(buy.getStatus()) == InfoStatus.REJECT) {
+                BuyRejection reject = buyRejectionService.findByInfoId(buy.getId());
+                if (ObjectUtils.notEqual(reject, null)) {
+                    result.put("rejectType", BuyRejectEnum.code2Rejection(reject.getType()));
+                    result.put("reject", reject);
+                }
+            }
+            
             result.put("pics", detailPicCache.getById(SellBuy.BUY, buy.getId()));
         }
         result.put("model", buy);
@@ -353,25 +325,13 @@ public class BuyServiceImpl implements BuyService {
             favourite.setType(FavouriteType.SELL.getCode());
             result.put("hasFollow", favouriteService.hasFavourite(favourite));
         }
+        
+        
         return result;
     }
 
-    private void initAttr(Buy buy) {
-        String addr = "";
-        Long provinceId = buy.getProvinceId();
-        Long cityId = buy.getCityId();
-        Long areaId = buy.getAreaId();
-
-        // if has area, then display province and area.
-        // else display province and city
-        if (areaId != null && areaId > 0L && areaCache.getById(areaId) != null && areaCache.getById(provinceId) != null) {
-            addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(areaId).getZhName();
-        } else if (cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(provinceId) != null) {
-            addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(cityId).getZhName();
-        } else if (areaCache.getById(provinceId) != null) {
-            addr = areaCache.getById(provinceId).getZhName();
-        }
-        buy.setPageOriginAddr(addr);
+    private void addVarieties(Buy buy) {
+        buy.setPageVarieties(varietiesCache.getById(buy.getVarietiesId()));
     }
 
     @Override
@@ -456,45 +416,19 @@ public class BuyServiceImpl implements BuyService {
         Map<String, Object> result = new HashMap<String, Object>();
         Buy buy = buyDAO.getById(id);
         if (buy != null) {
-            ProductUnit unit = productRelationCache.getUnitById(buy.getUnitId());
-            buy.setPageUnit(unit);
+            addUnit(buy);
 
-            String pagePeriod = StringUtils.EMPTY;
-            if (productRelationCache.isDefaultPeriod(buy.getStartTime()) && productRelationCache.isDefaultPeriod(buy.getEndTime())) {
-                pagePeriod = productRelationCache.getPeriodById(buy.getStartTime()).getTitle();
-            } else {
-                pagePeriod = templateService.getMessage("page.sell.list.period.separator", productRelationCache.getPeriodById(buy.getStartTime()).getTitle(), productRelationCache.getPeriodById(buy.getEndTime()).getTitle());
-            }
-            buy.setPagePeriod(pagePeriod);
+            addPeriod(buy);
 
             // find category
-            if (NumberUtils.isValidateNumber(buy.getCategoryId3()) && categoryCache.getById(buy.getCategoryId3()) != null) {
-                buy.setPageCategory(categoryCache.getById(buy.getCategoryId3()));
-            } else if (NumberUtils.isValidateNumber(buy.getCategoryId2()) && categoryCache.getById(buy.getCategoryId2()) != null) {
-                buy.setPageCategory(categoryCache.getById(buy.getCategoryId2()));
-            } else if (NumberUtils.isValidateNumber(buy.getCategoryId1()) && categoryCache.getById(buy.getCategoryId1()) != null) {
-                buy.setPageCategory(categoryCache.getById(buy.getCategoryId1()));
-            }
+            addCategory(buy);
 
             if (buy.getPageCategory() != null) {
                 result.put("varieties", varietiesCache.getByCategoryId(buy.getPageCategory().getId()));
             }
-            Long cityId = buy.getCityId();
-            Long provinceId = buy.getProvinceId();
-            Long areaId = buy.getAreaId();
-            String addr = "";
+            addAddr(buy);
 
-            if (areaId != null && areaId > 0L && cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(areaId) != null && areaCache.getById(provinceId) != null) {
-                addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(cityId).getZhName() + areaCache.getById(areaId).getZhName();
-            } else if (cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(provinceId) != null) {
-                addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(cityId).getZhName();
-            } else if (areaCache.getById(provinceId) != null) {
-                addr = areaCache.getById(provinceId).getZhName();
-            }
-
-            buy.setPageAddress(addr);
-
-            buy.setPageVarieties(varietiesCache.getById(buy.getVarietiesId()));
+            addVarieties(buy);
 
         }
         result.put("pics", detailPicCache.getById(SellBuy.BUY, buy.getId()));
@@ -571,6 +505,147 @@ public class BuyServiceImpl implements BuyService {
             response.setResult(buy.getId());
         } else {
             response.setReturnCode(ReturnCode.ERROR);
+        }
+        return response;
+    }
+
+    @Override
+    public Map<String, Object> findAdminList(Buy buy) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        packageCategory(buy, buy.getSearchCategoryId());
+        List<Buy> list = buyDAO.getList(buy);
+        Integer totalCount = buyDAO.getListCount(buy);
+        Paging<Buy> result = new Paging<Buy>(totalCount, buy.getPage(), buy.getPageSize(), list);
+        packageAdminModel(list);
+        map.put("list", result);
+        return map;
+    }
+
+    private void packageAdminModel(List<Buy> list) {
+        if (CollectionUtils.isNotEmpty(list)) {
+            for (Buy buy : list) {
+                addUnit(buy);
+                addPeriod(buy);
+                addAddr(buy, true);
+                addCategory(buy);
+                addVarieties(buy);
+
+                if (ObjectUtils.notEqual(buy.getAuditId(), null) && buy.getAuditId() > 0) {
+                    buy.setAuditUser(adminUserService.findById(buy.getAuditId()));
+                }
+
+                // add user
+                User user = userService.findUserById(buy.getCreateUserId());
+                buy.setUser(user);
+            }
+        }
+    }
+
+    private void addAddr(Buy buy, Boolean... suffix) {
+        boolean hasSuffix = false;
+        if (ArrayUtils.isNotEmpty(suffix)) {
+            hasSuffix = suffix[0];
+        }
+        Long cityId = buy.getCityId();
+        Long provinceId = buy.getProvinceId();
+        Long areaId = buy.getAreaId();
+        String addr = "";
+
+        if (areaId != null && areaId > 0L && cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(areaId) != null && areaCache.getById(provinceId) != null) {
+            addr = areaCache.getById(provinceId).getZhName() + (hasSuffix ? (areaCache.isSpecial(provinceId) ? "市" : "省") : "") + areaCache.getById(cityId).getZhName()
+                    + (hasSuffix ? (areaCache.isSpecial(provinceId) ? "" : "市") : "") + areaCache.getById(areaId).getZhName();
+        } else if (cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(provinceId) != null) {
+            addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(cityId).getZhName();
+        } else if (areaCache.getById(provinceId) != null) {
+            addr = areaCache.getById(provinceId).getZhName();
+        }
+
+        buy.setPageAddress(addr);
+    }
+
+    private void addCategory(Buy buy) {
+        if (NumberUtils.isValidateNumber(buy.getCategoryId3()) && categoryCache.getById(buy.getCategoryId3()) != null) {
+            buy.setPageCategory(categoryCache.getById(buy.getCategoryId3()));
+        } else if (NumberUtils.isValidateNumber(buy.getCategoryId2()) && categoryCache.getById(buy.getCategoryId2()) != null) {
+            buy.setPageCategory(categoryCache.getById(buy.getCategoryId2()));
+        } else if (NumberUtils.isValidateNumber(buy.getCategoryId1()) && categoryCache.getById(buy.getCategoryId1()) != null) {
+            buy.setPageCategory(categoryCache.getById(buy.getCategoryId1()));
+        }
+    }
+
+    private void addPeriod(Buy buy) {
+        String pagePeriod = StringUtils.EMPTY;
+        if (productRelationCache.isDefaultPeriod(buy.getStartTime()) && productRelationCache.isDefaultPeriod(buy.getEndTime())) {
+            pagePeriod = productRelationCache.getPeriodById(buy.getStartTime()).getTitle();
+        } else {
+            pagePeriod = templateService.getMessage("page.sell.list.period.separator", productRelationCache.getPeriodById(buy.getStartTime()).getTitle(), productRelationCache.getPeriodById(buy.getEndTime()).getTitle());
+        }
+        buy.setPagePeriod(pagePeriod);
+    }
+
+    private void addUnit(Buy buy) {
+        ProductUnit unit = productRelationCache.getUnitById(buy.getUnitId());
+        buy.setPageUnit(unit);
+    }
+
+    @Override
+    public Response pass(Long id) {
+        Buy buy = new Buy();
+        buy.setId(id);
+        buy.setStatus(InfoStatus.PASS.getCode());
+        buy.setAuditId(SecurityUtils.getLoginedUserId());
+        return buyDAO.update(buy) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+    }
+
+    @Override
+    public Response reject(Long id, Integer type, String opinion) {
+        Response response = new Response(ReturnCode.SUCCESS);
+        Buy buy = new Buy();
+        buy.setId(id);
+        buy.setStatus(InfoStatus.REJECT.getCode());
+        buy.setAuditId(SecurityUtils.getLoginedUserId());
+        response = buyDAO.update(buy) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+        if (ReturnCode.isSuccess(response.getReturnCode())) {
+            BuyRejection rejection = new BuyRejection();
+            rejection.setAuditId(SecurityUtils.getLoginedUserId());
+            rejection.setInfoId(id);
+            rejection.setOpinion(opinion);
+            rejection.setType(type);
+            response = buyRejectionService.add(rejection);
+        }
+        return response;
+    }
+
+    @Override
+    public Response passAll(String ids) {
+        Buy buy = new Buy();
+        buy.setStatus(InfoStatus.PASS.getCode());
+        buy.setAuditId(SecurityUtils.getLoginedUserId());
+        List<Long> id = NumberUtils.strSplit2List(ids, ",", Long.class);
+        buy.setSearchIds(id);
+        return buyDAO.batchUpdate(buy) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+    }
+
+    @Override
+    public Response rejectAll(String ids, Integer type, String opinion) {
+        Response response = new Response(ReturnCode.SUCCESS);
+        Buy buy = new Buy();
+        buy.setStatus(InfoStatus.REJECT.getCode());
+        buy.setAuditId(SecurityUtils.getLoginedUserId());
+        List<Long> id = NumberUtils.strSplit2List(ids, ",", Long.class);
+        buy.setSearchIds(id);
+        response = buyDAO.batchUpdate(buy) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+        if (ReturnCode.isSuccess(response.getReturnCode())) {
+            List<BuyRejection> rejections = new ArrayList<BuyRejection>();
+            for (Long everyId : id) {
+                BuyRejection rejection = new BuyRejection();
+                rejection.setAuditId(SecurityUtils.getLoginedUserId());
+                rejection.setInfoId(everyId);
+                rejection.setOpinion(opinion);
+                rejection.setType(type);
+                rejections.add(rejection);
+            }
+            response = buyRejectionService.batchAdd(rejections);
         }
         return response;
     }

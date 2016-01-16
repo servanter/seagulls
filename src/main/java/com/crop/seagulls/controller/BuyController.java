@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.crop.seagulls.bean.BuyRejectEnum;
+import com.crop.seagulls.bean.InfoStatus;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.bean.SellBuy;
@@ -60,17 +62,19 @@ public class BuyController {
             return uploadResponse;
         }
     }
-    
+
     @RequestMapping(value = "/buy/edit", method = RequestMethod.GET)
-    public String enterEdit(@RequestParam("id") Long id, HttpSession session, Model model) {
+    public String enterEdit(@RequestParam("id")
+    Long id, HttpSession session, Model model) {
         Map<String, Object> map = buyService.editPre(id, SessionUtils.getCurUser(session).getId());
         model.mergeAttributes(map);
         return "buy/edit";
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/buy/edit", method = RequestMethod.POST)
-    public Response edit(Buy Buy, @RequestParam("updatePicIds") String ids, HttpServletRequest request, HttpSession session) {
+    public Response edit(Buy Buy, @RequestParam("updatePicIds")
+    String ids, HttpServletRequest request, HttpSession session) {
         Response uploadResponse = UploadUtils.upload("images/publish/", "images/publish/", Constant.BUY, request);
         if (ReturnCode.isSuccess(uploadResponse.getReturnCode())) {
             Buy.setCreateUserId(SessionUtils.getCurUser(session).getId());
@@ -80,6 +84,14 @@ public class BuyController {
         } else {
             return uploadResponse;
         }
+    }
+
+    @RequestMapping(value = "/buy/editSuccess", method = RequestMethod.GET)
+    public String editSuccess(@RequestParam("id")
+    Long id, Model model) {
+        model.addAttribute("sellBuy", SellBuy.BUY.getCode());
+        model.addAttribute("id", id);
+        return "publish/edit_success";
     }
 
     @RequestMapping(value = "/buy/publishSuccess", method = RequestMethod.GET)
@@ -95,7 +107,7 @@ public class BuyController {
         Buy buy = new Buy();
         buy.setIsValid(true);
         buy.setIsPublish(true);
-        buy.setStatus(1);
+        buy.setStatus(InfoStatus.PASS.getCode());
         Map<String, Object> map = buyService.findList(buy);
         model.mergeAttributes(map);
         return "buy/buy_index";
@@ -108,7 +120,7 @@ public class BuyController {
         buy.setSearchCategoryId(category);
         buy.setIsValid(true);
         buy.setIsPublish(true);
-        buy.setStatus(1);
+        buy.setStatus(InfoStatus.PASS.getCode());
         Map<String, Object> map = buyService.findList(buy);
         model.mergeAttributes(map);
         model.addAttribute("s", buy);
@@ -240,6 +252,75 @@ public class BuyController {
     public Response on(@RequestParam("detail_ids")
     String detailIds, HttpSession session, Model model) {
         return buyService.on(detailIds, SessionUtils.getCurUser(session).getId());
+    }
+
+    @RequestMapping("/admin/buy/auditList_n{page:\\d+}")
+    public String auditList(@PathVariable("page")
+    Integer page, Model model) {
+        Buy buy = new Buy();
+        buy.setPage(page);
+        buy.setStatus(InfoStatus.AUDITING.getCode());
+        buy.setIsPublish(true);
+        buy.setIsValid(true);
+        model.mergeAttributes(buyService.findAdminList(buy));
+        model.addAttribute("rejects", BuyRejectEnum.values());
+        return "admin/buy/auditing_list";
+    }
+
+    @RequestMapping("/admin/buy/passList_n{page:\\d+}")
+    public String passList(@PathVariable("page")
+    Integer page, Model model) {
+        Buy buy = new Buy();
+        buy.setPage(page);
+        buy.setStatus(InfoStatus.PASS.getCode());
+        buy.setIsPublish(true);
+        buy.setIsValid(true);
+        model.mergeAttributes(buyService.findAdminList(buy));
+        return "admin/buy/pass_list";
+    }
+
+    @RequestMapping("/admin/buy/rejectList_n{page:\\d+}")
+    public String rejectList(@PathVariable("page")
+    Integer page, Model model) {
+        Buy buy = new Buy();
+        buy.setPage(page);
+        buy.setStatus(InfoStatus.REJECT.getCode());
+        buy.setIsPublish(true);
+        buy.setIsValid(true);
+        model.mergeAttributes(buyService.findAdminList(buy));
+        return "admin/buy/reject_list";
+    }
+
+    @ResponseBody
+    @RequestMapping("/admin/buy/pass")
+    public Response companyPass(@RequestParam("id")
+    Long id) {
+        return buyService.pass(id);
+    }
+
+    @ResponseBody
+    @RequestMapping("/admin/buy/reject")
+    public Response companyReject(@RequestParam("type")
+    Integer type, @RequestParam("opinion")
+    String opinion, @RequestParam("id")
+    Long id) {
+        return buyService.reject(id, type, opinion);
+    }
+
+    @ResponseBody
+    @RequestMapping("/admin/buy/passAll")
+    public Response companyPassAll(@RequestParam("ids")
+    String ids) {
+        return buyService.passAll(ids);
+    }
+
+    @ResponseBody
+    @RequestMapping("/admin/buy/rejectAll")
+    public Response companyRejectAll(@RequestParam("ids")
+    String ids, @RequestParam("type")
+    Integer type, @RequestParam("opinion")
+    String opinion) {
+        return buyService.rejectAll(ids, type, opinion);
     }
 
 }

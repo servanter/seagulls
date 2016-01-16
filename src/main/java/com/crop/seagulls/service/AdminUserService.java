@@ -16,7 +16,9 @@ public interface AdminUserService {
     
     public List<User> findAll();
 
-    public Response findById(Long id);
+    public User findById(Long id);
+    
+    public Response ajaxFindById(Long id);
 
     public Response modify(User user);
 

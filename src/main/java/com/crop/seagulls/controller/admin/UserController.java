@@ -83,7 +83,7 @@ public class UserController {
     @RequestMapping("/user/ajaxFindById")
     public Response ajaxFindById(@RequestParam("id")
     Long id) {
-        return adminUserService.findById(id);
+        return adminUserService.ajaxFindById(id);
     }
 
     @ResponseBody

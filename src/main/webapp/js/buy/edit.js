@@ -129,7 +129,7 @@ $(function() {
 				if (data.code != 10000) {
 					Alert.error(data.message);
 				} else {
-					BaseUtils.redirect(BaseUtils.proPath + 'buy/publishSuccess/?id=' + data.result);
+					BaseUtils.redirect(BaseUtils.proPath + 'buy/editSuccess/?id=' + data.result);
 				}
 			}
 		}

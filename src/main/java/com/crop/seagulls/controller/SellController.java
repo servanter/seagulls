@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.crop.seagulls.bean.BuyRejectEnum;
+import com.crop.seagulls.bean.InfoStatus;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.bean.SellBuy;
@@ -22,7 +25,9 @@ import com.crop.seagulls.bean.SellBuyStatusEnum;
 import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.entities.Sell;
 import com.crop.seagulls.entities.SellPic;
+import com.crop.seagulls.entities.SellRejection;
 import com.crop.seagulls.service.SellPicService;
+import com.crop.seagulls.service.SellRejectionService;
 import com.crop.seagulls.service.SellService;
 import com.crop.seagulls.util.SessionUtils;
 import com.crop.seagulls.util.UploadUtils;
@@ -42,6 +47,9 @@ public class SellController {
     @Autowired
     private SellPicService sellPicService;
 
+    @Autowired
+    private SellRejectionService sellRejectionService;
+
     @RequestMapping(value = "/sell/publish", method = RequestMethod.GET)
     public String enterPublish(HttpSession session, Model model) {
         model.mergeAttributes(sellService.addPre(SessionUtils.getCurUser(session).getId()));
@@ -60,17 +68,19 @@ public class SellController {
             return uploadResponse;
         }
     }
-    
+
     @RequestMapping(value = "/sell/edit", method = RequestMethod.GET)
-    public String enterEdit(@RequestParam("id") Long id, HttpSession session, Model model) {
+    public String enterEdit(@RequestParam("id")
+    Long id, HttpSession session, Model model) {
         Map<String, Object> map = sellService.editPre(id, SessionUtils.getCurUser(session).getId());
         model.mergeAttributes(map);
         return "sell/edit";
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/sell/edit", method = RequestMethod.POST)
-    public Response edit(Sell sell, @RequestParam("updatePicIds") String ids, HttpServletRequest request, HttpSession session) {
+    public Response edit(Sell sell, @RequestParam("updatePicIds")
+    String ids, HttpServletRequest request, HttpSession session) {
         Response uploadResponse = UploadUtils.upload("images/publish/", "images/publish/", Constant.SELL, request);
         if (ReturnCode.isSuccess(uploadResponse.getReturnCode())) {
             sell.setCreateUserId(SessionUtils.getCurUser(session).getId());
@@ -80,6 +90,14 @@ public class SellController {
         } else {
             return uploadResponse;
         }
+    }
+
+    @RequestMapping(value = "/sell/editSuccess", method = RequestMethod.GET)
+    public String editSuccess(@RequestParam("id")
+    Long id, Model model) {
+        model.addAttribute("sellBuy", SellBuy.SELL.getCode());
+        model.addAttribute("id", id);
+        return "publish/edit_success";
     }
 
     @RequestMapping(value = "/sell/publishSuccess", method = RequestMethod.GET)
@@ -188,7 +206,7 @@ public class SellController {
         sell.setCreateUserId(SessionUtils.getCurUser(session).getId());
         return sellService.ajaxFindByUserId(sell);
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/user/sell/ajaxMyDown")
     public Response ajaxMyDown(@RequestParam("page")
@@ -200,8 +218,7 @@ public class SellController {
         sell.setCreateUserId(SessionUtils.getCurUser(session).getId());
         return sellService.ajaxFindByUserId(sell);
     }
-    
-    
+
     @ResponseBody
     @RequestMapping(value = "/user/sell/ajaxMyAuditing")
     public Response ajaxMyAuditing(@RequestParam("page")
@@ -222,8 +239,7 @@ public class SellController {
         model.addAttribute("pics", pics);
         return "sell/sell_pic";
     }
-    
-    
+
     @ResponseBody
     @RequestMapping(value = "/user/sell/refresh")
     public Response refresh(@RequestParam("detail_ids")
@@ -243,5 +259,74 @@ public class SellController {
     public Response on(@RequestParam("detail_ids")
     String detailIds, HttpSession session, Model model) {
         return sellService.on(detailIds, SessionUtils.getCurUser(session).getId());
+    }
+
+    @RequestMapping("/admin/sell/auditList_n{page:\\d+}")
+    public String auditList(@PathVariable("page")
+    Integer page, Model model) {
+        Sell sell = new Sell();
+        sell.setPage(page);
+        sell.setStatus(InfoStatus.AUDITING.getCode());
+        sell.setIsPublish(true);
+        sell.setIsValid(true);
+        model.mergeAttributes(sellService.findAdminList(sell));
+        model.addAttribute("rejects", BuyRejectEnum.values());
+        return "admin/sell/auditing_list";
+    }
+
+    @RequestMapping("/admin/sell/passList_n{page:\\d+}")
+    public String passList(@PathVariable("page")
+    Integer page, Model model) {
+        Sell sell = new Sell();
+        sell.setPage(page);
+        sell.setStatus(InfoStatus.PASS.getCode());
+        sell.setIsPublish(true);
+        sell.setIsValid(true);
+        model.mergeAttributes(sellService.findAdminList(sell));
+        return "admin/sell/pass_list";
+    }
+
+    @RequestMapping("/admin/sell/rejectList_n{page:\\d+}")
+    public String rejectList(@PathVariable("page")
+    Integer page, Model model) {
+        Sell sell = new Sell();
+        sell.setPage(page);
+        sell.setStatus(InfoStatus.REJECT.getCode());
+        sell.setIsPublish(true);
+        sell.setIsValid(true);
+        model.mergeAttributes(sellService.findAdminList(sell));
+        return "admin/sell/reject_list";
+    }
+
+    @ResponseBody
+    @RequestMapping("/admin/sell/pass")
+    public Response companyPass(@RequestParam("id")
+    Long id) {
+        return sellService.pass(id);
+    }
+
+    @ResponseBody
+    @RequestMapping("/admin/sell/reject")
+    public Response companyReject(@RequestParam("type")
+    Integer type, @RequestParam("opinion")
+    String opinion, @RequestParam("id")
+    Long id) {
+        return sellService.reject(id, type, opinion);
+    }
+
+    @ResponseBody
+    @RequestMapping("/admin/sell/passAll")
+    public Response companyPassAll(@RequestParam("ids")
+    String ids) {
+        return sellService.passAll(ids);
+    }
+
+    @ResponseBody
+    @RequestMapping("/admin/sell/rejectAll")
+    public Response companyRejectAll(@RequestParam("ids")
+    String ids, @RequestParam("type")
+    Integer type, @RequestParam("opinion")
+    String opinion) {
+        return sellService.rejectAll(ids, type, opinion);
     }
 }

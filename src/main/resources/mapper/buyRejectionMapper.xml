@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crop.seagulls.dao.BuyRejectionDAO">
+
+	<resultMap id="buyRejectionMap" type="buyRejection">
+		<result property="id" column="id" />
+		<result property="infoId" column="info_id" />
+		<result property="type" column="type" />
+		<result property="opinion" column="opinion" />
+		<result property="auditId" column="audit_id" />
+		<result property="auditTime" column="audit_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+	<sql id="base_columns">id, info_id, type, opinion, audit_time, update_time, audit_id </sql>
+	
+	<select id="getList" parameterType="buyRejection" resultMap="buyRejectionMap">
+		SELECT 
+		<include refid="base_columns"/>
+		FROM crop_buy_reject 
+		<where>
+			<if test="infoId != null">
+				AND info_id = #{infoId}
+			</if>
+		</where>
+		 ORDER BY update_time DESC LIMIT 1
+	</select>
+	
+	<select id="getListCount" parameterType="buyRejection" resultType="int">
+		SELECT COUNT(*)
+		FROM crop_buy_reject 
+		<where>
+			<if test="infoId != null">
+				info_id = #{infoId}
+			</if>)
+		</where>
+	</select>
+	
+	<insert id="save" parameterType="buyRejection" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO crop_buy_reject(info_id, type, opinion, audit_time, audit_id)
+		VALUES(#{infoId}, #{type}, #{opinion}, NOW(), #{auditId})
+	</insert>
+	
+	<insert id="batchSave">
+		INSERT INTO crop_buy_reject(info_id, type, opinion, audit_time, audit_id)
+		VALUES
+		<foreach collection="list" item="reject" separator=",">
+			(#{reject.infoId}, #{reject.type}, #{reject.opinion}, NOW(), #{reject.auditId})
+		</foreach>
+	</insert>
+</mapper>

@@ -93,7 +93,12 @@ public class AdminUserServiceImpl implements AdminUserService, UserDetailsServic
     }
 
     @Override
-    public Response findById(Long id) {
+    public User findById(Long id) {
+        return adminUserDAO.getById(id);
+    }
+
+    @Override
+    public Response ajaxFindById(Long id) {
         Response response = new Response(ReturnCode.SUCCESS);
         User user = adminUserDAO.getById(id);
         user.setRoles(roleService.findByUserId(user.getId()));

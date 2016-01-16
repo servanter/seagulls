@@ -110,7 +110,7 @@ $(function() {
 				if (data.code != 10000) {
 					Alert.info(data.message);
 				} else {
-					BaseUtils.redirect(BaseUtils.proPath + 'sell/publishSuccess/?id=' + data.result);
+					BaseUtils.redirect(BaseUtils.proPath + 'sell/editSuccess/?id=' + data.result);
 				}
 			}
 		}
