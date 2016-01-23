@@ -526,6 +526,10 @@ public class SellServiceImpl implements SellService {
                 sell.setCompanyName(company.getTitle());
             }
         }
+
+        if (ObjectUtils.equals(sell.getStatus(), null)) {
+            sell.setStatus(InfoStatus.AUDITING.getCode());
+        }
         int affect = sellDAO.update(sell);
         if (affect > 0) {
             List<Long> ids = NumberUtils.strSplit2List(sell.getUpdatePicIds(), ",", Long.class);

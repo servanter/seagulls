@@ -91,7 +91,7 @@
 							  <ul class="pagination pull-right">
 							  	<c:choose>
 							  		<c:when test="${list.page > 1}">
-							  			<li><a href="${ctx }/admin//passList_n${list.page - 1 }/?pId=${s.parentId }" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+							  			<li><a href="${ctx }/admin/sell/passList_n${list.page - 1 }/?pId=${s.parentId }" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
 							  		</c:when>
 							  		<c:otherwise>
 							  			<li class="disabled"><a href="javascript:void(0)" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
@@ -104,13 +104,13 @@
 							  				<li class="active"><a href="javascript:void(0)">${i.index }<span class="sr-only">(current)</span></a></li>
 							  			</c:when>
 							  			<c:otherwise>
-							  				<li><a href="${ctx }/admin//passList_n${i.index }/?pId=${s.parentId }">${i.index }<span class="sr-only">(current)</span></a></li>
+							  				<li><a href="${ctx }/admin/sell/passList_n${i.index }/?pId=${s.parentId }">${i.index }<span class="sr-only">(current)</span></a></li>
 							  			</c:otherwise>
 							  		</c:choose>
 							  	</c:forEach>
 							    <c:choose>
 							  		<c:when test="${list.totalPage > list.page}">
-							  			<li><a href="${ctx }/admin//passList_n${list.page + 1 }/?pId=${s.parentId }" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+							  			<li><a href="${ctx }/admin/sell/passList_n${list.page + 1 }/?pId=${s.parentId }" aria-label="Next"><span aria-hidden="true">»</span></a></li>
 							  		</c:when>
 							  		<c:otherwise>
 							  			<li class="disabled"><a href="javascript:void(0)" aria-label="Next"><span aria-hidden="true">»</span></a></li>

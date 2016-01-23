@@ -463,6 +463,10 @@ public class BuyServiceImpl implements BuyService {
                 buy.setCompanyName(company.getTitle());
             }
         }
+
+        if (ObjectUtils.equals(buy.getStatus(), null)) {
+            buy.setStatus(InfoStatus.AUDITING.getCode());
+        }
         int affect = buyDAO.update(buy);
         if (affect > 0) {
             List<Long> ids = NumberUtils.strSplit2List(buy.getUpdatePicIds(), ",", Long.class);

@@ -167,7 +167,9 @@
 			<if test="createUserId != null and createUserId > 0">
 				AND create_user_id = #{createUserId}
 			</if>
-			AND status = 1
+			<if test="status != null">
+				AND status = #{status}
+			</if>
 		</where>
 	</select>
 	
