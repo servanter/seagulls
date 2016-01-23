@@ -52,5 +52,9 @@ $(function () {
 		}
 
 	});
+	
+	$('.btn-back').click(function() {
+		BaseUtils.prev();
+	});
 });
 

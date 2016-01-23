@@ -66,7 +66,7 @@
 												<input class="primary-id" name="modelId" type="checkbox" value="${model.id }">
 											</td>
 											<td>${model.id }</td>
-											<td>${model.title }</td>
+											<td><a href="${ctx }/admin/buy/buy_detail_${model.id}.html">${model.title }</a></td>
 											<td>${model.pageCategory.zhName }</td>
 											<td>${model.pageVarieties.zhName }</td>
 											<td>${model.pageAddress }</td>

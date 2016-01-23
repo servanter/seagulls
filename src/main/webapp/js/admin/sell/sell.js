@@ -21,8 +21,10 @@ $(function() {
 		}
 
 		var url = 'admin/sell/reject/';
-		if($('#form-edit input[name=ids]').val().indexOf(',') > 0 || $('#form-edit input[name=ids]').val().length > 0) {
-			url = 'admin/sell/rejectAll/';
+		if($('#form-edit input[name=ids]').val() != undefined) {
+			if($('#form-edit input[name=ids]').val().length && ($('#form-edit input[name=ids]').val().indexOf(',') > 0 || $('#form-edit input[name=ids]').val().length > 0)) {
+				url = 'admin/sell/rejectAll/';
+			}
 		}
 		var option = {
 			type: 'POST',

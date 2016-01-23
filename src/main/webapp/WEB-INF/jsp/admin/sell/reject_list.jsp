@@ -57,7 +57,7 @@
 									<c:forEach var="model" items="${list.result}">
 										<tr>
 											<td>${model.id }</td>
-											<td>${model.title }</td>
+											<td><a href="${ctx }/admin/sell/sell_detail_${model.id}.html">${model.title }</a></td>
 											<td>${model.pageCategory.zhName }</td>
 											<td>${model.pageVarieties.zhName }</td>
 											<td>${model.pageAddress }</td>

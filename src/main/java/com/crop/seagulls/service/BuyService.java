@@ -69,4 +69,6 @@ public interface BuyService {
     public Response passAll(String ids);
 
     public Response rejectAll(String ids, Integer type, String opinion);
+
+    public Map<String, ?> findAdminById(Buy sell);
 }

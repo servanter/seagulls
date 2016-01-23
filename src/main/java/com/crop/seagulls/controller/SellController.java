@@ -329,4 +329,12 @@ public class SellController {
     String opinion) {
         return sellService.rejectAll(ids, type, opinion);
     }
+
+    @RequestMapping("/admin/sell/sell_detail_{id:\\d+}.html")
+    public String adminSellDetail(@PathVariable("id") Long id,Model model) {
+        Sell sell = new Sell();
+        sell.setId(id);
+        model.mergeAttributes(sellService.findAdminById(sell));
+        return "admin/sell/sell_detail";
+    }
 }

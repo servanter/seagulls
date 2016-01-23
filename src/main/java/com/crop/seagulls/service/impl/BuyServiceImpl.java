@@ -305,7 +305,7 @@ public class BuyServiceImpl implements BuyService {
                     result.put("authUser", userAuth);
                 }
             }
-            
+
             if (InfoStatus.code2Rejection(buy.getStatus()) == InfoStatus.REJECT) {
                 BuyRejection reject = buyRejectionService.findByInfoId(buy.getId());
                 if (ObjectUtils.notEqual(reject, null)) {
@@ -313,20 +313,19 @@ public class BuyServiceImpl implements BuyService {
                     result.put("reject", reject);
                 }
             }
-            
+
             result.put("pics", detailPicCache.getById(SellBuy.BUY, buy.getId()));
         }
         result.put("model", buy);
 
-        if (!ObjectUtils.equals(b.getLoginUser().getId(), null) && b.getLoginUser().getId() > 0) {
+        if (ObjectUtils.notEqual(b.getLoginUser(), null) && ObjectUtils.notEqual(b.getLoginUser().getId(), null) && b.getLoginUser().getId() > 0) {
             Favourite favourite = new Favourite();
             favourite.setUserId(b.getLoginUser().getId());
             favourite.setTargetId(b.getId());
             favourite.setType(FavouriteType.SELL.getCode());
             result.put("hasFollow", favouriteService.hasFavourite(favourite));
         }
-        
-        
+
         return result;
     }
 
@@ -650,4 +649,10 @@ public class BuyServiceImpl implements BuyService {
         return response;
     }
 
+    @Override
+    public Map<String, Object> findAdminById(Buy buy) {
+        Map<String, Object> result = findById(buy);
+        result.put("rejects", BuyRejectEnum.values());
+        return result;
+    }
 }

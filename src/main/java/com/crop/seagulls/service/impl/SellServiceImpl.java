@@ -15,6 +15,7 @@ import org.apache.commons.lang3.reflect.MethodUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.crop.seagulls.bean.BuyRejectEnum;
 import com.crop.seagulls.bean.CommonStatus;
 import com.crop.seagulls.bean.FavouriteType;
 import com.crop.seagulls.bean.InfoStatus;
@@ -101,7 +102,7 @@ public class SellServiceImpl implements SellService {
 
     @Autowired
     private SellRejectionService sellRejectionService;
-    
+
     @Autowired
     private AdminUserService adminUserService;
 
@@ -288,7 +289,7 @@ public class SellServiceImpl implements SellService {
                     result.put("authUser", userAuth);
                 }
             }
-            
+
             if (InfoStatus.code2Rejection(sell.getStatus()) == InfoStatus.REJECT) {
                 SellRejection reject = sellRejectionService.findByInfoId(sell.getId());
                 if (ObjectUtils.notEqual(reject, null)) {
@@ -300,16 +301,14 @@ public class SellServiceImpl implements SellService {
         }
         result.put("model", sell);
 
-        if (!ObjectUtils.equals(s.getLoginUser().getId(), null) && s.getLoginUser().getId() > 0) {
+        if (ObjectUtils.notEqual(s.getLoginUser(), null) && ObjectUtils.notEqual(s.getLoginUser().getId(), null) && s.getLoginUser().getId() > 0) {
             Favourite favourite = new Favourite();
             favourite.setUserId(s.getLoginUser().getId());
             favourite.setTargetId(s.getId());
             favourite.setType(FavouriteType.SELL.getCode());
             result.put("hasFollow", favouriteService.hasFavourite(favourite));
         }
-        
-        
-        
+
         return result;
     }
 
@@ -664,6 +663,13 @@ public class SellServiceImpl implements SellService {
             response = sellRejectionService.batchAdd(rejections);
         }
         return response;
+    }
+
+    @Override
+    public Map<String, Object> findAdminById(Sell sell) {
+        Map<String, Object> result = findById(sell);
+        result.put("rejects", BuyRejectEnum.values());
+        return result;
     }
 
 }

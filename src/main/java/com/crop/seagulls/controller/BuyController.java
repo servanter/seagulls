@@ -24,6 +24,7 @@ import com.crop.seagulls.bean.SellBuyStatusEnum;
 import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.entities.Buy;
 import com.crop.seagulls.entities.BuyPic;
+import com.crop.seagulls.entities.Sell;
 import com.crop.seagulls.service.BuyPicService;
 import com.crop.seagulls.service.BuyService;
 import com.crop.seagulls.util.SessionUtils;
@@ -321,6 +322,14 @@ public class BuyController {
     Integer type, @RequestParam("opinion")
     String opinion) {
         return buyService.rejectAll(ids, type, opinion);
+    }
+    
+    @RequestMapping("/admin/buy/buy_detail_{id:\\d+}.html")
+    public String adminBuyDetail(@PathVariable("id") Long id,Model model) {
+        Buy sell = new Buy();
+        sell.setId(id);
+        model.mergeAttributes(buyService.findAdminById(sell));
+        return "admin/buy/buy_detail";
     }
 
 }

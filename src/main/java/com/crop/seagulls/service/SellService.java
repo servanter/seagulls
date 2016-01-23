@@ -66,10 +66,11 @@ public interface SellService {
     public Response on(String detailIds, Long id);
     public Map<String, Object> editPre(Long id, Long createUserId);
     public Response modify(Sell sell, List<String> result);
-    public Map<String, ?> findAdminList(Sell sell);
+    public Map<String, Object> findAdminList(Sell sell);
     public Response pass(Long id);
     public Response reject(Long id, Integer type, String opinion);
     public Response passAll(String ids);
     public Response rejectAll(String ids, Integer type, String opinion);
+    public Map<String, Object> findAdminById(Sell sell);
     
 }
