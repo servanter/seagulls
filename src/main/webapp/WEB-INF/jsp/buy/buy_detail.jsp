@@ -60,39 +60,42 @@ $(function(){
 	</ul>
 </div>
 <div style="padding:44px 0 60px 0;">
-	<!--审核状态-->
-	<c:choose>
-		<c:when test="${model.status == -1 }">
-			<!--未通过-->
-			<div class="shenhezhuangtai">
-				<h4 class="colorRed">审核未通过</h4>
-				<p>
-				<c:choose>
-					<c:when test="${fn:length(reject.opinion) > 0 }">
-						${reject.opinion }
-					</c:when>
-					<c:otherwise>
-						${rejectType.description }
-					</c:otherwise>
-				</c:choose>
-				</p>
-			</div>
-		</c:when>
-		<c:when test="${model.status == 0 }">
-			<!--审核中-->
-			<div class="shenhezhuangtai">
-				<h4 class="colorYellow">审核中</h4>
-				<p>我们会尽快进行审核，请耐心等待</p>
-			</div>
-		</c:when>
-		<c:when test="${model.status == 1 }">
-			<!--通过-->
-			<div class="shenhezhuangtai">
-				<h4 class="colorGreen2">审核已通过</h4>
-				<p>内容如有修改，需要重新审核</p>
-			</div>
-		</c:when>
-	</c:choose>
+
+	<c:if test="${loginUser ne null && loginUser.id eq model.createUserId }">
+		<!--审核状态-->
+		<c:choose>
+			<c:when test="${model.status == -1 }">
+				<!--未通过-->
+				<div class="shenhezhuangtai">
+					<h4 class="colorRed">审核未通过</h4>
+					<p>
+					<c:choose>
+						<c:when test="${fn:length(reject.opinion) > 0 }">
+							${reject.opinion }
+						</c:when>
+						<c:otherwise>
+							${rejectType.description }
+						</c:otherwise>
+					</c:choose>
+					</p>
+				</div>
+			</c:when>
+			<c:when test="${model.status == 0 }">
+				<!--审核中-->
+				<div class="shenhezhuangtai">
+					<h4 class="colorYellow">审核中</h4>
+					<p>我们会尽快进行审核，请耐心等待</p>
+				</div>
+			</c:when>
+			<c:when test="${model.status == 1 }">
+				<!--通过-->
+				<div class="shenhezhuangtai">
+					<h4 class="colorGreen2">审核已通过</h4>
+					<p>内容如有修改，需要重新审核</p>
+				</div>
+			</c:when>
+		</c:choose>
+	</c:if>	
 	
 	<!--详情-->
 	<input type="hidden" id="id" value="${model.id }">
