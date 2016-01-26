@@ -168,12 +168,12 @@ $(function(){
 				</li>
 				<li>
 					<h4>采购价格</h4>
-					<span>元/千克</span>
+					<span>元/斤</span>
 					<input class="formInput" type="text" name="price" value="${model.price }" />
 				</li>
 				<li>
 					<h4>采购量</h4>
-					<span>千克</span>
+					<span>斤</span>
 					<input class="formInput" type="text" name="quantity" value="${model.quantity }"/>
 				</li>
 				<li id="formLocation">

@@ -150,7 +150,7 @@ $(function(){
 				</li>
 				<li>
 					<h4>价格</h4>
-					<span>元/千克</span>
+					<span>元/斤</span>
 					<input class="formInput" type="text" name="price" />
 				</li>
 				<li>

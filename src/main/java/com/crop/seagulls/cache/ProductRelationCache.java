@@ -98,6 +98,6 @@ public class ProductRelationCache {
     }
     
     public Long getDefaultUnit() {
-        return 1L;
+        return 8L;
     }
 }
