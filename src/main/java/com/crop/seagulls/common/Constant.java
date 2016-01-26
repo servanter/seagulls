@@ -71,5 +71,10 @@ public class Constant {
     public static final String SELL = "sell_";
     
     public static final String BUY = "buy_";
+    
+    /**
+     * Wei Xin access token
+     */
+    public static String WX_TOKEN = "";
 
 }
