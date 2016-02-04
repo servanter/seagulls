@@ -73,4 +73,8 @@ public class Tools {
         return out.toString();
     }
 
+    public static String decryptMsg(String msgSignature, String timestamp, String nonce) {
+        return null;
+    }
+
 }

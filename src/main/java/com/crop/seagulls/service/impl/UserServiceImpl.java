@@ -17,10 +17,12 @@ import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.dao.UserDAO;
 import com.crop.seagulls.entities.Company;
+import com.crop.seagulls.entities.Third;
 import com.crop.seagulls.entities.User;
 import com.crop.seagulls.entities.UserAuth;
 import com.crop.seagulls.service.CompanyService;
 import com.crop.seagulls.service.TemplateService;
+import com.crop.seagulls.service.ThirdService;
 import com.crop.seagulls.service.UserAuthService;
 import com.crop.seagulls.service.UserService;
 
@@ -35,6 +37,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserAuthService userAuthService;
+    
+    @Autowired
+    private ThirdService thirdService;
 
     @Autowired
     private UserDAO userDAO;
@@ -48,6 +53,23 @@ public class UserServiceImpl implements UserService {
     public Response login(User user) {
         User u = userDAO.getUserByNameAndPass(user);
         Response response = new Response();
+        if(ObjectUtils.notEqual(u, null)) {
+            if(ObjectUtils.notEqual(user.getThird(), null)) {
+                Third userThird = user.getThird();
+                userThird.setUserId(u.getId());
+                Third thisThird = thirdService.findOne(userThird);
+                if(ObjectUtils.notEqual(thisThird, null)) {
+                    
+                    // already auth
+                    
+                    
+                } else {
+                    
+                    // add this auth
+                    response = thirdService.add(user.getThird());
+                }
+            }
+        }
         response.setReturnCode(u != null ? ReturnCode.SUCCESS : ReturnCode.USER_OR_PASSWORD_UNVALID);
         response.setResult(u);
         return response;
@@ -59,13 +81,24 @@ public class UserServiceImpl implements UserService {
         response.setReturnCode(ReturnCode.ERROR);
         if (isNameValid(user.getPhone())) {
             userDAO.save(user);
+            
+            // TODO add default nickname
             if (user != null && user.getId() > 0) {
                 User updateUser = new User();
                 updateUser.setId(user.getId());
                 updateUser.setNickName(templateService.getMessage("user.default.nickname", String.valueOf(user.getId())));
                 user.setNickName(updateUser.getNickName());
                 int affect = userDAO.update(updateUser);
-                response.setReturnCode(affect > 0 ? ReturnCode.SUCCESS : ReturnCode.ERROR);
+                
+                if(affect > 0 ) {
+                    
+                    // add third 
+                    if(ObjectUtils.notEqual(user.getThird(), null)) {
+                        Third third = user.getThird();
+                        third.setUserId(user.getId());
+                        response = thirdService.add(third);
+                    }
+                }
             }
         } else {
             response.setReturnCode(ReturnCode.USER_NAME_READY_REGISTER);

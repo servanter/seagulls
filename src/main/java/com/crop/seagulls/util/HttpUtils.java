@@ -49,5 +49,9 @@ public class HttpUtils {
         }
         return new String(bout.toByteArray(), encoding);
     }
+    
+    public static void main(String[] args) {
+        System.out.println(HttpUtils.httpGet("http://www.baidu.com"));
+    }
 
 }

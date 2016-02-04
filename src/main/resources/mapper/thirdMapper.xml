@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crop.seagulls.dao.ThirdDAO">
+
+	<resultMap id="thirdMap" type="third">
+		<result property="id" column="id" />
+		<result property="src" column="src" />
+		<result property="userId" column="user_id" />
+		<result property="metaIndex1" column="meta_index_1" />
+		<result property="metaIndex2" column="meta_index_2" />
+		<result property="metaIndex3" column="meta_index_3" />
+		<result property="metaIndex4" column="meta_index_4" />
+		<result property="metaIndex5" column="meta_index_5" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+	<sql id="base_columns">id, src, user_id, meta_index_1, meta_index_2, meta_index_3, meta_index_4, meta_index_5</sql>
+	
+	<insert id="save" parameterType="third" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO crop_user_third
+		<set>
+			update_time = NOW(),
+			src = #{src},
+			user_id = #{userId}
+			<if test="metaIndex1 != null">
+				, meta_index_1 = #{metaIndex1}
+			</if>
+			<if test="metaIndex2 != null">
+				, meta_index_2 = #{metaIndex2}
+			</if>
+			<if test="metaIndex3 != null">
+				, meta_index_3 = #{metaIndex3}
+			</if>
+			<if test="metaIndex4 != null">
+				, meta_index_4 = #{metaIndex4}
+			</if>
+			<if test="metaIndex5 != null">
+				, meta_index_5 = #{metaIndex5}
+			</if>
+		</set>
+	</insert>
+	
+	<select id="getByUserIdAndSrc" parameterType="third" resultMap="thirdMap">
+		SELECT 
+		<include refid="base_columns"/>
+		FROM crop_user_third
+		<where>
+			<if test="userId != null">
+				AND user_id = #{userId}
+			</if>
+			<if test="src != null">
+				AND src = #{src}
+			</if>
+			<if test="metaIndex1">
+				AND meta_index_1 = #{metaIndex1}
+			</if>
+		</where>
+	</select>
+</mapper>

@@ -27,6 +27,7 @@ import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.entities.Company;
 import com.crop.seagulls.entities.CompanyRejection;
 import com.crop.seagulls.entities.PersonRejection;
+import com.crop.seagulls.entities.Third;
 import com.crop.seagulls.entities.User;
 import com.crop.seagulls.entities.UserAuth;
 import com.crop.seagulls.service.CompanyRejectionService;
@@ -85,6 +86,9 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Response login(User user, @RequestParam(value = "redirectUrl", required = false)
     String redirect, HttpSession session) {
+        if(ObjectUtils.notEqual(session.getAttribute("third"), null)) {
+            user.setThird((Third) session.getAttribute("third"));
+        }
         Response result = userService.login(user);
         if (ReturnCode.isSuccess(result.getReturnCode())) {
             SessionUtils.setValue(session, Constant.LOGIN_USER, result.getResult());
@@ -116,6 +120,9 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public Response register(User user, HttpSession session) {
+        if(ObjectUtils.notEqual(session.getAttribute("third"), null)) {
+            user.setThird((Third) session.getAttribute("third"));
+        }
         Response result = userService.register(user);
         if (ReturnCode.isSuccess(result.getReturnCode())) {
             // SessionUtils.setValue(session, Constant.LOGIN_USER, user);
@@ -124,7 +131,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/forgetPassword", method = RequestMethod.GET)
-    public String enterForgetPassword(HttpSession session) {
+    public String enterForgetPassword() {
         return "user/forget_password";
     }
 

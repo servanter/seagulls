@@ -41,6 +41,7 @@ public class User extends Page {
 
     private Timestamp updateTime;
 
+    private Third third;
     private String realName;
     private String companyTitle;
     private Long userAuthId;
@@ -48,6 +49,7 @@ public class User extends Page {
 
     public User() {
     }
+
     public User(Long id) {
         this.id = id;
     }
@@ -178,6 +180,14 @@ public class User extends Page {
 
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
+    }
+
+    public Third getThird() {
+        return third;
+    }
+
+    public void setThird(Third third) {
+        this.third = third;
     }
 
 }
