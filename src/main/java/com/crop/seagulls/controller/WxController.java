@@ -1,7 +1,6 @@
 package com.crop.seagulls.controller;
 
 import java.io.IOException;
-import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
-import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,12 +16,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.third.WeiXin;
 import com.crop.seagulls.bean.wx.WxRequest;
+import com.crop.seagulls.entities.Order;
+import com.crop.seagulls.service.OrderService;
 import com.crop.seagulls.service.TemplateService;
 import com.crop.seagulls.service.WXDispatchService;
 import com.crop.seagulls.util.Logger;
 import com.crop.seagulls.util.Tools;
+import com.crop.seagulls.util.WebUtils;
 import com.crop.seagulls.util.weixin.WXBizMsgCrypt;
 
 /**
@@ -43,6 +45,9 @@ public class WxController {
 
     @Autowired
     private WXDispatchService wxDispatchService;
+
+    @Autowired
+    private OrderService orderService;
 
     @RequestMapping(value = "/dispatch", method = RequestMethod.GET)
     public void validate(@RequestParam("signature")
@@ -97,6 +102,13 @@ public class WxController {
             }
         }
         return "redirect:/";
+    }
+
+    @ResponseBody
+    @RequestMapping("/generateOrderId")
+    public Response generateOrderId(Order order, HttpServletRequest request) {
+        order.setIp(WebUtils.getIp(request));
+        return orderService.generateOrder(order);
     }
 
 }
