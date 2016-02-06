@@ -16,14 +16,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.crop.seagulls.bean.PayTypeEnum;
 import com.crop.seagulls.bean.Response;
+import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.bean.third.WeiXin;
 import com.crop.seagulls.bean.wx.WxRequest;
 import com.crop.seagulls.entities.Order;
+import com.crop.seagulls.entities.User;
 import com.crop.seagulls.service.OrderService;
 import com.crop.seagulls.service.TemplateService;
 import com.crop.seagulls.service.WXDispatchService;
 import com.crop.seagulls.util.Logger;
+import com.crop.seagulls.util.SessionUtils;
 import com.crop.seagulls.util.Tools;
 import com.crop.seagulls.util.WebUtils;
 import com.crop.seagulls.util.weixin.WXBizMsgCrypt;
@@ -107,8 +111,26 @@ public class WxController {
     @ResponseBody
     @RequestMapping("/generateOrderId")
     public Response generateOrderId(Order order, HttpServletRequest request) {
-        order.setIp(WebUtils.getIp(request));
-        return orderService.generateOrder(order);
+        String ip = WebUtils.getIp(request);
+        if (ip.contains(",")) {
+            
+            // has multi ips
+            ip = ip.split(",")[0].trim();
+        }
+        order.setIp(ip);
+        User user = SessionUtils.getCurUser(request.getSession());
+        if (ObjectUtils.notEqual(user.getId(), null)) {
+            order.setUserId(user.getId());
+            order.setPayType(PayTypeEnum.WEIXIN.getCode());
+            return orderService.generateOrder(order);
+        } else {
+            return new Response(ReturnCode.ERROR);
+        }
+    }
+
+    @RequestMapping("/pay")
+    public String pay() {
+        return "pay/pay";
     }
 
 }

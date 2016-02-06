@@ -1,6 +1,7 @@
 package com.crop.seagulls.entities;
 
-import java.security.Timestamp;
+
+import java.sql.Timestamp;
 
 import com.crop.seagulls.bean.Page;
 
@@ -11,7 +12,7 @@ public class Order extends Page {
      */
     private static final long serialVersionUID = -2833603378433113543L;
 
-    private Long id;
+    private String id;
 
     private Long userId;
 
@@ -85,11 +86,11 @@ public class Order extends Page {
         this.ip = ip;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
