@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.crop.seagulls.bean.third.WeiXin;
 import com.crop.seagulls.bean.wx.WxRequest;
 import com.crop.seagulls.service.TemplateService;
+import com.crop.seagulls.service.ThirdService;
 import com.crop.seagulls.service.WXDispatchService;
 import com.crop.seagulls.util.HttpUtils;
 import com.crop.seagulls.util.Logger;
@@ -17,8 +18,12 @@ import com.crop.seagulls.util.weixin.WXBizMsgCrypt;
 public class WXDispatchServiceImpl implements WXDispatchService {
 
     private static Logger logger = Logger.getLogger(WXDispatchServiceImpl.class);
+    
     @Autowired
     private TemplateService templateService;
+    
+    @Autowired
+    private ThirdService thirdService;
 
     @Override
     public String invoke(WxRequest wxRequest) {
@@ -52,6 +57,14 @@ public class WXDispatchServiceImpl implements WXDispatchService {
             logger.error("Weixin GETACCESSTOKENERROR url:[{0}]", e, url);
         }
         return weiXin;
+    }
+
+    @Override
+    public Long findByOpenId(String openId) {
+        
+        
+        
+        return null;
     }
 
 

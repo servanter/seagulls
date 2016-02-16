@@ -53,6 +53,7 @@ public interface SellService {
     
     
     public Map<String, Object> findById(Sell sell);
+    public Sell findBaseInfoById(Long sellId);
 
     public Map<String, Object> findByUserId(Sell sell);
 
@@ -72,5 +73,6 @@ public interface SellService {
     public Response passAll(String ids);
     public Response rejectAll(String ids, Integer type, String opinion);
     public Map<String, Object> findAdminById(Sell sell);
+    public Map<String, Object> purchasePre(Long sellId, Long userId);
     
 }

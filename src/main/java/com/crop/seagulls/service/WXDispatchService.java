@@ -9,4 +9,5 @@ public interface WXDispatchService {
 
     WeiXin getAccessToken(String code);
 
+    Long findByOpenId(String openId);
 }

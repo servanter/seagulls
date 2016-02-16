@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crop.seagulls.dao.SellProductDAO">
+
+	<resultMap id="sellProductMap" type="sellProduct">
+		<result property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="sellId" column="sell_id" />
+		<result property="provinceId" column="province_id" />
+		<result property="cityId" column="city_id" />
+		<result property="areaId" column="area_id" />
+		<result property="address" column="address" />
+		<result property="num" column="num" />
+		<result property="price" column="price" />
+		<result property="totalPrice" column="total_price" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+	
+	<sql id="base_columns">id, user_id, sell_id, province_id, city_id, area_id, address, num, price, total_price, create_time, update_time</sql>
+	
+	<insert id="save" parameterType="sellProduct">
+		INSERT INTO crop_sell_product
+		SET
+		sell_id = #{sellId},
+		update_time = NOW(),
+		user_id = #{userId},
+		province_id = #{provinceId},
+		city_id = #{city_id},
+		area_id = #{area_id},
+		<if test="address != null and address.length() > 0">
+			address = #{address},
+		</if>
+		num = #{num},
+		price = #{price},
+		total_price = #{totalPrice},
+	</insert>
+	
+	<select id="getById" parameterType="long" resultMap="sellProductMap">
+		SELECT <include refid="base_columns"/>
+		FROM crop_sell_product 
+		WHERE id = #{id}
+	</select>
+	
+</mapper>

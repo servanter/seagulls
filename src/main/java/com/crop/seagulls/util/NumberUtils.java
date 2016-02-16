@@ -11,7 +11,14 @@ public class NumberUtils {
         }
         return false;
     }
-
+    
+    public static boolean isMoreThanZero(Number i) {
+        if (i != null && i.intValue() > 0) {
+            return true;
+        }
+        return false;
+    }
+    
     public static <T> List<T> strSplit2List(String str, String split, Class<T> clazz) {
         List result = new ArrayList();
         if (str == null || str.length() == 0) {

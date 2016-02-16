@@ -27,6 +27,8 @@
 		<typeAlias alias="sellRejection" type="com.crop.seagulls.entities.SellRejection" />
 		<typeAlias alias="third" type="com.crop.seagulls.entities.Third" />
 		<typeAlias alias="payOrder" type="com.crop.seagulls.entities.Order" />
+		<typeAlias alias="sellProduct" type="com.crop.seagulls.entities.SellProduct" />
+		<typeAlias alias="address" type="com.crop.seagulls.entities.Address" />
 		
 		
 		<typeAlias alias="adminUser" type="com.crop.seagulls.entities.admin.User" />

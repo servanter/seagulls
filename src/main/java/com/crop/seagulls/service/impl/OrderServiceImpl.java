@@ -24,14 +24,19 @@ import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.bean.Src;
 import com.crop.seagulls.dao.OrderDAO;
 import com.crop.seagulls.entities.Order;
+import com.crop.seagulls.entities.Sell;
+import com.crop.seagulls.entities.SellProduct;
 import com.crop.seagulls.entities.Third;
 import com.crop.seagulls.service.OrderService;
+import com.crop.seagulls.service.SellProductService;
+import com.crop.seagulls.service.SellService;
 import com.crop.seagulls.service.TemplateService;
 import com.crop.seagulls.service.ThirdService;
 import com.crop.seagulls.util.DateUtils;
 import com.crop.seagulls.util.HttpUtils;
 import com.crop.seagulls.util.Logger;
 import com.crop.seagulls.util.MD5Util;
+import com.crop.seagulls.util.NumberUtils;
 import com.crop.seagulls.util.RandomUtils;
 
 @Service
@@ -44,6 +49,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private ThirdService thirdService;
+
+    @Autowired
+    private SellProductService sellProductService;
+
+    @Autowired
+    private SellService sellService;
 
     @Autowired
     private OrderDAO orderDAO;
@@ -73,7 +84,7 @@ public class OrderServiceImpl implements OrderService {
                 third.setSrc(Src.WEIXIN.getType());
                 Third findThird = thirdService.findOne(third);
                 if (ObjectUtils.notEqual(findThird, null)) {
-                    openId = findThird.getMetaIndex1();
+                    openId = findThird.getThirdUnionId();
                 }
 
                 pairs.add(Pair.of("appid", appId));
@@ -148,44 +159,82 @@ public class OrderServiceImpl implements OrderService {
                     order.setMetaIndex3(prepayId);
                     response.setReturnCode(ReturnCode.SUCCESS);
                 }
+
+                if (ReturnCode.isSuccess(response.getReturnCode())) {
+                    affect = orderDAO.update(order);
+                    if (affect <= 0) {
+                        response.setReturnCode(ReturnCode.ERROR);
+                    }
+                }
+
+                // response page
+                if (ReturnCode.isSuccess(response.getReturnCode())) {
+                    Map<String, Object> orderInfo = new LinkedHashMap<String, Object>();
+                    String nonceStr = RandomUtils.generateString(32);
+                    orderInfo.put("appId", templateService.getMessage("weixin.config.appid"));
+                    orderInfo.put("nonceStr", nonceStr);
+                    orderInfo.put("package", "prepay_id=" + order.getMetaIndex3());
+                    orderInfo.put("signType", "MD5");
+                    String currentTimeMillis = String.valueOf(System.currentTimeMillis());
+                    orderInfo.put("timeStamp", currentTimeMillis.substring(0, currentTimeMillis.length() - 3));
+
+                    StringBuilder paySignBuilder = new StringBuilder();
+                    for (String key : orderInfo.keySet()) {
+                        paySignBuilder.append(key + "=" + orderInfo.get(key) + "&");
+                    }
+                    String paySign = StringUtils.EMPTY;
+                    if (paySignBuilder.length() > 0) {
+                        paySign = paySignBuilder.substring(0, paySignBuilder.length() - 1);
+                    }
+                    paySign = paySign + "&key=" + templateService.getMessage("weixin.pay.merchant.key");
+                    logger.info("Weixin GENERATEPAYSIGN raw md5:{0}", paySign);
+                    paySign = MD5Util.generateMD5Str(paySign, "").toUpperCase();
+                    orderInfo.put("paySign", paySign);
+                    response.setResult(orderInfo);
+                }
                 break;
             default:
                 break;
             }
         }
 
-        if (ReturnCode.isSuccess(response.getReturnCode())) {
-            affect = orderDAO.update(order);
-            if (affect <= 0) {
-                response.setReturnCode(ReturnCode.ERROR);
-            } else {
-                Map<String, Object> orderInfo = new LinkedHashMap<String, Object>();
-                String nonceStr = RandomUtils.generateString(32);
-                orderInfo.put("appId", templateService.getMessage("weixin.config.appid"));
-                orderInfo.put("nonceStr", nonceStr);
-                orderInfo.put("package", "prepay_id=" + order.getMetaIndex3());
-                orderInfo.put("signType", "MD5");
-                String currentTimeMillis = String.valueOf(System.currentTimeMillis());
-                orderInfo.put("timeStamp", currentTimeMillis.substring(0, currentTimeMillis.length() - 3));
-
-                StringBuilder paySignBuilder = new StringBuilder();
-                for (String key : orderInfo.keySet()) {
-                    paySignBuilder.append(key + "=" + orderInfo.get(key) + "&");
-                }
-                String paySign = StringUtils.EMPTY;
-                if (paySignBuilder.length() > 0) {
-                    paySign = paySignBuilder.substring(0, paySignBuilder.length() - 1);
-                }
-                paySign = paySign + "&key=" + templateService.getMessage("weixin.pay.merchant.key");
-                logger.info("Weixin GENERATEPAYSIGN raw md5:{0}", paySign);
-                paySign = MD5Util.generateMD5Str(paySign, "").toUpperCase();
-                orderInfo.put("paySign", paySign);
-                response.setResult(orderInfo);
-
-            }
-        }
         logger.info("Order response:[{0}]", response);
         return response;
 
+    }
+
+    @Override
+    public Response submitSellProduct(SellProduct sellProduct) {
+        Response response = new Response(ReturnCode.SUCCESS);
+        Integer num = sellProduct.getNum();
+        if (!NumberUtils.isMoreThanZero(num)) {
+            response.setReturnCode(ReturnCode.ORDER_SELL_PRODUCT_NUM_UNVALID);
+        }
+
+        if (ReturnCode.isSuccess(response.getReturnCode())) {
+            Long sellId = sellProduct.getSellId();
+            if (!NumberUtils.isMoreThanZero(sellId)) {
+                response.setReturnCode(ReturnCode.ORDER_SELL_PRODUCT_NUM_UNVALID);
+            }
+
+            int price = 0;
+            if (ReturnCode.isSuccess(response.getReturnCode())) {
+                Sell sell = sellService.findBaseInfoById(sellProduct.getSellId());
+                if (ObjectUtils.equals(sell, null)) {
+                    response.setReturnCode(ReturnCode.ORDER_SELL_PRODUCT_SELL_ID_NOT_FOUND);
+                } else {
+                    price = (int) (sell.getPrice() * 100);
+                }
+            }
+
+            if (ReturnCode.isSuccess(response.getReturnCode()) && price > 0) {
+                sellProduct.setPrice(price);
+                int totalPrice = price * num;
+                sellProduct.setTotalPrice(totalPrice);
+                response = sellProductService.add(sellProduct);
+            }
+        }
+
+        return response;
     }
 }

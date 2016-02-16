@@ -26,12 +26,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
 <script type="text/javascript" src="${ctx }/js/common.js"></script>
 <script type="text/javascript" src="${ctx }/js/alert.js"></script>
+<script type="text/javascript" src="${ctx }/js/sell/sell_detail.js"></script>
 </head>
 
 <body>
 <jsp:include page="/common/header.jsp?displayText=出售${model.pageCategory.zhName }"></jsp:include>
 <!--底部工具栏-->
-<div class="bottomBar">
+<div class="bottomBar" style="background:#ff8b02;">
 	<ul>
 		<c:choose>
 			<c:when test="${loginUser ne null && loginUser.id eq model.createUserId }">
@@ -48,8 +49,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</c:otherwise>
 					</c:choose>
 				</li>
-				<li class="chat"><a id="a-chat" href="javascript:void(0)"><img src="${ctx }/images/icon_chat.png" />聊一聊</a></li>
-				<li class="tel"><a href="tel:${model.contactPhone }"><img src="${ctx }/images/icon_tel.png" />电话联系</a></li>
+				
+				<c:choose>
+					<c:when test="${supportWX }">
+						<li class="chat"><a href="tel:${model.contactPhone }"><img src="${ctx }/images/icon_tel.png" />电话联系</a></li>
+						<li class="pay"><a id="a-purchasesss" href="${ctx }/sell/purchase/${model.id}/">立即购买</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="chat"><a id="a-chat" href="javascript:void(0)"><img src="${ctx }/images/icon_chat.png" />聊一聊</a></li>
+						<li class="tel"><a href="tel:${model.contactPhone }"><img src="${ctx }/images/icon_tel.png" />电话联系</a></li>
+					</c:otherwise>
+				</c:choose>
 			</c:otherwise>
 		</c:choose>
 	</ul>

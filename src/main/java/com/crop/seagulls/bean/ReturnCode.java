@@ -20,6 +20,10 @@ public enum ReturnCode {
     
     FAVOURITE_ALREADY_FOLLOW(20203, "已关注"),
     
+    ORDER_SELL_PRODUCT_NUM_UNVALID(30001, "请输入合法的数量"),
+    
+    ORDER_SELL_PRODUCT_SELL_ID_NOT_FOUND(30002, "没有找到该商品"),
+    
     USER_NOT_LOGINED(90000, "请先登录"),
     
     NO_MORE_PAGE(91000, "没有更多了"),

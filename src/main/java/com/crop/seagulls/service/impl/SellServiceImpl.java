@@ -41,6 +41,7 @@ import com.crop.seagulls.entities.SellPic;
 import com.crop.seagulls.entities.SellRejection;
 import com.crop.seagulls.entities.User;
 import com.crop.seagulls.entities.UserAuth;
+import com.crop.seagulls.service.AddressService;
 import com.crop.seagulls.service.AdminUserService;
 import com.crop.seagulls.service.CompanyService;
 import com.crop.seagulls.service.FavouriteService;
@@ -105,6 +106,9 @@ public class SellServiceImpl implements SellService {
 
     @Autowired
     private AdminUserService adminUserService;
+
+    @Autowired
+    private AddressService addressService;
 
     @Override
     public Response add(Sell sell, List<String> webImagesPath) {
@@ -310,6 +314,21 @@ public class SellServiceImpl implements SellService {
         }
 
         return result;
+    }
+
+    @Override
+    public Sell findBaseInfoById(Long sellId) {
+        Sell sell = sellDAO.getById(sellId);
+        if (ObjectUtils.notEqual(sell, null)) {
+            addUnit(sell);
+
+            // pic
+            List<SellPic> pics = detailPicCache.getById(SellBuy.SELL, sell.getId());
+            if (CollectionUtils.isNotEmpty(pics)) {
+                sell.setFirstPic(pics.get(0));
+            }
+        }
+        return sell;
     }
 
     private void addVarieties(Sell sell) {
@@ -673,6 +692,14 @@ public class SellServiceImpl implements SellService {
     public Map<String, Object> findAdminById(Sell sell) {
         Map<String, Object> result = findById(sell);
         result.put("rejects", BuyRejectEnum.values());
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> purchasePre(Long sellId, Long userId) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("model", findBaseInfoById(sellId));
+        result.put("addresses", addressService.findUserAddress(userId));
         return result;
     }
 

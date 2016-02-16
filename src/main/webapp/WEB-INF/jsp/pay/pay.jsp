@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
-<script type="text/javascript" src="${ctx }/js/pay/pay.js?asdas=123"></script>
+<script type="text/javascript" src="${ctx }/js/pay/pay.js"></script>
 
 <script type="text/javascript">
 function onBridgeReady(orderInfo){

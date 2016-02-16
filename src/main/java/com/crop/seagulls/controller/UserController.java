@@ -24,12 +24,14 @@ import com.crop.seagulls.bean.PersonRejectEnum;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.common.Constant;
+import com.crop.seagulls.entities.Address;
 import com.crop.seagulls.entities.Company;
 import com.crop.seagulls.entities.CompanyRejection;
 import com.crop.seagulls.entities.PersonRejection;
 import com.crop.seagulls.entities.Third;
 import com.crop.seagulls.entities.User;
 import com.crop.seagulls.entities.UserAuth;
+import com.crop.seagulls.service.AddressService;
 import com.crop.seagulls.service.CompanyRejectionService;
 import com.crop.seagulls.service.CompanyService;
 import com.crop.seagulls.service.PersonRejectionService;
@@ -62,6 +64,9 @@ public class UserController {
     @Autowired
     private PersonRejectionService personRejectionService;
 
+    @Autowired
+    private AddressService addressService;
+
     @ResponseBody
     @RequestMapping(value = "/loginError", method = RequestMethod.GET)
     public Response loginError() {
@@ -86,7 +91,7 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Response login(User user, @RequestParam(value = "redirectUrl", required = false)
     String redirect, HttpSession session) {
-        if(ObjectUtils.notEqual(session.getAttribute("third"), null)) {
+        if (ObjectUtils.notEqual(session.getAttribute("third"), null)) {
             user.setThird((Third) session.getAttribute("third"));
         }
         Response result = userService.login(user);
@@ -120,7 +125,7 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public Response register(User user, HttpSession session) {
-        if(ObjectUtils.notEqual(session.getAttribute("third"), null)) {
+        if (ObjectUtils.notEqual(session.getAttribute("third"), null)) {
             user.setThird((Third) session.getAttribute("third"));
         }
         Response result = userService.register(user);
@@ -207,11 +212,11 @@ public class UserController {
         UserAuth userAuth = userAuthService.findByUserId(SessionUtils.getCurUser(request.getSession()).getId());
         if (ObjectUtils.notEqual(userAuth, null) && userAuth.getId() > 0) {
             PersonRejection reject = personRejectionService.findByAuthId(userAuth.getId());
-            if(ObjectUtils.notEqual(reject, null)) {
+            if (ObjectUtils.notEqual(reject, null)) {
                 model.addAttribute("reject", reject);
                 model.addAttribute("rejectType", PersonRejectEnum.code2Rejection(reject.getType()));
             }
-            
+
         }
         model.addAttribute("model", userAuth);
         model.addAttribute("commonStatus", CommonStatus.getMap());
@@ -243,7 +248,7 @@ public class UserController {
             Company company = companies.getResult().get(0);
             model.addAttribute("model", company);
             CompanyRejection reject = companyRejectionService.findByCompanyId(company.getId());
-            if(ObjectUtils.notEqual(reject, null)) {
+            if (ObjectUtils.notEqual(reject, null)) {
                 model.addAttribute("reject", reject);
                 model.addAttribute("rejectType", CompanyRejectEnum.code2Rejection(reject.getType()));
             }
@@ -275,4 +280,9 @@ public class UserController {
         return "user/head_big_pic";
     }
 
+    @RequestMapping(value = "/user/addAddress", method = RequestMethod.POST)
+    public Response headBigPic(Address address, HttpSession session) {
+        address.setUserId(SessionUtils.getCurUser(session).getId());
+        return addressService.add(address);
+    }
 }

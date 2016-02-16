@@ -22,6 +22,6 @@ public class ThirdServiceImpl implements ThirdService {
 
     @Override
     public Third findOne(Third third) {
-        return thirdDAO.getByUserIdAndSrc(third);
+        return thirdDAO.getByThird(third);
     }
 }

@@ -1,7 +1,7 @@
 $(function() {
 	$('#btn-pay').click(function() {
 		
-		$.getJSON(BaseUtils.proPath + 'external/weixin/generateOrderId/?price=' + $('input[name=price]').val(), function(data) {
+		$.getJSON(BaseUtils.proPath + 'pay/generateOrderId/?price=' + $('input[name=price]').val(), function(data) {
 			if (data.code != 10000) {
 				Alert.info(data.message);
 			} else {

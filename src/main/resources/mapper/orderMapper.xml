@@ -6,6 +6,7 @@
 		<result property="id" column="id" />
 		<result property="userId" column="user_id" />
 		<result property="payType" column="pay_type" />
+		<result property="innerOrderId" column="inner_order_id" />
 		<result property="status" column="status" />
 		<result property="price" column="price" />
 		<result property="ip" column="ip" />
@@ -18,7 +19,7 @@
 		<result property="updateTime" column="update_time" />
 	</resultMap>
 	
-	<sql id="base_columns">id, user_id, pay_type, status, price, ip, meta_index_1, meta_index_2, meta_index_3, meta_index_4, meta_index_5</sql>
+	<sql id="base_columns">id, user_id, pay_type, inner_order_id, status, price, ip, meta_index_1, meta_index_2, meta_index_3, meta_index_4, meta_index_5</sql>
 	
 	<insert id="save" parameterType="payOrder">
 		INSERT INTO crop_order
@@ -27,6 +28,7 @@
 			update_time = NOW(),
 			pay_type = #{payType},
 			user_id = #{userId},
+			inner_order_id = #{innerOrderId},
 			ip = #{ip}
 			<if test="metaIndex1 != null">
 				, meta_index_1 = #{metaIndex1}

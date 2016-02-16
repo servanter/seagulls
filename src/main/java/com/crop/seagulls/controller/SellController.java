@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,12 +24,12 @@ import com.crop.seagulls.bean.SellBuyStatusEnum;
 import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.entities.Sell;
 import com.crop.seagulls.entities.SellPic;
-import com.crop.seagulls.entities.SellRejection;
 import com.crop.seagulls.service.SellPicService;
 import com.crop.seagulls.service.SellRejectionService;
 import com.crop.seagulls.service.SellService;
 import com.crop.seagulls.util.SessionUtils;
 import com.crop.seagulls.util.UploadUtils;
+import com.crop.seagulls.util.WebUtils;
 
 /**
  * Sell controller
@@ -149,12 +148,21 @@ public class SellController {
 
     @RequestMapping("/sell/sell_detail_{id:\\d+}.html")
     public String detail(@PathVariable("id")
-    Long id, HttpSession session, Model model) {
+    Long id, HttpServletRequest request, Model model) {
         Sell sell = new Sell();
         sell.setId(id);
-        sell.setLoginUser(SessionUtils.getCurUser(session));
+        sell.setLoginUser(SessionUtils.getCurUser(request.getSession()));
         model.mergeAttributes(sellService.findById(sell));
+        model.addAttribute("supportWX", WebUtils.isWeiXinBroswer(request));
         return "sell/sell_detail";
+    }
+
+    @RequestMapping(value = "/sell/purchase/{sellId:\\d+}", method = RequestMethod.GET)
+    public String purchase(@PathVariable("sellId")
+    Long sellId, HttpSession session, Model model) {
+        Map<String, Object> map = sellService.purchasePre(sellId, SessionUtils.getCurUser(session).getId());
+        model.mergeAttributes(map);
+        return "pay/sell_purchase";
     }
 
     @RequestMapping(value = "/user/sell/my_sell_list")
@@ -331,7 +339,8 @@ public class SellController {
     }
 
     @RequestMapping("/admin/sell/sell_detail_{id:\\d+}.html")
-    public String adminSellDetail(@PathVariable("id") Long id,Model model) {
+    public String adminSellDetail(@PathVariable("id")
+    Long id, Model model) {
         Sell sell = new Sell();
         sell.setId(id);
         model.mergeAttributes(sellService.findAdminById(sell));

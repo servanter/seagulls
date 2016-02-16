@@ -108,26 +108,6 @@ public class WxController {
         return "redirect:/";
     }
 
-    @ResponseBody
-    @RequestMapping("/generateOrderId")
-    public Response generateOrderId(Order order, HttpServletRequest request) {
-        String ip = WebUtils.getIp(request);
-        if (ip.contains(",")) {
-            
-            // has multi ips
-            ip = ip.split(",")[0].trim();
-        }
-        order.setIp(ip);
-        User user = SessionUtils.getCurUser(request.getSession());
-        if (ObjectUtils.notEqual(user.getId(), null)) {
-            order.setUserId(user.getId());
-            order.setPayType(PayTypeEnum.WEIXIN.getCode());
-            return orderService.generateOrder(order);
-        } else {
-            return new Response(ReturnCode.ERROR);
-        }
-    }
-
     @RequestMapping("/pay")
     public String pay() {
         return "pay/pay";

@@ -9,6 +9,6 @@ public interface ThirdDAO {
 
     int save(Third third);
 
-    Third getByUserIdAndSrc(Third third);
+    Third getByThird(Third third);
 
 }

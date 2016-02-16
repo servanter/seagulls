@@ -1,6 +1,5 @@
 package com.crop.seagulls.entities;
 
-
 import java.sql.Timestamp;
 
 import com.crop.seagulls.bean.Page;
@@ -17,6 +16,8 @@ public class Order extends Page {
     private Long userId;
 
     private Integer payType;
+
+    private Long innerOrderId;
 
     private Timestamp createTime;
 
@@ -142,10 +143,122 @@ public class Order extends Page {
         this.price = price;
     }
 
+    public Long getInnerOrderId() {
+        return innerOrderId;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((createTime == null) ? 0 : createTime.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((innerOrderId == null) ? 0 : innerOrderId.hashCode());
+        result = prime * result + ((ip == null) ? 0 : ip.hashCode());
+        result = prime * result + ((metaIndex1 == null) ? 0 : metaIndex1.hashCode());
+        result = prime * result + ((metaIndex2 == null) ? 0 : metaIndex2.hashCode());
+        result = prime * result + ((metaIndex3 == null) ? 0 : metaIndex3.hashCode());
+        result = prime * result + ((metaIndex4 == null) ? 0 : metaIndex4.hashCode());
+        result = prime * result + ((metaIndex5 == null) ? 0 : metaIndex5.hashCode());
+        result = prime * result + ((payType == null) ? 0 : payType.hashCode());
+        result = prime * result + ((price == null) ? 0 : price.hashCode());
+        result = prime * result + ((status == null) ? 0 : status.hashCode());
+        result = prime * result + ((updateTime == null) ? 0 : updateTime.hashCode());
+        result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Order other = (Order) obj;
+        if (createTime == null) {
+            if (other.createTime != null)
+                return false;
+        } else if (!createTime.equals(other.createTime))
+            return false;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (innerOrderId == null) {
+            if (other.innerOrderId != null)
+                return false;
+        } else if (!innerOrderId.equals(other.innerOrderId))
+            return false;
+        if (ip == null) {
+            if (other.ip != null)
+                return false;
+        } else if (!ip.equals(other.ip))
+            return false;
+        if (metaIndex1 == null) {
+            if (other.metaIndex1 != null)
+                return false;
+        } else if (!metaIndex1.equals(other.metaIndex1))
+            return false;
+        if (metaIndex2 == null) {
+            if (other.metaIndex2 != null)
+                return false;
+        } else if (!metaIndex2.equals(other.metaIndex2))
+            return false;
+        if (metaIndex3 == null) {
+            if (other.metaIndex3 != null)
+                return false;
+        } else if (!metaIndex3.equals(other.metaIndex3))
+            return false;
+        if (metaIndex4 == null) {
+            if (other.metaIndex4 != null)
+                return false;
+        } else if (!metaIndex4.equals(other.metaIndex4))
+            return false;
+        if (metaIndex5 == null) {
+            if (other.metaIndex5 != null)
+                return false;
+        } else if (!metaIndex5.equals(other.metaIndex5))
+            return false;
+        if (payType == null) {
+            if (other.payType != null)
+                return false;
+        } else if (!payType.equals(other.payType))
+            return false;
+        if (price == null) {
+            if (other.price != null)
+                return false;
+        } else if (!price.equals(other.price))
+            return false;
+        if (status == null) {
+            if (other.status != null)
+                return false;
+        } else if (!status.equals(other.status))
+            return false;
+        if (updateTime == null) {
+            if (other.updateTime != null)
+                return false;
+        } else if (!updateTime.equals(other.updateTime))
+            return false;
+        if (userId == null) {
+            if (other.userId != null)
+                return false;
+        } else if (!userId.equals(other.userId))
+            return false;
+        return true;
+    }
+
+    public void setInnerOrderId(Long innerOrderId) {
+        this.innerOrderId = innerOrderId;
+    }
+
     @Override
     public String toString() {
-        return "Order [id=" + id + ", userId=" + userId + ", payType=" + payType + ", createTime=" + createTime + ", updateTime=" + updateTime + ", status=" + status + ", price=" + price + ", ip="
-                + ip + ", metaIndex1=" + metaIndex1 + ", metaIndex2=" + metaIndex2 + ", metaIndex3=" + metaIndex3 + ", metaIndex4=" + metaIndex4 + ", metaIndex5=" + metaIndex5 + "]";
+        return "Order [id=" + id + ", userId=" + userId + ", payType=" + payType + ", innerOrderId=" + innerOrderId + ", createTime=" + createTime + ", updateTime=" + updateTime + ", status="
+                + status + ", price=" + price + ", ip=" + ip + ", metaIndex1=" + metaIndex1 + ", metaIndex2=" + metaIndex2 + ", metaIndex3=" + metaIndex3 + ", metaIndex4=" + metaIndex4
+                + ", metaIndex5=" + metaIndex5 + "]";
     }
 
 }

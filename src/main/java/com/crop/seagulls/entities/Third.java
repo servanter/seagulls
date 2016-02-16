@@ -26,6 +26,8 @@ public class Third extends Page {
 
     protected Timestamp endTime;
 
+    protected String thirdUnionId;
+
     protected String metaIndex1;
 
     protected String metaIndex2;
@@ -66,6 +68,14 @@ public class Third extends Page {
 
     public void setMetaIndex1(String metaIndex1) {
         this.metaIndex1 = metaIndex1;
+    }
+
+    public String getThirdUnionId() {
+        return thirdUnionId;
+    }
+
+    public void setThirdUnionId(String thirdUnionId) {
+        this.thirdUnionId = thirdUnionId;
     }
 
     public String getMetaIndex2() {
