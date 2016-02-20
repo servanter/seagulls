@@ -35,11 +35,11 @@ public class WebUtils {
         Matcher matcher = pattern.matcher(userAgent);
         String version = "";
         if (matcher.find()) {
-            version = matcher.group().replace("MicroMessenger", "");
+            version = matcher.group().replace("MicroMessenger/", "");
             if (version.split("\\.").length > 0 && Integer.parseInt(version.split("\\.")[0]) >= 5) {
                 return true;
             }
         }
-        return true;
+        return false;
     }
 }

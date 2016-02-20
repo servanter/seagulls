@@ -46,7 +46,11 @@ $(function(){
 				if (data.code != 10000) {
 					Alert.info(data.message);
 				} else {
-					var html = '<dl param=' + data.result + '><dt><span>'+$('input[name=contactName]').val()+'</span><span>'+$('input[name=contactPhone]').val()+'</span></dt><dd>' + $("#formLocation input").val() + " " + $('textarea[name=address]').val() + '</dd></dl>';
+					var defaultSelectedClass = '';
+					if($('#addressList dl').length == 0) {
+						defaultSelectedClass = 'selected';
+					}
+					var html = '<dl param=' + data.result + ' class='+defaultSelectedClass+'><dt><span>'+$('input[name=contactName]').val()+'</span><span>'+$('input[name=contactPhone]').val()+'</span></dt><dd>' + $("#formLocation input").val() + " " + $('textarea[name=address]').val() + '</dd></dl>';
 					$('.button_addAddress').before(html);
 					$("#addAddress").hide();
 					$("#addressList").show();
@@ -79,10 +83,15 @@ $(function(){
 			return;
 		}
 		
+		if($('dl.selected').length == 0) {
+			Alert.info('请先填写收货地址');
+			return;
+		}
+		
 		var data = {
-				sellId:$('#id').val(),
-				addressId:$('dl.selected').attr('param'),
-				num:num
+			sellId:$('#id').val(),
+			addressId:$('dl.selected').attr('param'),
+			num:num
 		};
 		
 		$.post(BaseUtils.proPath + 'pay/submitSellProduct/', data, function(data) {

@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
 <script type="text/javascript" src="${ctx }/js/common.js"></script>
 <script type="text/javascript" src="${ctx }/js/alert.js"></script>
-<script type="text/javascript" src="${ctx }/js/pay/pay.js?asd=123"></script>
+<script type="text/javascript" src="${ctx }/js/pay/pay.js?asd=1212131233"></script>
 
 <script type="text/javascript">
 function onBridgeReady(orderInfo){
@@ -33,8 +33,8 @@ function onBridgeReady(orderInfo){
 	       'getBrandWCPayRequest', orderInfo,
 	       function(res){  
 	    	   alert(res.err_msg);
-	    	   alert(res.err_msg == "get_brand_wcpay_request：ok");
-	           if(res.err_msg == "get_brand_wcpay_request：ok" ) {
+	    	   alert(res.err_msg == "get_brand_wcpay_request:ok");
+	           if(res.err_msg == "get_brand_wcpay_request:ok" ) {
 	        	   BaseUtils.redirect('${ctx}/pay/paySuccess/?orderId=${order.id}')  	   
 	           }     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
 	       }

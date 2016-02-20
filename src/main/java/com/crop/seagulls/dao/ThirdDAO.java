@@ -10,5 +10,7 @@ public interface ThirdDAO {
     int save(Third third);
 
     Third getByThird(Third third);
+    
+    Third getByThirdUnionId(Third third);
 
 }

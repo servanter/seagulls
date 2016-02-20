@@ -72,4 +72,16 @@
 			</if>
 		</where>
 	</select>
+	<select id="getByThirdUnionId" parameterType="third" resultMap="thirdMap">
+		SELECT 
+		<include refid="base_columns"/>
+		FROM crop_user_third
+		<where>
+			AND user_id = #{userId}
+			AND src = #{src}
+			AND third_union_id = #{thirdUnionId}
+		</where>
+	</select>
+	
+	
 </mapper>

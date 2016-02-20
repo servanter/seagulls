@@ -5,4 +5,5 @@
 		<a href="javascript:void(0)"><img src="${ctx }/images/icon_back.png" /></a>
 	</div>
 	<h1>${param.displayText}</h1>
+	<div class="header_icon_right"><a href="${ctx }"><img src="${ctx }/images/icon_home.png"></a></div>
 </header>
