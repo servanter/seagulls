@@ -79,6 +79,9 @@ function reload() {
 					var every = '';
 					every += '<li param="'+s.id+'">';
 					every += '<a href="'+BaseUtils.proPath+'/sell/sell_detail_'+s.id+'.html">';
+					if($('#wrapper').hasClass('listEdit')) {
+						every += '<div class="listSelect"></div>';
+					}
 					every += '<div class="list_img">';
 					if(s.firstPic) {
 						every += '<img src="'+BaseUtils.proPath+'/' + s.firstPic.imgUrl + '">';
@@ -119,9 +122,6 @@ function reload() {
 		wrapper.refresh();
 	});
 	
-	if($('#a-edit').text() == '取消') {
-		$('#a-edit').click();
-	}
 	
 }
 
@@ -140,6 +140,9 @@ function nextPage() {
 					var every = '';
 					every += '<li param="'+s.id+'">';
 					every += '<a href="'+BaseUtils.proPath+'/sell/sell_detail_'+s.id+'.html">';
+					if($('#wrapper').hasClass('listEdit')) {
+						every += '<div class="listSelect"></div>';
+					}
 					every += '<div class="list_img">';
 					if(s.firstPic) {
 						every += '<img src="'+BaseUtils.proPath+'/' + s.firstPic.imgUrl + '">';
@@ -178,9 +181,6 @@ function nextPage() {
 		}
 		wrapper.refresh();
 	});
-	if($('#a-edit').text() == '取消') {
-		$('#a-edit').click();
-	}
 }
 
 

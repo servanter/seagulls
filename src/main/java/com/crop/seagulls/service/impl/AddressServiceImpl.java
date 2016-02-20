@@ -19,12 +19,19 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public Response add(Address address) {
-        return addressDAO.save(address) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+        Response response = addressDAO.save(address) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.ERROR);
+        response.setResult(address.getId());
+        return response;
     }
 
     @Override
     public List<Address> findUserAddress(Long userId) {
         return addressDAO.getByUserId(userId);
+    }
+
+    @Override
+    public Address findUserAddress(Long id, Long userId) {
+        return addressDAO.getUserAddressOne(id, userId);
     }
 
 }

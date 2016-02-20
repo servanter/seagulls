@@ -30,6 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="${ctx }/js/pullToRefresh.js"></script>
 <script type="text/javascript" src="${ctx }/js/colorful.js"></script>
 <script type="text/javascript" src="${ctx }/js/user/info/my_buy.js"></script>
+
 </head>
 
 <body>

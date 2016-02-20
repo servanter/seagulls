@@ -28,6 +28,8 @@ public enum ReturnCode {
     
     NO_MORE_PAGE(91000, "没有更多了"),
     
+    PARAM_NOT_FOUND(90100, "参数错误"),
+    
     IMAGE_CODE_ERROR(99990, "验证码错误"),
     
     SMS_CODE_ERROR(99991, "短信验证码错误"),

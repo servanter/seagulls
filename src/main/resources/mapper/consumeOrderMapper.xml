@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crop.seagulls.dao.ConsumeOrderDAO">
+
+	<resultMap id="consumeOrderMap" type="consumeOrder">
+		<result property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="payType" column="pay_type" />
+		<result property="innerOrderId" column="inner_order_id" />
+		<result property="source" column="source" />
+		<result property="status" column="status" />
+		<result property="price" column="price" />
+		<result property="ip" column="ip" />
+		<result property="metaIndex1" column="meta_index_1" />
+		<result property="metaIndex2" column="meta_index_2" />
+		<result property="metaIndex3" column="meta_index_3" />
+		<result property="metaIndex4" column="meta_index_4" />
+		<result property="metaIndex5" column="meta_index_5" />
+		<result property="createTime" column="create_time" />
+		<result property="payTime" column="pay_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+	
+	<sql id="base_columns">id, user_id, pay_type, inner_order_id, source, status, price, ip, meta_index_1, meta_index_2, meta_index_3, meta_index_4, meta_index_5, create_time, pay_time, update_time</sql>
+	
+	<insert id="save" parameterType="consumeOrder">
+		INSERT INTO crop_consume_order
+		<set>
+			id = #{id},
+			update_time = NOW(),
+			pay_type = #{payType},
+			user_id = #{userId},
+			inner_order_id = #{innerOrderId},
+			source = #{source},
+			price = #{price},
+			ip = #{ip},
+			<if test="metaIndex1 != null">
+				meta_index_1 = #{metaIndex1},
+			</if>
+			<if test="metaIndex2 != null">
+				meta_index_2 = #{metaIndex2},
+			</if>
+			<if test="metaIndex3 != null">
+				meta_index_3 = #{metaIndex3},
+			</if>
+			<if test="metaIndex4 != null">
+				meta_index_4 = #{metaIndex4},
+			</if>
+			<if test="metaIndex5 != null">
+				meta_index_5 = #{metaIndex5},
+			</if>
+		</set>
+	</insert>
+	<update id="update" parameterType="consumeOrder">
+		UPDATE crop_consume_order
+		<set>
+			update_time = NOW(),
+			<if test="source != null">
+				source = #{source},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="payTime != null">
+				pay_time = #{payTime},
+			</if>
+			<if test="metaIndex1 != null">
+				meta_index_1 = #{metaIndex1},
+			</if>
+			<if test="metaIndex2 != null">
+				meta_index_2 = #{metaIndex2},
+			</if>
+			<if test="metaIndex3 != null">
+				meta_index_3 = #{metaIndex3},
+			</if>
+			<if test="metaIndex4 != null">
+				meta_index_4 = #{metaIndex4},
+			</if>
+			<if test="metaIndex5 != null">
+				meta_index_5 = #{metaIndex5},
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<select id="getByOrderIdAndUserId" resultMap="consumeOrderMap">
+		SELECT <include refid="base_columns"/>
+		FROM crop_consume_order WHERE id = #{id} AND user_id = #{userId}
+	</select>
+	
+	
+	<select id="getList" resultMap="consumeOrderMap">
+		SELECT <include refid="base_columns"/>
+		FROM crop_consume_order 
+		<where>
+			 AND user_id = #{userId}
+		</where>
+		ORDER BY update_time DESC LIMIT #{sinceCount}, #{pageSize}
+	</select>
+	
+	<select id="getListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM crop_consume_order 
+		<where>
+			 AND user_id = #{userId}
+		</where>
+	</select>
+</mapper>

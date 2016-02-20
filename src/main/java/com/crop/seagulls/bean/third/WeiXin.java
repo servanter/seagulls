@@ -15,23 +15,23 @@ public class WeiXin extends Third {
     }
 
     public void setOpenId(String openId) {
-        this.metaIndex1 = openId;
+        this.thirdUnionId = openId;
     }
 
     public void setUnionId(String unionId) {
-        this.metaIndex2 = unionId;
+        this.metaIndex1 = unionId;
     }
 
     public void setAccessToken(String accessToken) {
-        this.metaIndex3 = accessToken;
+        this.metaIndex2 = accessToken;
     }
 
     public void setRefreshToken(String refreshToken) {
-        this.metaIndex4 = refreshToken;
+        this.metaIndex3 = refreshToken;
     }
 
     public void setExpireIn(String expireIn) {
-        this.metaIndex5 = expireIn;
+        this.metaIndex4 = expireIn;
     }
 
     @Override

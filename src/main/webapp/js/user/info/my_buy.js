@@ -65,10 +65,6 @@ $(function() {
 
 var curPage = 2;
 function reload() {
-	var cate = $('#searchCategoryId').val();
-	if(cate == undefined) {
-		cate = 0;
-	}
 	$.getJSON(BaseUtils.proPath + 'user/buy/ajaxMyBuy/?page=1', function(data) {
 		if (data.code != 10000) {
 			Alert.info(data.message);
@@ -80,6 +76,9 @@ function reload() {
 					var every = '';
 					every += '<li param="'+s.id+'">';
 					every += '<a href="'+BaseUtils.proPath+'/buy/buy_detail_'+s.id+'.html">';
+					if($('#wrapper').hasClass('listEdit')) {
+						every += '<div class="listSelect"></div>';
+					}
 					every += '<div class="list_img">';
 					if(s.firstPic) {
 						every += '<img src="'+BaseUtils.proPath+'/' + s.firstPic.imgUrl + '">';
@@ -120,17 +119,10 @@ function reload() {
 		wrapper.refresh();
 	});
 	
-	if($('#a-edit').text() == '取消') {
-		$('#a-edit').click();
-	}
 	
 }
 
 function nextPage() {
-	var cate = $('#searchCategoryId').val();
-	if(cate == undefined) {
-		cate = 0;
-	}
 	$.getJSON(BaseUtils.proPath + 'user/buy/ajaxMyBuy/?page=' + curPage, function(data) {
 		if (data.code != 10000) {
 			Alert.info(data.message);
@@ -141,6 +133,9 @@ function nextPage() {
 					var every = '';
 					every += '<li param="'+s.id+'">';
 					every += '<a href="'+BaseUtils.proPath+'/buy/buy_detail_'+s.id+'.html">';
+					if($('#wrapper').hasClass('listEdit')) {
+						every += '<div class="listSelect"></div>';
+					}
 					every += '<div class="list_img">';
 					if(s.firstPic) {
 						every += '<img src="'+BaseUtils.proPath+'/' + s.firstPic.imgUrl + '">';
@@ -179,9 +174,6 @@ function nextPage() {
 		}
 		wrapper.refresh();
 	});
-	if($('#a-edit').text() == '取消') {
-		$('#a-edit').click();
-	}
 }
 
 function getSelected() {

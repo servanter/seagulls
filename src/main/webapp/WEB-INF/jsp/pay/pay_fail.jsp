@@ -4,7 +4,6 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
 <!doctype html>
 <html>
 <head>
@@ -18,47 +17,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="Cache" content="no-cache">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<title>发布供货</title>
+<title>支付失败</title>
 <link rel="stylesheet" type="text/css" href="${ctx }/css/style.css">
 <link rel="stylesheet" type="text/css" href="${ctx }/css/extra.css">
 <script type="text/javascript" src="${ctx }/js/jquery-1.11.0.min.js"></script>
-
 <script type="text/javascript" src="${ctx }/js/jquery.form.js"></script>
 <script type="text/javascript" src="${ctx }/js/baseutils.js"></script>
 <script type="text/javascript" src="${ctx }/js/common.js"></script>
-<script type="text/javascript" src="${ctx }/js/pay/pay.js"></script>
+<script type="text/javascript" src="${ctx }/js/alert.js"></script>
+</head>
 
-<script type="text/javascript">
-function onBridgeReady(orderInfo){
-	   WeixinJSBridge.invoke(
-	       'getBrandWCPayRequest', orderInfo,
-	       function(res){  
-	           if(res.err_msg == "get_brand_wcpay_request：ok" ) {}     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
-	       }
-	   ); 
-	}
-</script>
 <body>
 <!--顶部-->
-<jsp:include page="/common/header.jsp?displayText=支付"></jsp:include>
-<!--底部按钮-->
-
-<div class="bottom_button">
-	<a id="btn-pay" href="javascript:void(0)" target="_top" class="bgGreen">确认付钱</a>
-</div>
-	<!--详情-->
-<div style="padding:44px 0 60px 0;">
-	<form id="form-pay">
-		<div class="contentBg2">
-			<ul class="formList">
-				<li>
-					<h4>价格</h4>
-					<span></span>
-					<input class="formInput" type="text" name="price"/>
-				</li>
-			</ul>
+<jsp:include page="/common/header.jsp?displayText=支付失败"></jsp:include>	<!--详情-->
+<section>
+	<div class="fabuchenggong colorRed">
+		<img src="${ctx }/images/fabushibai.png" /><br>
+		支付失败！
+	</div>
+	<!--订单信息-->
+	<div class="formListBox" style="padding-top:70px;">
+		<div class="pintuanqingdan">
+			<div class="list_img">
+				<img src="${ctx }/${sell.firstPic.imgUrl }" />
+			</div>
+			<dl style="position:relative;">
+				<dt>${sell.title }</dt>
+				<dd>
+					<span>单价：${sell.price }元/${sell.pageUnit.title }</span><span>数量：${sellProduct.num }</span>
+				</dd>
+			</dl>
+			<div class="price">
+				<strong>${totalPrice }</strong>元
+			</div>
 		</div>
-</form>
-</div>
+	</div>
+	<!--按钮-->
+	<div class="dingdan_button">
+		<a href="#" class="pintuanButton_3">重新支付</a>
+	</div>
+</section>
 </body>
 </html>

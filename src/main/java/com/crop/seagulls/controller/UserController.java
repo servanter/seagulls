@@ -27,6 +27,7 @@ import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.entities.Address;
 import com.crop.seagulls.entities.Company;
 import com.crop.seagulls.entities.CompanyRejection;
+import com.crop.seagulls.entities.ConsumeOrder;
 import com.crop.seagulls.entities.PersonRejection;
 import com.crop.seagulls.entities.Third;
 import com.crop.seagulls.entities.User;
@@ -34,6 +35,7 @@ import com.crop.seagulls.entities.UserAuth;
 import com.crop.seagulls.service.AddressService;
 import com.crop.seagulls.service.CompanyRejectionService;
 import com.crop.seagulls.service.CompanyService;
+import com.crop.seagulls.service.OrderService;
 import com.crop.seagulls.service.PersonRejectionService;
 import com.crop.seagulls.service.UserAuthService;
 import com.crop.seagulls.service.UserService;
@@ -66,6 +68,9 @@ public class UserController {
 
     @Autowired
     private AddressService addressService;
+
+    @Autowired
+    private OrderService orderService;
 
     @ResponseBody
     @RequestMapping(value = "/loginError", method = RequestMethod.GET)
@@ -280,9 +285,29 @@ public class UserController {
         return "user/head_big_pic";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/user/addAddress", method = RequestMethod.POST)
     public Response headBigPic(Address address, HttpSession session) {
         address.setUserId(SessionUtils.getCurUser(session).getId());
         return addressService.add(address);
+    }
+
+    @RequestMapping(value = "/user/order/mySellProductOrder", method = RequestMethod.GET)
+    public String mySellProductOrder(HttpSession session, Model model) {
+        ConsumeOrder consumeOrder = new ConsumeOrder();
+        consumeOrder.setUserId(SessionUtils.getCurUser(session).getId());
+        Paging<Map<String, Object>> findMyOrder = orderService.findMyOrder(consumeOrder);
+        model.addAttribute("list", findMyOrder);
+        return "user/info/my_consume_order";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/user/order/ajaxMySellProductOrder")
+    public Response ajaxMySellProductOrder(@RequestParam("page")
+    Integer page, HttpSession session, Model model) {
+        ConsumeOrder consumeOrder = new ConsumeOrder();
+        consumeOrder.setPage(page);
+        consumeOrder.setUserId(SessionUtils.getCurUser(session).getId());
+        return orderService.ajaxFindMyOrder(consumeOrder);
     }
 }

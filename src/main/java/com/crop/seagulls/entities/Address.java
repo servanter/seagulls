@@ -32,6 +32,17 @@ public class Address extends Page {
     private Timestamp createTime;
 
     private Timestamp updateTime;
+    
+    
+    private String baseAddress;
+
+    public String getBaseAddress() {
+        return baseAddress;
+    }
+
+    public void setBaseAddress(String baseAddress) {
+        this.baseAddress = baseAddress;
+    }
 
     public Long getId() {
         return id;

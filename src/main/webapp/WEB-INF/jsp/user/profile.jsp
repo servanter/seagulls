@@ -74,6 +74,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</a>
 		</li>
 		<li>
+			<a href="${ctx }/user/order/mySellProductOrder/" target="_top">
+				<span><img src="${ctx }/images/wode_pintuan.png" /></span>
+				<h4>我的订单</h4>
+				<b><img src="${ctx }/images/arrowRight.png" /></b>
+			</a>
+		</li>
+		<li>
 			<a href="#" target="_top">
 				<span><img src="${ctx }/images/wode_guanzhu.png" /></span>
 				<h4>我的关注</h4>

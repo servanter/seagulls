@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.crop.seagulls.bean.PayTypeEnum;
+import com.crop.seagulls.bean.ConsumeOrderPayWayEnum;
 import com.crop.seagulls.bean.Response;
 import com.crop.seagulls.bean.ReturnCode;
 import com.crop.seagulls.bean.third.WeiXin;
 import com.crop.seagulls.bean.wx.WxRequest;
-import com.crop.seagulls.entities.Order;
+import com.crop.seagulls.entities.ConsumeOrder;
 import com.crop.seagulls.entities.User;
 import com.crop.seagulls.service.OrderService;
 import com.crop.seagulls.service.TemplateService;

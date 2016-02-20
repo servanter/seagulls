@@ -32,6 +32,7 @@ import com.crop.seagulls.cache.ProductRelationCache;
 import com.crop.seagulls.cache.VarietiesCache;
 import com.crop.seagulls.common.Constant;
 import com.crop.seagulls.dao.SellDAO;
+import com.crop.seagulls.entities.Address;
 import com.crop.seagulls.entities.Category;
 import com.crop.seagulls.entities.Company;
 import com.crop.seagulls.entities.Favourite;
@@ -51,6 +52,7 @@ import com.crop.seagulls.service.SellService;
 import com.crop.seagulls.service.TemplateService;
 import com.crop.seagulls.service.UserAuthService;
 import com.crop.seagulls.service.UserService;
+import com.crop.seagulls.util.CommonUtils;
 import com.crop.seagulls.util.DateType;
 import com.crop.seagulls.util.DateUtils;
 import com.crop.seagulls.util.Logger;
@@ -109,6 +111,9 @@ public class SellServiceImpl implements SellService {
 
     @Autowired
     private AddressService addressService;
+
+    @Autowired
+    private CommonUtils commonUtils;
 
     @Override
     public Response add(Sell sell, List<String> webImagesPath) {
@@ -273,7 +278,7 @@ public class SellServiceImpl implements SellService {
             // find category
             addCategory(sell);
 
-            addAddr(sell, true);
+            sell.setPageAddress(commonUtils.addAddr(sell.getProvinceId(), sell.getCityId(), sell.getAreaId(), true));
 
             addVarieties(sell);
 
@@ -333,28 +338,6 @@ public class SellServiceImpl implements SellService {
 
     private void addVarieties(Sell sell) {
         sell.setPageVarieties(varietiesCache.getById(sell.getVarietiesId()));
-    }
-
-    private void addAddr(Sell sell, Boolean... suffix) {
-        boolean hasSuffix = false;
-        if (ArrayUtils.isNotEmpty(suffix)) {
-            hasSuffix = suffix[0];
-        }
-        Long cityId = sell.getCityId();
-        Long provinceId = sell.getProvinceId();
-        Long areaId = sell.getAreaId();
-        String addr = "";
-
-        if (areaId != null && areaId > 0L && cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(areaId) != null && areaCache.getById(provinceId) != null) {
-            addr = areaCache.getById(provinceId).getZhName() + (hasSuffix ? (areaCache.isSpecial(provinceId) ? "市" : "省") : "") + areaCache.getById(cityId).getZhName()
-                    + (hasSuffix ? (areaCache.isSpecial(provinceId) ? "" : "市") : "") + areaCache.getById(areaId).getZhName();
-        } else if (cityId != null && cityId > 0L && areaCache.getById(cityId) != null && areaCache.getById(provinceId) != null) {
-            addr = areaCache.getById(provinceId).getZhName() + areaCache.getById(cityId).getZhName();
-        } else if (areaCache.getById(provinceId) != null) {
-            addr = areaCache.getById(provinceId).getZhName();
-        }
-
-        sell.setPageAddress(addr);
     }
 
     private void addCategory(Sell sell) {
@@ -507,7 +490,7 @@ public class SellServiceImpl implements SellService {
                 result.put("varieties", varietiesCache.getByCategoryId(sell.getPageCategory().getId()));
             }
 
-            addAddr(sell);
+            sell.setPageAddress(commonUtils.addAddr(sell.getProvinceId(), sell.getCityId(), sell.getAreaId()));
 
             addVarieties(sell);
 
@@ -611,7 +594,8 @@ public class SellServiceImpl implements SellService {
             for (Sell sell : list) {
                 addUnit(sell);
                 addPeriod(sell);
-                addAddr(sell, true);
+
+                sell.setPageAddress(commonUtils.addAddr(sell.getProvinceId(), sell.getCityId(), sell.getAreaId(), true));
                 addCategory(sell);
                 addVarieties(sell);
 
@@ -699,7 +683,13 @@ public class SellServiceImpl implements SellService {
     public Map<String, Object> purchasePre(Long sellId, Long userId) {
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("model", findBaseInfoById(sellId));
-        result.put("addresses", addressService.findUserAddress(userId));
+        List<Address> addresses = addressService.findUserAddress(userId);
+        if (CollectionUtils.isNotEmpty(addresses)) {
+            for (Address address : addresses) {
+                address.setBaseAddress(commonUtils.addAddr(address.getProvinceId(), address.getCityId(), address.getAreaId()));
+            }
+        }
+        result.put("addresses", addresses);
         return result;
     }
 

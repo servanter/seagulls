@@ -8,6 +8,8 @@ import com.crop.seagulls.entities.Address;
 public interface AddressService {
 
     public Response add(Address address);
-    
+
     public List<Address> findUserAddress(Long userId);
+
+    public Address findUserAddress(Long id, Long userId);
 }

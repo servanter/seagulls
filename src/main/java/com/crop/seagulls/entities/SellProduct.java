@@ -24,6 +24,10 @@ public class SellProduct extends Page {
     private Long areaId;
 
     private String address;
+    
+    private String contactName;
+
+    private String contactPhone;
 
     private Integer num;
 
@@ -34,6 +38,45 @@ public class SellProduct extends Page {
     private Timestamp createTime;
 
     private Timestamp updateTime;
+    
+    
+    
+    private Long addressId;
+    private String ip;
+
+    
+    
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public Long getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Long addressId) {
+        this.addressId = addressId;
+    }
 
     public Long getId() {
         return id;

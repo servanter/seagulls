@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 import com.crop.seagulls.bean.Page;
 
-public class Order extends Page {
+public class ConsumeOrder extends Page {
 
     /**
      * 
@@ -19,7 +19,11 @@ public class Order extends Page {
 
     private Long innerOrderId;
 
+    private Integer source;
+
     private Timestamp createTime;
+
+    private Timestamp payTime;
 
     private Timestamp updateTime;
 
@@ -38,6 +42,22 @@ public class Order extends Page {
     private String metaIndex4;
 
     private String metaIndex5;
+
+    public Integer getSource() {
+        return source;
+    }
+
+    public void setSource(Integer source) {
+        this.source = source;
+    }
+
+    public Timestamp getPayTime() {
+        return payTime;
+    }
+
+    public void setPayTime(Timestamp payTime) {
+        this.payTime = payTime;
+    }
 
     public String getMetaIndex1() {
         return metaIndex1;
@@ -176,7 +196,7 @@ public class Order extends Page {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Order other = (Order) obj;
+        ConsumeOrder other = (ConsumeOrder) obj;
         if (createTime == null) {
             if (other.createTime != null)
                 return false;

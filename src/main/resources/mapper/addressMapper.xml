@@ -18,25 +18,32 @@
 	
 	<sql id="base_columns">id, user_id, contact_name, contact_phone, province_id, city_id, area_id, address, is_valid, create_time, update_time</sql>
 	
-	<insert id="save" parameterType="address">
+	<insert id="save" parameterType="address" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO crop_user_address
-		SET
-		update_time = NOW(),
-		user_id = #{userId},
-		contact_name = #{contactName},
-		contact_phone = #{contactPhone},
-		province_id = #{provinceId},
-		city_id = #{city_id},
-		area_id = #{area_id},
-		<if test="address != null and address.length() > 0">
-			address = #{address},
-		</if>
+		<set>
+			update_time = NOW(),
+			user_id = #{userId},
+			contact_name = #{contactName},
+			contact_phone = #{contactPhone},
+			province_id = #{provinceId},
+			city_id = #{cityId},
+			area_id = #{areaId},
+			<if test="address != null and address.length() > 0">
+				address = #{address},
+			</if>
+		</set>
 	</insert>
 	
 	<select id="getByUserId" parameterType="long" resultMap="addressMap">
 		SELECT <include refid="base_columns"/>
 		FROM crop_user_address 
 		WHERE user_id = #{userId}
+	</select>
+	
+	<select id="getUserAddressOne" resultMap="addressMap">
+		SELECT <include refid="base_columns"/>
+		FROM crop_user_address 
+		WHERE user_id = #{userId} AND id = #{id}
 	</select>
 	
 </mapper>

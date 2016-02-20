@@ -10,6 +10,8 @@
 		<result property="cityId" column="city_id" />
 		<result property="areaId" column="area_id" />
 		<result property="address" column="address" />
+		<result property="contactName" column="contact_name" />
+		<result property="contactPhone" column="contact_phone" />
 		<result property="num" column="num" />
 		<result property="price" column="price" />
 		<result property="totalPrice" column="total_price" />
@@ -17,23 +19,23 @@
 		<result property="updateTime" column="update_time" />
 	</resultMap>
 	
-	<sql id="base_columns">id, user_id, sell_id, province_id, city_id, area_id, address, num, price, total_price, create_time, update_time</sql>
+	<sql id="base_columns">id, user_id, sell_id, province_id, city_id, area_id, address, contact_name, contact_phone, num, price, total_price, create_time, update_time</sql>
 	
-	<insert id="save" parameterType="sellProduct">
+	<insert id="save" parameterType="sellProduct" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO crop_sell_product
 		SET
 		sell_id = #{sellId},
 		update_time = NOW(),
 		user_id = #{userId},
 		province_id = #{provinceId},
-		city_id = #{city_id},
-		area_id = #{area_id},
-		<if test="address != null and address.length() > 0">
-			address = #{address},
-		</if>
+		city_id = #{cityId},
+		area_id = #{areaId},
+		address = #{address},
+		contact_name = #{contactName},
+		contact_phone = #{contactPhone},
 		num = #{num},
 		price = #{price},
-		total_price = #{totalPrice},
+		total_price = #{totalPrice}
 	</insert>
 	
 	<select id="getById" parameterType="long" resultMap="sellProductMap">

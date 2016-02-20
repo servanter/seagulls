@@ -19,4 +19,9 @@ public class SellProductServiceImpl implements SellProductService {
     public Response add(SellProduct sellProduct) {
         return sellProductDAO.save(sellProduct) > 0 ? new Response(ReturnCode.SUCCESS) : new Response(ReturnCode.SUCCESS);
     }
+
+    @Override
+    public SellProduct findById(Long id) {
+        return sellProductDAO.getById(id);
+    }
 }

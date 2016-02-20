@@ -1,14 +1,14 @@
 package com.crop.seagulls.bean;
 
-public enum PayTypeEnum {
+public enum ConsumeOrderSourceEnum {
 
-    DEFAULT(-999, ""), WEIXIN(1, "微信支付");
+    SELL_PRODUCT(1, "供货商品"), GROUP_PURCHASE(2, "团购");
 
     private int code;
 
     private String description;
 
-    private PayTypeEnum(int code, String description) {
+    private ConsumeOrderSourceEnum(int code, String description) {
         this.code = code;
         this.description = description;
     }
@@ -29,14 +29,14 @@ public enum PayTypeEnum {
         this.description = description;
     }
 
-    public static PayTypeEnum code2PayType(int code) {
-        PayTypeEnum[] types = PayTypeEnum.values();
-        for (PayTypeEnum type : types) {
+    public static ConsumeOrderSourceEnum code2Source(int code) {
+        ConsumeOrderSourceEnum[] types = ConsumeOrderSourceEnum.values();
+        for (ConsumeOrderSourceEnum type : types) {
             if (type.getCode() == code) {
                 return type;
             }
         }
-        return PayTypeEnum.DEFAULT;
+        return ConsumeOrderSourceEnum.SELL_PRODUCT;
     }
 
 }
